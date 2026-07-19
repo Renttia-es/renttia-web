@@ -607,7 +607,7 @@ export default function AlquilerCorporativoPage() {
         'fixed bottom-0 left-0 right-0 z-50 sm:hidden transition-transform duration-300',
         showSticky ? 'translate-y-0' : 'translate-y-full',
       ].join(' ')}>
-        <div className="bg-white/96 backdrop-blur-md border-t border-gray-200 shadow-2xl px-4 py-3">
+        <div className="bg-white border-t border-gray-200 shadow-2xl px-4 py-3">
           <button onClick={scrollToForm}
             className="w-full bg-navy hover:bg-navy/90 text-white font-bold py-4 rounded-xl text-sm transition-colors">
             📞 Solicitar Garantía Corporativa

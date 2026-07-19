@@ -193,7 +193,7 @@ export default function PropietarioLanding() {
       {/* ── BARRA CTA STICKY ───────────────────────────────────────────── */}
       <div className={`fixed bottom-0 left-0 right-0 z-40 transition-transform duration-300 ${showStickyBar ? 'translate-y-0' : 'translate-y-full'}`}>
         {/* Fondo blur */}
-        <div className="bg-white/95 backdrop-blur-md border-t border-navy/10 shadow-2xl">
+        <div className="bg-white border-t border-navy/10 shadow-2xl">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
             <div className="hidden sm:block">
               <p className="font-serif text-navy text-base font-light leading-tight">
