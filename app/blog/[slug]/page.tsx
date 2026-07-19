@@ -4,14 +4,15 @@ import { notFound } from 'next/navigation'
 import { articulos } from '@/lib/blog-articulos'
 import BlogCTAPopup from '@/components/BlogCTAPopup'
 
-interface Props { params: { slug: string } }
+interface Props { params: Promise<{ slug: string }> }
 
 export async function generateStaticParams() {
   return articulos.map(a => ({ slug: a.slug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const art = articulos.find(a => a.slug === params.slug)
+  const { slug } = await params
+  const art = articulos.find(a => a.slug === slug)
   if (!art) return {}
   return {
     title: `${art.titulo} | Blog Renttia`,
@@ -33,8 +34,9 @@ const categoriaColor: Record<string, string> = {
   'Gestión inmobiliaria':    'bg-purple-50 text-purple-700',
 }
 
-export default function ArticuloPage({ params }: Props) {
-  const art = articulos.find(a => a.slug === params.slug)
+export default async function ArticuloPage({ params }: Props) {
+  const { slug } = await params
+  const art = articulos.find(a => a.slug === slug)
   if (!art) notFound()
 
   const relacionados = articulos.filter(a => a.slug !== art.slug).slice(0, 3)
