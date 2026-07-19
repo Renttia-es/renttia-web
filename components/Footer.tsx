@@ -43,7 +43,7 @@ export default function Footer() {
           </div>
 
           {/* Propietarios */}
-          <div className="text-center">
+          <div className="text-left md:text-center">
             <h3 className="font-sans text-white font-medium text-xs uppercase tracking-widest mb-4">
               Para Propietarios
             </h3>
