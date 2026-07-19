@@ -49,7 +49,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════
           H1 — keyword principal: "gestión integral del alquiler"
           ═══════════════════════════════════════════════════════════ */}
-      <section className="relative z-[1] overflow-hidden min-h-[75vh] sm:min-h-[92vh] flex items-center -mt-16">
+      <section className="relative z-[1] overflow-hidden min-h-[65vh] sm:min-h-[92vh] flex items-center -mt-16">
         <div className="absolute inset-0">
           <img
             src="https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=1600&q=85"
