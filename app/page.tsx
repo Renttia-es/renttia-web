@@ -49,7 +49,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════
           H1 — keyword principal: "gestión integral del alquiler"
           ═══════════════════════════════════════════════════════════ */}
-      <section className="relative z-[1] overflow-hidden min-h-[92vh] flex items-center -mt-16">
+      <section className="relative z-[1] overflow-hidden min-h-[75vh] sm:min-h-[92vh] flex items-center -mt-16">
         <div className="absolute inset-0">
           <img
             src="https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=1600&q=85"
@@ -59,7 +59,7 @@ export default function HomePage() {
           {/* Degradado diagonal: azul desde arriba-izquierda, foto original abajo-derecha */}
           <div className="absolute inset-0 bg-gradient-to-br from-navy/95 via-navy/55 to-transparent" />
         </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12 sm:pt-28 sm:pb-20 lg:pt-36 lg:pb-28 w-full">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-8 sm:pt-28 sm:pb-20 lg:pt-36 lg:pb-28 w-full">
           <div className="max-w-2xl">
             <span className="section-label text-cta-light">Gestión profesional de inmuebles</span>
 
