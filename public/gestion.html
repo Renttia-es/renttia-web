@@ -1,0 +1,2707 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Renttia · Panel de gestión</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #123462;
+  --navy-light: #1a4070;
+  --navy-dark: #0c2449;
+  --navy-50: #e8eef8;
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --gold-dark: #A07830;
+  --cream: #FAFAF7;
+  --cream-dark: #F0EFE9;
+  --white: #FFFFFF;
+  --text-primary: #123462;
+  --text-secondary: #4a5a78;
+  --text-muted: #8A9AB8;
+  --border: rgba(18,52,98,0.10);
+  --border-strong: rgba(18,52,98,0.20);
+  --success: #2D7A4F;
+  --success-bg: #EAF4EE;
+  --warning: #8A5A00;
+  --warning-bg: #FFF6E0;
+  --danger: #A32020;
+  --danger-bg: #FCEAEA;
+  --info: #123462;
+  --info-bg: #dde8f5;
+  --shadow: 0 2px 16px rgba(18,52,98,0.09);
+  --radius: 12px;
+  --radius-sm: 7px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--cream); color: var(--text-primary); font-size: 14px; line-height: 1.5; }
+h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 22px; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 17px; font-weight: 400; }
+h3 { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--text-muted); }
+
+/* LAYOUT */
+.app { display: flex; height: 100vh; overflow: hidden; }
+.sidebar { width: 230px; background: var(--navy-dark); display: flex; flex-direction: column; flex-shrink: 0; }
+.sidebar-brand { padding: 22px 20px 18px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.sidebar-brand img { height: 28px; width: auto; filter: brightness(0) invert(1); opacity: 0.92; }
+.brand-sub { color: rgba(255,255,255,.35); font-size: 10px; font-family: 'DM Sans', sans-serif; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; margin-top: 6px; }
+.nav { flex: 1; padding: 10px 0; overflow-y: auto; }
+.nav-section { padding: 14px 20px 6px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,.28); font-family: 'DM Sans', sans-serif; }
+.nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 20px; color: rgba(255,255,255,.6); cursor: pointer; border-left: 3px solid transparent; transition: all .15s; font-size: 13px; font-family: 'DM Sans', sans-serif; }
+.nav-item:hover { background: rgba(255,255,255,.06); color: rgba(255,255,255,.9); }
+.nav-item.active { background: rgba(255,255,255,.08); color: #ffffff; border-left-color: var(--gold); }
+.nav-item svg { width: 16px; height: 16px; flex-shrink: 0; }
+.sidebar-footer { padding: 14px 20px; border-top: 1px solid rgba(255,255,255,.08); font-size: 11px; color: rgba(255,255,255,.28); font-family: 'DM Sans', sans-serif; }
+
+.main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.topbar { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 24px; height: 56px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.topbar-title { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 400; color: var(--navy); letter-spacing: -0.01em; }
+.topbar-actions { display: flex; gap: 8px; }
+.content { flex: 1; overflow-y: auto; padding: 24px; }
+
+/* BUTTONS */
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 500; cursor: pointer; border: none; transition: all .15s; }
+.btn-primary { background: var(--navy); color: var(--white); }
+.btn-primary:hover { background: var(--navy-light); }
+.btn-gold { background: var(--gold); color: var(--navy-dark); }
+.btn-gold:hover { background: var(--gold-light); }
+.btn-ghost { background: transparent; color: var(--text-secondary); border: 1px solid var(--border-strong); }
+.btn-ghost:hover { background: var(--cream); }
+.btn-danger { background: var(--danger-bg); color: var(--danger); border: 1px solid rgba(163,32,32,.2); }
+.btn-sm { padding: 5px 10px; font-size: 12px; }
+.btn svg { width: 14px; height: 14px; }
+
+/* CARDS */
+.card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); }
+.card-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.card-body { padding: 20px; }
+.card-grid { display: grid; gap: 16px; }
+.grid-2 { grid-template-columns: 1fr 1fr; }
+.grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+/* METRIC CARDS */
+.metric-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); padding: 18px 20px; }
+.metric-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); margin-bottom: 8px; }
+.metric-value { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 400; color: var(--navy); line-height: 1; letter-spacing: -0.01em; }
+.metric-sub { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+.metric-card.gold .metric-value { color: var(--gold-dark); }
+.metric-card.success .metric-value { color: var(--success); }
+.metric-card.danger .metric-value { color: var(--danger); }
+
+/* BADGES */
+.badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 99px; font-size: 11px; font-weight: 500; }
+.badge-success { background: var(--success-bg); color: var(--success); }
+.badge-warning { background: var(--warning-bg); color: var(--warning); }
+.badge-danger { background: var(--danger-bg); color: var(--danger); }
+.badge-info { background: var(--info-bg); color: var(--info); }
+.badge-neutral { background: var(--cream-dark); color: var(--text-secondary); }
+.badge-gold { background: rgba(201,168,76,.15); color: var(--gold-dark); }
+
+/* TABLES */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; padding: 10px 14px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); background: var(--cream); border-bottom: 1px solid var(--border); }
+td { padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text-primary); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(245,240,232,.5); }
+
+/* FORMS */
+.form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+.form-group label { font-size: 12px; font-weight: 500; color: var(--text-secondary); }
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; padding: 8px 11px; border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
+  font-size: 13px; color: var(--text-primary); background: var(--white); outline: none; transition: border .15s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--navy); }
+.form-group .hint { font-size: 11px; color: var(--text-muted); }
+.form-row { display: grid; gap: 12px; }
+.form-row-2 { grid-template-columns: 1fr 1fr; }
+.form-row-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+/* ALERT */
+.alert { padding: 12px 16px; border-radius: var(--radius-sm); font-size: 13px; margin-bottom: 16px; border: 1px solid; }
+.alert-success { background: var(--success-bg); color: var(--success); border-color: rgba(45,122,79,.2); }
+.alert-warning { background: var(--warning-bg); color: var(--warning); border-color: rgba(138,90,0,.2); }
+.alert-danger { background: var(--danger-bg); color: var(--danger); border-color: rgba(163,32,32,.2); }
+.alert-info { background: var(--info-bg); color: var(--info); border-color: rgba(27,74,138,.2); }
+
+/* MODAL */
+.modal-overlay { position: fixed; inset: 0; background: rgba(17,28,51,.55); display: none; align-items: center; justify-content: center; z-index: 100; padding: 20px; }
+.modal-overlay.open { display: flex; }
+.modal { background: var(--white); border-radius: var(--radius); width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(17,28,51,.2); }
+.modal-header { padding: 18px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.modal-header h2 { font-size: 15px; }
+.modal-body { padding: 20px; }
+.modal-footer { padding: 14px 20px; border-top: 1px solid var(--border); display: flex; gap: 8px; justify-content: flex-end; }
+.modal-close { background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 20px; line-height: 1; padding: 0; }
+
+/* TABS */
+.tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.tab { padding: 10px 16px; font-size: 13px; cursor: pointer; color: var(--text-muted); border-bottom: 2px solid transparent; margin-bottom: -1px; font-weight: 500; }
+.tab.active { color: var(--navy); border-bottom-color: var(--gold); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* PROGRESS */
+.progress-bar { height: 6px; background: var(--cream-dark); border-radius: 99px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 99px; background: var(--gold); transition: width .3s; }
+
+/* TIMELINE */
+.timeline { position: relative; padding-left: 20px; }
+.timeline::before { content: ''; position: absolute; left: 6px; top: 0; bottom: 0; width: 1px; background: var(--border); }
+.tl-item { position: relative; padding-bottom: 16px; }
+.tl-dot { position: absolute; left: -17px; top: 3px; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); border: 2px solid var(--white); box-shadow: 0 0 0 1px var(--gold); }
+.tl-dot.ok { background: var(--success); box-shadow: 0 0 0 1px var(--success); }
+.tl-dot.warn { background: var(--warning); box-shadow: 0 0 0 1px var(--warning); }
+.tl-dot.danger { background: var(--danger); box-shadow: 0 0 0 1px var(--danger); }
+.tl-content { font-size: 13px; }
+.tl-date { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+/* MISC */
+.divider { height: 1px; background: var(--border); margin: 16px 0; }
+.section-title { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.empty-state { text-align: center; padding: 48px 20px; color: var(--text-muted); }
+.empty-state .empty-icon { font-size: 36px; margin-bottom: 12px; }
+.empty-state p { font-size: 13px; }
+.pill-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.pill-tab { padding: 5px 12px; border-radius: 99px; font-size: 12px; cursor: pointer; border: 1px solid var(--border-strong); color: var(--text-secondary); background: var(--white); font-weight: 500; }
+.pill-tab.active { background: var(--navy); color: var(--white); border-color: var(--navy); }
+.row-detail { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.row-detail:last-child { border-bottom: none; }
+.row-detail .label { color: var(--text-secondary); }
+.row-detail .val { font-weight: 500; }
+.row-detail.total .label { font-weight: 600; color: var(--text-primary); }
+.row-detail.total .val { font-size: 15px; color: var(--navy); }
+
+/* OCUPACION */
+.hab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+.hab-card { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; cursor: pointer; transition: all .15s; }
+.hab-card:hover { border-color: var(--navy); }
+.hab-card.ocupada { background: rgba(45,122,79,.06); border-color: rgba(45,122,79,.3); }
+.hab-card.libre { background: rgba(201,168,76,.06); border-color: rgba(201,168,76,.3); }
+.hab-num { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; }
+.hab-inquilino { font-size: 13px; font-weight: 500; color: var(--text-primary); margin-top: 4px; }
+.hab-renta { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+.hab-status { margin-top: 8px; }
+
+/* FISCAL CALENDARIO */
+.cal-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.cal-mes { background: var(--cream); border-radius: var(--radius-sm); padding: 12px; }
+.cal-mes-nombre { font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; }
+.cal-evento { font-size: 11px; padding: 4px 7px; border-radius: 4px; margin-bottom: 4px; }
+.cal-evento-115 { background: var(--info-bg); color: var(--info); }
+.cal-evento-130 { background: rgba(201,168,76,.15); color: var(--gold-dark); }
+.cal-evento-303 { background: rgba(163,32,32,.08); color: var(--danger); }
+.cal-evento-renta { background: var(--success-bg); color: var(--success); }
+.cal-evento-otros { background: var(--cream-dark); color: var(--text-secondary); }
+
+/* CALCULADORA */
+.calc-section { background: var(--cream); border-radius: var(--radius-sm); padding: 16px; margin-bottom: 16px; }
+.calc-result { background: var(--navy); color: var(--white); border-radius: var(--radius); padding: 20px; }
+.calc-result-label { font-family: 'DM Sans', sans-serif; font-size: 10px; color: rgba(255,255,255,.5); text-transform: uppercase; letter-spacing: .08em; font-weight: 500; }
+.calc-result-value { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 400; color: var(--gold-light); margin-top: 4px; letter-spacing: -0.01em; }
+
+/* NOTIFICATIONS */
+.notif-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--danger); display: inline-block; margin-left: 4px; }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 99px; }
+
+.view { display: none; }
+.view.active { display: block; }
+
+.stat-row { display: flex; gap: 6px; align-items: center; font-size: 12px; color: var(--text-muted); margin-top: 8px; }
+.trend-up { color: var(--success); }
+.trend-down { color: var(--danger); }
+
+/* BÚSQUEDA */
+.busqueda-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; transition: box-shadow .15s; }
+.busqueda-card:hover { box-shadow: 0 4px 20px rgba(27,42,74,.1); }
+.busqueda-card.viable { border-left: 3px solid var(--success); }
+.busqueda-card.no-viable { border-left: 3px solid var(--border); opacity: .75; }
+.score-bar { height: 5px; background: var(--cream-dark); border-radius: 99px; overflow: hidden; margin-top: 6px; }
+.score-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--gold-dark), var(--gold-light)); }
+.server-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+.server-dot.ok { background: var(--success); }
+.server-dot.off { background: var(--danger); }
+.busqueda-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <img src="/logo.png" alt="Renttia" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <div style="display:none;color:#fff;font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;letter-spacing:-0.01em">Renttia</div>
+    <div class="brand-sub">Panel de gestión</div>
+  </div>
+  <nav class="nav">
+    <div class="nav-section">Principal</div>
+    <div class="nav-item active" onclick="navTo('dashboard', this)">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Panel principal
+    </div>
+    <div class="nav-section">Gestión</div>
+    <div class="nav-item" onclick="navTo('pisos', this)">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Pisos
+    </div>
+    <div class="nav-item" onclick="navTo('inquilinos', this)">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      Inquilinos
+    </div>
+    <div class="nav-item" onclick="navTo('contratos', this)">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      Contratos
+    </div>
+    <div class="nav-item" onclick="navTo('cobros', this)">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      Cobros y pagos
+    </div>
+    <div class="nav-section">Fiscal</div>
+    <div class="nav-item" onclick="navTo('fiscal', this)">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+      Calendario fiscal
+    </div>
+    <div class="nav-item" onclick="navTo('calculadora', this)">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="14" y2="14"/></svg>
+      Calculadora R2R
+    </div>
+    <div class="nav-section">Documentos</div>
+    <div class="nav-item" onclick="navTo('documentos', this)">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+      Documentos
+    </div>
+    <div class="nav-section">Alertas</div>
+    <div class="nav-item" onclick="navTo('alertas', this)">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+      Alertas <span class="notif-dot"></span>
+    </div>
+    <div class="nav-section">Automatización</div>
+    <div class="nav-item" onclick="navTo('busqueda', this)" id="nav-busqueda">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      Búsqueda pisos <span id="nav-busqueda-badge" style="display:none;background:var(--gold);color:var(--navy-dark);border-radius:99px;font-size:10px;font-weight:700;padding:1px 6px;margin-left:2px">0</span>
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    <div style="margin-bottom:8px">v1.1 · Solo uso local</div>
+    <div style="display:flex;gap:6px">
+      <button class="btn btn-ghost btn-sm" style="flex:1;font-size:10px;padding:4px 6px;color:rgba(255,255,255,.5);border-color:rgba(255,255,255,.15)" onclick="exportarBackup()" title="Exportar todos los datos como JSON">⬇ Backup</button>
+      <label class="btn btn-ghost btn-sm" style="flex:1;font-size:10px;padding:4px 6px;color:rgba(255,255,255,.5);border-color:rgba(255,255,255,.15);cursor:pointer" title="Restaurar datos desde un backup JSON">⬆ Restaurar<input type="file" accept=".json" onchange="importarBackup(event)" style="display:none"></label>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar">
+    <span class="topbar-title" id="topbar-title">Panel principal</span>
+    <div class="topbar-actions" id="topbar-actions"></div>
+  </div>
+  <div class="content">
+
+    <!-- DASHBOARD -->
+    <div class="view active" id="view-dashboard">
+      <div class="card-grid grid-4" style="margin-bottom:20px">
+        <div class="metric-card">
+          <div class="metric-label">Ingresos este mes</div>
+          <div class="metric-value" id="m-ingresos">0€</div>
+          <div class="metric-sub" id="m-ingresos-sub">—</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Gastos este mes</div>
+          <div class="metric-value danger" id="m-gastos">0€</div>
+          <div class="metric-sub" id="m-gastos-sub">—</div>
+        </div>
+        <div class="metric-card success">
+          <div class="metric-label">Margen bruto mes</div>
+          <div class="metric-value" id="m-margen">0€</div>
+          <div class="metric-sub" id="m-margen-sub">—</div>
+        </div>
+        <div class="metric-card gold">
+          <div class="metric-label">Ocupación media</div>
+          <div class="metric-value" id="m-ocupacion">0%</div>
+          <div class="metric-sub" id="m-ocupacion-sub">—</div>
+        </div>
+      </div>
+
+      <div class="card-grid grid-2" style="margin-bottom:20px">
+        <div class="card">
+          <div class="card-header"><h2>Pisos activos</h2></div>
+          <div class="card-body" id="dash-pisos-list">
+            <div class="empty-state"><div class="empty-icon">🏠</div><p>Aún no has añadido ningún piso.</p></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h2>Próximos vencimientos</h2></div>
+          <div class="card-body" id="dash-vencimientos">
+            <div class="empty-state"><div class="empty-icon">📅</div><p>Sin vencimientos próximos.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h2>Alertas activas</h2></div>
+        <div class="card-body" id="dash-alertas">
+          <div class="empty-state"><div class="empty-icon">✅</div><p>Todo en orden.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PISOS -->
+    <div class="view" id="view-pisos">
+      <div id="pisos-list-view">
+        <div id="pisos-container">
+          <div class="empty-state"><div class="empty-icon">🏠</div><p>Aún no has añadido ningún piso.<br>Pulsa "Añadir piso" para empezar.</p></div>
+        </div>
+      </div>
+      <div id="piso-detail-view" style="display:none"></div>
+    </div>
+
+    <!-- INQUILINOS -->
+    <div class="view" id="view-inquilinos">
+      <div class="card">
+        <div class="card-header">
+          <h2>Inquilinos</h2>
+          <label style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--text-secondary);cursor:pointer">
+            <input type="checkbox" id="mostrar-bajas" onchange="renderInquilinos()" style="cursor:pointer">
+            Mostrar dados de baja
+          </label>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Nombre</th><th>Piso / Hab.</th><th>Renta</th><th>Contrato hasta</th><th>Estado</th><th>Acciones</th></tr></thead>
+            <tbody id="inquilinos-table"><tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:32px">Sin inquilinos registrados</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTRATOS -->
+    <div class="view" id="view-contratos">
+      <div class="tabs">
+        <div class="tab active" onclick="tabContratos('propietarios', this)">Con propietarios</div>
+        <div class="tab" onclick="tabContratos('inquilinos', this)">Con inquilinos</div>
+      </div>
+      <div id="tab-contratos-propietarios" class="tab-panel active">
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Piso</th><th>Propietario</th><th>Tipo</th><th>Renta</th><th>Inicio</th><th>Fin</th><th>Carencia</th><th>Estado</th></tr></thead>
+              <tbody id="contratos-prop-table"><tr><td colspan="8" style="text-align:center;color:var(--text-muted);padding:32px">Sin contratos registrados</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div id="tab-contratos-inquilinos" class="tab-panel">
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Inquilino</th><th>Piso / Hab.</th><th>Renta</th><th>Inicio</th><th>Fin</th><th>Fianza</th><th>Estado</th></tr></thead>
+              <tbody id="contratos-inq-table"><tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:32px">Sin contratos registrados</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COBROS Y PAGOS -->
+    <div class="view" id="view-cobros">
+      <div class="tabs">
+        <div class="tab active" onclick="tabCobros('cobros', this)">Cobros (inquilinos)</div>
+        <div class="tab" onclick="tabCobros('pagos', this)">Pagos (propietarios)</div>
+        <div class="tab" onclick="tabCobros('gastos', this)">Gastos operativos</div>
+        <div class="tab" onclick="tabCobros('resumen', this)">Resumen mensual</div>
+      </div>
+      <div id="tab-cobros-cobros" class="tab-panel active">
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Mes</th><th>Inquilino</th><th>Piso / Hab.</th><th>Importe</th><th>Fecha cobro</th><th>Estado</th><th></th></tr></thead>
+              <tbody id="cobros-table"><tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:32px">Sin cobros registrados</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div id="tab-cobros-pagos" class="tab-panel">
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Mes</th><th>Piso</th><th>Propietario</th><th>Renta</th><th>Retención 19%</th><th>Neto pagado</th><th>Estado</th></tr></thead>
+              <tbody id="pagos-table"><tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:32px">Sin pagos registrados</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div id="tab-cobros-gastos" class="tab-panel">
+        <div class="card">
+          <div class="card-header"><h2>Gastos operativos</h2><button class="btn btn-primary btn-sm" onclick="abrirModalGasto()">+ Añadir gasto</button></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Fecha</th><th>Piso</th><th>Concepto</th><th>Categoría</th><th>Importe</th><th>Deducible</th><th></th></tr></thead>
+              <tbody id="gastos-table"><tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:32px">Sin gastos registrados</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div id="tab-cobros-resumen" class="tab-panel">
+        <div class="card-grid grid-3" style="margin-bottom:16px" id="resumen-metrics"></div>
+        <div class="card"><div class="card-header"><h2>Desglose por piso</h2></div><div class="card-body" id="resumen-piso"></div></div>
+      </div>
+    </div>
+
+    <!-- FISCAL -->
+    <div class="view" id="view-fiscal">
+      <div class="tabs">
+        <div class="tab active" onclick="tabFiscal('calendario', this)">Calendario fiscal</div>
+        <div class="tab" onclick="tabFiscal('modelos', this)">Modelos y conceptos</div>
+        <div class="tab" onclick="tabFiscal('retenciones', this)">Retenciones 115</div>
+      </div>
+      <div id="tab-fiscal-calendario" class="tab-panel active">
+        <div class="alert alert-info" style="margin-bottom:16px">📋 Calendario fiscal para Comunidad de Bienes con propietarios particulares. Actualizado para 2025.</div>
+        <div class="cal-grid" id="cal-fiscal"></div>
+      </div>
+      <div id="tab-fiscal-modelos" class="tab-panel">
+        <div class="card-grid grid-2">
+          <div class="card">
+            <div class="card-header"><h2>Modelos que presenta la CB</h2></div>
+            <div class="card-body">
+              <div class="timeline" id="modelos-cb-list"></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h2>Obligaciones como autónomo</h2></div>
+            <div class="card-body">
+              <div class="timeline" id="modelos-auto-list"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:16px">
+          <div class="card-header"><h2>Conceptos clave a recordar</h2></div>
+          <div class="card-body">
+            <div class="card-grid grid-2">
+              <div class="calc-section">
+                <h3 style="margin-bottom:8px;color:var(--navy)">IVA en R2R</h3>
+                <p style="font-size:13px;color:var(--text-secondary);line-height:1.7">Los alquileres de habitaciones para vivienda están <strong>exentos de IVA</strong> (art. 20.Uno.23º LIVA). No cobras IVA a tus inquilinos.<br><br>Si el propietario es empresa, te cobra 21% IVA que <strong>no puedes recuperar</strong> — es un coste más.</p>
+              </div>
+              <div class="calc-section">
+                <h3 style="margin-bottom:8px;color:var(--navy)">Retención 19% (Modelo 115)</h3>
+                <p style="font-size:13px;color:var(--text-secondary);line-height:1.7">Cuando pagas la renta a un propietario particular, debes retenerle el 19% e ingresarlo a Hacienda en tu nombre cada trimestre con el Modelo 115.<br><br>El propietario recibe el neto pero declara el bruto.</p>
+              </div>
+              <div class="calc-section">
+                <h3 style="margin-bottom:8px;color:var(--navy)">Atribución de rentas (CB)</h3>
+                <p style="font-size:13px;color:var(--text-secondary);line-height:1.7">La CB no paga impuestos propia. Al final del año, el beneficio se reparte según el % pactado y cada comunero lo declara en su IRPF.<br><br>Aunque no saques el dinero, tributas igual.</p>
+              </div>
+              <div class="calc-section">
+                <h3 style="margin-bottom:8px;color:var(--navy)">Fianza — Gobierno de Aragón</h3>
+                <p style="font-size:13px;color:var(--text-secondary);line-height:1.7">Tienes <strong>2 meses</strong> desde la firma del contrato para depositar la fianza en el Gobierno de Aragón (online, gratuito).<br><br>Uso distinto: 2 meses de renta. Obligatorio o multa.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="tab-fiscal-retenciones" class="tab-panel">
+        <div class="card">
+          <div class="card-header"><h2>Calculadora de retención 19% — Modelo 115</h2></div>
+          <div class="card-body">
+            <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px">Cuando pagas la renta a un propietario particular, debes retener el 19% e ingresarlo trimestralmente a Hacienda.</p>
+            <div id="retenciones-list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CALCULADORA -->
+    <div class="view" id="view-calculadora">
+      <div class="card-grid grid-2">
+        <div>
+          <div class="card" style="margin-bottom:16px">
+            <div class="card-header"><h2>Datos del piso</h2></div>
+            <div class="card-body">
+              <div class="form-row form-row-2">
+                <div class="form-group"><label>Nº habitaciones</label><input type="number" id="c-nhab" value="4" min="1" max="20" oninput="calcRTR()"></div>
+                <div class="form-group"><label>Precio por habitación (€/mes)</label><input type="number" id="c-phab" value="320" oninput="calcRTR()"></div>
+              </div>
+              <div class="form-row form-row-2">
+                <div class="form-group"><label>Ocupación media (%)</label><input type="number" id="c-ocup" value="85" min="0" max="100" oninput="calcRTR()"></div>
+                <div class="form-group"><label>Renta al propietario (€/mes)</label><input type="number" id="c-renta" value="750" oninput="calcRTR()"></div>
+              </div>
+              <div class="form-row form-row-2">
+                <div class="form-group"><label>Tipo propietario</label>
+                  <select id="c-tipoprop" onchange="calcRTR()">
+                    <option value="particular">Particular (sin IVA)</option>
+                    <option value="empresa">Empresa (+ 21% IVA)</option>
+                  </select>
+                </div>
+                <div class="form-group"><label>Meses de carencia</label><input type="number" id="c-carencia" value="2" min="0" max="6" oninput="calcRTR()"></div>
+              </div>
+            </div>
+          </div>
+          <div class="card" style="margin-bottom:16px">
+            <div class="card-header"><h2>Inversión inicial <span style="font-size:11px;font-weight:400;color:var(--text-muted)">(desembolso puntual al firmar)</span></h2></div>
+            <div class="card-body">
+              <div class="form-row form-row-2">
+                <div class="form-group"><label>Reforma por habitación (€)</label><input type="number" id="c-reforma" value="800" oninput="calcRTR()"></div>
+                <div class="form-group"><label>Equipamiento zonas comunes (€) <span style="font-size:10px;color:var(--text-muted)">salón, cocina…</span></label><input type="number" id="c-comun" value="400" oninput="calcRTR()"></div>
+              </div>
+              <div class="form-row form-row-2">
+                <div class="form-group"><label>Fianza entregada (€)</label><input type="number" id="c-fianza" value="1500" oninput="calcRTR()"></div>
+                <div class="form-group"><label>ITP contrato (€) <span style="font-size:10px;color:var(--text-muted)">~0.5% base</span></label><input type="number" id="c-itp" value="135" oninput="calcRTR()"></div>
+              </div>
+              <div style="font-size:11px;color:var(--text-muted);margin-top:10px;padding:6px 10px;background:var(--surface-alt,#f8f8f8);border-radius:6px">
+                ℹ️ Los <strong>gastos de comunidad del edificio</strong> (IBI, portería, ascensor…) los asume el propietario — no aparecen aquí.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h2>Gastos mensuales</h2>
+              <div style="display:flex;align-items:center;gap:10px">
+                <select id="c-calefaccion" onchange="autoGastos();calcRTR()" style="font-size:12px;padding:3px 6px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)">
+                  <option value="ninguna">Sin calefacción / eléctrica</option>
+                  <option value="individual">Gas individual (Renttia paga)</option>
+                  <option value="central">Central (paga comunidad/propietario)</option>
+                </select>
+                <span style="font-size:11px;color:var(--text-muted);background:var(--warning-bg);color:var(--warning);padding:2px 8px;border-radius:20px">Estimación conservadora</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;padding:8px 10px;background:var(--cream);border-radius:6px;border-left:3px solid var(--gold)">
+                💡 Calculado automáticamente según nº de habitaciones. Puedes ajustar cualquier valor manualmente.
+              </div>
+              <div class="form-row form-row-3">
+                <div class="form-group">
+                  <label>Luz (€) <span id="lbl-luz" style="font-size:10px;color:var(--text-muted)"></span></label>
+                  <input type="number" id="c-luz" oninput="calcRTR()">
+                </div>
+                <div class="form-group">
+                  <label>Agua (€)</label>
+                  <input type="number" id="c-agua" oninput="calcRTR()">
+                </div>
+                <div class="form-group">
+                  <label>Internet (€)</label>
+                  <input type="number" id="c-internet" value="38" oninput="calcRTR()">
+                </div>
+              </div>
+              <div class="form-row form-row-3">
+                <div class="form-group" id="grp-gas" style="display:none">
+                  <label>Gas / calefacción (€)</label>
+                  <input type="number" id="c-gasimporte" oninput="calcRTR()">
+                </div>
+                <div class="form-group">
+                  <label>Seguro hogar (€)</label>
+                  <input type="number" id="c-seg" oninput="calcRTR()">
+                </div>
+                <div class="form-group">
+                  <label>Mantenimiento (€)</label>
+                  <input type="number" id="c-mant" oninput="calcRTR()">
+                </div>
+              </div>
+              <div class="form-row form-row-3">
+                <div class="form-group"><label>Gestor (€)</label><input type="number" id="c-gestor" value="0" oninput="calcRTR()"></div>
+                <div class="form-group"><label>Publicidad (€)</label><input type="number" id="c-pub" value="25" oninput="calcRTR()"></div>
+                <div class="form-group"><label>Seg. impago (%)</label><input type="number" id="c-impago" value="0" min="0" max="10" step="0.5" oninput="calcRTR()"></div>
+              </div>
+              <div style="margin-top:12px;padding:10px 12px;background:var(--danger-bg);border-radius:6px;border-left:3px solid var(--danger);display:flex;justify-content:space-between;align-items:center">
+                <span style="font-size:12px;color:var(--danger);font-weight:600">Total gastos operativos estimados</span>
+                <span style="font-size:15px;font-weight:700;color:var(--danger)" id="lbl-total-gastos-op">— €/mes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="calc-result" style="margin-bottom:16px" id="calc-result-main">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+              <div><div class="calc-result-label">Margen bruto/mes</div><div class="calc-result-value" id="cr-margen-mes">—</div></div>
+              <div><div class="calc-result-label">Margen bruto/año</div><div class="calc-result-value" id="cr-margen-año">—</div></div>
+              <div><div class="calc-result-label">ROI sobre inversión</div><div class="calc-result-value" id="cr-roi">—</div></div>
+              <div><div class="calc-result-label">Recuperación</div><div class="calc-result-value" id="cr-rec">—</div></div>
+            </div>
+          </div>
+          <div class="card" style="margin-bottom:16px">
+            <div class="card-header"><h2>Desglose mensual</h2></div>
+            <div class="card-body" id="calc-desglose"></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h2>Análisis fiscal</h2></div>
+            <div class="card-body" id="calc-fiscal"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOCUMENTOS -->
+    <div class="view" id="view-documentos">
+      <div class="tabs">
+        <div class="tab active" onclick="tabDocs('recibos', this)">Recibos a inquilinos</div>
+        <div class="tab" onclick="tabDocs('mod115', this)">Modelo 115</div>
+        <div class="tab" onclick="tabDocs('mod130', this)">Modelo 130</div>
+        <div class="tab" onclick="tabDocs('libro', this)">Libro ingresos/gastos</div>
+        <div class="tab" onclick="tabDocs('facturas', this)">Facturas recibidas</div>
+      </div>
+
+      <!-- RECIBOS -->
+      <div id="tab-docs-recibos" class="tab-panel active">
+        <div class="card" style="margin-bottom:16px">
+          <div class="card-header">
+            <h2>Datos de tu empresa (CB)</h2>
+            <button class="btn btn-ghost btn-sm" onclick="guardarDatosCB()">Guardar</button>
+          </div>
+          <div class="card-body">
+            <div class="form-row form-row-3">
+              <div class="form-group"><label>Nombre CB / Autónomo</label><input type="text" id="cb-nombre" placeholder="Apellido1 Apellido2 CB"></div>
+              <div class="form-group"><label>NIF de la CB</label><input type="text" id="cb-nif" placeholder="E-12345678"></div>
+              <div class="form-group"><label>Domicilio fiscal</label><input type="text" id="cb-domicilio" placeholder="Calle, nº, ciudad"></div>
+            </div>
+            <div class="form-row form-row-3">
+              <div class="form-group"><label>Email</label><input type="email" id="cb-email" placeholder="contacto@email.com"></div>
+              <div class="form-group"><label>Teléfono</label><input type="text" id="cb-tel" placeholder="600 000 000"></div>
+              <div class="form-group"><label>Nº de recibo inicial</label><input type="number" id="cb-num-recibo" value="1" min="1"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h2>Generar recibos del mes</h2>
+            <div style="display:flex;gap:8px;align-items:center">
+              <input type="month" id="recibo-mes" style="height:32px;padding:0 8px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);font-size:13px">
+              <button class="btn btn-gold btn-sm" onclick="generarTodosRecibos()">Generar todos</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Nº recibo</th><th>Inquilino</th><th>Piso / Hab.</th><th>Mes</th><th>Importe</th><th>Estado cobro</th><th></th></tr></thead>
+              <tbody id="recibos-table"><tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:32px">Selecciona un mes y pulsa "Generar todos"</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+        <div id="recibo-preview" style="display:none;margin-top:16px"></div>
+      </div>
+
+      <!-- MOD 115 -->
+      <div id="tab-docs-mod115" class="tab-panel">
+        <div class="alert alert-info">El Modelo 115 recoge las retenciones del 19% que practicas al propietario cada vez que le pagas la renta. Se presenta trimestralmente antes del día 20 del mes siguiente al trimestre.</div>
+        <div class="card" style="margin-top:16px">
+          <div class="card-header">
+            <h2>Resumen Modelo 115</h2>
+            <select id="sel-trim-115" onchange="renderMod115()" style="height:32px;padding:0 8px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);font-size:13px">
+              <option value="1">1er trimestre (ene-feb-mar)</option>
+              <option value="2">2º trimestre (abr-may-jun)</option>
+              <option value="3">3er trimestre (jul-ago-sep)</option>
+              <option value="4">4º trimestre (oct-nov-dic)</option>
+            </select>
+          </div>
+          <div class="card-body" id="mod115-body">
+            <div class="empty-state"><p>Selecciona el trimestre para ver el resumen.</p></div>
+          </div>
+        </div>
+        <div id="mod115-detalle" style="margin-top:16px"></div>
+      </div>
+
+      <!-- MOD 130 -->
+      <div id="tab-docs-mod130" class="tab-panel">
+        <div class="alert alert-info">El Modelo 130 es el pago fraccionado del IRPF. Pagas el 20% del beneficio neto del trimestre a cuenta de tu declaración anual. Se presenta junto con el 115.</div>
+        <div class="card" style="margin-top:16px">
+          <div class="card-header">
+            <h2>Cálculo Modelo 130</h2>
+            <select id="sel-trim-130" onchange="renderMod130()" style="height:32px;padding:0 8px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);font-size:13px">
+              <option value="1">1er trimestre</option>
+              <option value="2">2º trimestre</option>
+              <option value="3">3er trimestre</option>
+              <option value="4">4º trimestre</option>
+            </select>
+          </div>
+          <div class="card-body" id="mod130-body">
+            <div class="empty-state"><p>Selecciona el trimestre para ver el cálculo.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LIBRO -->
+      <div id="tab-docs-libro" class="tab-panel">
+        <div class="card">
+          <div class="card-header">
+            <h2>Libro de ingresos y gastos</h2>
+            <div style="display:flex;gap:8px">
+              <select id="libro-año" style="height:32px;padding:0 8px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);font-size:13px" onchange="renderLibro()"></select>
+              <button class="btn btn-gold btn-sm" onclick="exportarCSV()">Exportar CSV</button>
+            </div>
+          </div>
+          <div class="card-body" id="libro-resumen" style="margin-bottom:0;padding-bottom:0"></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Fecha</th><th>Tipo</th><th>Concepto</th><th>Piso</th><th>Ingreso</th><th>Gasto</th><th>Deducible</th></tr></thead>
+              <tbody id="libro-table"><tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:32px">Sin movimientos</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- FACTURAS RECIBIDAS -->
+      <div id="tab-docs-facturas" class="tab-panel">
+        <div class="alert alert-info">Solo para propietarios que son empresa y te facturan con IVA del 21%. Ese IVA no es recuperable — es un gasto más.</div>
+        <div class="card" style="margin-top:16px">
+          <div class="card-header">
+            <h2>Facturas recibidas de propietarios empresa</h2>
+            <button class="btn btn-primary btn-sm" onclick="abrirModalFactura()">+ Registrar factura</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Nº factura</th><th>Fecha</th><th>Emisor (propietario)</th><th>Base imponible</th><th>IVA 21%</th><th>Total</th><th>Piso</th></tr></thead>
+              <tbody id="facturas-table"><tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:32px">Sin facturas registradas</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALERTAS -->
+    <div class="view" id="view-alertas">
+      <div id="alertas-container">
+        <div class="empty-state"><div class="empty-icon">✅</div><p>Sin alertas activas.</p></div>
+      </div>
+    </div>
+
+    <!-- BÚSQUEDA INTELIGENTE -->
+    <div class="view" id="view-busqueda">
+
+      <!-- Banner estado servidor -->
+      <div id="busqueda-server-banner" class="alert alert-info" style="margin-bottom:16px;display:flex;align-items:center;justify-content:space-between">
+        <span><span class="server-dot off" id="server-dot"></span><span id="server-status-txt">Comprobando servidor...</span></span>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-primary btn-sm" onclick="lanzarScraping()" id="btn-scrapear">Buscar ahora</button>
+          <button class="btn btn-ghost btn-sm" onclick="cargarBusqueda()">Actualizar</button>
+        </div>
+      </div>
+
+      <!-- Configuración API -->
+      <div class="card" style="margin-bottom:16px" id="card-config-scraper">
+        <div class="card-header" style="cursor:pointer" onclick="toggleConfigScraper()">
+          <h2>Configuración del scraper</h2>
+          <span id="config-toggle-icon" style="font-size:18px;color:var(--text-muted)">▼</span>
+        </div>
+        <div class="card-body" id="config-scraper-body" style="display:none">
+          <div class="alert alert-info" style="margin-bottom:14px">
+            Para usar la <strong>API oficial de Idealista</strong> (más resultados y estable), regístrate gratis en
+            <a href="https://api.idealista.com" target="_blank" style="color:var(--info)">api.idealista.com</a>
+            y pega las credenciales aquí. Sin API key, solo se usan pisos.com y Fotocasa.
+          </div>
+          <div class="form-row form-row-3">
+            <div class="form-group">
+              <label>Ciudad (slug)</label>
+              <input type="text" id="cfg-ciudad" value="zaragoza" placeholder="zaragoza">
+            </div>
+            <div class="form-group">
+              <label>Idealista API Key</label>
+              <input type="text" id="cfg-idealista-key" placeholder="Pega tu API key aquí">
+            </div>
+            <div class="form-group">
+              <label>Idealista API Secret</label>
+              <input type="text" id="cfg-idealista-secret" placeholder="Pega tu API secret aquí">
+            </div>
+          </div>
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label>Precio hab. estimado en tu ciudad (€/mes)</label>
+              <input type="number" id="cfg-precio-hab" value="320">
+            </div>
+            <div class="form-group">
+              <label>Precio máximo alquiler piso (€/mes)</label>
+              <input type="number" id="cfg-max-precio" value="1400">
+            </div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="guardarConfigScraper()">Guardar configuración</button>
+          <span id="cfg-saved-msg" style="display:none;margin-left:10px;color:var(--success);font-size:12px">✓ Guardado</span>
+        </div>
+      </div>
+
+      <!-- KPIs de búsqueda -->
+      <div class="card-grid grid-4" style="margin-bottom:16px" id="busqueda-stats">
+        <div class="metric-card"><div class="metric-label">Total encontrados</div><div class="metric-value" id="bs-total">—</div></div>
+        <div class="metric-card success"><div class="metric-label">Viables RTR</div><div class="metric-value" id="bs-viables">—</div></div>
+        <div class="metric-card gold"><div class="metric-label">Marcados interesantes</div><div class="metric-value" id="bs-interesantes">—</div></div>
+        <div class="metric-card"><div class="metric-label">Última actualización</div><div class="metric-value" style="font-size:13px" id="bs-ultima">—</div></div>
+      </div>
+
+      <!-- Filtros -->
+      <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center">
+        <div class="pill-tabs" style="margin-bottom:0">
+          <div class="pill-tab active" onclick="filtrarBusqueda('todos', this)">Todos</div>
+          <div class="pill-tab" onclick="filtrarBusqueda('nuevo', this)">Nuevos</div>
+          <div class="pill-tab" onclick="filtrarBusqueda('viable', this)">Solo viables</div>
+          <div class="pill-tab" onclick="filtrarBusqueda('interesante', this)">Interesantes</div>
+          <div class="pill-tab" onclick="filtrarBusqueda('descartado', this)">Descartados</div>
+        </div>
+        <select id="filtro-fuente" onchange="renderBusquedaFiltrada()" style="height:30px;padding:0 8px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);font-size:12px">
+          <option value="">Todas las fuentes</option>
+          <option value="Idealista">Idealista</option>
+          <option value="pisos.com">pisos.com</option>
+          <option value="Fotocasa">Fotocasa</option>
+        </select>
+        <select id="filtro-hab" onchange="renderBusquedaFiltrada()" style="height:30px;padding:0 8px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);font-size:12px">
+          <option value="">Todas las hab.</option>
+          <option value="3">3 hab.</option>
+          <option value="4">4 hab.</option>
+          <option value="5">5+ hab.</option>
+        </select>
+        <select id="filtro-orden" onchange="renderBusquedaFiltrada()" style="height:30px;padding:0 8px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);font-size:12px">
+          <option value="score">Mejor score RTR</option>
+          <option value="margen">Mayor margen</option>
+          <option value="precio">Menor precio</option>
+        </select>
+      </div>
+
+      <div id="busqueda-container" class="busqueda-grid">
+        <div class="empty-state" style="grid-column:1/-1">
+          <div class="empty-icon">🔍</div>
+          <p>Pulsa <strong>"Buscar ahora"</strong> para iniciar el scraper,<br>o espera al scraping automático de las 08:00.</p>
+          <p style="margin-top:8px;font-size:12px;color:var(--text-muted)">Requiere tener el servidor Python activo.</p>
+        </div>
+      </div>
+
+    </div><!-- /view-busqueda -->
+
+  </div>
+</main>
+</div>
+
+<!-- MODALES -->
+<div class="modal-overlay" id="modal-piso">
+  <div class="modal">
+    <div class="modal-header"><h2>Añadir piso</h2><button class="modal-close" onclick="cerrarModal('modal-piso')">×</button></div>
+    <div class="modal-body">
+      <div class="form-row form-row-2">
+        <div class="form-group"><label>Nombre del piso</label><input type="text" id="mp-nombre" placeholder="Ej: Piso Calle Mayor 4"></div>
+        <div class="form-group"><label>Dirección completa</label><input type="text" id="mp-direccion" placeholder="Calle, número, piso, ciudad"></div>
+      </div>
+      <div class="form-row form-row-2">
+        <div class="form-group"><label>Nº habitaciones</label><input type="number" id="mp-nhab" value="4" min="1" max="20"></div>
+        <div class="form-group"><label>Ciudad</label><input type="text" id="mp-ciudad" placeholder="Zaragoza"></div>
+      </div>
+      <div class="divider"></div>
+      <h3 style="margin-bottom:12px">Propietario</h3>
+      <div class="form-row form-row-2">
+        <div class="form-group"><label>Nombre propietario</label><input type="text" id="mp-prop-nombre" placeholder="Nombre completo o razón social"></div>
+        <div class="form-group"><label>Tipo propietario</label>
+          <select id="mp-prop-tipo">
+            <option value="particular">Particular (persona física)</option>
+            <option value="empresa">Empresa (factura con 21% IVA)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row form-row-2">
+        <div class="form-group"><label>Teléfono propietario</label><input type="text" id="mp-prop-tel" placeholder="600 000 000"></div>
+        <div class="form-group"><label>Email propietario</label><input type="email" id="mp-prop-email" placeholder="propietario@email.com"></div>
+      </div>
+      <div class="divider"></div>
+      <h3 style="margin-bottom:12px">Contrato con propietario</h3>
+      <div class="form-row form-row-3">
+        <div class="form-group"><label>Renta mensual (€)</label><input type="number" id="mp-renta" value="750"></div>
+        <div class="form-group"><label>Fecha inicio</label><input type="date" id="mp-inicio"></div>
+        <div class="form-group"><label>Fecha fin</label><input type="date" id="mp-fin"></div>
+      </div>
+      <div class="form-row form-row-3">
+        <div class="form-group"><label>Meses de carencia</label><input type="number" id="mp-carencia" value="2" min="0" max="6"></div>
+        <div class="form-group"><label>Fianza entregada (€)</label><input type="number" id="mp-fianza" value="1500"></div>
+        <div class="form-group"><label>Revisión anual (%)</label><input type="number" id="mp-revision" value="3" step="0.5"></div>
+      </div>
+      <div class="form-group">
+        <label>Notas del contrato</label>
+        <textarea id="mp-notas" rows="3" placeholder="Cláusulas especiales, observaciones..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="cerrarModal('modal-piso')">Cancelar</button>
+      <button class="btn btn-gold" onclick="guardarPiso()">Guardar piso</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-inquilino">
+  <div class="modal">
+    <div class="modal-header"><h2>Añadir inquilino</h2><button class="modal-close" onclick="cerrarModal('modal-inquilino')">×</button></div>
+    <div class="modal-body">
+      <div class="form-row form-row-2">
+        <div class="form-group"><label>Nombre completo</label><input type="text" id="mi-nombre" placeholder="Nombre y apellidos"></div>
+        <div class="form-group"><label>DNI / NIE</label><input type="text" id="mi-dni" placeholder="12345678A"></div>
+      </div>
+      <div class="form-row form-row-2">
+        <div class="form-group"><label>Teléfono</label><input type="text" id="mi-tel" placeholder="600 000 000"></div>
+        <div class="form-group"><label>Email</label><input type="email" id="mi-email" placeholder="inquilino@email.com"></div>
+      </div>
+      <div class="divider"></div>
+      <h3 style="margin-bottom:12px">Habitación y contrato</h3>
+      <div class="form-row form-row-2">
+        <div class="form-group"><label>Piso</label>
+          <select id="mi-piso" onchange="cargarHabs()">
+            <option value="">Selecciona piso...</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Habitación</label>
+          <select id="mi-hab"><option value="">Selecciona habitación...</option></select>
+        </div>
+      </div>
+      <div class="form-row form-row-3">
+        <div class="form-group"><label>Renta mensual (€)</label><input type="number" id="mi-renta" value="320"></div>
+        <div class="form-group"><label>Fecha inicio</label><input type="date" id="mi-inicio"></div>
+        <div class="form-group"><label>Fecha fin</label><input type="date" id="mi-fin"></div>
+      </div>
+      <div class="form-row form-row-2">
+        <div class="form-group"><label>Fianza cobrada (€)</label><input type="number" id="mi-fianza" value="320"></div>
+        <div class="form-group"><label>Perfil inquilino</label>
+          <select id="mi-perfil">
+            <option value="estudiante">Estudiante</option>
+            <option value="trabajador">Trabajador</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label>Notas</label><textarea id="mi-notas" rows="2" placeholder="Observaciones..."></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="cerrarModal('modal-inquilino')">Cancelar</button>
+      <button class="btn btn-gold" onclick="guardarInquilino()">Guardar inquilino</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-gasto">
+  <div class="modal">
+    <div class="modal-header"><h2>Añadir gasto</h2><button class="modal-close" onclick="cerrarModal('modal-gasto')">×</button></div>
+    <div class="modal-body">
+      <div class="form-row form-row-2">
+        <div class="form-group"><label>Fecha</label><input type="date" id="mg-fecha"></div>
+        <div class="form-group"><label>Piso</label>
+          <select id="mg-piso">
+            <option value="general">General (todos)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row form-row-2">
+        <div class="form-group"><label>Concepto</label><input type="text" id="mg-concepto" placeholder="Ej: Reparación grifo baño"></div>
+        <div class="form-group"><label>Categoría</label>
+          <select id="mg-categoria">
+            <option value="reparacion">Reparación / mantenimiento</option>
+            <option value="suministros">Suministros</option>
+            <option value="seguro">Seguro</option>
+            <option value="gestor">Gestor / asesoría</option>
+            <option value="publicidad">Publicidad / portales</option>
+            <option value="mobiliario">Mobiliario</option>
+            <option value="otros">Otros</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row form-row-2">
+        <div class="form-group"><label>Importe (€)</label><input type="number" id="mg-importe" placeholder="0"></div>
+        <div class="form-group"><label>¿Es gasto deducible?</label>
+          <select id="mg-deducible">
+            <option value="si">Sí — deducible en IRPF</option>
+            <option value="no">No deducible</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="cerrarModal('modal-gasto')">Cancelar</button>
+      <button class="btn btn-primary" onclick="guardarGasto()">Guardar gasto</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-factura">
+  <div class="modal">
+    <div class="modal-header"><h2>Registrar factura recibida</h2><button class="modal-close" onclick="cerrarModal('modal-factura')">×</button></div>
+    <div class="modal-body">
+      <div class="form-row form-row-2">
+        <div class="form-group"><label>Nº de factura</label><input type="text" id="mf-num" placeholder="2025/001"></div>
+        <div class="form-group"><label>Fecha factura</label><input type="date" id="mf-fecha"></div>
+      </div>
+      <div class="form-row form-row-2">
+        <div class="form-group"><label>Piso al que corresponde</label>
+          <select id="mf-piso"><option value="">Selecciona...</option></select>
+        </div>
+        <div class="form-group"><label>Mes de renta que cubre</label><input type="month" id="mf-mes"></div>
+      </div>
+      <div class="form-row form-row-3">
+        <div class="form-group"><label>Base imponible (€)</label><input type="number" id="mf-base" oninput="calcFactura()"></div>
+        <div class="form-group"><label>IVA 21% (€)</label><input type="number" id="mf-iva" readonly style="background:var(--cream)"></div>
+        <div class="form-group"><label>Total factura (€)</label><input type="number" id="mf-total" readonly style="background:var(--cream)"></div>
+      </div>
+      <div class="alert alert-warning" style="margin-top:8px">El IVA del 21% <strong>no es recuperable</strong>. Se registra como gasto deducible en tu libro de gastos.</div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="cerrarModal('modal-factura')">Cancelar</button>
+      <button class="btn btn-primary" onclick="guardarFactura()">Registrar factura</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-cobro">
+  <div class="modal">
+    <div class="modal-header"><h2>Registrar cobro</h2><button class="modal-close" onclick="cerrarModal('modal-cobro')">×</button></div>
+    <div class="modal-body">
+      <div class="form-row form-row-2">
+        <div class="form-group"><label>Inquilino</label>
+          <select id="mc-inquilino"><option value="">Selecciona...</option></select>
+        </div>
+        <div class="form-group"><label>Mes que corresponde</label><input type="month" id="mc-mes"></div>
+      </div>
+      <div class="form-row form-row-2">
+        <div class="form-group"><label>Importe (€)</label><input type="number" id="mc-importe"></div>
+        <div class="form-group"><label>Fecha de cobro</label><input type="date" id="mc-fecha"></div>
+      </div>
+      <div class="form-group"><label>Estado</label>
+        <select id="mc-estado">
+          <option value="cobrado">Cobrado</option>
+          <option value="pendiente">Pendiente</option>
+          <option value="parcial">Cobro parcial</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="cerrarModal('modal-cobro')">Cancelar</button>
+      <button class="btn btn-gold" onclick="guardarCobro()">Registrar cobro</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============== ESTADO ==============
+let state = JSON.parse(localStorage.getItem('rtr-state') || '{}');
+if (!state.pisos) state.pisos = [];
+if (!state.inquilinos) state.inquilinos = [];
+if (!state.cobros) state.cobros = [];
+if (!state.gastos) state.gastos = [];
+
+function save() { localStorage.setItem('rtr-state', JSON.stringify(state)); }
+function fmt(n) { return Math.round(n).toLocaleString('es-ES') + '€'; }
+function fmtN(n) { return Math.round(n).toLocaleString('es-ES'); }
+function fmtPct(n) { return n.toFixed(1) + '%'; }
+
+// ============== NAVEGACIÓN ==============
+function navTo(view, el) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+  document.getElementById('view-' + view).classList.add('active');
+  el.classList.add('active');
+  const titles = { dashboard: 'Panel principal', pisos: 'Pisos', inquilinos: 'Inquilinos', contratos: 'Contratos', cobros: 'Cobros y pagos', fiscal: 'Fiscal y modelos', calculadora: 'Calculadora R2R', alertas: 'Alertas', documentos: 'Documentos', busqueda: 'Búsqueda inteligente de pisos' };
+  document.getElementById('topbar-title').textContent = titles[view] || view;
+  const actions = {
+    pisos: '<button class="btn btn-gold btn-sm" onclick="abrirModalPiso()">+ Añadir piso</button>',
+    inquilinos: '<button class="btn btn-primary btn-sm" onclick="abrirModalInquilino()">+ Añadir inquilino</button>',
+    cobros: '<button class="btn btn-primary btn-sm" onclick="abrirModalCobro()">+ Registrar cobro</button>',
+    documentos: '<button class="btn btn-ghost btn-sm" onclick="exportarCSV()">Exportar CSV</button>',
+    dashboard: '', contratos: '', fiscal: '', calculadora: '', alertas: '', busqueda: ''
+  };
+  document.getElementById('topbar-actions').innerHTML = actions[view] || '';
+  if (view === 'dashboard') renderDashboard();
+  if (view === 'pisos') renderPisos();
+  if (view === 'inquilinos') renderInquilinos();
+  if (view === 'contratos') renderContratos();
+  if (view === 'cobros') renderCobros();
+  if (view === 'fiscal') renderFiscal();
+  if (view === 'alertas') renderAlertas();
+  if (view === 'calculadora') calcRTR();
+  if (view === 'documentos') { cargarDatosCB(); setMesActual(); }
+  if (view === 'busqueda') { checkServidor().then(() => { cargarBusqueda(); cargarConfigScraper(); }); }
+}
+
+// ============== TABS ==============
+function activarTab(prefix, id, el) {
+  document.querySelectorAll(`[id^="tab-${prefix}-"]`).forEach(t => t.classList.remove('active'));
+  document.getElementById(`tab-${prefix}-${id}`).classList.add('active');
+  el.closest('.tabs').querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+function tabContratos(id, el) { activarTab('contratos', id, el); }
+function tabCobros(id, el) { activarTab('cobros', id, el); if (id === 'resumen') renderResumen(); }
+function tabFiscal(id, el) { activarTab('fiscal', id, el); if (id === 'retenciones') renderRetenciones(); }
+
+// ============== MODALES ==============
+function abrirModal(id) { document.getElementById(id).classList.add('open'); }
+function cerrarModal(id) { document.getElementById(id).classList.remove('open'); }
+
+function abrirModalPiso() {
+  document.getElementById('mp-nombre').value = '';
+  document.getElementById('mp-direccion').value = '';
+  document.getElementById('mp-nhab').value = '4';
+  document.getElementById('mp-ciudad').value = '';
+  document.getElementById('mp-prop-nombre').value = '';
+  document.getElementById('mp-prop-tipo').value = 'particular';
+  document.getElementById('mp-prop-tel').value = '';
+  document.getElementById('mp-prop-email').value = '';
+  document.getElementById('mp-renta').value = '750';
+  document.getElementById('mp-inicio').value = new Date().toISOString().split('T')[0];
+  document.getElementById('mp-fin').value = '';
+  document.getElementById('mp-carencia').value = '2';
+  document.getElementById('mp-fianza').value = '1500';
+  document.getElementById('mp-revision').value = '3';
+  document.getElementById('mp-notas').value = '';
+  document.querySelector('#modal-piso .modal-header h2').textContent = 'Añadir piso';
+  document.querySelector('#modal-piso .modal-footer .btn-gold').setAttribute('onclick', 'guardarPiso()');
+  abrirModal('modal-piso');
+}
+
+function abrirModalInquilino() {
+  const sel = document.getElementById('mi-piso');
+  sel.innerHTML = '<option value="">Selecciona piso...</option>';
+  state.pisos.forEach(p => { const o = document.createElement('option'); o.value = p.id; o.textContent = p.nombre; sel.appendChild(o); });
+  document.getElementById('mi-nombre').value = '';
+  document.getElementById('mi-dni').value = '';
+  document.getElementById('mi-tel').value = '';
+  document.getElementById('mi-email').value = '';
+  document.getElementById('mi-hab').innerHTML = '<option value="">Selecciona habitación...</option>';
+  document.getElementById('mi-renta').value = '320';
+  document.getElementById('mi-inicio').value = new Date().toISOString().split('T')[0];
+  document.getElementById('mi-fin').value = '';
+  document.getElementById('mi-fianza').value = '320';
+  document.getElementById('mi-notas').value = '';
+  document.querySelector('#modal-inquilino .modal-header h2').textContent = 'Añadir inquilino';
+  document.querySelector('#modal-inquilino .modal-footer .btn-gold').setAttribute('onclick', 'guardarInquilino()');
+  abrirModal('modal-inquilino');
+}
+
+function abrirModalGasto() {
+  const sel = document.getElementById('mg-piso');
+  sel.innerHTML = '<option value="general">General (todos)</option>';
+  state.pisos.forEach(p => { const o = document.createElement('option'); o.value = p.id; o.textContent = p.nombre; sel.appendChild(o); });
+  document.getElementById('mg-fecha').value = new Date().toISOString().split('T')[0];
+  abrirModal('modal-gasto');
+}
+
+function abrirModalCobro() {
+  const sel = document.getElementById('mc-inquilino');
+  sel.innerHTML = '<option value="">Selecciona inquilino...</option>';
+  state.inquilinos.forEach(i => { const o = document.createElement('option'); o.value = i.id; o.textContent = i.nombre + ' — Hab.' + i.hab + ' (' + (state.pisos.find(p => p.id === i.pisoId)?.nombre || '') + ')'; sel.appendChild(o); });
+  const hoy = new Date().toISOString().split('T')[0];
+  document.getElementById('mc-fecha').value = hoy;
+  document.getElementById('mc-mes').value = hoy.substring(0, 7);
+  abrirModal('modal-cobro');
+}
+
+function cargarHabs() {
+  const pisoId = document.getElementById('mi-piso').value;
+  const piso = state.pisos.find(p => p.id === pisoId);
+  const sel = document.getElementById('mi-hab');
+  sel.innerHTML = '<option value="">Selecciona habitación...</option>';
+  if (!piso) return;
+  const ocupadas = state.inquilinos.filter(i => i.pisoId === pisoId && i.activo).map(i => i.hab);
+  for (let i = 1; i <= piso.nhab; i++) {
+    const o = document.createElement('option');
+    o.value = i;
+    o.textContent = 'Habitación ' + i + (ocupadas.includes(String(i)) ? ' (OCUPADA)' : ' (libre)');
+    if (ocupadas.includes(String(i))) o.disabled = true;
+    sel.appendChild(o);
+  }
+}
+
+// ============== GUARDAR ==============
+function guardarPiso(editId) {
+  const nombre = document.getElementById('mp-nombre').value.trim();
+  if (!nombre) { alert('Pon un nombre al piso'); return; }
+  const datos = {
+    nombre,
+    direccion: document.getElementById('mp-direccion').value,
+    nhab: parseInt(document.getElementById('mp-nhab').value) || 4,
+    ciudad: document.getElementById('mp-ciudad').value,
+    propNombre: document.getElementById('mp-prop-nombre').value,
+    propTipo: document.getElementById('mp-prop-tipo').value,
+    propTel: document.getElementById('mp-prop-tel').value,
+    propEmail: document.getElementById('mp-prop-email').value,
+    renta: parseFloat(document.getElementById('mp-renta').value) || 0,
+    inicio: document.getElementById('mp-inicio').value,
+    fin: document.getElementById('mp-fin').value,
+    carencia: parseInt(document.getElementById('mp-carencia').value) || 0,
+    fianza: parseFloat(document.getElementById('mp-fianza').value) || 0,
+    revision: parseFloat(document.getElementById('mp-revision').value) || 3,
+    notas: document.getElementById('mp-notas').value,
+  };
+  if (editId) {
+    state.pisos = state.pisos.map(p => p.id === editId ? { ...p, ...datos } : p);
+  } else {
+    state.pisos.push({ id: 'p' + Date.now(), ...datos, activo: true });
+  }
+  document.querySelector('#modal-piso .modal-header h2').textContent = 'Añadir piso';
+  document.querySelector('#modal-piso .modal-footer .btn-gold').setAttribute('onclick', 'guardarPiso()');
+  save();
+  cerrarModal('modal-piso');
+  renderPisos();
+  renderAlertas();
+}
+
+function editarPiso(id) {
+  const p = state.pisos.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('mp-nombre').value = p.nombre;
+  document.getElementById('mp-direccion').value = p.direccion || '';
+  document.getElementById('mp-nhab').value = p.nhab;
+  document.getElementById('mp-ciudad').value = p.ciudad || '';
+  document.getElementById('mp-prop-nombre').value = p.propNombre || '';
+  document.getElementById('mp-prop-tipo').value = p.propTipo || 'particular';
+  document.getElementById('mp-prop-tel').value = p.propTel || '';
+  document.getElementById('mp-prop-email').value = p.propEmail || '';
+  document.getElementById('mp-renta').value = p.renta;
+  document.getElementById('mp-inicio').value = p.inicio || '';
+  document.getElementById('mp-fin').value = p.fin || '';
+  document.getElementById('mp-carencia').value = p.carencia || 0;
+  document.getElementById('mp-fianza').value = p.fianza || 0;
+  document.getElementById('mp-revision').value = p.revision || 3;
+  document.getElementById('mp-notas').value = p.notas || '';
+  document.querySelector('#modal-piso .modal-header h2').textContent = 'Editar piso';
+  document.querySelector('#modal-piso .modal-footer .btn-gold').setAttribute('onclick', `guardarPiso('${id}')`);
+  abrirModal('modal-piso');
+}
+
+function eliminarPiso(id) {
+  const p = state.pisos.find(x => x.id === id);
+  if (!p) return;
+  const inqActivos = state.inquilinos.filter(i => i.pisoId === id && i.activo).length;
+  if (inqActivos > 0) {
+    alert(`No se puede eliminar: hay ${inqActivos} inquilino(s) activo(s) en este piso. Da de baja primero a los inquilinos.`);
+    return;
+  }
+  if (!confirm(`¿Eliminar el piso "${p.nombre}"? Esta acción no se puede deshacer.`)) return;
+  state.pisos = state.pisos.filter(x => x.id !== id);
+  save();
+  renderPisos();
+  renderDashboard();
+  renderAlertas();
+}
+
+function guardarInquilino(editId) {
+  const nombre = document.getElementById('mi-nombre').value.trim();
+  if (!nombre) { alert('Pon el nombre del inquilino'); return; }
+  const pisoId = document.getElementById('mi-piso').value;
+  if (!pisoId) { alert('Selecciona un piso'); return; }
+  const datos = {
+    nombre,
+    dni: document.getElementById('mi-dni').value,
+    tel: document.getElementById('mi-tel').value,
+    email: document.getElementById('mi-email').value,
+    pisoId,
+    hab: document.getElementById('mi-hab').value,
+    renta: parseFloat(document.getElementById('mi-renta').value) || 0,
+    inicio: document.getElementById('mi-inicio').value,
+    fin: document.getElementById('mi-fin').value,
+    fianza: parseFloat(document.getElementById('mi-fianza').value) || 0,
+    perfil: document.getElementById('mi-perfil').value,
+    notas: document.getElementById('mi-notas').value,
+  };
+  if (editId) {
+    state.inquilinos = state.inquilinos.map(i => i.id === editId ? { ...i, ...datos } : i);
+  } else {
+    state.inquilinos.push({ id: 'i' + Date.now(), ...datos, activo: true });
+  }
+  // Resetear modal al estado original
+  document.querySelector('#modal-inquilino .modal-header h2').textContent = 'Añadir inquilino';
+  document.querySelector('#modal-inquilino .modal-footer .btn-gold').setAttribute('onclick', 'guardarInquilino()');
+  save();
+  cerrarModal('modal-inquilino');
+  renderInquilinos();
+  renderDashboard();
+  renderAlertas();
+}
+
+function guardarGasto() {
+  const gasto = {
+    id: 'g' + Date.now(),
+    fecha: document.getElementById('mg-fecha').value,
+    pisoId: document.getElementById('mg-piso').value,
+    concepto: document.getElementById('mg-concepto').value,
+    categoria: document.getElementById('mg-categoria').value,
+    importe: parseFloat(document.getElementById('mg-importe').value) || 0,
+    deducible: document.getElementById('mg-deducible').value
+  };
+  state.gastos.push(gasto);
+  save();
+  cerrarModal('modal-gasto');
+  renderCobros();
+}
+
+function guardarCobro() {
+  const cobro = {
+    id: 'c' + Date.now(),
+    inquilinoId: document.getElementById('mc-inquilino').value,
+    mes: document.getElementById('mc-mes').value,
+    importe: parseFloat(document.getElementById('mc-importe').value) || 0,
+    fecha: document.getElementById('mc-fecha').value,
+    estado: document.getElementById('mc-estado').value
+  };
+  state.cobros.push(cobro);
+  save();
+  cerrarModal('modal-cobro');
+  renderCobros();
+  renderDashboard();
+}
+
+// ============== DASHBOARD ==============
+function renderDashboard() {
+  const hoy = new Date();
+  const mesActual = hoy.toISOString().substring(0, 7);
+
+  const inqActivos = state.inquilinos.filter(i => i.activo);
+  const totalHab = state.pisos.reduce((s, p) => s + p.nhab, 0);
+  const ocupadas = inqActivos.length;
+  const ocPct = totalHab > 0 ? (ocupadas / totalHab * 100) : 0;
+
+  const cobrosMes = state.cobros.filter(c => c.mes === mesActual && c.estado === 'cobrado');
+  const ingresosMes = cobrosMes.reduce((s, c) => s + c.importe, 0);
+  const rentas = state.pisos.filter(p => p.activo).reduce((s, p) => s + p.renta, 0);
+  const gastosMes = state.gastos.filter(g => g.fecha && g.fecha.startsWith(mesActual)).reduce((s, g) => s + g.importe, 0) + rentas;
+  const margenMes = ingresosMes - gastosMes;
+
+  document.getElementById('m-ingresos').textContent = fmt(ingresosMes);
+  document.getElementById('m-ingresos-sub').textContent = cobrosMes.length + ' cobros registrados este mes';
+  document.getElementById('m-gastos').textContent = fmt(gastosMes);
+  document.getElementById('m-gastos-sub').textContent = 'Rentas + operativos';
+  document.getElementById('m-margen').textContent = fmt(margenMes);
+  document.getElementById('m-margen-sub').textContent = margenMes >= 0 ? 'Positivo ✓' : '⚠ Negativo';
+  document.getElementById('m-ocupacion').textContent = fmtPct(ocPct);
+  document.getElementById('m-ocupacion-sub').textContent = ocupadas + ' de ' + totalHab + ' habitaciones';
+
+  const pisosList = document.getElementById('dash-pisos-list');
+  if (state.pisos.length === 0) {
+    pisosList.innerHTML = '<div class="empty-state"><div class="empty-icon">🏠</div><p>Aún no has añadido ningún piso.</p></div>';
+  } else {
+    pisosList.innerHTML = state.pisos.map(p => {
+      const inqP = state.inquilinos.filter(i => i.pisoId === p.id && i.activo).length;
+      const pct = Math.round(inqP / p.nhab * 100);
+      return `<div style="margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-size:13px;font-weight:500">${p.nombre}</span>
+          <span class="badge ${pct >= 75 ? 'badge-success' : pct >= 50 ? 'badge-gold' : 'badge-warning'}">${inqP}/${p.nhab} hab</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:3px">${p.ciudad} · Renta: ${fmt(p.renta)}/mes · ${p.propNombre}</div>
+      </div>`;
+    }).join('');
+  }
+
+  // Vencimientos próximos
+  const venc = [];
+  state.inquilinos.filter(i => i.activo && i.fin).forEach(i => {
+    const dias = Math.round((new Date(i.fin) - hoy) / 86400000);
+    if (dias <= 60 && dias >= 0) venc.push({ texto: i.nombre + ' — Fin contrato', dias, tipo: dias <= 30 ? 'danger' : 'warning' });
+  });
+  state.pisos.filter(p => p.activo && p.fin).forEach(p => {
+    const dias = Math.round((new Date(p.fin) - hoy) / 86400000);
+    if (dias <= 90 && dias >= 0) venc.push({ texto: p.nombre + ' — Fin contrato propietario', dias, tipo: dias <= 30 ? 'danger' : 'warning' });
+  });
+  const vEl = document.getElementById('dash-vencimientos');
+  if (venc.length === 0) {
+    vEl.innerHTML = '<div class="empty-state"><div class="empty-icon">📅</div><p>Sin vencimientos en los próximos 90 días.</p></div>';
+  } else {
+    vEl.innerHTML = '<div class="timeline">' + venc.sort((a,b) => a.dias - b.dias).map(v => `
+      <div class="tl-item"><div class="tl-dot ${v.tipo}"></div>
+      <div class="tl-content">${v.texto}<div class="tl-date">En ${v.dias} días</div></div></div>`).join('') + '</div>';
+  }
+
+  generarAlertas();
+  const alertsEl = document.getElementById('dash-alertas');
+  const alertas = getAlertas();
+  if (alertas.length === 0) {
+    alertsEl.innerHTML = '<div class="empty-state"><div class="empty-icon">✅</div><p>Todo en orden.</p></div>';
+  } else {
+    alertsEl.innerHTML = alertas.slice(0, 4).map(a => `<div class="alert alert-${a.tipo}" style="margin-bottom:8px">${a.texto}</div>`).join('');
+  }
+}
+
+// ============== PISOS ==============
+function renderPisos() {
+  const cont = document.getElementById('pisos-container');
+  document.getElementById('piso-detail-view').style.display = 'none';
+  document.getElementById('pisos-list-view').style.display = 'block';
+  if (state.pisos.length === 0) {
+    cont.innerHTML = '<div class="empty-state"><div class="empty-icon">🏠</div><p>Aún no has añadido ningún piso.<br>Pulsa "Añadir piso" para empezar.</p></div>';
+    return;
+  }
+  cont.innerHTML = '<div class="card-grid grid-2">' + state.pisos.map(p => {
+    const inqP = state.inquilinos.filter(i => i.pisoId === p.id && i.activo);
+    const pct = Math.round(inqP.length / p.nhab * 100);
+    const ivaNote = p.propTipo === 'empresa' ? '<span class="badge badge-warning" style="margin-left:6px">+21% IVA</span>' : '<span class="badge badge-info" style="margin-left:6px">Retención 19%</span>';
+    return `<div class="card">
+      <div class="card-header" style="cursor:pointer" onclick="verPiso('${p.id}')">
+        <div>
+          <div style="font-size:15px;font-weight:600">${p.nombre}</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:2px">${p.direccion}</div>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center">
+          <span class="badge ${pct >= 75 ? 'badge-success' : pct >= 50 ? 'badge-gold' : 'badge-warning'}">${inqP.length}/${p.nhab} ocupadas</span>
+          <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();editarPiso('${p.id}')">Editar</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="progress-bar" style="margin-bottom:12px"><div class="progress-fill" style="width:${pct}%"></div></div>
+        <div class="row-detail"><span class="label">Propietario</span><span class="val">${p.propNombre} ${ivaNote}</span></div>
+        <div class="row-detail"><span class="label">Renta mensual</span><span class="val">${fmt(p.renta)}</span></div>
+        <div class="row-detail"><span class="label">Carencia</span><span class="val">${p.carencia} mes${p.carencia !== 1 ? 'es' : ''}</span></div>
+        <div class="row-detail"><span class="label">Contrato</span><span class="val">${p.inicio || '—'} → ${p.fin || '—'}</span></div>
+        <div class="row-detail"><span class="label">Ingresos potenciales</span><span class="val" style="color:var(--success)">${fmt(inqP.reduce((s,i) => s + i.renta, 0))}/mes</span></div>
+        <div class="row-detail total"><span class="label">Margen bruto estimado</span><span class="val">${fmt(inqP.reduce((s,i) => s + i.renta, 0) - p.renta)}/mes</span></div>
+      </div>
+    </div>`;
+  }).join('') + '</div>';
+}
+
+function verPiso(id) {
+  const p = state.pisos.find(x => x.id === id);
+  if (!p) return;
+  const inqP = state.inquilinos.filter(i => i.pisoId === id && i.activo);
+  document.getElementById('pisos-list-view').style.display = 'none';
+  const det = document.getElementById('piso-detail-view');
+  det.style.display = 'block';
+
+  const habsHtml = [];
+  for (let h = 1; h <= p.nhab; h++) {
+    const inq = inqP.find(i => i.hab === String(h));
+    habsHtml.push(`<div class="hab-card ${inq ? 'ocupada' : 'libre'}">
+      <div class="hab-num">Hab. ${h}</div>
+      <div class="hab-inquilino">${inq ? inq.nombre : 'Libre'}</div>
+      <div class="hab-renta">${inq ? fmt(inq.renta) + '/mes' : '—'}</div>
+      <div class="hab-status">${inq ? '<span class="badge badge-success">Ocupada</span>' : '<span class="badge badge-gold">Libre</span>'}</div>
+    </div>`);
+  }
+
+  det.innerHTML = `
+    <div style="display:flex;gap:8px;margin-bottom:16px">
+      <button class="btn btn-ghost btn-sm" onclick="renderPisos()">← Volver a pisos</button>
+      <button class="btn btn-gold btn-sm" onclick="editarPiso('${p.id}')">Editar piso</button>
+      <button class="btn btn-danger btn-sm" onclick="eliminarPiso('${p.id}')">Eliminar piso</button>
+    </div>
+    <div class="card-grid grid-2" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-header"><h2>${p.nombre}</h2></div>
+        <div class="card-body">
+          <div class="row-detail"><span class="label">Dirección</span><span class="val">${p.direccion}</span></div>
+          <div class="row-detail"><span class="label">Ciudad</span><span class="val">${p.ciudad}</span></div>
+          <div class="row-detail"><span class="label">Propietario</span><span class="val">${p.propNombre}</span></div>
+          <div class="row-detail"><span class="label">Tipo propietario</span><span class="val">${p.propTipo === 'empresa' ? '🏢 Empresa — factura IVA 21%' : '👤 Particular — retención 19%'}</span></div>
+          <div class="row-detail"><span class="label">Contacto</span><span class="val">${p.propTel || '—'} · ${p.propEmail || '—'}</span></div>
+          <div class="row-detail"><span class="label">Renta mensual</span><span class="val">${fmt(p.renta)}</span></div>
+          ${p.propTipo === 'empresa' ? `<div class="row-detail"><span class="label">IVA 21% (no recuperable)</span><span class="val" style="color:var(--danger)">+ ${fmt(p.renta * 0.21)}/mes</span></div>` :
+          `<div class="row-detail"><span class="label">Retención 19% a ingresar</span><span class="val" style="color:var(--info)">${fmt(p.renta * 0.19)}/mes → M115</span></div>`}
+          <div class="row-detail"><span class="label">Contrato</span><span class="val">${p.inicio} → ${p.fin || 'Sin fecha fin'}</span></div>
+          <div class="row-detail"><span class="label">Carencia pactada</span><span class="val">${p.carencia} meses</span></div>
+          <div class="row-detail"><span class="label">Fianza entregada</span><span class="val">${fmt(p.fianza)} <span class="badge badge-gold">a recuperar</span></span></div>
+          <div class="row-detail"><span class="label">Revisión anual</span><span class="val">${p.revision}%</span></div>
+          ${p.notas ? `<div class="row-detail"><span class="label">Notas</span><span class="val" style="font-size:12px">${p.notas}</span></div>` : ''}
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><h2>Rentabilidad actual</h2></div>
+        <div class="card-body">
+          <div class="row-detail"><span class="label">Ingresos mensuales (con inquilinos actuales)</span><span class="val" style="color:var(--success)">${fmt(inqP.reduce((s,i) => s + i.renta, 0))}</span></div>
+          <div class="row-detail"><span class="label">Renta al propietario</span><span class="val" style="color:var(--danger)">- ${fmt(p.renta)}</span></div>
+          <div class="row-detail total"><span class="label">Margen bruto</span><span class="val">${fmt(inqP.reduce((s,i) => s + i.renta, 0) - p.renta)}/mes</span></div>
+          <div class="divider"></div>
+          <div class="row-detail"><span class="label">Habitaciones ocupadas</span><span class="val">${inqP.length} / ${p.nhab}</span></div>
+          <div class="row-detail"><span class="label">Ocupación actual</span><span class="val">${fmtPct(inqP.length / p.nhab * 100)}</span></div>
+          <div class="row-detail"><span class="label">Potencial 100% ocupación</span><span class="val">${fmt(inqP.length > 0 ? (inqP.reduce((s,i) => s + i.renta, 0) / inqP.length) * p.nhab - p.renta : 0)}/mes <span style="font-size:11px;color:var(--text-muted)">(renta media × hab.)</span></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h2>Habitaciones</h2><button class="btn btn-primary btn-sm" onclick="abrirModalInquilino()">+ Añadir inquilino</button></div>
+      <div class="card-body"><div class="hab-grid">${habsHtml.join('')}</div></div>
+    </div>
+  `;
+}
+
+// ============== INQUILINOS ==============
+function renderInquilinos() {
+  const tbody = document.getElementById('inquilinos-table');
+  const mostrarBajas = document.getElementById('mostrar-bajas')?.checked;
+  const lista = mostrarBajas ? state.inquilinos : state.inquilinos.filter(i => i.activo);
+  if (lista.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:32px">Sin inquilinos registrados</td></tr>';
+    return;
+  }
+  tbody.innerHTML = lista.map(i => {
+    const piso = state.pisos.find(p => p.id === i.pisoId);
+    const hoy = new Date();
+    const fin = i.fin ? new Date(i.fin) : null;
+    const diasFin = fin ? Math.round((fin - hoy) / 86400000) : null;
+    let estadoBadge;
+    if (!i.activo) estadoBadge = '<span class="badge badge-neutral">Baja</span>';
+    else if (diasFin !== null && diasFin <= 30) estadoBadge = `<span class="badge badge-danger">Vence en ${diasFin}d</span>`;
+    else if (diasFin !== null && diasFin <= 60) estadoBadge = `<span class="badge badge-warning">Vence en ${diasFin}d</span>`;
+    else estadoBadge = '<span class="badge badge-success">Activo</span>';
+    const acciones = i.activo
+      ? `<button class="btn btn-ghost btn-sm" onclick="editarInquilino('${i.id}')" style="margin-right:4px">Editar</button>
+         <button class="btn btn-danger btn-sm" onclick="eliminarInquilino('${i.id}')">Dar de baja</button>`
+      : `<button class="btn btn-ghost btn-sm" onclick="reactivarInquilino('${i.id}')">Reactivar</button>`;
+    return `<tr style="${!i.activo ? 'opacity:0.55' : ''}">
+      <td><strong>${i.nombre}</strong><br><span style="font-size:11px;color:var(--text-muted)">${i.perfil} · ${i.tel || ''}</span></td>
+      <td>${piso?.nombre || '—'} / Hab. ${i.hab}</td>
+      <td><strong>${fmt(i.renta)}</strong></td>
+      <td>${i.inicio || '—'} → ${i.fin || '—'}</td>
+      <td>${estadoBadge}</td>
+      <td style="white-space:nowrap">${acciones}</td>
+    </tr>`;
+  }).join('');
+}
+
+function eliminarInquilino(id) {
+  if (!confirm('¿Dar de baja a este inquilino? Se mantendrá en el historial.')) return;
+  state.inquilinos = state.inquilinos.map(i => i.id === id ? { ...i, activo: false } : i);
+  save();
+  renderInquilinos();
+  renderDashboard();
+}
+
+function reactivarInquilino(id) {
+  state.inquilinos = state.inquilinos.map(i => i.id === id ? { ...i, activo: true } : i);
+  save();
+  renderInquilinos();
+  renderDashboard();
+}
+
+function editarInquilino(id) {
+  const inq = state.inquilinos.find(i => i.id === id);
+  if (!inq) return;
+  const sel = document.getElementById('mi-piso');
+  sel.innerHTML = '<option value="">Selecciona piso...</option>';
+  state.pisos.forEach(p => { const o = document.createElement('option'); o.value = p.id; o.textContent = p.nombre; sel.appendChild(o); });
+  document.getElementById('mi-nombre').value = inq.nombre;
+  document.getElementById('mi-dni').value = inq.dni || '';
+  document.getElementById('mi-tel').value = inq.tel || '';
+  document.getElementById('mi-email').value = inq.email || '';
+  sel.value = inq.pisoId;
+  cargarHabs();
+  document.getElementById('mi-hab').value = inq.hab;
+  document.getElementById('mi-renta').value = inq.renta;
+  document.getElementById('mi-inicio').value = inq.inicio || '';
+  document.getElementById('mi-fin').value = inq.fin || '';
+  document.getElementById('mi-fianza').value = inq.fianza || 0;
+  document.getElementById('mi-perfil').value = inq.perfil || 'trabajador';
+  document.getElementById('mi-notas').value = inq.notas || '';
+  document.querySelector('#modal-inquilino .modal-header h2').textContent = 'Editar inquilino';
+  document.querySelector('#modal-inquilino .modal-footer .btn-gold').setAttribute('onclick', `guardarInquilino('${id}')`);
+  abrirModal('modal-inquilino');
+}
+
+// ============== CONTRATOS ==============
+function renderContratos() {
+  const tbP = document.getElementById('contratos-prop-table');
+  const tbI = document.getElementById('contratos-inq-table');
+
+  if (state.pisos.length === 0) {
+    tbP.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--text-muted);padding:32px">Sin contratos registrados</td></tr>';
+  } else {
+    tbP.innerHTML = state.pisos.map(p => {
+      const hoy = new Date();
+      const fin = p.fin ? new Date(p.fin) : null;
+      const diasFin = fin ? Math.round((fin - hoy) / 86400000) : null;
+      const estado = !fin ? '<span class="badge badge-info">Indefinido</span>' :
+        diasFin <= 30 ? `<span class="badge badge-danger">Vence ${diasFin}d</span>` :
+        diasFin <= 90 ? `<span class="badge badge-warning">Vence ${diasFin}d</span>` :
+        '<span class="badge badge-success">Vigente</span>';
+      return `<tr>
+        <td><strong>${p.nombre}</strong></td>
+        <td>${p.propNombre}<br><span style="font-size:11px;color:var(--text-muted)">${p.propTipo === 'empresa' ? 'Empresa (+IVA)' : 'Particular (retención)'}</span></td>
+        <td><span class="badge badge-gold">Uso distinto</span></td>
+        <td>${fmt(p.renta)}</td>
+        <td>${p.inicio || '—'}</td>
+        <td>${p.fin || '—'}</td>
+        <td>${p.carencia} mes${p.carencia !== 1 ? 'es' : ''}</td>
+        <td>${estado}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  const inqActivos = state.inquilinos.filter(i => i.activo);
+  if (inqActivos.length === 0) {
+    tbI.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:32px">Sin contratos registrados</td></tr>';
+  } else {
+    tbI.innerHTML = inqActivos.map(i => {
+      const piso = state.pisos.find(p => p.id === i.pisoId);
+      const hoy = new Date();
+      const fin = i.fin ? new Date(i.fin) : null;
+      const diasFin = fin ? Math.round((fin - hoy) / 86400000) : null;
+      const estado = !fin ? '<span class="badge badge-info">Sin fecha</span>' :
+        diasFin <= 30 ? `<span class="badge badge-danger">Vence ${diasFin}d</span>` :
+        diasFin <= 60 ? `<span class="badge badge-warning">Vence ${diasFin}d</span>` :
+        '<span class="badge badge-success">Vigente</span>';
+      return `<tr>
+        <td><strong>${i.nombre}</strong></td>
+        <td>${piso?.nombre || '—'} / Hab. ${i.hab}</td>
+        <td>${fmt(i.renta)}</td>
+        <td>${i.inicio || '—'}</td>
+        <td>${i.fin || '—'}</td>
+        <td>${fmt(i.fianza)}</td>
+        <td>${estado}</td>
+      </tr>`;
+    }).join('');
+  }
+}
+
+// ============== COBROS ==============
+function renderCobros() {
+  const tbody = document.getElementById('cobros-table');
+  if (state.cobros.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:32px">Sin cobros registrados</td></tr>';
+  } else {
+    const sorted = [...state.cobros].sort((a, b) => b.mes.localeCompare(a.mes));
+    tbody.innerHTML = sorted.map(c => {
+      const inq = state.inquilinos.find(i => i.id === c.inquilinoId);
+      const piso = inq ? state.pisos.find(p => p.id === inq.pisoId) : null;
+      const badge = c.estado === 'cobrado' ? 'badge-success' : c.estado === 'pendiente' ? 'badge-danger' : 'badge-warning';
+      return `<tr>
+        <td>${c.mes}</td>
+        <td>${inq?.nombre || '—'}</td>
+        <td>${piso?.nombre || '—'} / Hab. ${inq?.hab || '—'}</td>
+        <td><strong>${fmt(c.importe)}</strong></td>
+        <td>${c.fecha || '—'}</td>
+        <td><span class="badge ${badge}">${c.estado}</span></td>
+        <td><button class="btn btn-ghost btn-sm" onclick="eliminarCobro('${c.id}')">✕</button></td>
+      </tr>`;
+    }).join('');
+  }
+
+  const tbPagos = document.getElementById('pagos-table');
+  const pisosActivos = state.pisos.filter(p => p.activo);
+  if (pisosActivos.length === 0) {
+    tbPagos.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:32px">Sin pisos activos</td></tr>';
+  } else {
+    const mesActual = new Date().toISOString().substring(0, 7);
+    tbPagos.innerHTML = pisosActivos.map(p => {
+      const retencion = p.propTipo === 'particular' ? p.renta * 0.19 : 0;
+      const neto = p.renta - retencion;
+      return `<tr>
+        <td>${mesActual}</td>
+        <td>${p.nombre}</td>
+        <td>${p.propNombre}</td>
+        <td>${fmt(p.renta)}</td>
+        <td>${p.propTipo === 'particular' ? `<span style="color:var(--info)">${fmt(retencion)}</span>` : '<span class="badge badge-neutral">No aplica</span>'}</td>
+        <td><strong>${fmt(neto)}</strong></td>
+        <td><span class="badge badge-gold">Pendiente</span></td>
+      </tr>`;
+    }).join('');
+  }
+
+  const tbGastos = document.getElementById('gastos-table');
+  if (state.gastos.length === 0) {
+    tbGastos.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:32px">Sin gastos registrados</td></tr>';
+  } else {
+    tbGastos.innerHTML = [...state.gastos].sort((a,b) => b.fecha.localeCompare(a.fecha)).map(g => {
+      const piso = state.pisos.find(p => p.id === g.pisoId);
+      return `<tr>
+        <td>${g.fecha}</td>
+        <td>${piso?.nombre || 'General'}</td>
+        <td>${g.concepto}</td>
+        <td><span class="badge badge-neutral">${g.categoria}</span></td>
+        <td><strong>${fmt(g.importe)}</strong></td>
+        <td>${g.deducible === 'si' ? '<span class="badge badge-success">Sí</span>' : '<span class="badge badge-neutral">No</span>'}</td>
+        <td><button class="btn btn-ghost btn-sm" onclick="eliminarGasto('${g.id}')">✕</button></td>
+      </tr>`;
+    }).join('');
+  }
+}
+
+function eliminarCobro(id) {
+  if (!confirm('¿Eliminar este cobro?')) return;
+  state.cobros = state.cobros.filter(c => c.id !== id);
+  save();
+  renderCobros();
+  renderDashboard();
+}
+
+function eliminarGasto(id) {
+  if (!confirm('¿Eliminar este gasto?')) return;
+  state.gastos = state.gastos.filter(g => g.id !== id);
+  save();
+  renderCobros();
+}
+
+function renderResumen() {
+  const mesActual = new Date().toISOString().substring(0, 7);
+  const ingresosMes = state.cobros.filter(c => c.mes === mesActual && c.estado === 'cobrado').reduce((s,c) => s+c.importe, 0);
+  const rentas = state.pisos.filter(p=>p.activo).reduce((s,p)=>s+p.renta,0);
+  const gastosMes = state.gastos.filter(g=>g.fecha&&g.fecha.startsWith(mesActual)).reduce((s,g)=>s+g.importe,0);
+  const margen = ingresosMes - rentas - gastosMes;
+  document.getElementById('resumen-metrics').innerHTML = `
+    <div class="metric-card success"><div class="metric-label">Ingresos ${mesActual}</div><div class="metric-value">${fmt(ingresosMes)}</div></div>
+    <div class="metric-card"><div class="metric-label">Rentas + gastos</div><div class="metric-value danger">${fmt(rentas + gastosMes)}</div></div>
+    <div class="metric-card ${margen>=0?'success':''}"><div class="metric-label">Margen bruto</div><div class="metric-value">${fmt(margen)}</div></div>
+  `;
+  const pisosHtml = state.pisos.map(p => {
+    const inqP = state.inquilinos.filter(i=>i.pisoId===p.id&&i.activo);
+    const ingP = state.cobros.filter(c=>c.mes===mesActual&&c.estado==='cobrado'&&inqP.some(i=>i.id===c.inquilinoId)).reduce((s,c)=>s+c.importe,0);
+    return `<div class="row-detail"><span class="label">${p.nombre}</span><span class="val">Ing: ${fmt(ingP)} · Renta: -${fmt(p.renta)} · <strong>Margen: ${fmt(ingP-p.renta)}</strong></span></div>`;
+  }).join('') || '<div class="empty-state"><p>Sin pisos activos</p></div>';
+  document.getElementById('resumen-piso').innerHTML = pisosHtml;
+}
+
+// ============== FISCAL ==============
+function renderFiscal() {
+  const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  const trimestrales = [3,6,9,12];
+  const cal = document.getElementById('cal-fiscal');
+  cal.innerHTML = meses.map((mes, idx) => {
+    const m = idx + 1;
+    let eventos = '';
+    if (trimestrales.includes(m)) {
+      const trimNum = trimestrales.indexOf(m) + 1;
+      const triNombre = ['1er','2º','3er','4º'][trimestrales.indexOf(m)];
+      eventos += `<div class="cal-evento cal-evento-115">Mod. 115 — ${triNombre} trim</div>`;
+      eventos += `<div class="cal-evento cal-evento-130">Mod. 130 — ${triNombre} trim</div>`;
+    }
+    if (m === 1) {
+      eventos += `<div class="cal-evento cal-evento-otros">Mod. 180 — Resumen anual retenciones</div>`;
+      eventos += `<div class="cal-evento cal-evento-otros">Mod. 184 — Resumen anual CB</div>`;
+      eventos += `<div class="cal-evento cal-evento-otros">Mod. 390 — Resumen anual IVA</div>`;
+    }
+    if (m === 4 || m === 6) eventos += `<div class="cal-evento cal-evento-renta">Campaña renta${m===4?' (inicio)':' (fin)'}`;
+    const hoy = new Date();
+    const esActual = m === hoy.getMonth() + 1;
+    return `<div class="cal-mes" style="${esActual ? 'border:1.5px solid var(--gold);background:rgba(201,168,76,.08)' : ''}">
+      <div class="cal-mes-nombre">${mes}${esActual ? ' ◀' : ''}</div>
+      ${eventos || '<div style="font-size:11px;color:var(--text-muted)">Sin obligaciones</div>'}
+    </div>`;
+  }).join('');
+
+  document.getElementById('modelos-cb-list').innerHTML = [
+    { t: 'Modelo 036', d: 'Alta censal y epígrafe IAE 861.1. Solo al inicio.', tipo: 'ok' },
+    { t: 'Modelo 115', d: 'Retenciones 19% al propietario particular. Trimestral.', tipo: 'ok' },
+    { t: 'Modelo 180', d: 'Resumen anual de retenciones (modelo 115). Enero.', tipo: 'ok' },
+    { t: 'Modelo 184', d: 'Declaración informativa CB — atribución de rentas. Enero.', tipo: 'warn' },
+    { t: 'ITP contrato', d: 'Modelo 600 en Hacienda Aragón. 0,5% de renta × años. 30 días.', tipo: 'warn' },
+    { t: 'Fianza en Aragón', d: '2 meses de plazo desde firma. Gobierno de Aragón online.', tipo: 'danger' },
+  ].map(m => `<div class="tl-item"><div class="tl-dot ${m.tipo}"></div><div class="tl-content"><strong>${m.t}</strong><div class="tl-date">${m.d}</div></div></div>`).join('');
+
+  document.getElementById('modelos-auto-list').innerHTML = [
+    { t: 'Modelo 130', d: 'Pago fraccionado IRPF (20% beneficio neto trimestral). Trimestral.', tipo: 'ok' },
+    { t: 'IRPF anual', d: 'Tu parte de beneficio CB se suma a tu nómina. Campaña mayo-junio.', tipo: 'warn' },
+    { t: 'Cuota RETA', d: 'Mensual. Tarifa plana 87€/mes los primeros 12 meses.', tipo: 'ok' },
+    { t: 'Mod. 036 baja/cambio', d: 'Si cambias de actividad o cierras, modelo 036 de baja.', tipo: 'ok' },
+  ].map(m => `<div class="tl-item"><div class="tl-dot ${m.tipo}"></div><div class="tl-content"><strong>${m.t}</strong><div class="tl-date">${m.d}</div></div></div>`).join('');
+}
+
+function renderRetenciones() {
+  const el = document.getElementById('retenciones-list');
+  const pisosParticulares = state.pisos.filter(p => p.activo && p.propTipo === 'particular');
+  if (pisosParticulares.length === 0) {
+    el.innerHTML = '<div class="alert alert-info">No tienes pisos con propietarios particulares registrados. Las retenciones solo aplican cuando el propietario es persona física.</div>';
+    return;
+  }
+  const hoy = new Date();
+  const trimestre = Math.ceil((hoy.getMonth() + 1) / 3);
+  const total = pisosParticulares.reduce((s, p) => s + p.renta * 0.19, 0);
+  el.innerHTML = `<div class="alert alert-info" style="margin-bottom:16px">Trimestre actual: ${trimestre}º · Presentación del Mod. 115 hasta el día 20 del mes siguiente al trimestre</div>` +
+  `<div class="card-grid grid-3" style="margin-bottom:16px">
+    <div class="metric-card"><div class="metric-label">Retención total/mes</div><div class="metric-value" style="color:var(--info)">${fmt(total)}</div><div class="metric-sub">A ingresar a Hacienda</div></div>
+    <div class="metric-card"><div class="metric-label">Retención trimestral</div><div class="metric-value">${fmt(total * 3)}</div><div class="metric-sub">Importe Mod. 115</div></div>
+    <div class="metric-card"><div class="metric-label">Neto a propietarios/mes</div><div class="metric-value">${fmt(pisosParticulares.reduce((s,p) => s + p.renta * 0.81, 0))}</div><div class="metric-sub">Lo que transferís</div></div>
+  </div>` +
+  pisosParticulares.map(p => `
+    <div class="card" style="margin-bottom:12px">
+      <div class="card-header"><h2>${p.nombre} — ${p.propNombre}</h2></div>
+      <div class="card-body">
+        <div class="row-detail"><span class="label">Renta bruta mensual</span><span class="val">${fmt(p.renta)}</span></div>
+        <div class="row-detail"><span class="label">Retención 19%</span><span class="val" style="color:var(--info)">- ${fmt(p.renta * 0.19)} → Hacienda (Mod. 115)</span></div>
+        <div class="row-detail total"><span class="label">Neto a transferir al propietario</span><span class="val">${fmt(p.renta * 0.81)}</span></div>
+        <div class="row-detail"><span class="label">Retención trimestral acumulada</span><span class="val">${fmt(p.renta * 0.19 * 3)}</span></div>
+      </div>
+    </div>`).join('');
+}
+
+// ============== CALCULADORA ==============
+// Estimación conservadora de gastos según nº habitaciones
+function autoGastos() {
+  const nHab = +document.getElementById('c-nhab').value || 0;
+  const calefaccion = document.getElementById('c-calefaccion').value;
+
+  // Luz: base 45€ + 22€/hab
+  // Si calefacción eléctrica (ninguna), la resistencia sube el consumo eléctrico
+  const extraLuzElec = calefaccion === 'ninguna' ? Math.round(10 * nHab) : 0;
+  const luz = Math.round(45 + 22 * nHab + extraLuzElec);
+
+  // Agua: base 20€ + 7€/hab
+  const agua = Math.round(20 + 7 * nHab);
+
+  // Gas individual (Renttia paga): base 35€ + 15€/hab
+  const gasImporte = Math.round(35 + 15 * nHab);
+
+  // Seguro: base 20€ + 4€/hab
+  const seg = Math.round(20 + 4 * nHab);
+
+  // Mantenimiento: base 40€ + 18€/hab (conservative)
+  const mant = Math.round(40 + 18 * nHab);
+
+  document.getElementById('c-luz').value = luz;
+  document.getElementById('c-agua').value = agua;
+  document.getElementById('c-seg').value = seg;
+  document.getElementById('c-mant').value = mant;
+
+  const lbl = document.getElementById('lbl-luz');
+  if (lbl) lbl.textContent = calefaccion === 'ninguna' ? '(+radiadores eléc.)' : '';
+
+  const grpGas = document.getElementById('grp-gas');
+  if (calefaccion === 'individual') {
+    grpGas.style.display = '';
+    document.getElementById('c-gasimporte').value = gasImporte;
+  } else {
+    grpGas.style.display = 'none';
+    document.getElementById('c-gasimporte').value = 0;
+  }
+}
+
+function calcRTR() {
+  autoGastos();
+  const nHab = +document.getElementById('c-nhab').value || 0;
+  const pHab = +document.getElementById('c-phab').value || 0;
+  const ocup = (+document.getElementById('c-ocup').value || 0) / 100;
+  const renta = +document.getElementById('c-renta').value || 0;
+  const tipoProp = document.getElementById('c-tipoprop').value;
+  const carencia = +document.getElementById('c-carencia').value || 0;
+  const reforma = +document.getElementById('c-reforma').value || 0;
+  const comun = +document.getElementById('c-comun').value || 0;
+  const fianza = +document.getElementById('c-fianza').value || 0;
+  const itp = +document.getElementById('c-itp').value || 0;
+  const luz = +document.getElementById('c-luz').value || 0;
+  const agua = +document.getElementById('c-agua').value || 0;
+  const internet = +document.getElementById('c-internet').value || 0;
+  const gasImporte = +document.getElementById('c-gasimporte').value || 0;
+  const sum = luz + agua + internet + gasImporte;
+  const seg = +document.getElementById('c-seg').value || 0;
+  const gestor = +document.getElementById('c-gestor').value || 0;
+  const mant = +document.getElementById('c-mant').value || 0;
+  const pub = +document.getElementById('c-pub').value || 0;
+  const impago = (+document.getElementById('c-impago').value || 0) / 100;
+
+  const ivaCoef = tipoProp === 'empresa' ? 0.21 : 0;
+  const ivaMes = renta * ivaCoef;
+  const rentaReal = renta + ivaMes;
+  const ingBrutos = nHab * pHab * ocup;
+  const segImpago = ingBrutos * impago;
+  const gastosOp = sum + seg + gestor + mant + pub + segImpago;
+  const totalGastos = rentaReal + gastosOp;
+  const margenMes = ingBrutos - totalGastos;
+  const margenAnual = margenMes * 12;
+  const inversionNeta = nHab * reforma + comun + itp - renta * carencia;
+  const roi = inversionNeta > 0 ? (margenAnual / inversionNeta * 100) : 0;
+  const rec = margenMes > 0 ? Math.round(inversionNeta / margenMes) : 0;
+
+  document.getElementById('cr-margen-mes').textContent = fmt(margenMes);
+  document.getElementById('cr-margen-año').textContent = fmt(margenAnual);
+  document.getElementById('cr-roi').textContent = fmtPct(roi);
+  document.getElementById('cr-rec').textContent = rec > 0 ? rec + ' meses' : '—';
+
+  const gastosOpTotal = gastosOp;
+  const lblTotal = document.getElementById('lbl-total-gastos-op');
+  if (lblTotal) lblTotal.textContent = fmt(gastosOpTotal) + '/mes';
+
+  document.getElementById('calc-desglose').innerHTML = `
+    <div class="row-detail"><span class="label">Ingresos brutos (${nHab} hab × ${fmt(pHab)} × ${Math.round(ocup*100)}%)</span><span class="val" style="color:var(--success)">${fmt(ingBrutos)}</span></div>
+    <div class="row-detail"><span class="label">Renta al propietario</span><span class="val">- ${fmt(renta)}</span></div>
+    ${ivaCoef > 0 ? `<div class="row-detail"><span class="label">IVA 21% (no recuperable)</span><span class="val" style="color:var(--danger)">- ${fmt(ivaMes)}</span></div>` : ''}
+    ${tipoProp === 'particular' ? `<div class="row-detail"><span class="label">Retención 19% al prop. → Mod. 115</span><span class="val" style="color:var(--info)">${fmt(renta * 0.19)}/mes</span></div>` : ''}
+    <div class="row-detail" style="padding-left:8px;border-left:2px solid var(--border)"><span class="label">· Luz</span><span class="val">- ${fmt(luz)}</span></div>
+    <div class="row-detail" style="padding-left:8px;border-left:2px solid var(--border)"><span class="label">· Agua</span><span class="val">- ${fmt(agua)}</span></div>
+    <div class="row-detail" style="padding-left:8px;border-left:2px solid var(--border)"><span class="label">· Internet</span><span class="val">- ${fmt(internet)}</span></div>
+    ${gasImporte > 0 ? `<div class="row-detail" style="padding-left:8px;border-left:2px solid var(--border)"><span class="label">· Gas / calefacción</span><span class="val">- ${fmt(gasImporte)}</span></div>` : ''}
+    <div class="row-detail"><span class="label">Seguro hogar</span><span class="val">- ${fmt(seg)}</span></div>
+    <div class="row-detail"><span class="label">Mantenimiento (reserva)</span><span class="val">- ${fmt(mant)}</span></div>
+    ${gestor > 0 ? `<div class="row-detail"><span class="label">Gestor</span><span class="val">- ${fmt(gestor)}</span></div>` : ''}
+    <div class="row-detail"><span class="label">Publicidad</span><span class="val">- ${fmt(pub)}</span></div>
+    ${impago > 0 ? `<div class="row-detail"><span class="label">Seg. impago</span><span class="val">- ${fmt(segImpago)}</span></div>` : ''}
+    <div class="row-detail total"><span class="label">Margen bruto/mes</span><span class="val" style="color:${margenMes>=0?'var(--success)':'var(--danger)'}">${fmt(margenMes)}</span></div>
+  `;
+
+  document.getElementById('calc-fiscal').innerHTML = `
+    <div class="row-detail"><span class="label">Inversión reforma + comunes</span><span class="val">${fmt(nHab*reforma+comun)}</span></div>
+    <div class="row-detail"><span class="label">ITP contrato (Mod. 600)</span><span class="val">${fmt(itp)}</span></div>
+    <div class="row-detail"><span class="label">Fianza entregada</span><span class="val">${fmt(fianza)} <span class="badge badge-gold">se recupera</span></span></div>
+    <div class="row-detail"><span class="label">Ahorro por carencia (${carencia} mes${carencia!==1?'es':''})</span><span class="val" style="color:var(--success)">- ${fmt(renta*carencia)}</span></div>
+    <div class="row-detail total"><span class="label">Inversión neta a recuperar</span><span class="val">${fmt(inversionNeta)}</span></div>
+    <div class="divider"></div>
+    <div class="row-detail"><span class="label">Retención trimestral Mod. 115</span><span class="val" style="color:var(--info)">${fmt(renta*0.19*3)}</span></div>
+    <div class="row-detail"><span class="label">Pago fraccionado trim. Mod. 130</span><span class="val">${fmt(Math.max(0,margenAnual/4*0.20))}</span></div>
+  `;
+}
+
+// ============== ALERTAS ==============
+function getAlertas() {
+  const alertas = [];
+  const hoy = new Date();
+
+  state.inquilinos.filter(i => i.activo && i.fin).forEach(i => {
+    const dias = Math.round((new Date(i.fin) - hoy) / 86400000);
+    if (dias <= 30 && dias >= 0) alertas.push({ tipo: 'danger', texto: `⚠️ Contrato de ${i.nombre} vence en ${dias} días.` });
+    else if (dias <= 60 && dias >= 0) alertas.push({ tipo: 'warning', texto: `📅 Contrato de ${i.nombre} vence en ${dias} días.` });
+  });
+
+  state.pisos.filter(p => p.activo && p.fin).forEach(p => {
+    const dias = Math.round((new Date(p.fin) - hoy) / 86400000);
+    if (dias <= 60 && dias >= 0) alertas.push({ tipo: 'danger', texto: `🏠 Contrato con propietario de ${p.nombre} vence en ${dias} días.` });
+  });
+
+  const mes = hoy.toISOString().substring(0, 7);
+  state.inquilinos.filter(i => i.activo).forEach(i => {
+    const cobrado = state.cobros.some(c => c.inquilinoId === i.id && c.mes === mes && c.estado === 'cobrado');
+    if (!cobrado && hoy.getDate() >= 8) {
+      const piso = state.pisos.find(p => p.id === i.pisoId);
+      alertas.push({ tipo: 'warning', texto: `💶 Renta de ${i.nombre} (${piso?.nombre}) de ${mes} sin registrar.` });
+    }
+  });
+
+  const trim = Math.ceil((hoy.getMonth() + 1) / 3);
+  const mesCierre = [3,6,9,12][trim-1];
+  const diaActual = hoy.getDate();
+  if (hoy.getMonth() + 1 === mesCierre && diaActual >= 15) {
+    alertas.push({ tipo: 'info', texto: `📋 Fin de trimestre próximo. Recuerda presentar Mod. 115 y Mod. 130 antes del día 20 del mes siguiente.` });
+  }
+
+  if (state.pisos.length === 0) alertas.push({ tipo: 'info', texto: '🏠 Aún no has registrado ningún piso. Empieza añadiendo tu primer inmueble.' });
+
+  return alertas;
+}
+
+function generarAlertas() { }
+
+function renderAlertas() {
+  const alertas = getAlertas();
+  const cont = document.getElementById('alertas-container');
+  if (alertas.length === 0) {
+    cont.innerHTML = '<div class="empty-state"><div class="empty-icon">✅</div><p>Sin alertas activas. Todo en orden.</p></div>';
+  } else {
+    cont.innerHTML = alertas.map(a => `<div class="alert alert-${a.tipo}" style="margin-bottom:8px">${a.texto}</div>`).join('');
+  }
+}
+
+// ============== DOCUMENTOS ==============
+function tabDocs(id, el) {
+  activarTab('docs', id, el);
+  if (id === 'mod115') { setTrimActual('sel-trim-115'); renderMod115(); }
+  if (id === 'mod130') { setTrimActual('sel-trim-130'); renderMod130(); }
+  if (id === 'libro') renderLibro();
+  if (id === 'facturas') renderFacturas();
+  if (id === 'recibos') { cargarDatosCB(); setMesActual(); }
+}
+
+function setTrimActual(selId) {
+  const trim = Math.ceil((new Date().getMonth() + 1) / 3);
+  document.getElementById(selId).value = String(trim);
+}
+
+function setMesActual() {
+  const hoy = new Date().toISOString().substring(0, 7);
+  document.getElementById('recibo-mes').value = hoy;
+}
+
+// DATOS CB
+function guardarDatosCB() {
+  state.cb = {
+    nombre: document.getElementById('cb-nombre').value,
+    nif: document.getElementById('cb-nif').value,
+    domicilio: document.getElementById('cb-domicilio').value,
+    email: document.getElementById('cb-email').value,
+    tel: document.getElementById('cb-tel').value,
+    numRecibo: parseInt(document.getElementById('cb-num-recibo').value) || 1
+  };
+  save();
+  alert('Datos guardados correctamente.');
+}
+
+function cargarDatosCB() {
+  if (!state.cb) return;
+  document.getElementById('cb-nombre').value = state.cb.nombre || '';
+  document.getElementById('cb-nif').value = state.cb.nif || '';
+  document.getElementById('cb-domicilio').value = state.cb.domicilio || '';
+  document.getElementById('cb-email').value = state.cb.email || '';
+  document.getElementById('cb-tel').value = state.cb.tel || '';
+  document.getElementById('cb-num-recibo').value = state.cb.numRecibo || 1;
+}
+
+// RECIBOS
+function generarTodosRecibos() {
+  const mes = document.getElementById('recibo-mes').value;
+  if (!mes) { alert('Selecciona un mes'); return; }
+  const inqActivos = state.inquilinos.filter(i => i.activo);
+  if (inqActivos.length === 0) {
+    document.getElementById('recibos-table').innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:32px">No hay inquilinos activos</td></tr>';
+    return;
+  }
+  let numBase = state.cb?.numRecibo || 1;
+  const filas = inqActivos.map((inq, idx) => {
+    const piso = state.pisos.find(p => p.id === inq.pisoId);
+    const cobro = state.cobros.find(c => c.inquilinoId === inq.id && c.mes === mes);
+    const numRec = `${new Date().getFullYear()}-${String(numBase + idx).padStart(3,'0')}`;
+    const estadoBadge = cobro?.estado === 'cobrado' ? '<span class="badge badge-success">Cobrado</span>' :
+      cobro?.estado === 'pendiente' ? '<span class="badge badge-danger">Pendiente</span>' :
+      '<span class="badge badge-neutral">Sin registro</span>';
+    return `<tr>
+      <td><strong>${numRec}</strong></td>
+      <td>${inq.nombre}</td>
+      <td>${piso?.nombre || '—'} / Hab. ${inq.hab}</td>
+      <td>${mes}</td>
+      <td><strong>${fmt(inq.renta)}</strong></td>
+      <td>${estadoBadge}</td>
+      <td><button class="btn btn-gold btn-sm" onclick="previsualizarRecibo('${inq.id}','${mes}','${numRec}')">Ver recibo</button></td>
+    </tr>`;
+  });
+  document.getElementById('recibos-table').innerHTML = filas.join('');
+}
+
+function previsualizarRecibo(inqId, mes, numRec) {
+  const inq = state.inquilinos.find(i => i.id === inqId);
+  if (!inq) return;
+  const piso = state.pisos.find(p => p.id === inq.pisoId);
+  const cb = state.cb || {};
+  const hoy = new Date().toLocaleDateString('es-ES');
+  const [año, mesNum] = mes.split('-');
+  const nombreMes = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'][parseInt(mesNum)-1];
+
+  const html = `
+  <div class="card">
+    <div class="card-header">
+      <h2>Vista previa del recibo</h2>
+      <button class="btn btn-primary btn-sm" onclick="imprimirRecibo()">Imprimir / Guardar PDF</button>
+    </div>
+    <div class="card-body">
+      <div id="recibo-imprimible" style="max-width:600px;margin:0 auto;font-family:Georgia,serif;border:1px solid #ccc;padding:32px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;border-bottom:2px solid #1B2A4A;padding-bottom:16px">
+          <div>
+            <div style="font-size:22px;font-weight:700;color:#1B2A4A">${cb.nombre || 'Tu CB / Nombre'}</div>
+            <div style="font-size:12px;color:#666;margin-top:4px">NIF: ${cb.nif || '—'}</div>
+            <div style="font-size:12px;color:#666">${cb.domicilio || '—'}</div>
+            <div style="font-size:12px;color:#666">${cb.tel || ''} ${cb.email ? '· ' + cb.email : ''}</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:13px;font-weight:600;color:#1B2A4A">RECIBO Nº ${numRec}</div>
+            <div style="font-size:12px;color:#666;margin-top:4px">Fecha: ${hoy}</div>
+          </div>
+        </div>
+
+        <div style="margin-bottom:20px">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#888;margin-bottom:6px">Datos del inquilino</div>
+          <div style="font-size:14px;font-weight:600">${inq.nombre}</div>
+          <div style="font-size:13px;color:#444">DNI/NIE: ${inq.dni || '—'}</div>
+          <div style="font-size:13px;color:#444">${piso?.direccion || piso?.nombre || '—'} · Habitación ${inq.hab}</div>
+        </div>
+
+        <table style="width:100%;border-collapse:collapse;margin-bottom:20px">
+          <thead>
+            <tr style="background:#1B2A4A;color:#fff">
+              <th style="padding:10px 12px;text-align:left;font-size:12px;font-weight:600">Concepto</th>
+              <th style="padding:10px 12px;text-align:right;font-size:12px;font-weight:600">Importe</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #eee">
+              <td style="padding:12px;font-size:13px">
+                Alquiler habitación ${inq.hab} — ${nombreMes} ${año}<br>
+                <span style="font-size:11px;color:#888">${piso?.nombre || ''} · ${piso?.direccion || ''}</span>
+              </td>
+              <td style="padding:12px;text-align:right;font-size:14px;font-weight:600">${fmt(inq.renta)}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="border-top:2px solid #1B2A4A;padding-top:12px;display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-size:11px;color:#888">Operación exenta de IVA</div>
+            <div style="font-size:11px;color:#888">Art. 20.Uno.23º Ley 37/1992 (LIVA)</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:11px;color:#888">TOTAL A PAGAR</div>
+            <div style="font-size:24px;font-weight:700;color:#1B2A4A">${fmt(inq.renta)}</div>
+          </div>
+        </div>
+
+        <div style="margin-top:24px;padding-top:16px;border-top:1px solid #eee;font-size:11px;color:#aaa;text-align:center">
+          Arrendamiento de habitación en régimen de Código Civil. Contrato vigente del ${inq.inicio || '—'} al ${inq.fin || 'indefinido'}.
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  const prev = document.getElementById('recibo-preview');
+  prev.style.display = 'block';
+  prev.innerHTML = html;
+  prev.scrollIntoView({ behavior: 'smooth' });
+}
+
+function imprimirRecibo() {
+  const contenido = document.getElementById('recibo-imprimible').innerHTML;
+  const win = window.open('', '_blank');
+  win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Recibo</title>
+  <style>body{font-family:Georgia,serif;padding:40px;max-width:700px;margin:0 auto}@media print{body{padding:20px}}</style>
+  </head><body>${contenido}<script>window.onload=function(){window.print();}<\/script></body></html>`);
+  win.document.close();
+}
+
+// MODELO 115
+function renderMod115() {
+  const trim = parseInt(document.getElementById('sel-trim-115').value);
+  const año = new Date().getFullYear();
+  const mesesTrim = [[1,2,3],[4,5,6],[7,8,9],[10,11,12]][trim-1];
+  const pisosParticulares = state.pisos.filter(p => p.activo && p.propTipo === 'particular');
+
+  if (pisosParticulares.length === 0) {
+    document.getElementById('mod115-body').innerHTML = '<div class="alert alert-info">No tienes pisos con propietarios particulares. Las retenciones solo aplican a propietarios personas físicas.</div>';
+    document.getElementById('mod115-detalle').innerHTML = '';
+    return;
+  }
+
+  const plazoMes = [null,'Abril','Julio','Octubre','Enero'][trim];
+  const totalBaseTrim = pisosParticulares.reduce((s,p) => s + p.renta * 3, 0);
+  const totalRetencion = pisosParticulares.reduce((s,p) => s + p.renta * 0.19 * 3, 0);
+
+  document.getElementById('mod115-body').innerHTML = `
+    <div class="alert alert-success" style="margin-bottom:16px">Presentación antes del 20 de ${plazoMes} de ${trim === 4 ? año+1 : año} · Meses: ${mesesTrim.map(m=>['','Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'][m]).join(', ')}</div>
+    <div class="card-grid grid-3" style="margin-bottom:20px">
+      <div class="metric-card"><div class="metric-label">Casilla 01 — Nº de perceptores</div><div class="metric-value">${pisosParticulares.length}</div><div class="metric-sub">Propietarios con retención</div></div>
+      <div class="metric-card"><div class="metric-label">Casilla 02 — Base de retenciones</div><div class="metric-value" style="color:var(--info)">${fmt(totalBaseTrim)}</div><div class="metric-sub">Suma rentas × 3 meses</div></div>
+      <div class="metric-card gold"><div class="metric-label">Casilla 03 — Retenciones ingresadas</div><div class="metric-value">${fmt(totalRetencion)}</div><div class="metric-sub">Lo que pagas a Hacienda</div></div>
+    </div>
+    <div class="alert alert-info">
+      <strong>Cómo rellenar el Modelo 115 en la AEAT:</strong><br>
+      Casilla 01: <strong>${pisosParticulares.length}</strong> &nbsp;|&nbsp;
+      Casilla 02: <strong>${Math.round(totalBaseTrim).toLocaleString('es-ES')} €</strong> &nbsp;|&nbsp;
+      Casilla 03: <strong>${Math.round(totalRetencion).toLocaleString('es-ES')} €</strong> &nbsp;|&nbsp;
+      Tipo aplicado: <strong>19%</strong>
+    </div>
+  `;
+
+  document.getElementById('mod115-detalle').innerHTML = `
+    <div class="card">
+      <div class="card-header"><h2>Desglose por propietario</h2></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Piso</th><th>Propietario</th><th>Renta/mes</th><th>Meses</th><th>Base total</th><th>Retención 19%</th><th>Neto transferido</th></tr></thead>
+          <tbody>${pisosParticulares.map(p => `<tr>
+            <td>${p.nombre}</td>
+            <td>${p.propNombre}</td>
+            <td>${fmt(p.renta)}</td>
+            <td>3</td>
+            <td>${fmt(p.renta * 3)}</td>
+            <td style="color:var(--info);font-weight:600">${fmt(p.renta * 0.19 * 3)}</td>
+            <td>${fmt(p.renta * 0.81 * 3)}</td>
+          </tr>`).join('')}</tbody>
+          <tfoot><tr style="background:var(--cream)">
+            <td colspan="4" style="font-weight:600;padding:10px 14px">TOTAL</td>
+            <td style="font-weight:600;padding:10px 14px">${fmt(totalBaseTrim)}</td>
+            <td style="font-weight:700;color:var(--info);padding:10px 14px">${fmt(totalRetencion)}</td>
+            <td style="padding:10px 14px">${fmt(totalBaseTrim - totalRetencion)}</td>
+          </tr></tfoot>
+        </table>
+      </div>
+    </div>`;
+}
+
+// MODELO 130
+function renderMod130() {
+  const trim = parseInt(document.getElementById('sel-trim-130').value);
+  const año = new Date().getFullYear();
+  const mesesTrim = [[1,2,3],[4,5,6],[7,8,9],[10,11,12]][trim-1];
+  const mesesStr = mesesTrim.map(m => `${año}-${String(m).padStart(2,'0')}`);
+
+  const ingresosTrim = state.cobros
+    .filter(c => mesesStr.includes(c.mes) && c.estado === 'cobrado')
+    .reduce((s,c) => s + c.importe, 0);
+
+  const rentas = state.pisos.filter(p=>p.activo).reduce((s,p) => s + p.renta * 3, 0);
+  const gastosTrim = state.gastos
+    .filter(g => g.deducible === 'si' && mesesStr.some(m => g.fecha && g.fecha.startsWith(m)))
+    .reduce((s,g) => s + g.importe, 0);
+
+  const beneficioNeto = ingresosTrim - rentas - gastosTrim;
+  const pagoFraccionado = Math.max(0, beneficioNeto * 0.20);
+  const plazoMes = [null,'Abril','Julio','Octubre','Enero'][trim];
+
+  document.getElementById('mod130-body').innerHTML = `
+    <div class="alert alert-success" style="margin-bottom:16px">Presentación antes del 20 de ${plazoMes} de ${trim === 4 ? año+1 : año}</div>
+    <div class="card-grid grid-4" style="margin-bottom:20px">
+      <div class="metric-card success"><div class="metric-label">Ingresos trimestre</div><div class="metric-value">${fmt(ingresosTrim)}</div><div class="metric-sub">Cobros registrados</div></div>
+      <div class="metric-card"><div class="metric-label">Gastos deducibles</div><div class="metric-value danger">${fmt(rentas + gastosTrim)}</div><div class="metric-sub">Rentas + operativos</div></div>
+      <div class="metric-card ${beneficioNeto >= 0 ? 'success' : ''}"><div class="metric-label">Beneficio neto</div><div class="metric-value">${fmt(beneficioNeto)}</div><div class="metric-sub">Casilla base</div></div>
+      <div class="metric-card gold"><div class="metric-label">Pago fraccionado (20%)</div><div class="metric-value">${fmt(pagoFraccionado)}</div><div class="metric-sub">A ingresar a Hacienda</div></div>
+    </div>
+    <div class="alert alert-info">
+      <strong>Cómo rellenar el Modelo 130 en la AEAT:</strong><br>
+      Casilla 01 (ingresos): <strong>${Math.round(ingresosTrim).toLocaleString('es-ES')} €</strong> &nbsp;|&nbsp;
+      Casilla 02 (gastos deducibles): <strong>${Math.round(rentas+gastosTrim).toLocaleString('es-ES')} €</strong> &nbsp;|&nbsp;
+      Casilla 03 (rendimiento neto): <strong>${Math.round(beneficioNeto).toLocaleString('es-ES')} €</strong> &nbsp;|&nbsp;
+      Casilla 04 (20%): <strong>${Math.round(pagoFraccionado).toLocaleString('es-ES')} €</strong>
+    </div>
+    <div style="margin-top:16px">
+      <h3 style="margin-bottom:10px;color:var(--navy)">Desglose de gastos deducibles del trimestre</h3>
+      <div class="card"><div class="card-body">
+        <div class="row-detail"><span class="label">Rentas pagadas a propietarios (3 meses)</span><span class="val">- ${fmt(rentas)}</span></div>
+        ${state.gastos.filter(g => g.deducible==='si' && mesesStr.some(m=>g.fecha&&g.fecha.startsWith(m))).map(g =>
+          `<div class="row-detail"><span class="label">${g.concepto} <span class="badge badge-neutral">${g.categoria}</span></span><span class="val">- ${fmt(g.importe)}</span></div>`
+        ).join('') || '<div class="row-detail"><span class="label" style="color:var(--text-muted)">Sin gastos operativos registrados este trimestre</span><span class="val">—</span></div>'}
+        <div class="row-detail total"><span class="label">Total gastos deducibles</span><span class="val">${fmt(rentas + gastosTrim)}</span></div>
+      </div></div>
+    </div>`;
+}
+
+// LIBRO INGRESOS/GASTOS
+function renderLibro() {
+  const sel = document.getElementById('libro-año');
+  const añoActual = new Date().getFullYear();
+  sel.innerHTML = '';
+  for (let a = añoActual; a >= añoActual - 3; a--) {
+    const o = document.createElement('option');
+    o.value = a; o.textContent = a;
+    sel.appendChild(o);
+  }
+  const año = parseInt(sel.value) || añoActual;
+
+  const movimientos = [];
+
+  // Cobros
+  state.cobros.filter(c => c.mes && c.mes.startsWith(String(año)) && c.estado === 'cobrado').forEach(c => {
+    const inq = state.inquilinos.find(i => i.id === c.inquilinoId);
+    const piso = inq ? state.pisos.find(p => p.id === inq.pisoId) : null;
+    movimientos.push({ fecha: c.fecha || c.mes, tipo: 'Ingreso', concepto: `Alquiler hab. ${inq?.hab || '?'} — ${inq?.nombre || '?'}`, piso: piso?.nombre || '—', ingreso: c.importe, gasto: 0, deducible: '—' });
+  });
+
+  // Rentas pagadas (estimadas por meses activos)
+  state.pisos.filter(p => p.activo).forEach(p => {
+    for (let m = 1; m <= 12; m++) {
+      const mesStr = `${año}-${String(m).padStart(2,'0')}`;
+      if (p.inicio && mesStr < p.inicio.substring(0,7)) return;
+      if (p.fin && mesStr > p.fin.substring(0,7)) return;
+      movimientos.push({ fecha: mesStr + '-01', tipo: 'Gasto', concepto: `Renta propietario — ${p.propNombre}`, piso: p.nombre, ingreso: 0, gasto: p.renta, deducible: 'Sí' });
+    }
+  });
+
+  // Gastos
+  state.gastos.filter(g => g.fecha && g.fecha.startsWith(String(año))).forEach(g => {
+    const piso = state.pisos.find(p => p.id === g.pisoId);
+    movimientos.push({ fecha: g.fecha, tipo: 'Gasto', concepto: g.concepto, piso: piso?.nombre || 'General', ingreso: 0, gasto: g.importe, deducible: g.deducible === 'si' ? 'Sí' : 'No' });
+  });
+
+  movimientos.sort((a,b) => a.fecha.localeCompare(b.fecha));
+
+  const totalIngresos = movimientos.reduce((s,m) => s + m.ingreso, 0);
+  const totalGastos = movimientos.reduce((s,m) => s + m.gasto, 0);
+  const resultado = totalIngresos - totalGastos;
+
+  document.getElementById('libro-resumen').innerHTML = `
+    <div class="card-grid grid-3" style="padding:20px;border-bottom:1px solid var(--border)">
+      <div class="metric-card success"><div class="metric-label">Total ingresos ${año}</div><div class="metric-value">${fmt(totalIngresos)}</div></div>
+      <div class="metric-card"><div class="metric-label">Total gastos ${año}</div><div class="metric-value danger">${fmt(totalGastos)}</div></div>
+      <div class="metric-card ${resultado>=0?'success':''}"><div class="metric-label">Resultado ${año}</div><div class="metric-value">${fmt(resultado)}</div></div>
+    </div>`;
+
+  const tbody = document.getElementById('libro-table');
+  if (movimientos.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:32px">Sin movimientos en ' + año + '</td></tr>';
+    return;
+  }
+  tbody.innerHTML = movimientos.map(m => `<tr>
+    <td>${m.fecha}</td>
+    <td><span class="badge ${m.tipo === 'Ingreso' ? 'badge-success' : 'badge-danger'}">${m.tipo}</span></td>
+    <td>${m.concepto}</td>
+    <td>${m.piso}</td>
+    <td style="color:var(--success);font-weight:${m.ingreso>0?'600':'400'}">${m.ingreso > 0 ? fmt(m.ingreso) : '—'}</td>
+    <td style="color:var(--danger);font-weight:${m.gasto>0?'600':'400'}">${m.gasto > 0 ? fmt(m.gasto) : '—'}</td>
+    <td>${m.deducible !== '—' ? (m.deducible === 'Sí' ? '<span class="badge badge-success">Sí</span>' : '<span class="badge badge-neutral">No</span>') : '—'}</td>
+  </tr>`).join('');
+}
+
+function exportarCSV() {
+  const año = parseInt(document.getElementById('libro-año').value) || new Date().getFullYear();
+  const movimientos = [];
+
+  state.cobros.filter(c => c.mes && c.mes.startsWith(String(año)) && c.estado === 'cobrado').forEach(c => {
+    const inq = state.inquilinos.find(i => i.id === c.inquilinoId);
+    const piso = inq ? state.pisos.find(p => p.id === inq.pisoId) : null;
+    movimientos.push([c.fecha || c.mes, 'Ingreso', `Alquiler hab. ${inq?.hab || '?'} - ${inq?.nombre || '?'}`, piso?.nombre || '', c.importe, '', 'N/A']);
+  });
+
+  state.pisos.filter(p => p.activo).forEach(p => {
+    for (let m = 1; m <= 12; m++) {
+      const mesStr = `${año}-${String(m).padStart(2,'0')}`;
+      if (p.inicio && mesStr < p.inicio.substring(0,7)) continue;
+      if (p.fin && mesStr > p.fin.substring(0,7)) continue;
+      movimientos.push([mesStr + '-01', 'Gasto', `Renta propietario - ${p.propNombre}`, p.nombre, '', p.renta, 'Si']);
+    }
+  });
+
+  state.gastos.filter(g => g.fecha && g.fecha.startsWith(String(año))).forEach(g => {
+    const piso = state.pisos.find(p => p.id === g.pisoId);
+    movimientos.push([g.fecha, 'Gasto', g.concepto, piso?.nombre || 'General', '', g.importe, g.deducible === 'si' ? 'Si' : 'No']);
+  });
+
+  movimientos.sort((a,b) => String(a[0]).localeCompare(String(b[0])));
+
+  const cabecera = ['Fecha','Tipo','Concepto','Piso','Ingreso (€)','Gasto (€)','Deducible'];
+  const csv = [cabecera, ...movimientos].map(r => r.map(v => `"${v}"`).join(',')).join('\n');
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `libro-rtr-${año}.csv`;
+  a.click(); URL.revokeObjectURL(url);
+}
+
+// FACTURAS RECIBIDAS
+function abrirModalFactura() {
+  const sel = document.getElementById('mf-piso');
+  sel.innerHTML = '<option value="">Selecciona...</option>';
+  state.pisos.filter(p => p.propTipo === 'empresa').forEach(p => {
+    const o = document.createElement('option'); o.value = p.id; o.textContent = p.nombre + ' — ' + p.propNombre;
+    sel.appendChild(o);
+  });
+  document.getElementById('mf-fecha').value = new Date().toISOString().split('T')[0];
+  document.getElementById('mf-mes').value = new Date().toISOString().substring(0,7);
+  abrirModal('modal-factura');
+}
+
+function calcFactura() {
+  const base = parseFloat(document.getElementById('mf-base').value) || 0;
+  const iva = base * 0.21;
+  document.getElementById('mf-iva').value = Math.round(iva * 100) / 100;
+  document.getElementById('mf-total').value = Math.round((base + iva) * 100) / 100;
+}
+
+function guardarFactura() {
+  const base = parseFloat(document.getElementById('mf-base').value) || 0;
+  if (!base) { alert('Introduce la base imponible'); return; }
+  if (!state.facturas) state.facturas = [];
+  const fact = {
+    id: 'f' + Date.now(),
+    num: document.getElementById('mf-num').value,
+    fecha: document.getElementById('mf-fecha').value,
+    pisoId: document.getElementById('mf-piso').value,
+    mes: document.getElementById('mf-mes').value,
+    base,
+    iva: base * 0.21,
+    total: base * 1.21
+  };
+  state.facturas.push(fact);
+  save();
+  cerrarModal('modal-factura');
+  renderFacturas();
+}
+
+function renderFacturas() {
+  if (!state.facturas) state.facturas = [];
+  const pisosEmpresa = state.pisos.filter(p => p.propTipo === 'empresa');
+  const tbody = document.getElementById('facturas-table');
+  if (state.facturas.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:32px">' +
+      (pisosEmpresa.length === 0 ? 'No tienes propietarios empresa registrados.' : 'Sin facturas registradas. Añade la primera factura.') +
+      '</td></tr>';
+    return;
+  }
+  tbody.innerHTML = [...state.facturas].sort((a,b) => b.fecha.localeCompare(a.fecha)).map(f => {
+    const piso = state.pisos.find(p => p.id === f.pisoId);
+    return `<tr>
+      <td>${f.num || '—'}</td>
+      <td>${f.fecha}</td>
+      <td>${piso?.propNombre || '—'}</td>
+      <td>${fmt(f.base)}</td>
+      <td style="color:var(--danger)">${fmt(f.iva)} <span class="badge badge-danger">no recuperable</span></td>
+      <td><strong>${fmt(f.total)}</strong></td>
+      <td>${piso?.nombre || '—'}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ============== SERVIDOR / SYNC ===============
+const API = 'http://localhost:8000';
+let _servidorOk = false;
+let _busquedaData = [];
+let _filtroEstado = 'todos';
+
+async function checkServidor() {
+  try {
+    const r = await fetch(API + '/api/ping', { signal: AbortSignal.timeout(2000) });
+    _servidorOk = r.ok;
+  } catch { _servidorOk = false; }
+  const dot = document.getElementById('server-dot');
+  const txt = document.getElementById('server-status-txt');
+  if (dot && txt) {
+    dot.className = 'server-dot ' + (_servidorOk ? 'ok' : 'off');
+    txt.textContent = _servidorOk
+      ? 'Servidor activo — scraping automático a las 08:00 cada día'
+      : 'Servidor no detectado. Ejecuta python app.py para activarlo.';
+  }
+  if (_servidorOk) {
+    const banner = document.getElementById('busqueda-server-banner');
+    if (banner) banner.className = 'alert alert-success';
+    sincronizarConServidor();
+  }
+}
+
+async function sincronizarConServidor() {
+  if (!_servidorOk) return;
+  try {
+    // Subir estado local al servidor (backup)
+    await fetch(API + '/api/estado', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(state),
+      signal: AbortSignal.timeout(3000)
+    });
+  } catch { /* silencioso */ }
+}
+
+// Override save() para también sincronizar con servidor
+const _saveorig = save;
+function save() {
+  _saveorig();
+  if (_servidorOk) sincronizarConServidor();
+}
+
+async function cargarBusqueda() {
+  if (!_servidorOk) { await checkServidor(); }
+  if (!_servidorOk) {
+    document.getElementById('busqueda-container').innerHTML =
+      '<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">⚠️</div><p>Servidor no activo. Ejecuta <strong>run.bat</strong> o <code>python app.py</code> en la carpeta del proyecto.</p></div>';
+    return;
+  }
+  try {
+    const r = await fetch(API + '/api/busqueda');
+    const data = await r.json();
+    _busquedaData = data.pisos || [];
+    actualizarStatsBusqueda(data.stats || {});
+    renderBusquedaFiltrada();
+    actualizarBadgeNav(data.stats?.viables || 0);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+function actualizarStatsBusqueda(stats) {
+  const el = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
+  el('bs-total', stats.total ?? '—');
+  el('bs-viables', stats.viables ?? '—');
+  el('bs-interesantes', stats.interesantes ?? '—');
+  if (stats.ultima_actualizacion) {
+    const d = new Date(stats.ultima_actualizacion);
+    el('bs-ultima', d.toLocaleDateString('es-ES') + ' ' + d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }));
+  } else {
+    el('bs-ultima', 'Nunca');
+  }
+}
+
+function actualizarBadgeNav(n) {
+  const badge = document.getElementById('nav-busqueda-badge');
+  if (!badge) return;
+  if (n > 0) { badge.style.display = ''; badge.textContent = n; }
+  else badge.style.display = 'none';
+}
+
+function filtrarBusqueda(estado, el) {
+  _filtroEstado = estado;
+  document.querySelectorAll('#view-busqueda .pill-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderBusquedaFiltrada();
+}
+
+function renderBusquedaFiltrada() {
+  const fuente = document.getElementById('filtro-fuente')?.value || '';
+  const hab = parseInt(document.getElementById('filtro-hab')?.value || '0');
+  const orden = document.getElementById('filtro-orden')?.value || 'score';
+
+  let lista = [..._busquedaData];
+
+  if (_filtroEstado === 'viable')      lista = lista.filter(p => p.viable);
+  else if (_filtroEstado !== 'todos')  lista = lista.filter(p => p.estado === _filtroEstado);
+
+  if (fuente) lista = lista.filter(p => p.fuente === fuente);
+  if (hab === 3) lista = lista.filter(p => p.nhab === 3);
+  else if (hab === 4) lista = lista.filter(p => p.nhab === 4);
+  else if (hab === 5) lista = lista.filter(p => p.nhab >= 5);
+
+  if (orden === 'score')  lista.sort((a, b) => b.score_rtr - a.score_rtr);
+  if (orden === 'margen') lista.sort((a, b) => b.margen_estimado - a.margen_estimado);
+  if (orden === 'precio') lista.sort((a, b) => a.precio - b.precio);
+
+  const cont = document.getElementById('busqueda-container');
+  if (!cont) return;
+  if (lista.length === 0) {
+    cont.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">🔍</div><p>Sin resultados con estos filtros.</p></div>';
+    return;
+  }
+  cont.innerHTML = lista.map(p => renderTarjetaBusqueda(p)).join('');
+}
+
+function renderTarjetaBusqueda(p) {
+  const scoreColor = p.score_rtr >= 60 ? 'var(--success)' : p.score_rtr >= 30 ? 'var(--gold-dark)' : 'var(--danger)';
+  const estadoBadge = {
+    nuevo: '<span class="badge badge-info">Nuevo</span>',
+    interesante: '<span class="badge badge-gold">⭐ Interesante</span>',
+    descartado: '<span class="badge badge-neutral">Descartado</span>',
+    añadido: '<span class="badge badge-success">Añadido</span>',
+  }[p.estado] || '';
+
+  const fuenteColor = { Idealista: '#6c3dd1', 'pisos.com': '#e74c3c', Fotocasa: '#f39c12' }[p.fuente] || '#888';
+
+  return `<div class="busqueda-card ${p.viable ? 'viable' : 'no-viable'}" id="bc-${p.id}">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+      <div style="flex:1;min-width:0">
+        <div style="font-size:12px;font-weight:600;color:${fuenteColor};margin-bottom:3px">${p.fuente}</div>
+        <div style="font-size:13px;font-weight:600;color:var(--navy);line-height:1.3;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">${p.titulo}</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:3px">${p.zona || '—'}</div>
+      </div>
+      <div style="text-align:right;margin-left:10px;flex-shrink:0">
+        <div style="font-size:18px;font-weight:700;color:var(--navy)">${Math.round(p.precio).toLocaleString('es-ES')}€</div>
+        <div style="font-size:10px;color:var(--text-muted)">al mes</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap">
+      <span class="badge badge-neutral">${p.nhab} hab.</span>
+      ${p.m2 ? `<span class="badge badge-neutral">${p.m2} m²</span>` : ''}
+      ${estadoBadge}
+    </div>
+
+    <div style="background:var(--cream);border-radius:var(--radius-sm);padding:10px;margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+        <span style="color:var(--text-secondary)">Margen estimado</span>
+        <span style="font-weight:600;color:${p.margen_estimado > 0 ? 'var(--success)' : 'var(--danger)'}">${Math.round(p.margen_estimado).toLocaleString('es-ES')}€/mes</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px">
+        <span style="color:var(--text-secondary)">ROI anual estimado</span>
+        <span style="font-weight:600">${p.roi_anual.toFixed(1)}%</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;align-items:center">
+        <span style="color:var(--text-muted)">Score RTR</span>
+        <span style="font-weight:700;color:${scoreColor}">${Math.round(p.score_rtr)}/100</span>
+      </div>
+      <div class="score-bar" style="margin-top:4px"><div class="score-fill" style="width:${p.score_rtr}%"></div></div>
+    </div>
+
+    ${p.descripcion ? `<p style="font-size:11px;color:var(--text-muted);line-height:1.5;margin-bottom:10px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">${p.descripcion}</p>` : ''}
+
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <a href="${p.url}" target="_blank" class="btn btn-ghost btn-sm" style="flex:1;justify-content:center">Ver anuncio ↗</a>
+      ${p.estado !== 'interesante' ? `<button class="btn btn-gold btn-sm" onclick="marcarPiso('${p.id}','interesante')">⭐ Interesante</button>` : ''}
+      ${p.estado !== 'descartado' ? `<button class="btn btn-ghost btn-sm" onclick="marcarPiso('${p.id}','descartado')" style="color:var(--text-muted)">✕</button>` : ''}
+    </div>
+  </div>`;
+}
+
+async function marcarPiso(id, estado) {
+  if (!_servidorOk) { alert('Servidor no activo.'); return; }
+  try {
+    await fetch(`${API}/api/busqueda/${id}/estado`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ estado })
+    });
+    const p = _busquedaData.find(x => x.id === id);
+    if (p) p.estado = estado;
+    renderBusquedaFiltrada();
+  } catch (e) { alert('Error al actualizar estado.'); }
+}
+
+async function lanzarScraping() {
+  if (!_servidorOk) { alert('El servidor no está activo. Ejecuta run.bat primero.'); return; }
+  const btn = document.getElementById('btn-scrapear');
+  btn.textContent = 'Buscando...';
+  btn.disabled = true;
+  try {
+    const r = await fetch(API + '/api/busqueda/scrapear', { method: 'POST' });
+    const data = await r.json();
+    alert(data.mensaje || 'Scraping iniciado. Espera ~30 segundos y pulsa "Actualizar".');
+  } catch { alert('Error al lanzar el scraping.'); }
+  setTimeout(() => { btn.textContent = 'Buscar ahora'; btn.disabled = false; cargarBusqueda(); }, 35000);
+}
+
+function toggleConfigScraper() {
+  const body = document.getElementById('config-scraper-body');
+  const icon = document.getElementById('config-toggle-icon');
+  if (body.style.display === 'none') { body.style.display = 'block'; icon.textContent = '▲'; }
+  else { body.style.display = 'none'; icon.textContent = '▼'; }
+}
+
+async function guardarConfigScraper() {
+  if (!_servidorOk) { alert('Servidor no activo.'); return; }
+  const cfg = {
+    ciudad: document.getElementById('cfg-ciudad').value,
+    idealista_api_key: document.getElementById('cfg-idealista-key').value,
+    idealista_api_secret: document.getElementById('cfg-idealista-secret').value,
+    precio_hab_estimado: document.getElementById('cfg-precio-hab').value,
+    max_precio_alquiler: document.getElementById('cfg-max-precio').value,
+  };
+  try {
+    await fetch(API + '/api/config', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(cfg)
+    });
+    const msg = document.getElementById('cfg-saved-msg');
+    msg.style.display = '';
+    setTimeout(() => msg.style.display = 'none', 3000);
+  } catch { alert('Error al guardar config.'); }
+}
+
+async function cargarConfigScraper() {
+  if (!_servidorOk) return;
+  try {
+    const r = await fetch(API + '/api/config');
+    const cfg = await r.json();
+    if (cfg.ciudad) document.getElementById('cfg-ciudad').value = cfg.ciudad;
+    if (cfg.precio_hab_estimado) document.getElementById('cfg-precio-hab').value = cfg.precio_hab_estimado;
+    if (cfg.max_precio_alquiler) document.getElementById('cfg-max-precio').value = cfg.max_precio_alquiler;
+  } catch { /* silencioso */ }
+}
+
+// ============== BACKUP / RESTORE ==============
+function exportarBackup() {
+  const fecha = new Date().toISOString().split('T')[0];
+  const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `rtr-backup-${fecha}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importarBackup(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const datos = JSON.parse(e.target.result);
+      if (!datos.pisos || !datos.inquilinos) {
+        alert('El archivo no parece un backup válido de RTR Manager.');
+        return;
+      }
+      if (!confirm(`¿Restaurar backup?\nEsto REEMPLAZARÁ todos tus datos actuales con los del archivo "${file.name}".\n\nPisos: ${datos.pisos.length} · Inquilinos: ${datos.inquilinos.length} · Cobros: ${(datos.cobros||[]).length}`)) return;
+      state = datos;
+      save();
+      renderDashboard();
+      alert('Backup restaurado correctamente.');
+    } catch(err) {
+      alert('Error al leer el archivo. Asegúrate de que es un backup válido.');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+// ============== INIT ==============
+renderDashboard();
+calcRTR();
+// Comprobar servidor en segundo plano al arrancar
+setTimeout(() => checkServidor().then(() => {
+  if (_servidorOk) {
+    fetch(API + '/api/busqueda/stats').then(r => r.json()).then(s => actualizarBadgeNav(s.viables || 0)).catch(() => {});
+  }
+}), 1000);
+
+// Cerrar modal al hacer click fuera
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open'); });
+});
+</script>
+</body>
+</html>

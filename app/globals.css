@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-white text-navy font-sans font-[350];
+  }
+
+  h1 {
+    @apply font-serif font-light tracking-tight;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  }
+
+  h2 {
+    @apply font-serif font-light tracking-tight;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+
+  h3 {
+    @apply font-serif font-normal;
+  }
+
+  .serif-italic {
+    @apply font-serif font-light italic tracking-tight;
+  }
+}
+
+@layer components {
+  /* ── Botones ──────────────────────────────────────────────── */
+  .btn-cta {
+    @apply inline-flex items-center justify-center gap-2
+           bg-cta hover:bg-cta-hover text-white
+           font-sans font-medium text-[0.875rem] tracking-wide
+           px-7 py-3.5 rounded-xl transition-all duration-200
+           shadow-sm hover:shadow-md hover:-translate-y-px active:translate-y-0;
+    letter-spacing: 0.03em;
+  }
+
+  .btn-outline-white {
+    @apply inline-flex items-center justify-center gap-2
+           border border-white/30 text-white
+           hover:bg-white hover:text-navy
+           font-sans font-medium text-[0.875rem]
+           px-7 py-3.5 rounded-xl transition-all duration-200
+           hover:-translate-y-px active:translate-y-0;
+    letter-spacing: 0.03em;
+  }
+
+  .btn-outline-navy {
+    @apply inline-flex items-center justify-center gap-2
+           border border-navy/20 text-navy
+           hover:bg-navy hover:text-white hover:border-navy
+           font-sans font-medium text-[0.875rem]
+           px-7 py-3.5 rounded-xl transition-all duration-200
+           hover:-translate-y-px active:translate-y-0;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── Label de sección ─────────────────────────────────────── */
+  .section-label {
+    @apply inline-block text-cta font-sans font-medium text-[0.7rem]
+           tracking-widest uppercase mb-4;
+  }
+
+  /* ── Formulario ───────────────────────────────────────────── */
+  .form-input {
+    @apply w-full px-4 py-3 rounded-xl border border-gray-200 bg-white
+           text-navy placeholder-gray-300 font-sans text-sm font-[350]
+           focus:outline-none focus:ring-2 focus:ring-cta/20 focus:border-cta/40
+           transition-all;
+  }
+
+  .form-label {
+    @apply block text-[0.72rem] font-sans font-medium tracking-wider
+           text-navy/50 uppercase mb-1.5;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── Glassmorphism ───────────────────────────────────────── */
+  .glass-card {
+    @apply bg-white/75 backdrop-blur-md border border-navy/10;
+    box-shadow: 0 0 0 1px rgba(18,52,98,0.06), 0 4px 20px rgba(18,52,98,0.08);
+  }
+  .glass-card:hover {
+    box-shadow: 0 0 0 1px rgba(18,52,98,0.12), 0 8px 28px rgba(18,52,98,0.12);
+  }
+  .glass-card-dark {
+    @apply bg-white/10 backdrop-blur-md border border-white/10;
+  }
+
+  /* ── Tipografía hero ─────────────────────────────────────── */
+  .h1-hero {
+    @apply font-serif font-light leading-[1.08] tracking-tight;
+    /* 1.9rem en móvil pequeño → 4.5rem en escritorio */
+    font-size: clamp(1.9rem, 5vw + 0.5rem, 4.5rem);
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "swsh" 1;
+  }
+
+  .subtitle-italic {
+    @apply font-serif font-light italic text-white/80 leading-relaxed;
+    /* 1rem en móvil → 1.25rem en escritorio */
+    font-size: clamp(1rem, 1.5vw + 0.4rem, 1.3rem);
+    letter-spacing: 0.01em;
+  }
+}
+
+/* ── Animaciones ticker / reviews ──────────────────────────── */
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes scrollLeft {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes scrollRight {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker 28s linear infinite;
+}
+.ticker-track:hover { animation-play-state: paused; }
+.reviews-left  { display: flex; width: max-content; animation: scrollLeft  45s linear infinite; }
+.reviews-right { display: flex; width: max-content; animation: scrollRight 45s linear infinite; }
+.reviews-left:hover,
+.reviews-right:hover { animation-play-state: paused; }
+
+/* ── Scrollbar minimalista ──────────────────────────────────── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { @apply bg-navy/15 rounded-full; }
+
+/* ── Selección ───────────────────────────────────────────────── */
+::selection {
+  background-color: #12346230;
+  color: #0c2449;
+}
+
+/* ── Focus visible ───────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #123462;
+  outline-offset: 2px;
+}
