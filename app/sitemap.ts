@@ -64,12 +64,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
 
-    // ── Landings de captación (embudos de ads) ────────────────────
-    // Nota: excluidas de sitemap principal para evitar indexación de páginas de pago
-    // Descomentar si se decide indexarlas:
-    // { url: `${BASE}/calculadora-gastos`,  changeFrequency: 'monthly', priority: 0.5 },
-    // { url: `${BASE}/alquiler-corporativo`, changeFrequency: 'monthly', priority: 0.5 },
-    // { url: `${BASE}/normativa-vivienda`,  changeFrequency: 'monthly', priority: 0.5 },
+    // ── Landings de captación ─────────────────────────────────────
+    {
+      url: `${BASE}/calculadora-gastos`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE}/alquiler-corporativo`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE}/normativa-vivienda`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
 
     // ── Blog ─────────────────────────────────────────────────────
     {
