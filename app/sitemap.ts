@@ -32,37 +32,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
 
-    // ── Catálogos inquilinos (volumen de búsqueda) ────────────────
-    {
-      url: `${BASE}/habitaciones/zaragoza`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.95,
-    },
-    {
-      url: `${BASE}/habitaciones/zaragoza/actur`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.75,
-    },
-    {
-      url: `${BASE}/habitaciones/zaragoza/delicias`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.75,
-    },
-    {
-      url: `${BASE}/habitaciones/zaragoza/universidad`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.75,
-    },
-    {
-      url: `${BASE}/habitaciones/logrono`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
 
     // ── Blog ─────────────────────────────────────────────────────
     {
