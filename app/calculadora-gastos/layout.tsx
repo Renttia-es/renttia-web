@@ -1,4 +1,9 @@
-// Landing de conversión pura — sin navbar ni footer globales
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+}
+
 export default function CalculadoraGastosLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }

@@ -64,26 +64,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
 
-    // ── Landings de captación ─────────────────────────────────────
-    {
-      url: `${BASE}/calculadora-gastos`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE}/alquiler-corporativo`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${BASE}/normativa-vivienda`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-
     // ── Blog ─────────────────────────────────────────────────────
     {
       url: `${BASE}/blog`,
