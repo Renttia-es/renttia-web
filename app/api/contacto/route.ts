@@ -2,8 +2,68 @@ import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 import { Resend } from 'resend'
 import { google } from 'googleapis'
+import { createHash, randomUUID } from 'crypto'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
+
+/* ─── META CONVERSIONS API ────────────────────────────────────────────────── */
+
+function sha256(value: string): string {
+  return createHash('sha256').update(value.trim().toLowerCase()).digest('hex')
+}
+
+async function sendMetaEvent(
+  eventName: string,
+  userData: { email?: string; phone?: string; nombre?: string; ciudad?: string },
+  req: NextRequest,
+  eventId: string
+): Promise<void> {
+  const token   = process.env.META_CAPI_TOKEN
+  const pixelId = process.env.META_PIXEL_ID
+
+  if (!token || !pixelId) {
+    console.warn('Meta CAPI: faltan variables de entorno')
+    return
+  }
+
+  const ip        = req.headers.get('x-forwarded-for')?.split(',')[0] || req.headers.get('x-real-ip') || ''
+  const userAgent = req.headers.get('user-agent') || ''
+  const pageUrl   = req.headers.get('referer') || 'https://renttia.es'
+
+  const payload = {
+    data: [{
+      event_name: eventName,
+      event_time: Math.floor(Date.now() / 1000),
+      event_id: eventId,
+      action_source: 'website',
+      event_source_url: pageUrl,
+      user_data: {
+        client_ip_address: ip,
+        client_user_agent: userAgent,
+        ...(userData.email    && { em: sha256(userData.email)    }),
+        ...(userData.phone    && { ph: sha256(userData.phone.replace(/\s/g, ''))    }),
+        ...(userData.nombre   && { fn: sha256(userData.nombre)   }),
+        ...(userData.ciudad   && { ct: sha256(userData.ciudad)   }),
+      },
+    }],
+  }
+
+  const res = await fetch(
+    `https://graph.facebook.com/v19.0/${pixelId}/events?access_token=${token}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    }
+  )
+
+  if (!res.ok) {
+    const err = await res.text()
+    console.error('Meta CAPI error:', err)
+  } else {
+    console.log(`✅ Meta CAPI ${eventName} OK`)
+  }
+}
 
 /* ─── HELPERS ─────────────────────────────────────────────────────────────── */
 
@@ -214,6 +274,18 @@ export async function POST(req: NextRequest) {
       console.log('✅ Email lead OK')
     } catch (e) {
       console.error('Resend lead error:', e)
+    }
+
+    /* 6 — Meta Conversions API ──────────────────────────────────────────── */
+    try {
+      const eventId = randomUUID()
+      const metaUserData = { email, phone: telefono, nombre, ciudad }
+      await Promise.all([
+        sendMetaEvent('Lead',    metaUserData, req, eventId),
+        sendMetaEvent('Contact', metaUserData, req, eventId),
+      ])
+    } catch (e) {
+      console.error('Meta CAPI error:', e)
     }
 
     return NextResponse.json({ ok: true }, { status: 200 })
