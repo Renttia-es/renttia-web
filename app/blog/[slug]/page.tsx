@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { articulos } from '@/lib/blog-articulos'
 import BlogCTAPopup from '@/components/BlogCTAPopup'
+import CTAButton from '@/components/CTAButton'
 
 interface Props { params: Promise<{ slug: string }> }
 
@@ -169,9 +170,7 @@ export default async function ArticuloPage({ params }: Props) {
                   ¿Quieres cobrar el día 1 sin gestionar nada?
                 </p>
                 <p className="font-sans text-white/60 text-xs mb-5">Valoración gratuita en menos de 24 h.</p>
-                <a href="/propietario" className="btn-cta text-sm py-3 px-5 w-full">
-                  Solicitar valoración →
-                </a>
+                <CTAButton texto="Solicitar valoración →" className="btn-cta text-sm py-3 px-5 w-full" />
               </div>
               {/* Artículos relacionados */}
               {relacionados.length > 0 && (
