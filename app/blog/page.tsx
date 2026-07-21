@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import CTAButton from '@/components/CTAButton'
 import { articulos } from '@/lib/blog-articulos'
 
 export const metadata: Metadata = {
   title: 'Blog — Guías y consejos para propietarios que quieren alquilar sin riesgos',
   description:
-    'Artículos y guías sobre inquiocupación, impagos, Rent to Rent y cómo alquilar tu piso de forma segura en Zaragoza, Logroño y Huesca.',
+    'Artículos y guías sobre inquiocupación, impagos, Rent to Rent y cómo alquilar tu piso de forma segura en Zaragoza y Huesca.',
   alternates: { canonical: 'https://renttia.es/blog' },
 }
 
@@ -156,9 +157,7 @@ export default function BlogPage() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 lg:justify-end">
-              <Link href="/gestion-alquiler-zaragoza#contacto" className="btn-cta text-sm">
-                Quiero una valoración →
-              </Link>
+              <CTAButton texto="Quiero una valoración →" className="btn-cta text-sm" />
             </div>
           </div>
         </div>

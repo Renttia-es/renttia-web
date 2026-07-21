@@ -32,7 +32,7 @@ export default function Footer() {
               />
             </Link>
             <p className="font-sans text-sm leading-relaxed text-white/45 mb-5">
-              Gestión profesional de inmuebles en Zaragoza, Logroño y Huesca.
+              Gestión profesional de inmuebles en Zaragoza y Huesca.
               Alquiler de habitaciones premium, sin complicaciones para el propietario.
             </p>
             <a href="mailto:hola@renttia.es"
@@ -81,7 +81,7 @@ export default function Footer() {
             © {new Date().getFullYear()} Renttia. Todos los derechos reservados.
           </p>
           <p className="font-sans text-xs text-white/30">
-            Zaragoza · Logroño · Huesca
+            Zaragoza · Huesca
           </p>
         </div>
       </div>

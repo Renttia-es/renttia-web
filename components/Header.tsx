@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState, type FormEvent } from 'react'
+import { useState, useEffect, type FormEvent } from 'react'
 
 const ciudades = [
   { label: 'Zaragoza', href: '/gestion-alquiler-zaragoza' },
@@ -13,6 +13,12 @@ export default function Header() {
   const [open, setOpen] = useState(false)
   const [ciudadesOpen, setCiudadesOpen] = useState(false)
   const [modal, setModal] = useState(false)
+
+  useEffect(() => {
+    const handler = () => setModal(true)
+    window.addEventListener('renttia:open-modal', handler)
+    return () => window.removeEventListener('renttia:open-modal', handler)
+  }, [])
 
   // Formulario del popup
   const [nombre, setNombre] = useState('')

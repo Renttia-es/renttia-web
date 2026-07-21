@@ -2,12 +2,13 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import CiudadCard from '@/components/CiudadCard'
 import ReviewsTicker from '@/components/ReviewsTicker'
+import CTAButton from '@/components/CTAButton'
 
 /* ── SEO ── keyword principal en title + description enriquecida ── */
 export const metadata: Metadata = {
   title: 'Gestión integral del alquiler de su vivienda | Renttia',
   description:
-    'Renttia gestiona tu piso en Zaragoza, Logroño y Huesca. Cobras el día 1 sin impagos, sin llamadas y sin comisiones de inmobiliaria. Gestión integral del alquiler. Valoración gratuita.',
+    'Renttia gestiona tu piso en Zaragoza y Huesca. Cobras el día 1 sin impagos, sin llamadas y sin comisiones de inmobiliaria. Gestión integral del alquiler. Valoración gratuita.',
   alternates: { canonical: 'https://renttia.es' },
   openGraph: {
     title: 'Gestión integral del alquiler de su vivienda | Renttia',
@@ -66,9 +67,7 @@ export default function HomePage() {
               Somos el inquilino perfecto: recibe su pago el día 1 de cada mes. Acondicionamos su piso y reformamos si es necesario. Gestionamos todas las incidencias por usted.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
-              <Link href="/gestion-alquiler-zaragoza#contacto" className="btn-cta text-sm py-3.5 sm:py-4 px-6 sm:px-8 w-full sm:w-auto text-center">
-                Solicitar valoración gratuita
-              </Link>
+              <CTAButton texto="Solicitar valoración gratuita" className="btn-cta text-sm py-3.5 sm:py-4 px-6 sm:px-8 w-full sm:w-auto text-center" />
             </div>
           </div>
         </div>
@@ -422,10 +421,7 @@ export default function HomePage() {
           <p className="font-sans text-white/65 text-base leading-relaxed mb-9">
             Valoración gratuita. Respuesta en 24 horas. Sin compromiso.
           </p>
-          <Link href="/gestion-alquiler-zaragoza#contacto"
-            className="inline-flex items-center justify-center gap-2 bg-white text-navy hover:bg-navy-50 font-sans font-medium text-sm tracking-wide px-8 sm:px-10 py-3.5 sm:py-4 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-px w-full sm:w-auto">
-            Solicitar valoración gratuita
-          </Link>
+          <CTAButton texto="Solicitar valoración gratuita" className="inline-flex items-center justify-center gap-2 bg-white text-navy hover:bg-navy-50 font-sans font-medium text-sm tracking-wide px-8 sm:px-10 py-3.5 sm:py-4 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-px w-full sm:w-auto" />
           <p className="font-sans text-white/40 text-xs mt-4">Sin coste · Sin compromiso · Respuesta en 24h</p>
         </div>
       </section>
