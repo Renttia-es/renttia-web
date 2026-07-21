@@ -37,9 +37,30 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image' },
 }
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'RealEstateAgent',
+  name: 'Renttia',
+  url: 'https://renttia.es',
+  logo: 'https://renttia.es/logo.png',
+  description: 'Gestión profesional de inmuebles en Zaragoza y Huesca. Alquiler garantizado el día 1, sin impagos ni gestión para el propietario.',
+  email: 'hola@renttia.es',
+  areaServed: [
+    { '@type': 'City', name: 'Zaragoza' },
+    { '@type': 'City', name: 'Huesca' },
+  ],
+  sameAs: ['https://www.facebook.com/renttia'],
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className={`${cormorant.variable} ${dmSans.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body>
         <LayoutWrapper>{children}</LayoutWrapper>
 
