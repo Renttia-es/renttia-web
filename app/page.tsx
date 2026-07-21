@@ -23,12 +23,6 @@ const ciudadesPropietarios = [
     imagen: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80',
   },
   {
-    ciudad: 'Logroño', slug: 'gestion-alquiler-logrono',
-    descripcion: 'Gestión integral en el centro y zonas universitarias. Alta demanda durante todo el año.',
-    pisos: 18, ocupacion: '91%',
-    imagen: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80',
-  },
-  {
     ciudad: 'Huesca', slug: 'gestion-alquiler-huesca',
     descripcion: 'Pioneros en gestión de pisos compartidos en Huesca. Mercado con alta demanda y poca oferta.',
     pisos: 8, ocupacion: '89%',

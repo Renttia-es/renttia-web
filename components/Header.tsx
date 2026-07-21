@@ -6,7 +6,6 @@ import { useState, type FormEvent } from 'react'
 
 const ciudades = [
   { label: 'Zaragoza', href: '/gestion-alquiler-zaragoza' },
-  { label: 'Logroño',  href: '/gestion-alquiler-logrono'  },
   { label: 'Huesca',   href: '/gestion-alquiler-huesca'   },
 ]
 
@@ -222,7 +221,6 @@ export default function Header() {
                     >
                       <option value="">Selecciona ciudad...</option>
                       <option value="zaragoza">Zaragoza</option>
-                      <option value="logrono">Logroño</option>
                       <option value="huesca">Huesca</option>
                       <option value="otra">Otra ciudad</option>
                     </select>

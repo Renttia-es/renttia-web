@@ -37,7 +37,7 @@ export default function BlogCTAPopup() {
             Tu inquilino perfecto
           </span>
           <h2 className="font-serif text-white text-2xl sm:text-3xl font-light mb-3 leading-snug">
-            ¿Tienes un piso en Zaragoza, Logroño o Huesca?
+            ¿Tienes un piso en Zaragoza o Huesca?
           </h2>
           <p className="font-sans text-white/60 text-sm sm:text-base leading-relaxed mb-6 max-w-xl">
             Cuéntanos tu caso y te decimos en menos de 24 horas si tu piso encaja con nuestro modelo. Sin compromiso y sin coste.
@@ -124,7 +124,6 @@ export default function BlogCTAPopup() {
                 >
                   <option value="">Selecciona...</option>
                   <option value="zaragoza">Zaragoza</option>
-                  <option value="logrono">Logroño</option>
                   <option value="huesca">Huesca</option>
                 </select>
               </div>

@@ -3,7 +3,6 @@ import Image from 'next/image'
 
 const propietarios = [
   { label: 'Gestión en Zaragoza', href: '/gestion-alquiler-zaragoza'  },
-  { label: 'Gestión en Logroño',  href: '/gestion-alquiler-logrono'   },
   { label: 'Gestión en Huesca',   href: '/gestion-alquiler-huesca'    },
 ]
 
