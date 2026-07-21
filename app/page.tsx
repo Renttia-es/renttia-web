@@ -111,7 +111,7 @@ export default function HomePage() {
           <div className="grid gap-4 sm:gap-5">
 
             {/* Propietarios — H3 inquiokupación */}
-            <Link href="/gestion-alquiler-zaragoza" className="group relative rounded-3xl overflow-hidden min-h-[320px] sm:min-h-[440px] flex flex-col">
+            <Link href="/#como-funciona" className="group relative rounded-3xl overflow-hidden min-h-[320px] sm:min-h-[440px] flex flex-col">
               <img
                 src="/hab-4.jpg"
                 alt="Propietario protegido frente a la inquiokupación"
