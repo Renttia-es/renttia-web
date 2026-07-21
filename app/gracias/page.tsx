@@ -45,12 +45,9 @@ export default function GraciasPage() {
           </ol>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex justify-center">
           <Link href="/" className="btn-outline-navy">
             Volver al inicio
-          </Link>
-          <Link href="/habitaciones/zaragoza" className="btn-cta">
-            Ver habitaciones disponibles →
           </Link>
         </div>
       </div>
