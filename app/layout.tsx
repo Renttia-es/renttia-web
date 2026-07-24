@@ -27,6 +27,14 @@ export const metadata: Metadata = {
   },
   description:
     'Renttia gestiona tu piso en Zaragoza y Huesca. Alquiler de habitaciones premium: cobras el día 1, sin impagos y sin llamadas. Gestión profesional de inmuebles.',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon.png', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/favicon.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'es_ES',
