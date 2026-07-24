@@ -35,10 +35,38 @@ const categoriaColor: Record<string, string> = {
   'Gestión inmobiliaria':    'bg-purple-50 text-purple-700',
 }
 
+function slugifyH2(texto: string) {
+  return texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+}
+
 export default async function ArticuloPage({ params }: Props) {
   const { slug } = await params
   const art = articulos.find(a => a.slug === slug)
   if (!art) notFound()
+
+  const h2s = art.contenido.filter(b => b.tipo === 'h2' && b.texto)
+
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: art.titulo,
+    description: art.metaDescription,
+    author: { '@type': 'Organization', name: 'Renttia' },
+    publisher: { '@type': 'Organization', name: 'Renttia', url: 'https://renttia.es' },
+    datePublished: art.fecha,
+    image: art.imagen,
+    url: `https://renttia.es/blog/${art.slug}`,
+  }
+
+  const faqSchema = art.faqs && art.faqs.length > 0 ? {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: art.faqs.map(f => ({
+      '@type': 'Question',
+      name: f.pregunta,
+      acceptedAnswer: { '@type': 'Answer', text: f.respuesta },
+    })),
+  } : null
 
   const relacionados = articulos.filter(a => a.slug !== art.slug).slice(0, 3)
 
@@ -80,6 +108,9 @@ export default async function ArticuloPage({ params }: Props) {
         </div>
       </section>
 
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
+
       {/* ── IMAGEN DESTACADA ─────────────────────────────────────────── */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-2">
         <div className="rounded-2xl sm:rounded-3xl overflow-hidden h-52 sm:h-72 lg:h-[380px] shadow-lg">
@@ -105,8 +136,23 @@ export default async function ArticuloPage({ params }: Props) {
             {/* Cuerpo dinámico */}
             <div>
               {art.contenido.map((bloque, i) => {
+                if (bloque.tipo === 'toc') return (
+                  <nav key={i} className="my-8 bg-[#f0f5fb] border border-navy/10 rounded-2xl px-6 py-5">
+                    <p className="font-sans text-navy font-semibold text-sm uppercase tracking-widest mb-3">En este artículo</p>
+                    <ol className="space-y-1.5">
+                      {h2s.map((h, j) => (
+                        <li key={j} className="flex items-start gap-2">
+                          <span className="font-sans text-cta text-sm font-semibold shrink-0">{j + 1}.</span>
+                          <a href={`#${slugifyH2(h.texto!)}`} className="font-sans text-navy/70 hover:text-cta text-sm leading-snug transition-colors">
+                            {h.texto}
+                          </a>
+                        </li>
+                      ))}
+                    </ol>
+                  </nav>
+                )
                 if (bloque.tipo === 'h2') return (
-                  <h2 key={i} className="font-serif text-navy text-xl sm:text-2xl font-light mt-10 mb-4 leading-snug">
+                  <h2 key={i} id={slugifyH2(bloque.texto!)} className="font-serif text-navy text-xl sm:text-2xl font-light mt-10 mb-4 leading-snug scroll-mt-24">
                     {bloque.texto}
                   </h2>
                 )
@@ -156,6 +202,40 @@ export default async function ArticuloPage({ params }: Props) {
                 return null
               })}
             </div>
+
+            {/* FAQs — si el artículo las tiene */}
+            {art.faqs && art.faqs.length > 0 && (
+              <div className="mt-12 pt-10 border-t border-gray-100">
+                <h2 className="font-serif text-navy text-xl sm:text-2xl font-light mb-6">Preguntas frecuentes</h2>
+                <div className="space-y-5">
+                  {art.faqs.map((faq, i) => (
+                    <div key={i} className="border border-gray-100 rounded-2xl p-5">
+                      <h3 className="font-sans font-semibold text-navy text-base mb-2">{faq.pregunta}</h3>
+                      <p className="font-sans text-gray-600 text-sm leading-relaxed">{faq.respuesta}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Interlinking — si el artículo tiene enlaces sugeridos */}
+            {art.enlaces && art.enlaces.length > 0 && (
+              <div className="mt-10 pt-8 border-t border-gray-100">
+                <p className="font-sans text-navy/40 text-[0.65rem] uppercase tracking-widest font-semibold mb-4">Artículos relacionados que te pueden interesar</p>
+                <ul className="space-y-2">
+                  {art.enlaces.map((enlace, i) => (
+                    <li key={i} className="flex items-center gap-2">
+                      <svg className="w-3.5 h-3.5 text-cta shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                      <Link href={enlace.href} className="font-sans text-navy/70 hover:text-cta text-sm transition-colors underline underline-offset-2">
+                        {enlace.texto}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {/* CTA con popup */}
             <BlogCTAPopup />

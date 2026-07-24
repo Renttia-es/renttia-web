@@ -76,5 +76,48 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.6,
     },
+    // ── Artículos SEO long-tail (jul 2026) ───────────────────────────
+    {
+      url: `${BASE}/blog/trucos-para-echar-a-un-inquilino-que-no-paga`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE}/blog/se-puede-echar-a-un-inquilino-por-necesitar-el-piso`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE}/blog/nueva-ley-para-echar-inquilinos`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE}/blog/ley-de-vivienda-alquiler`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE}/blog/prorroga-contrato-alquiler`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${BASE}/blog/piso-en-herencia-que-hacer`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${BASE}/blog/como-echar-a-un-inquiokupa`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
   ]
 }
