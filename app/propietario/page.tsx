@@ -141,6 +141,7 @@ const faqs = [
   { pregunta: '¿Quién se encarga del mantenimiento y los desperfectos diarios?', respuesta: 'Nosotros nos ocupamos del mantenimiento ordinario, las reparaciones por uso y la limpieza periódica del piso. Nos interesa que la vivienda esté siempre en perfecto estado, por lo que mantendrá o mejorará su valor.' },
   { pregunta: '¿Tengo que pagar alguna comisión por vuestra gestión?', respuesta: 'No. No cobramos comisiones de gestión, ni mensualidades, ni tarifas ocultas al propietario. El importe de la renta pactado en el contrato es el que recibirás íntegro en tu cuenta cada mes.' },
   { pregunta: '¿Cómo seleccionáis a las personas que van a vivir en mi piso?', respuesta: 'Filtramos de forma muy estricta a los residentes potenciales. Buscamos exclusivamente perfiles cualificados, solventes y con estancia temporal, como jóvenes profesionales, sanitarios o estudiantes.' },
+  { pregunta: '¿Qué pasa si un residente causa problemas en la vivienda o con la comunidad de vecinos?', respuesta: 'Nosotros nos encargamos de la gestión, la sustitución del residente y cualquier inconveniente de forma rápida y sin que tú tengas que hacer nada.' },
   { pregunta: '¿Cómo recupero mi vivienda al finalizar el contrato?', respuesta: 'Al terminar el periodo acordado, te devolvemos las llaves con el piso en el mismo estado —o mejor— en el que nos lo entregaste, completamente limpio y listo.' },
 ]
 

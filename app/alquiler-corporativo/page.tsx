@@ -5,8 +5,8 @@ import Image from 'next/image'
 import {
   CallPopup, LandingHeader, StickyCTA, TickerStrip, Beneficios, AntesDespues,
   Proceso, QuienesSomos, Reviews, FAQSection, FinalCTA, LandingFooter,
-  LeadForm, FormSection,
-  type Beneficio, type Paso, type Faq, type EstadoOpcion,
+  LeadForm, FormSection, faqsCompletas,
+  type Beneficio, type Paso, type EstadoOpcion,
 } from '@/components/landing/LandingSections'
 
 const FUENTE = 'landing-alquiler-corporativo'
@@ -25,13 +25,6 @@ const pasos: Paso[] = [
   { num: '02', titulo: 'Valoramos tu piso', texto: 'Lo visitamos y te hacemos una propuesta concreta, sin compromiso.' },
   { num: '03', titulo: 'Firmamos', texto: 'Nosotros pasamos a ser tu inquilino y asumimos todo el riesgo.' },
   { num: '04', titulo: 'Cobras cada mes', texto: 'Renta fija el día 1, garantizada, sin que gestiones nada.' },
-]
-
-const faqs: Faq[] = [
-  { pregunta: '¿Cómo funciona que una empresa sea mi inquilino?', respuesta: 'Firmamos contigo y nos convertimos en tu inquilino. Te pagamos una renta fija cada mes y gestionamos el piso por completo.' },
-  { pregunta: '¿Y si quien vive en el piso no paga?', respuesta: 'Es problema nuestro, no tuyo. Tu contrato es con Renttia, así que cobras tu renta íntegra el día 1 pase lo que pase.' },
-  { pregunta: '¿Quién paga los suministros?', respuesta: 'Nosotros. La luz, el agua, el gas e internet pasan a nuestro nombre desde el día de la firma.' },
-  { pregunta: '¿Qué pasa al terminar el contrato?', respuesta: 'Recuperas tu piso cuidado, igual o mejor que como lo entregaste, limpio y listo.' },
 ]
 
 const estadoOpciones: EstadoOpcion[] = [
@@ -161,7 +154,7 @@ export default function AlquilerCorporativoPage() {
         <LeadForm fuente={FUENTE} estadoOpciones={estadoOpciones} />
       </FormSection>
 
-      <FAQSection faqs={faqs} />
+      <FAQSection faqs={faqsCompletas} />
       <FinalCTA titulo="Alquila sin miedo a los impagos." texto="Cobra tu renta el día 1, los 12 meses del año. Te llamamos en menos de 24 horas." ctaLabel="Quiero mi valoración gratuita →" onForm={scrollToForm} onCall={() => setCallPopup(true)} />
       <LandingFooter />
     </div>

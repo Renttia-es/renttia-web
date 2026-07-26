@@ -5,8 +5,8 @@ import Image from 'next/image'
 import {
   CallPopup, LandingHeader, StickyCTA, TickerStrip, Beneficios, AntesDespues,
   Proceso, QuienesSomos, Reviews, FAQSection, FinalCTA, LandingFooter,
-  LeadForm, FormSection,
-  type Beneficio, type Paso, type Faq, type EstadoOpcion,
+  LeadForm, FormSection, faqsCompletas,
+  type Beneficio, type Paso, type EstadoOpcion,
 } from '@/components/landing/LandingSections'
 
 const FUENTE = 'landing-normativa-vivienda'
@@ -25,13 +25,6 @@ const pasos: Paso[] = [
   { num: '02', titulo: 'Valoramos tu piso', texto: 'Lo visitamos y te hacemos una propuesta concreta, sin compromiso.' },
   { num: '03', titulo: 'Firmamos', texto: 'Nosotros pasamos a ser tu inquilino y nos ocupamos de todo.' },
   { num: '04', titulo: 'Cobras cada mes', texto: 'Renta fija el día 1, sin gestionar ni una sola habitación.' },
-]
-
-const faqs: Faq[] = [
-  { pregunta: '¿Qué pasa si un inquilino de una habitación no paga?', respuesta: 'A ti no te afecta. Tu contrato es con Renttia, no con los inquilinos. Nosotros asumimos ese riesgo y tú cobras tu renta íntegra el día 1.' },
-  { pregunta: '¿Tengo que tratar con los inquilinos?', respuesta: 'Con nadie. Tu único interlocutor somos nosotros. No coordinas visitas, ni cobros, ni conflictos.' },
-  { pregunta: '¿Quién busca y selecciona a las personas?', respuesta: 'Nosotros, con filtros estrictos. Buscamos perfiles solventes y responsables para tu vivienda.' },
-  { pregunta: '¿Quién se ocupa de incidencias y limpieza?', respuesta: 'Nosotros: mantenimiento, averías e higiene de las zonas comunes están incluidos. Tu piso siempre cuidado.' },
 ]
 
 const estadoOpciones: EstadoOpcion[] = [
@@ -146,7 +139,7 @@ export default function GestionHabitacionesPage() {
         <LeadForm fuente={FUENTE} estadoOpciones={estadoOpciones} />
       </FormSection>
 
-      <FAQSection faqs={faqs} />
+      <FAQSection faqs={faqsCompletas} />
       <FinalCTA titulo="Deja de gestionar habitaciones una a una." texto="Pasa a una única renta fija sin trato con inquilinos. Te llamamos en menos de 24 horas." ctaLabel="Quiero mi valoración gratuita →" onForm={scrollToForm} onCall={() => setCallPopup(true)} />
       <LandingFooter />
     </div>

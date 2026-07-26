@@ -107,7 +107,7 @@ const ventajas = [
       </svg>
     ),
     titulo: 'Revalorizamos tu propiedad',
-    texto: 'Hacemos pequeñas reformas antes de entrar. Tu piso vale más cuando nos vamos.',
+    texto: 'Si hace falta, reformamos antes de entrar sin coste para ti. Tu piso vale más cuando nos vamos.',
   },
   {
     icon: (

@@ -5,8 +5,8 @@ import Image from 'next/image'
 import {
   CallPopup, LandingHeader, StickyCTA, TickerStrip, Beneficios, AntesDespues,
   Proceso, QuienesSomos, Reviews, FAQSection, FinalCTA, LandingFooter,
-  LeadForm, FormSection,
-  type Beneficio, type Paso, type Faq, type EstadoOpcion,
+  LeadForm, FormSection, faqsCompletas,
+  type Beneficio, type Paso, type EstadoOpcion,
 } from '@/components/landing/LandingSections'
 
 const FUENTE = 'landing-calculadora-gastos'
@@ -25,13 +25,6 @@ const pasos: Paso[] = [
   { num: '02', titulo: 'Valoramos tu piso', texto: 'Lo visitamos y te hacemos una propuesta concreta, sin compromiso.' },
   { num: '03', titulo: 'Firmamos', texto: 'Nosotros pasamos a ser tu inquilino y preparamos la vivienda.' },
   { num: '04', titulo: 'Cobras cada mes', texto: 'Renta fija el día 1, para siempre, sin que gestiones nada.' },
-]
-
-const faqs: Faq[] = [
-  { pregunta: '¿Cómo me garantizáis que cobro?', respuesta: 'Tu contrato es con Renttia, no con un particular. Te pagamos la renta el día 1 esté el piso ocupado o vacío.' },
-  { pregunta: '¿Tengo que hacer alguna gestión?', respuesta: 'No. Nos encargamos de todo: inquilinos, incidencias, averías y mantenimiento. Tú solo recibes la renta.' },
-  { pregunta: '¿Quién paga los suministros?', respuesta: 'Nosotros. La luz, el agua, el gas e internet pasan a nuestro nombre desde el día de la firma.' },
-  { pregunta: '¿En qué estado recupero mi piso?', respuesta: 'Igual o mejor que como lo entregaste, limpio y listo, al terminar el contrato.' },
 ]
 
 const estadoOpciones: EstadoOpcion[] = [
@@ -153,7 +146,7 @@ export default function CalculadoraGastosPage() {
         <LeadForm fuente={FUENTE} estadoOpciones={estadoOpciones} />
       </FormSection>
 
-      <FAQSection faqs={faqs} />
+      <FAQSection faqs={faqsCompletas} />
       <FinalCTA titulo="Deja de perder dinero con tu piso vacío." texto="Convierte esa pérdida en una renta fija garantizada. Te llamamos en menos de 24 horas." ctaLabel="Quiero mi valoración gratuita →" onForm={scrollToForm} onCall={() => setCallPopup(true)} />
       <LandingFooter />
     </div>

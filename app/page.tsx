@@ -31,7 +31,7 @@ const ciudadesPropietarios = [
 ]
 
 const stats = [
-  { valor: '+10', etiqueta: 'Pisos gestionados'  },
+  { valor: '+20', etiqueta: 'Pisos gestionados'  },
   { valor: '93%', etiqueta: 'Ocupación media'     },
   { valor: '0€',  etiqueta: 'Impagos en 3 años'  },
   { valor: '2',   etiqueta: 'Ciudades activas'    },
@@ -217,7 +217,7 @@ export default function HomePage() {
               </div>
               <h3 className="font-serif text-navy text-base font-normal leading-snug">Piso devuelto en perfecto estado</h3>
               <p className="font-sans text-gray-400 text-sm leading-relaxed">
-                Reformamos antes de empezar. Mantenemos durante el contrato. Se lo devolvemos igual o mejor.
+                Si es necesario, reformamos antes de empezar sin coste para usted. Mantenemos durante el contrato. Se lo devolvemos igual o mejor.
               </p>
             </div>
           </div>
@@ -236,7 +236,7 @@ export default function HomePage() {
             </div>
             <p className="font-sans text-gray-400 text-sm lg:text-base leading-relaxed">
               Equipamos y amueblamos cada habitación antes de entrar: cama, escritorio, armario, WIFI y suministros a nuestro cargo.
-              Su propiedad siempre presentada en su mejor versión, sin que usted invierta nada.
+              Y si el piso necesita reforma, también la asumimos nosotros, sin coste para usted. Su propiedad siempre presentada en su mejor versión, sin que usted invierta nada.
             </p>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 lg:gap-4">
@@ -322,7 +322,7 @@ export default function HomePage() {
                   Revalorizamos su inmueble, con la tranquilidad de cobrar el día 1.
                 </h3>
                 <p className="font-sans text-gray-400 text-sm leading-relaxed">
-                  Equipamos y amueblamos cada habitación antes de entrar: cama, escritorio, armario, WIFI y suministros. La inversión corre de nuestra parte.
+                  Equipamos y amueblamos cada habitación antes de entrar y, si es necesario, reformamos sin coste para usted. La inversión corre de nuestra parte.
                 </p>
               </div>
             </div>

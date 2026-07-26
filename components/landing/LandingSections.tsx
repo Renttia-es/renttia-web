@@ -176,7 +176,7 @@ export function AntesDespues() {
           <span className="inline-block text-cta text-[0.65rem] font-sans font-semibold uppercase tracking-widest mb-3">La transformación</span>
           <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-light">Así transformamos tu piso</h2>
           <p className="font-serif font-light text-gray-500 mt-3 text-base sm:text-lg max-w-xl mx-auto">
-            Recibimos el piso tal como está y lo equipamos completamente. La inversión corre de nuestra parte.
+            Recibimos el piso tal como está y lo equipamos completamente. Si necesita reforma, la asumimos nosotros, sin coste para ti.
           </p>
         </div>
         <div className="relative grid sm:grid-cols-2 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl">
@@ -391,6 +391,18 @@ function FAQItem({ pregunta, respuesta }: Faq) {
     </div>
   )
 }
+
+/** Set completo de 8 FAQs (el mismo de las landings de ciudad, más completo). */
+export const faqsCompletas: Faq[] = [
+  { pregunta: '¿Qué es Renttia y en qué se diferencia de una inmobiliaria?', respuesta: 'No somos una agencia ni buscamos inquilinos tradicionales. Renttia se convierte en tu único inquilino. Te pagamos el alquiler cada mes directamente como empresa y gestionamos el piso por completo, eliminando todos tus riesgos.' },
+  { pregunta: '¿Cómo me garantizáis que cobraré mi alquiler todos los meses?', respuesta: 'Tu contrato es con Renttia, no con un particular. Te pagamos el día estipulado, esté el piso ocupado o vacío. Si surge cualquier problema de impago con los residentes, lo asumimos nosotros. Tu renta está 100% garantizada.' },
+  { pregunta: '¿Qué pasa si un residente no paga?', respuesta: 'Ese es un problema exclusivamente nuestro. Tú sigues recibiendo tu renta íntegra cada mes según lo pactado.' },
+  { pregunta: '¿Quién se encarga del mantenimiento y los desperfectos diarios?', respuesta: 'Nosotros nos ocupamos del mantenimiento ordinario, las reparaciones por uso y la limpieza periódica del piso. Nos interesa que la vivienda esté siempre en perfecto estado, por lo que mantendrá o mejorará su valor.' },
+  { pregunta: '¿Tengo que pagar alguna comisión por vuestra gestión?', respuesta: 'No. No cobramos comisiones de gestión, ni mensualidades, ni tarifas ocultas al propietario. El importe de la renta pactado en el contrato es el que recibirás íntegro en tu cuenta cada mes.' },
+  { pregunta: '¿Cómo seleccionáis a las personas que van a vivir en mi piso?', respuesta: 'Filtramos de forma muy estricta a los residentes potenciales. Buscamos exclusivamente perfiles cualificados, solventes y con estancia temporal, como jóvenes profesionales, sanitarios o estudiantes.' },
+  { pregunta: '¿Qué pasa si un residente causa problemas en la vivienda o con la comunidad de vecinos?', respuesta: 'Nosotros nos encargamos de la gestión, la sustitución del residente y cualquier inconveniente de forma rápida y sin que tú tengas que hacer nada.' },
+  { pregunta: '¿Cómo recupero mi vivienda al finalizar el contrato?', respuesta: 'Al terminar el periodo acordado, te devolvemos las llaves con el piso en el mismo estado —o mejor— en el que nos lo entregaste, completamente limpio y listo.' },
+]
 
 export function FAQSection({ faqs }: { faqs: Faq[] }) {
   return (
