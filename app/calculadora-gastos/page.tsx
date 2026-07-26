@@ -119,10 +119,10 @@ export default function CalculadoraGastosPage() {
                 <Slider label="Meses que lleva o llevará cerrado" value={meses} min={1} max={12} unit={meses === 1 ? 'mes' : 'meses'} onChange={setMeses} />
               </div>
 
-              <div className="mt-6 p-5 rounded-2xl bg-cream border border-navy/10 text-center">
-                <p className="font-sans text-xs font-semibold uppercase tracking-wider text-navy/50 mb-1">Dinero que dejas de ingresar</p>
-                <p className="font-serif text-4xl sm:text-5xl font-light text-navy tabular-nums">{fmt(perdida)} €</p>
-                <p className="font-sans text-gray-500 text-xs mt-2">
+              <div className="mt-6 p-5 rounded-2xl bg-red-500/10 border border-red-400/40 text-center">
+                <p className="font-sans text-xs font-semibold uppercase tracking-wider text-red-500/70 mb-1">Dinero que dejas de ingresar</p>
+                <p className="font-serif text-4xl sm:text-5xl font-light text-red-600 tabular-nums">{fmt(perdida)} €</p>
+                <p className="font-sans text-red-700/70 text-xs mt-2">
                   Y mientras tanto sigues pagando comunidad, IBI y seguro aunque el piso esté vacío.
                 </p>
               </div>

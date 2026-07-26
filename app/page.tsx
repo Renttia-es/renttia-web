@@ -358,15 +358,15 @@ export default function HomePage() {
 
             {/* H2 — keyword "gestión arrendamientos" / "gestión inmobiliaria" local */}
             <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-light">
-              Expertos locales en la gestión de arrendamientos en su ciudad
+              Expertos locales en Zaragoza y Huesca
             </h2>
             <p className="font-sans text-gray-400 text-sm lg:text-base mt-4 max-w-md mx-auto leading-relaxed">
-              Conocemos el mercado, los barrios y los precios en cada ciudad donde operamos.
+              Somos de aquí. Conocemos el mercado, los barrios y los precios de cada zona, y gestionamos tu piso de tú a tú.
             </p>
           </div>
 
           {/* H4 por ciudad — SEO local "gestión inmobiliaria zaragoza" etc. */}
-          <div className="grid sm:grid-cols-3 gap-5">
+          <div className="grid sm:grid-cols-2 gap-5 max-w-3xl mx-auto">
             {ciudadesPropietarios.map(c => (
               <Link key={c.slug} href={`/${c.slug}`}
                 className="group glass-card rounded-2xl sm:rounded-3xl p-5 sm:p-7 border border-navy/10 shadow-[0_0_0_1px_rgba(18,52,98,0.06),0_4px_24px_rgba(18,52,98,0.08)] hover:shadow-[0_0_0_1px_rgba(18,52,98,0.15),0_8px_32px_rgba(18,52,98,0.14)] transition-all duration-300 flex flex-col gap-4 sm:gap-5">
