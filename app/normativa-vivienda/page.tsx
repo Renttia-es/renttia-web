@@ -98,9 +98,17 @@ export default function GestionHabitacionesPage() {
                   <span className="font-sans text-sm font-medium text-navy/70">Habitaciones que alquilas</span>
                   <span className="font-serif text-xl font-light text-navy">{habitaciones}</span>
                 </div>
-                <div className="relative h-2 rounded-full bg-navy/10">
+                <div className="group relative h-2 rounded-full bg-navy/10 cursor-pointer">
                   <div className="absolute inset-y-0 left-0 rounded-full bg-cta transition-all" style={{ width: `${((habitaciones - 2) / 4) * 100}%` }} />
-                  <input type="range" min={2} max={6} step={1} value={habitaciones} onChange={e => setHabitaciones(Number(e.target.value))} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+                  <div
+                    className="absolute top-1/2 w-7 h-7 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white border-2 border-cta shadow-lg ring-4 ring-cta/15 flex items-center justify-center pointer-events-none transition-transform group-hover:scale-110 group-active:scale-95"
+                    style={{ left: `${((habitaciones - 2) / 4) * 100}%` }}
+                  >
+                    <svg className="w-4 h-4 text-cta" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l-3 3 3 3m8-6l3 3-3 3" />
+                    </svg>
+                  </div>
+                  <input type="range" min={2} max={6} step={1} value={habitaciones} onChange={e => setHabitaciones(Number(e.target.value))} className="absolute -inset-y-3 inset-x-0 w-full h-8 opacity-0 cursor-grab active:cursor-grabbing" />
                 </div>
                 <div className="flex justify-between text-xs text-gray-400"><span>2</span><span>6</span></div>
               </div>

@@ -52,9 +52,17 @@ function Slider({ label, value, min, max, step = 1, unit, onChange, accent = 'bg
         <span className="font-sans text-sm font-medium text-navy/70">{label}</span>
         <span className="font-serif text-xl font-light text-navy">{value.toLocaleString('es-ES')} {unit}</span>
       </div>
-      <div className="relative h-2 rounded-full bg-navy/10">
+      <div className="group relative h-2 rounded-full bg-navy/10 cursor-pointer">
         <div className={`absolute inset-y-0 left-0 rounded-full transition-all ${accent}`} style={{ width: `${pct}%` }} />
-        <input type="range" min={min} max={max} step={step} value={value} onChange={e => onChange(Number(e.target.value))} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+        <div
+          className={`absolute top-1/2 w-7 h-7 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white border-2 shadow-lg flex items-center justify-center pointer-events-none transition-transform group-hover:scale-110 group-active:scale-95 ${accent === 'bg-amber-500' ? 'border-amber-500 ring-4 ring-amber-500/15' : 'border-cta ring-4 ring-cta/15'}`}
+          style={{ left: `${pct}%` }}
+        >
+          <svg className={`w-4 h-4 ${accent === 'bg-amber-500' ? 'text-amber-500' : 'text-cta'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l-3 3 3 3m8-6l3 3-3 3" />
+          </svg>
+        </div>
+        <input type="range" min={min} max={max} step={step} value={value} onChange={e => onChange(Number(e.target.value))} className="absolute -inset-y-3 inset-x-0 w-full h-8 opacity-0 cursor-grab active:cursor-grabbing" />
       </div>
     </div>
   )
