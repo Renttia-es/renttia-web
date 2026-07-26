@@ -16,7 +16,7 @@ const beneficios: Beneficio[] = [
   { icon: '🙅', titulo: 'Cero trato con inquilinos', texto: 'No vuelves a coordinar visitas, cobros ni conflictos. Solo hablas con nosotros.' },
   { icon: '🔍', titulo: 'Nosotros seleccionamos', texto: 'Elegimos con filtros estrictos a las personas que viven en tu vivienda.' },
   { icon: '🧹', titulo: 'Mantenimiento incluido', texto: 'Incidencias, averías y limpieza de zonas comunes, todo de nuestra cuenta.' },
-  { icon: '🔧', titulo: 'Cero gestión para ti', texto: 'Nos ocupamos de anuncios, rotaciones y papeleo. Tú no haces nada.' },
+  { icon: '🛡️', titulo: 'Papeleo y registros, resueltos', texto: 'Cada vez se exige más burocracia y registros para alquilar por habitaciones. Lo gestionamos nosotros y te evitas errores, sustos y sanciones.' },
   { icon: '🏠', titulo: 'Tu piso siempre cuidado', texto: 'Lo devolvemos igual o mejor que como lo entregaste al terminar.' },
 ]
 
@@ -78,6 +78,7 @@ export default function GestionHabitacionesPage() {
               </h1>
               <p className="font-serif font-light text-white/85 text-base sm:text-lg leading-relaxed max-w-lg">
                 Anuncios, visitas, cobros a cada inquilino, incidencias a cualquier hora...
+                y ahora, encima, más papeleo y registros obligatorios para poder alquilar.
                 Calcula el tiempo que te consume y descubre cómo pasar a una única renta fija sin gestionar nada.
               </p>
             </div>
