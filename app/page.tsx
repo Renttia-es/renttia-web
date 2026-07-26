@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import CiudadCard from '@/components/CiudadCard'
 import ReviewsTicker from '@/components/ReviewsTicker'
 import CTAButton from '@/components/CTAButton'
 
@@ -381,7 +380,6 @@ export default function HomePage() {
                 {/* H4 — keyword ciudad + gestión */}
                 <h4 className="font-serif text-navy text-lg font-normal leading-snug">
                   {c.slug === 'gestion-alquiler-zaragoza' && 'Gestión y supervisión de viviendas en Zaragoza'}
-                  {c.slug === 'gestion-alquiler-logrono'  && 'Optimización y cuidado de propiedades en Logroño'}
                   {c.slug === 'gestion-alquiler-huesca'   && 'Cobertura y protección para propietarios en Huesca'}
                 </h4>
                 <p className="font-sans text-gray-400 text-sm leading-relaxed">{c.descripcion}</p>

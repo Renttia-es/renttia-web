@@ -1,645 +1,162 @@
 'use client'
 
-import { useState, useEffect, useRef, type FormEvent } from 'react'
-
-/* ─── TIPOS ──────────────────────────────────────────────────────────────── */
-type FormState = 'idle' | 'sending' | 'ok' | 'error'
+import { useState, useEffect, useRef } from 'react'
+import Image from 'next/image'
+import {
+  CallPopup, LandingHeader, StickyCTA, TickerStrip, Beneficios, AntesDespues,
+  Proceso, QuienesSomos, Reviews, FAQSection, FinalCTA, LandingFooter,
+  LeadForm, FormSection,
+  type Beneficio, type Paso, type Faq, type EstadoOpcion,
+} from '@/components/landing/LandingSections'
 
 const FUENTE = 'landing-alquiler-corporativo'
 
-/* ─── FAQ ITEM ───────────────────────────────────────────────────────────── */
-function FAQItem({ pregunta, respuesta }: { pregunta: string; respuesta: string }) {
-  const [open, setOpen] = useState(false)
-  return (
-    <div className="border-b border-gray-200 last:border-0">
-      <button
-        onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between gap-4 py-5 text-left group"
-      >
-        <span className="font-sans text-gray-800 font-medium text-base leading-snug group-hover:text-navy transition-colors">
-          {pregunta}
-        </span>
-        <span className={[
-          'shrink-0 w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center transition-all duration-200',
-          open ? 'rotate-45 bg-navy border-navy' : 'bg-white',
-        ].join(' ')}>
-          <svg className={`w-3 h-3 transition-colors ${open ? 'text-white' : 'text-gray-400'}`}
-            fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-          </svg>
-        </span>
-      </button>
-      {open && (
-        <p className="text-gray-600 text-base leading-relaxed pb-5 pr-8">{respuesta}</p>
-      )}
-    </div>
-  )
-}
+const beneficios: Beneficio[] = [
+  { icon: '🔒', titulo: 'Renta garantizada el día 1', texto: 'Cobras siempre, directamente de nosotros, esté el piso ocupado o no.' },
+  { icon: '🚫', titulo: 'Sin riesgo de impago', texto: 'Si quien vive en el piso no paga, es problema nuestro. Tú cobras íntegro.' },
+  { icon: '💡', titulo: 'Suministros a nuestro nombre', texto: 'Luz, agua, gas e internet pasan a nuestra cuenta desde la firma.' },
+  { icon: '🏠', titulo: 'Piso revisado y cuidado', texto: 'Lo mantenemos en buen estado y te lo devolvemos igual o mejor.' },
+  { icon: '📄', titulo: 'Un solo contrato', texto: 'Firmamos tú y Renttia. Sin inquilinos en tu contrato, sin sorpresas.' },
+  { icon: '🔧', titulo: 'Cero gestión para ti', texto: 'Averías, incidencias y llamadas: de todo nos ocupamos nosotros.' },
+]
 
-/* ─── STEP ───────────────────────────────────────────────────────────────── */
-function Step({ n, title, desc }: { n: string; title: string; desc: string }) {
-  return (
-    <div className="relative flex gap-5">
-      <div className="flex flex-col items-center">
-        <div className="w-10 h-10 rounded-full bg-navy text-white font-bold text-sm flex items-center justify-center shrink-0 z-10">
-          {n}
-        </div>
-        <div className="w-px flex-1 bg-navy/20 mt-2" />
-      </div>
-      <div className="pb-8 pt-1.5">
-        <p className="font-sans font-semibold text-navy text-base mb-1">{title}</p>
-        <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
-      </div>
-    </div>
-  )
-}
+const pasos: Paso[] = [
+  { num: '01', titulo: 'Nos dejas tus datos', texto: 'Rellenas el formulario y te llamamos en menos de 24 horas.' },
+  { num: '02', titulo: 'Valoramos tu piso', texto: 'Lo visitamos y te hacemos una propuesta concreta, sin compromiso.' },
+  { num: '03', titulo: 'Firmamos', texto: 'Nosotros pasamos a ser tu inquilino y asumimos todo el riesgo.' },
+  { num: '04', titulo: 'Cobras cada mes', texto: 'Renta fija el día 1, garantizada, sin que gestiones nada.' },
+]
 
-/* ─── FORMULARIO RÁPIDO (en calculadora) ────────────────────────────────── */
-function FormularioRapido({ fuente }: { fuente: string }) {
-  const [nombre,   setNombre]   = useState('')
-  const [telefono, setTelefono] = useState('')
-  const [estado,   setEstado]   = useState<FormState>('idle')
+const faqs: Faq[] = [
+  { pregunta: '¿Cómo funciona que una empresa sea mi inquilino?', respuesta: 'Firmamos contigo y nos convertimos en tu inquilino. Te pagamos una renta fija cada mes y gestionamos el piso por completo.' },
+  { pregunta: '¿Y si quien vive en el piso no paga?', respuesta: 'Es problema nuestro, no tuyo. Tu contrato es con Renttia, así que cobras tu renta íntegra el día 1 pase lo que pase.' },
+  { pregunta: '¿Quién paga los suministros?', respuesta: 'Nosotros. La luz, el agua, el gas e internet pasan a nuestro nombre desde el día de la firma.' },
+  { pregunta: '¿Qué pasa al terminar el contrato?', respuesta: 'Recuperas tu piso cuidado, igual o mejor que como lo entregaste, limpio y listo.' },
+]
 
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault()
-    setEstado('sending')
-    try {
-      const res = await fetch('/api/contacto', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre, telefono, email: '', ciudad: '', fuente, tipo: 'comparativa-rapida' }),
-      })
-      setEstado(res.ok ? 'ok' : 'error')
-    } catch { setEstado('error') }
-  }
+const estadoOpciones: EstadoOpcion[] = [
+  { value: 'vacio-cerrado', label: 'Vacío / Cerrado' },
+  { value: 'alquilado-cambio', label: 'Alquilado, busco cambiar' },
+  { value: 'necesita-reforma', label: 'Necesita reforma' },
+  { value: 'heredado', label: 'Heredado' },
+]
 
-  if (estado === 'ok') return (
-    <div className="bg-green-50 border border-green-100 rounded-xl p-5 text-center">
-      <p className="font-semibold text-green-700">✅ ¡Recibido! Te llamamos hoy.</p>
-    </div>
-  )
-
-  return (
-    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
-      <input type="text" required value={nombre} onChange={e => setNombre(e.target.value)}
-        placeholder="Tu nombre"
-        className="flex-1 border border-gray-200 rounded-xl px-4 py-3 text-gray-800 text-sm focus:outline-none focus:border-navy bg-white" />
-      <input type="tel" required value={telefono} onChange={e => setTelefono(e.target.value)}
-        placeholder="Teléfono"
-        className="flex-1 border border-gray-200 rounded-xl px-4 py-3 text-gray-800 text-sm focus:outline-none focus:border-navy bg-white" />
-      <button type="submit" disabled={estado === 'sending'}
-        className="bg-navy hover:bg-navy/90 disabled:opacity-50 text-white font-bold px-5 py-3 rounded-xl text-sm whitespace-nowrap transition-colors">
-        {estado === 'sending' ? '...' : 'Asegurar mi Renta con una Empresa'}
-      </button>
-    </form>
-  )
-}
-
-/* ─── FORMULARIO FINAL ───────────────────────────────────────────────────── */
-function FormularioFinal() {
-  const [nombre,     setNombre]     = useState('')
-  const [telefono,   setTelefono]   = useState('')
-  const [email,      setEmail]      = useState('')
-  const [ciudad,     setCiudad]     = useState('')
-  const [estadoPiso, setEstadoPiso] = useState('')
-  const [estado,     setEstado]     = useState<FormState>('idle')
-
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault()
-    setEstado('sending')
-    try {
-      const res = await fetch('/api/contacto', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre, telefono, email, ciudad, fuente: FUENTE, tipo: estadoPiso }),
-      })
-      setEstado(res.ok ? 'ok' : 'error')
-    } catch { setEstado('error') }
-  }
-
-  if (estado === 'ok') return (
-    <div className="bg-green-50 border border-green-200 rounded-2xl p-8 text-center">
-      <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-        <svg className="w-7 h-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-        </svg>
-      </div>
-      <h3 className="font-sans font-bold text-gray-900 text-xl mb-2">¡Solicitud recibida!</h3>
-      <p className="text-gray-600 text-base">Te llamamos en menos de 24 horas. Revisa también tu email.</p>
-    </div>
-  )
-
-  return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="grid sm:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Nombre completo *</label>
-          <input type="text" required value={nombre} onChange={e => setNombre(e.target.value)}
-            placeholder="María García"
-            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-800 text-base focus:outline-none focus:border-navy bg-white placeholder-gray-300" />
-        </div>
-        <div>
-          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Teléfono *</label>
-          <input type="tel" required value={telefono} onChange={e => setTelefono(e.target.value)}
-            placeholder="600 000 000"
-            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-800 text-base focus:outline-none focus:border-navy bg-white placeholder-gray-300" />
-        </div>
-      </div>
-      <div className="grid sm:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Email *</label>
-          <input type="email" required value={email} onChange={e => setEmail(e.target.value)}
-            placeholder="tu@email.com"
-            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-800 text-base focus:outline-none focus:border-navy bg-white placeholder-gray-300" />
-        </div>
-        <div>
-          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Ciudad del inmueble *</label>
-          <input type="text" required value={ciudad} onChange={e => setCiudad(e.target.value)}
-            placeholder="Zaragoza"
-            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-800 text-base focus:outline-none focus:border-navy bg-white placeholder-gray-300" />
-        </div>
-      </div>
-      <div>
-        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">¿Cómo se encuentra el piso actualmente?</label>
-        <select value={estadoPiso} onChange={e => setEstadoPiso(e.target.value)}
-          className="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-800 text-base focus:outline-none focus:border-navy bg-white">
-          <option value="">Selecciona una opción...</option>
-          <option value="vacio-cerrado">Vacío / Cerrado desde hace meses</option>
-          <option value="necesita-reforma">Necesita reformas / Antiguo</option>
-          <option value="alquilado-cambio">Alquilado actualmente pero buscando cambiar</option>
-          <option value="heredado">Heredado recientemente</option>
-        </select>
-      </div>
-      {estado === 'error' && (
-        <p className="text-red-500 text-sm">Error al enviar. Llámanos directamente al +34 976 000 000.</p>
-      )}
-      <button type="submit" disabled={estado === 'sending'}
-        className="w-full bg-navy hover:bg-navy/90 disabled:opacity-50 text-white font-bold text-base rounded-xl py-4 px-6 transition-colors shadow-lg shadow-navy/20">
-        {estado === 'sending' ? 'Enviando...' : 'SOLICITAR GARANTÍA CORPORATIVA'}
-      </button>
-      <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1.5 pt-1">
-        {['🔒 Datos protegidos por la RGPD', '⏳ Llamada de solo 5 minutos', 'Cero compromiso'].map(t => (
-          <span key={t} className="text-xs text-gray-400">{t}</span>
-        ))}
-      </div>
-    </form>
-  )
-}
-
-/* ─── COLUMNA COMPARATIVA ────────────────────────────────────────────────── */
-function CompareCol({
-  label, valor, bgHeader, textHeader, items, highlight = false,
-}: {
-  label: string; valor: number; bgHeader: string; textHeader: string
-  items: { icon: string; text: string; bad?: boolean }[]; highlight?: boolean
+/* ─── SLIDER ─────────────────────────────────────────────────────────────── */
+function Slider({ label, value, min, max, step = 1, unit, onChange, accent = 'bg-cta' }: {
+  label: string; value: number; min: number; max: number; step?: number; unit: string; onChange: (v: number) => void; accent?: string
 }) {
+  const pct = ((value - min) / (max - min)) * 100
   return (
-    <div className={[
-      'rounded-2xl overflow-hidden border flex flex-col',
-      highlight ? 'border-navy shadow-2xl shadow-navy/15 scale-[1.02]' : 'border-gray-200 shadow-sm',
-    ].join(' ')}>
-      <div className={`px-6 py-5 ${bgHeader}`}>
-        <p className={`text-xs font-semibold uppercase tracking-widest mb-1 ${textHeader}`}>{label}</p>
-        <p className={`text-4xl font-black tabular-nums ${highlight ? 'text-white' : 'text-gray-800'}`}>
-          {valor.toLocaleString('es-ES')} €
-        </p>
-        <p className={`text-sm mt-1 ${highlight ? 'text-white/70' : 'text-gray-500'}`}>ingresos netos estimados / año</p>
+    <div className="space-y-2.5">
+      <div className="flex justify-between items-baseline">
+        <span className="font-sans text-sm font-medium text-navy/70">{label}</span>
+        <span className="font-serif text-xl font-light text-navy">{value.toLocaleString('es-ES')} {unit}</span>
       </div>
-      <div className={`flex-1 p-6 space-y-3 ${highlight ? 'bg-navy/5' : 'bg-gray-50'}`}>
-        {items.map(it => (
-          <div key={it.text} className="flex items-start gap-2.5">
-            <span className="text-base shrink-0 mt-0.5">{it.icon}</span>
-            <p className={`text-sm leading-snug ${it.bad ? 'text-red-600 font-medium' : 'text-gray-600'}`}>
-              {it.text}
-            </p>
-          </div>
-        ))}
+      <div className="relative h-2 rounded-full bg-navy/10">
+        <div className={`absolute inset-y-0 left-0 rounded-full transition-all ${accent}`} style={{ width: `${pct}%` }} />
+        <input type="range" min={min} max={max} step={step} value={value} onChange={e => onChange(Number(e.target.value))} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
       </div>
     </div>
   )
 }
 
-/* ══════════════════════════════════════════════════════════════════════════
-   PÁGINA PRINCIPAL
-══════════════════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════════════════════ */
 export default function AlquilerCorporativoPage() {
-  /* ─── Calculadora comparativa ──────────────────────────────────────────── */
-  const [renta,        setRenta]        = useState(1000)
-  const [mesesImpago,  setMesesImpago]  = useState(2)
+  const [renta, setRenta] = useState(900)
+  const [mesesImpago, setMesesImpago] = useState(3)
+  const enRiesgo = renta * mesesImpago
+  const rentaAnual = renta * 12
 
-  const rentaAnual      = renta * 12
-  const mesesPerdidos   = renta * mesesImpago
-  const seguroImpago    = rentaAnual * 0.05
-  const reparaciones    = rentaAnual * 0.10
-  const netoTradicional = Math.max(0, rentaAnual - mesesPerdidos - seguroImpago - reparaciones)
-  const netoRenttia     = rentaAnual
-  const diferencia      = netoRenttia - netoTradicional
-
-  /* ─── Sticky CTA ───────────────────────────────────────────────────────── */
+  const [callPopup, setCallPopup] = useState(false)
   const [showSticky, setShowSticky] = useState(false)
-  const [callPopup,  setCallPopup]  = useState(false)
   const heroRef = useRef<HTMLDivElement>(null)
   const formRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const onScroll = () => {
-      setShowSticky((heroRef.current?.getBoundingClientRect().bottom ?? 0) < 0)
-    }
+    const onScroll = () => setShowSticky((heroRef.current?.getBoundingClientRect().bottom ?? 0) < 0)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   const scrollToForm = () => formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-  const fmt = (n: number) => Math.round(n).toLocaleString('es-ES')
+  const fmt = (n: number) => n.toLocaleString('es-ES')
 
   return (
-    <div className="min-h-screen bg-white font-sans text-gray-800 antialiased">
+    <div className="min-h-screen bg-white font-sans">
 
-      {/* ── NAVBAR ─────────────────────────────────────────────────────────── */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <a href="/" className="font-serif text-navy text-xl font-light tracking-tight">RENTTIA</a>
-          <button onClick={() => setCallPopup(true)}
-            className="flex items-center gap-2 bg-navy text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-navy/90 transition-colors">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-            </svg>
-            Llamar ahora
-          </button>
+      {callPopup && <CallPopup onClose={() => setCallPopup(false)} />}
+      <StickyCTA show={showSticky} onForm={scrollToForm} onCall={() => setCallPopup(true)} ctaLabel="Quiero cobrar sin riesgo →" />
+      <LandingHeader onCall={() => setCallPopup(true)} />
+
+      {/* ── HERO + CALCULADORA (above the fold) ────────────────────────── */}
+      <section ref={heroRef} className="bg-navy relative overflow-hidden">
+        <div className="absolute inset-0">
+          <Image src="/despues-1.png" alt="" fill className="object-cover object-center opacity-25" priority sizes="100vw" />
+          <div className="absolute inset-0 bg-gradient-to-br from-navy/90 via-navy/85 to-[#0f2d55]/90" />
         </div>
-      </header>
 
-      {/* ── S1: HERO ───────────────────────────────────────────────────────── */}
-      <section ref={heroRef} className="bg-gradient-to-br from-navy via-navy to-[#0d2340] py-20 sm:py-28">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
-          {/* Badge corporativo */}
-          <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-8">
-            <span className="w-2 h-2 rounded-full bg-green-400" />
-            <span className="text-white/80 text-xs font-semibold uppercase tracking-wider">
-              Operador Residencial Corporativo · Código Civil Art. 3 LAU
-            </span>
-          </div>
-
-          <h1 className="font-serif font-light text-white text-4xl sm:text-5xl lg:text-6xl leading-tight mb-6">
-            El fin del subarriendo informal:<br />
-            <span className="text-blue-300">Pásate al Alquiler Corporativo</span><br />
-            con Garantía B2B
-          </h1>
-
-          <p className="text-white/60 text-lg sm:text-xl leading-relaxed max-w-3xl mx-auto mb-10">
-            No dejes tu propiedad en manos de particulares. Descubre cómo una sociedad mercantil
-            blinda tu patrimonio bajo el Código Civil, asume el 100% de tus suministros
-            y realiza auditorías semanales de limpieza.
-          </p>
-
-          {/* Sellos de confianza */}
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-10">
-            {[
-              '🏛️ Sociedad Mercantil Registrada',
-              '📋 Contrato bajo Código Civil',
-              '🔒 100% Riesgo Operativo Asumido',
-            ].map(s => (
-              <div key={s} className="flex items-center gap-2 bg-white/8 border border-white/15 rounded-full px-4 py-2">
-                <span className="text-white/85 text-sm">{s}</span>
-              </div>
-            ))}
-          </div>
-
-          <button onClick={scrollToForm}
-            className="inline-flex items-center gap-2 bg-white text-navy font-bold px-10 py-5 rounded-2xl text-base hover:bg-blue-50 transition-colors shadow-2xl shadow-black/20">
-            Ver la comparativa corporativa
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" />
-            </svg>
-          </button>
-        </div>
-      </section>
-
-      {/* ── S2: CALCULADORA COMPARATIVA ────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-10">
-            <p className="text-xs font-semibold uppercase tracking-widest text-navy/50 mb-3">
-              Simulador comparativo
-            </p>
-            <h2 className="font-serif font-light text-navy text-3xl sm:text-4xl mb-3">
-              ¿Cuánto pierdes con el modelo informal?
-            </h2>
-            <p className="text-gray-500 text-base max-w-xl mx-auto">
-              Ajusta tu renta y los meses de riesgo de tu zona. Compara lo que recibes con
-              un particular frente a lo que Renttia te garantiza por contrato.
-            </p>
-          </div>
-
-          {/* Inputs numéricos */}
-          <div className="bg-slate-50 rounded-2xl p-6 sm:p-8 mb-8 grid sm:grid-cols-2 gap-8">
-            {/* Renta mensual */}
-            <div className="space-y-3">
-              <div className="flex justify-between items-baseline">
-                <label className="text-sm font-semibold text-gray-600">Renta mensual deseada</label>
-                <span className="text-xl font-black text-navy">{fmt(renta)} €/mes</span>
-              </div>
-              <div className="relative h-2 rounded-full bg-gray-200">
-                <div className="absolute inset-y-0 left-0 rounded-full bg-navy transition-all"
-                  style={{ width: `${((renta - 600) / (2000 - 600)) * 100}%` }} />
-                <input type="range" min={600} max={2000} step={50} value={renta}
-                  onChange={e => setRenta(Number(e.target.value))}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
-              </div>
-              <div className="flex justify-between text-xs text-gray-400">
-                <span>600 €/mes</span><span>2.000 €/mes</span>
-              </div>
-            </div>
-
-            {/* Meses impago */}
-            <div className="space-y-3">
-              <div className="flex justify-between items-baseline">
-                <label className="text-sm font-semibold text-gray-600">Meses de impago o rotación estimados</label>
-                <span className="text-xl font-black text-red-600">{mesesImpago} {mesesImpago === 1 ? 'mes' : 'meses'}</span>
-              </div>
-              <div className="relative h-2 rounded-full bg-gray-200">
-                <div className="absolute inset-y-0 left-0 rounded-full bg-red-500 transition-all"
-                  style={{ width: `${((mesesImpago - 1) / 3) * 100}%` }} />
-                <input type="range" min={1} max={4} step={1} value={mesesImpago}
-                  onChange={e => setMesesImpago(Number(e.target.value))}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
-              </div>
-              <div className="flex justify-between text-xs text-gray-400">
-                <span>1 mes</span><span>4 meses</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Columnas comparativas */}
-          <div className="grid sm:grid-cols-2 gap-5 mb-8">
-            <CompareCol
-              label="Alquiler Tradicional / Particular"
-              valor={netoTradicional}
-              bgHeader="bg-red-50"
-              textHeader="text-red-500"
-              items={[
-                { icon: '⚠️', text: `Meses sin cobrar: −${fmt(mesesPerdidos)} €`, bad: true },
-                { icon: '⚠️', text: `Seguro de impago estimado: −${fmt(seguroImpago)} €/año`, bad: true },
-                { icon: '⚠️', text: `Reparaciones por desgaste: −${fmt(reparaciones)} €/año`, bad: true },
-                { icon: '⚠️', text: 'Riesgo de prórrogas forzosas de 5 a 7 años', bad: true },
-                { icon: '⚠️', text: 'Suministros a nombre del propietario', bad: true },
-                { icon: '⚠️', text: 'Responsabilidad jurídica ante impagos de luz/agua', bad: true },
-              ]}
-            />
-            <CompareCol
-              label="Modelo Corporativo Renttia"
-              valor={netoRenttia}
-              bgHeader="bg-navy"
-              textHeader="text-blue-300"
-              highlight
-              items={[
-                { icon: '✅', text: `Renta anual íntegra garantizada: ${fmt(rentaAnual)} €` },
-                { icon: '✅', text: 'Contrato de Explotación bajo Código Civil (Art. 3 LAU)' },
-                { icon: '✅', text: 'Suministros a nombre de Renttia (CUPS transferidos)' },
-                { icon: '✅', text: 'Limpieza semanal y control digital del inmueble' },
-                { icon: '✅', text: 'Cero rotación — cobras siempre el día 1' },
-                { icon: '✅', text: 'Fianza legal depositada desde la firma' },
-              ]}
-            />
-          </div>
-
-          {/* Diferencia destacada */}
-          <div className="bg-gradient-to-r from-navy/5 to-blue-50 border border-navy/10 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
-            <div>
-              <p className="text-gray-500 text-sm font-medium mb-1">
-                Ventaja económica anual del modelo corporativo
-              </p>
-              <p className="font-serif font-light text-navy text-lg">
-                Cada año con el modelo Renttia frente al alquiler tradicional
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-14 relative">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-14 items-center">
+            <div className="order-1">
+              <span className="inline-block bg-white/10 border border-white/15 text-white/80 text-[0.6rem] font-sans font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-5">
+                Alquila sin impagos · Zaragoza · Huesca
+              </span>
+              <h1 className="font-serif text-white text-[1.75rem] sm:text-4xl lg:text-[2.75rem] font-light leading-tight mb-4">
+                Alquila sin miedo a los impagos.<br />
+                <span className="italic" style={{ color: '#C9A96E' }}>Cobra los 12 meses.</span>
+              </h1>
+              <p className="font-serif font-light text-white/85 text-base sm:text-lg leading-relaxed max-w-lg">
+                Cuando una empresa es tu inquilino, tu renta llega el día 1 pase lo que pase.
+                Calcula lo que te juegas cada año con el alquiler tradicional.
               </p>
             </div>
-            <div className="text-right">
-              <p className="text-5xl font-black text-navy tabular-nums">+{fmt(diferencia)} €</p>
-              <p className="text-navy/50 text-xs font-medium mt-1">de diferencia real garantizada</p>
-            </div>
-          </div>
 
-          {/* Mini form rápido */}
-          <div className="bg-slate-50 border border-gray-100 rounded-2xl p-6">
-            <p className="text-gray-700 font-semibold text-sm mb-4">
-              ¿Quieres asegurar esta renta con una empresa? Déjanos tu contacto:
-            </p>
-            <FormularioRapido fuente={`${FUENTE}-comparativa`} />
-          </div>
-        </div>
-      </section>
+            <div className="order-2 bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 shadow-2xl">
+              <h2 className="font-serif text-navy text-lg sm:text-2xl font-light mb-1">¿Cuánto te juegas con un impago?</h2>
+              <p className="font-sans text-gray-500 text-sm mb-6">Ajusta tu renta y el tiempo que tardarías en resolverlo.</p>
 
-      {/* ── S3: PROPUESTA DE VALOR (navy) ──────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-navy">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12">
-            <h2 className="font-serif font-light text-white text-3xl sm:text-4xl mb-4">
-              Lo que cambia cuando una empresa<br />es tu inquilino.
-            </h2>
-            <p className="text-white/55 text-base max-w-2xl mx-auto">
-              No somos un particular subarrendando. Somos un operador residencial corporativo
-              que firma bajo el Código Civil y asume el riesgo operativo completo.
-            </p>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {[
-              { icon: '🛡️', title: 'Renta Garantizada el Día 1', desc: 'Cobras siempre, directamente de nuestra empresa, esté el piso ocupado o no.' },
-              { icon: '🔌', title: 'Suministros a Nuestro Nombre', desc: 'Realizamos un cambio de titularidad completo (CUPS). Si hay impago de luz o agua, la responsabilidad es exclusivamente nuestra.' },
-              { icon: '🧹', title: 'Control Semanal Obligatorio', desc: 'Limpieza semanal en zonas comunes y tecnología de acceso digital. Tu piso nunca es invisible.' },
-              { icon: '🔨', title: 'Revalorización a Coste 0 €', desc: 'Adecuamos estéticamente tu inmueble e invertimos en mobiliario premium sin que tú desembolses un euro.' },
-            ].map(b => (
-              <div key={b.title} className="bg-white/8 border border-white/10 rounded-2xl p-6 hover:bg-white/12 transition-colors">
-                <span className="text-3xl block mb-4">{b.icon}</span>
-                <h3 className="font-sans font-semibold text-white text-base mb-2">{b.title}</h3>
-                <p className="text-white/55 text-sm leading-relaxed">{b.desc}</p>
+              <div className="space-y-6">
+                <Slider label="Renta mensual de tu piso" value={renta} min={400} max={2000} step={50} unit="€" onChange={setRenta} />
+                <Slider label="Meses hasta resolver un impago" value={mesesImpago} min={1} max={6} unit={mesesImpago === 1 ? 'mes' : 'meses'} onChange={setMesesImpago} accent="bg-amber-500" />
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* ── S4: PROCESO ────────────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-slate-50">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12">
-            <p className="text-xs font-semibold uppercase tracking-widest text-navy/50 mb-3">El proceso</p>
-            <h2 className="font-serif font-light text-navy text-3xl sm:text-4xl">
-              Tu tranquilidad, construida en 4 pasos técnicos.
-            </h2>
-          </div>
-          <div>
-            <Step n="01" title="Estudio de Viabilidad Digital"
-              desc="Rellenas el formulario y nuestro equipo analiza la tipología de tu inmueble y las directrices urbanísticas de tu zona." />
-            <Step n="02" title="Inspección y Oferta en Firme"
-              desc="Visitamos tu propiedad y te entregamos una propuesta económica cerrada con el contrato principal para tu total revisión jurídica." />
-            <Step n="03" title="Blindaje Legal y Llaves"
-              desc="Firmamos bajo el Código Civil, te entregamos las dos mensualidades de fianza legal y realizamos el cambio de titularidad de los suministros." />
-            <Step n="04" title="Activación de Ingresos Pasivos"
-              desc="Tramitamos el Registro Único de Arrendamientos (RD 1312/2024), ejecutamos el Home Staging y tú comienzas a recibir tu renta fija cada día 1." />
-          </div>
-          <div className="text-center mt-8">
-            <button onClick={scrollToForm}
-              className="inline-flex items-center gap-2 bg-navy text-white font-semibold px-8 py-4 rounded-xl hover:bg-navy/90 transition-colors text-base">
-              Quiero que analicéis mi piso gratis
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* ── S5: TESTIMONIOS ────────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12">
-            <p className="text-xs font-semibold uppercase tracking-widest text-navy/50 mb-3">Prueba social</p>
-            <h2 className="font-serif font-light text-navy text-3xl sm:text-4xl">
-              Lo que dicen otros propietarios<br />que vencieron el miedo.
-            </h2>
-          </div>
-          <div className="grid sm:grid-cols-2 gap-6">
-            {[
-              {
-                texto: 'Heredé el piso de mis padres en una zona universitaria pero me aterraba la nueva Ley de Vivienda y las historias de impagos. Llevaba 8 meses cerrado costándome dinero de comunidad e IBI. Con Renttia pasé de perder dinero a tener una renta fija ingresada religiosamente el día 1 de cada mes directamente desde su sociedad. Su abogado me explicó el contrato bajo el Código Civil y me dio una tranquilidad absoluta.',
-                nombre: 'Carmen M.', cargo: 'Propietaria de un piso heredado',
-              },
-              {
-                texto: 'Lo que me convenció de Renttia fue el cambio de titularidad de la luz y el agua. En mi anterior alquiler tradicional, el inquilino me dejó una deuda de suministros de más de 800€ a mi nombre. Con ellos, la empresa es la titular por contrato. Además, ver los renders de IA que hicieron de las habitaciones y comprobar que entran cada semana a limpiar las zonas comunes me asegura que mi piso está mejor cuidado que nunca.',
-                nombre: 'Alejandro T.', cargo: 'Inversor Inmobiliario',
-              },
-            ].map(t => (
-              <div key={t.nombre} className="bg-slate-50 border border-gray-100 rounded-3xl p-8">
-                <div className="flex items-center gap-1 mb-5">
-                  {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
+              <div className="mt-6 grid grid-cols-2 gap-3">
+                <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-center">
+                  <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-wider text-amber-600 mb-1">Con un particular, podrías perder</p>
+                  <p className="font-serif text-2xl sm:text-3xl font-light text-amber-700 tabular-nums">−{fmt(enRiesgo)} €</p>
                 </div>
-                <p className="font-serif font-light text-gray-700 text-base leading-relaxed mb-6">"{t.texto}"</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-navy/10 flex items-center justify-center shrink-0">
-                    <span className="text-navy font-bold text-sm">{t.nombre[0]}</span>
-                  </div>
-                  <div>
-                    <p className="font-sans font-semibold text-navy text-sm">{t.nombre}</p>
-                    <p className="text-gray-400 text-xs">{t.cargo}</p>
-                  </div>
+                <div className="p-4 rounded-2xl bg-cream border border-navy/10 text-center">
+                  <p className="font-sans text-[0.65rem] font-semibold uppercase tracking-wider text-navy/50 mb-1">Con Renttia cobras</p>
+                  <p className="font-serif text-2xl sm:text-3xl font-light text-navy tabular-nums">{fmt(rentaAnual)} €</p>
                 </div>
               </div>
-            ))}
-          </div>
-          <div className="text-center mt-10">
-            <button onClick={scrollToForm}
-              className="inline-flex items-center gap-2 bg-navy text-white font-semibold px-8 py-4 rounded-xl hover:bg-navy/90 transition-colors text-base">
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-              </svg>
-              Hablar con un asesor de Renttia
-            </button>
-          </div>
-        </div>
-      </section>
 
-      {/* ── S6: FORMULARIO FINAL ───────────────────────────────────────────── */}
-      <section ref={formRef} id="formulario" className="py-16 sm:py-24 bg-slate-50">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-10">
-            <p className="text-xs font-semibold uppercase tracking-widest text-navy/50 mb-3">Garantía corporativa</p>
-            <h2 className="font-serif font-light text-navy text-3xl sm:text-4xl mb-4">
-              Solicita tu Estudio de<br />Viabilidad Patrimonial gratuito.
-            </h2>
-            <p className="text-gray-500 text-base leading-relaxed">
-              Descarga nuestro Dossier Corporativo completo de Ingeniería de Negocio
-              y empieza a cobrar con garantía B2B.
-            </p>
-          </div>
-          <div className="bg-white rounded-3xl border border-gray-100 shadow-xl shadow-gray-100/80 p-8 sm:p-10">
-            <FormularioFinal />
-          </div>
-        </div>
-      </section>
+              <p className="font-sans text-gray-500 text-xs mt-4 text-center">
+                No prometemos que ganes más: te aseguramos que <strong className="text-navy">no pierdas</strong>. Cobras el día 1, siempre.
+              </p>
 
-      {/* ── S7: FAQ ────────────────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-white">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6">
-          <h2 className="font-serif font-light text-navy text-3xl sm:text-4xl mb-10 text-center">
-            Preguntas Frecuentes
-          </h2>
-          <div className="rounded-2xl border border-gray-100 overflow-hidden bg-white shadow-sm">
-            <div className="px-6 sm:px-8">
-              {[
-                {
-                  pregunta: '¿Es legal el subarriendo en España?',
-                  respuesta: 'Sí, está plenamente respaldado por el artículo 3 de la Ley de Arrendamientos Urbanos (LAU) y los artículos 1542 y siguientes del Código Civil, siempre que se cuente con la autorización expresa por escrito que nosotros incluimos en el contrato principal.',
-                },
-                {
-                  pregunta: '¿Qué pasa si un residente de una habitación no paga?',
-                  respuesta: 'A usted no le afecta en absoluto. Su relación contractual de alquiler es directamente con nuestra empresa (Renttia), no con los ocupantes temporales. Nosotros asumimos el 100% del riesgo operativo y legal. Usted cobra su renta íntegra el día 1.',
-                },
-                {
-                  pregunta: '¿Cumple Renttia con la nueva normativa digital?',
-                  respuesta: 'Sí. Absorbemos toda la carga burocrática del Real Decreto 1312/2024. Nos encargamos de gestionar el Número de Registro Único ante el Registro de la Propiedad y de validar documentalmente la causa de temporalidad de cada perfil.',
-                },
-                {
-                  pregunta: '¿Quién se hace cargo de los desperfectos?',
-                  respuesta: 'Renttia asume por contrato la responsabilidad directa del estado del piso ante usted y cubre las reparaciones ordinarias derivadas del uso diario. Además, nuestro protocolo de limpieza semanal obligatoria actúa como una auditoría constante del estado de la finca.',
-                },
-              ].map(faq => (
-                <FAQItem key={faq.pregunta} pregunta={faq.pregunta} respuesta={faq.respuesta} />
-              ))}
+              <button onClick={scrollToForm} className="btn-cta w-full py-4 text-base mt-4">
+                Quiero cobrar sin riesgo →
+              </button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── FOOTER ─────────────────────────────────────────────────────────── */}
-      <footer className="py-8 bg-navy">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <span className="font-serif text-white/70 text-sm">RENTTIA · Operador Residencial Corporativo</span>
-          <div className="flex items-center gap-6">
-            <a href="/privacidad" className="text-white/40 text-xs hover:text-white/70 transition-colors">Política de privacidad</a>
-            <a href="/aviso-legal" className="text-white/40 text-xs hover:text-white/70 transition-colors">Aviso legal</a>
-          </div>
-        </div>
-      </footer>
+      <TickerStrip />
+      <Beneficios label="Por qué Renttia" titulo="Lo que cambia cuando una empresa es tu inquilino" subtitulo="Tu renta deja de depender de un particular y pasa a estar garantizada." items={beneficios} />
+      <AntesDespues />
+      <Proceso pasos={pasos} />
+      <QuienesSomos />
+      <Reviews />
 
-      {/* ── STICKY CTA MÓVIL ───────────────────────────────────────────────── */}
-      <div className={[
-        'fixed bottom-0 left-0 right-0 z-50 sm:hidden transition-transform duration-300',
-        showSticky ? 'translate-y-0' : 'translate-y-full',
-      ].join(' ')}>
-        <div className="bg-white border-t border-gray-200 shadow-2xl px-4 py-3">
-          <button onClick={scrollToForm}
-            className="w-full bg-navy hover:bg-navy/90 text-white font-bold py-4 rounded-xl text-sm transition-colors">
-            📞 Solicitar Garantía Corporativa
-          </button>
-        </div>
-      </div>
+      <FormSection innerRef={formRef} titulo="Cobra tu renta sin riesgo de impago" texto="Déjanos tus datos y te llamamos en menos de 24 horas. Sin compromiso.">
+        <LeadForm fuente={FUENTE} estadoOpciones={estadoOpciones} />
+      </FormSection>
 
-      {/* ── POPUP TELÉFONO ──────────────────────────────────────────────────── */}
-      {callPopup && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" onClick={() => setCallPopup(false)}>
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
-          <div className="relative bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl text-center" onClick={e => e.stopPropagation()}>
-            <button onClick={() => setCallPopup(false)} className="absolute top-4 right-4 text-gray-300 hover:text-gray-500">
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-            <div className="w-14 h-14 rounded-2xl bg-navy/10 flex items-center justify-center mx-auto mb-5">
-              <svg className="w-7 h-7 text-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-              </svg>
-            </div>
-            <h3 className="font-serif text-navy text-xl font-light mb-2">Llámanos ahora</h3>
-            <p className="text-gray-500 text-sm mb-6">Nuestro equipo te atiende de lunes a viernes de 9h a 19h.</p>
-            <a href="tel:+34976000000"
-              className="block w-full bg-navy text-white font-semibold py-4 rounded-xl text-base hover:bg-navy/90 transition-colors">
-              +34 976 000 000
-            </a>
-            <p className="text-gray-300 text-xs mt-4">O rellena el formulario y te llamamos nosotros.</p>
-          </div>
-        </div>
-      )}
+      <FAQSection faqs={faqs} />
+      <FinalCTA titulo="Alquila sin miedo a los impagos." texto="Cobra tu renta el día 1, los 12 meses del año. Te llamamos en menos de 24 horas." ctaLabel="Quiero mi valoración gratuita →" onForm={scrollToForm} onCall={() => setCallPopup(true)} />
+      <LandingFooter />
     </div>
   )
 }

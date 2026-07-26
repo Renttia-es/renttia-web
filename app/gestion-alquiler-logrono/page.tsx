@@ -10,6 +10,8 @@ export const metadata: Metadata = {
     title: 'Gestión Profesional de Alquiler en Logroño | Renttia',
     url: 'https://renttia.es/gestion-alquiler-logrono',
   },
+  // Oculta a propósito: preparada para el futuro lanzamiento de Logroño.
+  robots: { index: false, follow: false },
 }
 
 export default function LogronoPage() {

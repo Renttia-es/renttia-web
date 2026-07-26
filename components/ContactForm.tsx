@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
+import { trackLeadConversion } from '@/lib/metaPixel'
 
 interface ContactFormProps {
   ciudad?: string
@@ -28,10 +29,16 @@ export default function ContactForm({ ciudad = '', dark = false }: ContactFormPr
     e.preventDefault()
     setLoading(true)
     try {
+      const eventId = trackLeadConversion({
+        email: form.email,
+        telefono: form.telefono,
+        nombre: form.nombre,
+        ciudad: form.ciudad,
+      })
       const res = await fetch('/api/contacto', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, eventId }),
       })
       if (!res.ok) throw new Error('Error al enviar')
       router.push('/gracias')

@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect, type FormEvent } from 'react'
+import { trackLeadConversion } from '@/lib/metaPixel'
 
 const ciudades = [
   { label: 'Zaragoza', href: '/gestion-alquiler-zaragoza' },
@@ -31,10 +32,11 @@ export default function Header() {
     e.preventDefault()
     setSending(true)
     try {
+      const eventId = trackLeadConversion({ telefono, nombre, ciudad })
       await fetch('/api/contacto', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre, telefono, ciudad, fuente: 'navbar-cta' }),
+        body: JSON.stringify({ nombre, telefono, ciudad, fuente: 'navbar-cta', eventId }),
       })
       setSent(true)
     } finally {

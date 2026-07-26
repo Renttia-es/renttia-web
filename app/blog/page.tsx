@@ -35,7 +35,7 @@ export default function BlogPage() {
             </h1>
             <p className="font-sans text-white/55 text-base leading-relaxed">
               Guías, análisis de mercado y consejos prácticos sobre gestión profesional de inmuebles
-              y alquiler de habitaciones premium en Aragón y La Rioja.
+              y alquiler de habitaciones premium en Aragón.
             </p>
           </div>
         </div>
@@ -149,7 +149,7 @@ export default function BlogPage() {
           <div className="relative grid lg:grid-cols-2 gap-8 items-center">
             <div>
               <h2 className="font-serif text-white text-2xl sm:text-3xl font-light mb-3">
-                ¿Eres propietario en Aragón o La Rioja?
+                ¿Eres propietario en Aragón?
               </h2>
               <p className="font-sans text-white/50 text-sm leading-relaxed">
                 Solicita una valoración gratuita de tu inmueble y descubre cuánto puedes cobrar

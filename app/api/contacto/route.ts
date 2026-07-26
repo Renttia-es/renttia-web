@@ -84,6 +84,20 @@ function horaLimite(date: Date): string {
   })
 }
 
+/** Traduce el valor del select "estado del piso" a una etiqueta legible para el comercial. */
+function estadoPisoLabel(tipo?: string): string {
+  const mapa: Record<string, string> = {
+    'vacio-cerrado':          'Vacío / Cerrado',
+    'necesita-reforma':       'Necesita reforma',
+    'alquilado-cambio':       'Alquilado, busca cambiar',
+    'heredado':               'Heredado',
+    'alquilado-habitaciones': 'Alquilado por habitaciones',
+    'alquilado-temporal':     'Alquiler temporal',
+    'alquilado-tradicional':  'Alquiler tradicional',
+  }
+  return (tipo && mapa[tipo]) || '—'
+}
+
 /* ─── GOOGLE SHEETS ───────────────────────────────────────────────────────── */
 
 async function appendToSheet(row: (string | number | null)[]): Promise<void> {
@@ -139,7 +153,7 @@ async function sendTelegram(text: string): Promise<void> {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    const { nombre, telefono, email, ciudad, tipo, habitaciones, mensaje, fuente } = body
+    const { nombre, telefono, email, ciudad, tipo, habitaciones, mensaje, fuente, eventId: clientEventId } = body
 
     if (!nombre || !telefono) {
       return NextResponse.json({ error: 'Faltan campos obligatorios' }, { status: 400 })
@@ -176,6 +190,7 @@ export async function POST(req: NextRequest) {
         null,                          // I — Intentos (manual)
         null,                          // J — Notas (manual)
         fuenteLabel,                   // K — Fuente (landing de origen)
+        estadoPisoLabel(tipo),         // L — Estado del piso (cualificación)
       ])
       console.log('✅ Google Sheets OK')
     } catch (e) {
@@ -278,7 +293,8 @@ export async function POST(req: NextRequest) {
 
     /* 6 — Meta Conversions API ──────────────────────────────────────────── */
     try {
-      const eventId = randomUUID()
+      // Mismo eventId que el Pixel del navegador → Meta deduplica Pixel + CAPI.
+      const eventId = typeof clientEventId === 'string' && clientEventId ? clientEventId : randomUUID()
       const metaUserData = { email, phone: telefono, nombre, ciudad }
       await Promise.all([
         sendMetaEvent('Lead',    metaUserData, req, eventId),

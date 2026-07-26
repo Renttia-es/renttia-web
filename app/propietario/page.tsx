@@ -3,6 +3,7 @@
 import { useState, useEffect, type FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import { trackLeadConversion } from '@/lib/metaPixel'
 
 /* ─── POPUP TELÉFONO ──────────────────────────────────────────────────────── */
 function CallPopup({ onClose }: { onClose: () => void }) {
@@ -108,26 +109,26 @@ const pasos = [
 
 const reviews = [
   { nombre: 'Carmen R.', ciudad: 'Zaragoza', texto: 'Llevo dos años cobrando puntualmente el día 1. No he tenido que llamar ni una sola vez. Ojalá lo hubiera conocido antes.', estrellas: 5 },
-  { nombre: 'Javier M.', ciudad: 'Logroño', texto: 'Tenía miedo de alquilar mi piso por los impagos. Con Renttia firmé y me olvidé. La renta llega siempre.', estrellas: 5 },
+  { nombre: 'Javier M.', ciudad: 'Huesca', texto: 'Tenía miedo de alquilar mi piso por los impagos. Con Renttia firmé y me olvidé. La renta llega siempre.', estrellas: 5 },
   { nombre: 'Patricia G.', ciudad: 'Huesca', texto: 'El piso lo dejaron impecable, mejor que como lo entregué. El trato es muy profesional.', estrellas: 5 },
   { nombre: 'Antonio L.', ciudad: 'Zaragoza', texto: 'Muy serios y transparentes desde el primer contacto. El contrato es claro y sin letra pequeña.', estrellas: 5 },
   { nombre: 'Marta S.', ciudad: 'Zaragoza', texto: 'Mi piso llevaba meses vacío. En tres semanas desde que contacté con Renttia ya estaba todo firmado.', estrellas: 5 },
-  { nombre: 'Luis F.', ciudad: 'Logroño', texto: 'Me explicaron todo desde el primer momento. Cero sorpresas, cero preocupaciones. Totalmente recomendable.', estrellas: 5 },
+  { nombre: 'Luis F.', ciudad: 'Zaragoza', texto: 'Me explicaron todo desde el primer momento. Cero sorpresas, cero preocupaciones. Totalmente recomendable.', estrellas: 5 },
   { nombre: 'Elena V.', ciudad: 'Huesca', texto: 'Tenía un piso heredado que no sabía qué hacer con él. Renttia lo gestionó todo y ahora genera renta sin que yo haga nada.', estrellas: 5 },
   { nombre: 'Roberto C.', ciudad: 'Zaragoza', texto: 'La tranquilidad de saber que cobras siempre no tiene precio. Muy recomendable para propietarios que no quieren complicaciones.', estrellas: 5 },
-  { nombre: 'Isabel P.', ciudad: 'Logroño', texto: 'Proceso rapidísimo. En menos de un mes tenía el contrato firmado y el piso listo. Equipo muy atento.', estrellas: 5 },
+  { nombre: 'Isabel P.', ciudad: 'Huesca', texto: 'Proceso rapidísimo. En menos de un mes tenía el contrato firmado y el piso listo. Equipo muy atento.', estrellas: 5 },
   { nombre: 'David N.', ciudad: 'Zaragoza', texto: 'Antes tenía problemas con inquilinos. Ahora solo recibo una transferencia mensual. La diferencia es brutal.', estrellas: 5 },
   { nombre: 'Sofía T.', ciudad: 'Huesca', texto: 'Quedé muy satisfecha con la atención recibida. Me resolvieron todas las dudas antes de firmar.', estrellas: 5 },
   { nombre: 'Miguel Á.', ciudad: 'Zaragoza', texto: 'Renttia cumple exactamente lo que promete. Renta garantizada, sin llamadas, sin gestiones. Perfecto.', estrellas: 5 },
-  { nombre: 'Ana B.', ciudad: 'Logroño', texto: 'Me preocupaba dejar el piso en manos de una empresa, pero la confianza que transmiten es total. Muy profesionales.', estrellas: 5 },
+  { nombre: 'Ana B.', ciudad: 'Zaragoza', texto: 'Me preocupaba dejar el piso en manos de una empresa, pero la confianza que transmiten es total. Muy profesionales.', estrellas: 5 },
   { nombre: 'Fernando O.', ciudad: 'Zaragoza', texto: 'Cobro puntual cada mes y el piso está mejor cuidado que cuando lo alquilaba yo directamente. Nada que objetar.', estrellas: 5 },
   { nombre: 'Rosa M.', ciudad: 'Huesca', texto: 'Soy propietaria de dos pisos con Renttia. La gestión es excelente y la comunicación muy fluida.', estrellas: 5 },
   { nombre: 'Carlos E.', ciudad: 'Zaragoza', texto: 'Me ahorraron el dolor de cabeza de buscar inquilinos y gestionar incidencias. Merece cada euro.', estrellas: 5 },
-  { nombre: 'Laura Q.', ciudad: 'Logroño', texto: 'El contrato es muy claro. Sin comisiones ocultas, sin sorpresas. Justo lo que necesitaba.', estrellas: 5 },
+  { nombre: 'Laura Q.', ciudad: 'Huesca', texto: 'El contrato es muy claro. Sin comisiones ocultas, sin sorpresas. Justo lo que necesitaba.', estrellas: 5 },
   { nombre: 'Tomás H.', ciudad: 'Zaragoza', texto: 'Tuve una pequeña avería y ni me enteré. Lo gestionaron ellos sin molestarme. Así da gusto.', estrellas: 5 },
   { nombre: 'Cristina J.', ciudad: 'Huesca', texto: 'Después de años con inquilinos problemáticos, Renttia ha sido un soplo de aire fresco. Muy recomendable.', estrellas: 5 },
   { nombre: 'Pablo R.', ciudad: 'Zaragoza', texto: 'La valoración fue rápida y honesta. Me ofrecieron exactamente el precio que pedía. Sin negociaciones.', estrellas: 5 },
-  { nombre: 'Nuria D.', ciudad: 'Logroño', texto: 'Todo lo que dijeron que harían, lo han cumplido. Seria, puntual y profesional. Muy satisfecha.', estrellas: 5 },
+  { nombre: 'Nuria D.', ciudad: 'Zaragoza', texto: 'Todo lo que dijeron que harían, lo han cumplido. Seria, puntual y profesional. Muy satisfecha.', estrellas: 5 },
   { nombre: 'Álvaro K.', ciudad: 'Zaragoza', texto: 'El piso quedó amueblado y equipado sin coste para mí. Eso marcó la diferencia para decidirme.', estrellas: 5 },
   { nombre: 'Pilar W.', ciudad: 'Huesca', texto: 'Desde la primera llamada hasta la firma, todo fue fluido y transparente. Gran experiencia.', estrellas: 5 },
   { nombre: 'Sergio A.', ciudad: 'Zaragoza', texto: 'Llevo un año sin preocupaciones. Renttia gestiona, yo cobro. Simple y efectivo.', estrellas: 5 },
@@ -145,7 +146,7 @@ const faqs = [
 
 const tickerItems = [
   { icon: 'M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z', text: 'Contrato LAU revisado por abogado' },
-  { icon: 'M15 10.5a3 3 0 11-6 0 3 3 0 016 0zM19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z', text: 'Zaragoza · Huesca · Logroño' },
+  { icon: 'M15 10.5a3 3 0 11-6 0 3 3 0 016 0zM19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z', text: 'Zaragoza · Huesca' },
   { icon: 'M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z', text: '0€ de comisión al propietario' },
   { icon: 'M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z', text: 'Respuesta en menos de 24 h' },
   { icon: 'M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z', text: 'Acceso permanente a tu vivienda' },
@@ -172,10 +173,16 @@ export default function PropietarioLanding() {
     e.preventDefault()
     setLoading(true)
     try {
+      const eventId = trackLeadConversion({
+        email: form.email,
+        telefono: form.telefono,
+        nombre: form.nombre,
+        ciudad: form.ciudad,
+      })
       const res = await fetch('/api/contacto', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, tipo: 'landing-propietario' }),
+        body: JSON.stringify({ ...form, tipo: 'landing-propietario', eventId }),
       })
       if (!res.ok) throw new Error()
       router.push('/gracias')
@@ -263,7 +270,7 @@ export default function PropietarioLanding() {
             {/* Texto — arriba en móvil */}
             <div className="order-1">
               <span className="inline-block bg-white/10 border border-white/15 text-white/80 text-[0.6rem] font-sans font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-5">
-                Propietarios en Zaragoza · Huesca · Logroño
+                Propietarios en Zaragoza · Huesca
               </span>
               <h1 className="font-serif text-white text-[1.75rem] sm:text-4xl lg:text-[2.75rem] font-light leading-tight mb-4">
                 Tu piso alquilado<br />
@@ -316,7 +323,6 @@ export default function PropietarioLanding() {
                     <select className="form-input" value={form.ciudad} onChange={e => setForm({ ...form, ciudad: e.target.value })}>
                       <option value="">Ciudad...</option>
                       <option value="zaragoza">Zaragoza</option>
-                      <option value="logrono">Logroño</option>
                       <option value="huesca">Huesca</option>
                     </select>
                   </div>
@@ -517,10 +523,10 @@ export default function PropietarioLanding() {
             </svg>
           </div>
           <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-light mb-5">
-            Un equipo local con raíces en Aragón y La Rioja
+            Un equipo local, nacido en Jaca
           </h2>
           <p className="font-serif font-light text-gray-600 text-base sm:text-lg lg:text-xl leading-relaxed mb-4">
-            Renttia nació con un propósito claro: ofrecer a los propietarios la tranquilidad que el alquiler tradicional nunca ha dado. Operamos en Zaragoza, Huesca y Logroño porque conocemos estas ciudades, sus barrios y su mercado.
+            Renttia nació en Jaca con un propósito claro: ofrecer a los propietarios la tranquilidad que el alquiler tradicional nunca ha dado. En nuestros 2 años de experiencia hemos llegado a conocer Zaragoza y Huesca, sus barrios y su mercado.
           </p>
           <p className="font-serif font-light text-gray-500 text-base sm:text-lg lg:text-xl leading-relaxed">
             No somos una gran corporación. Somos un equipo pequeño y comprometido que trata cada piso como si fuera el nuestro, porque en cierto sentido, lo es.

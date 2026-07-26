@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
+import { trackLeadConversion } from '@/lib/metaPixel'
 
 export default function BlogCTAPopup() {
   const [open, setOpen] = useState(false)
@@ -13,10 +14,16 @@ export default function BlogCTAPopup() {
     e.preventDefault()
     setLoading(true)
     try {
+      const eventId = trackLeadConversion({
+        email: form.email,
+        telefono: form.telefono,
+        nombre: form.nombre,
+        ciudad: form.ciudad,
+      })
       const res = await fetch('/api/contacto', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, tipo: 'blog-cta', habitaciones: '', mensaje: '' }),
+        body: JSON.stringify({ ...form, tipo: 'blog-cta', habitaciones: '', mensaje: '', eventId }),
       })
       if (!res.ok) throw new Error()
       setOpen(false)
