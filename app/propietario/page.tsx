@@ -523,7 +523,7 @@ export default function PropietarioLanding() {
             </svg>
           </div>
           <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-light mb-5">
-            Un equipo local, nacido en Jaca
+            Un equipo aragonés, con raíces en Jaca
           </h2>
           <p className="font-serif font-light text-gray-600 text-base sm:text-lg lg:text-xl leading-relaxed mb-4">
             Renttia nació en Jaca con un propósito claro: ofrecer a los propietarios la tranquilidad que el alquiler tradicional nunca ha dado. En nuestros 2 años de experiencia hemos llegado a conocer Zaragoza y Huesca, sus barrios y su mercado.
