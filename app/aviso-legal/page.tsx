@@ -17,6 +17,7 @@ export default function AvisoLegalPage() {
               <li><strong>Denominación social:</strong> Renttia CB</li>
               <li><strong>Domicilio:</strong> Zaragoza, España</li>
               <li><strong>Email:</strong> hola@renttia.es</li>
+              <li><strong>Teléfono:</strong> 692 87 61 36</li>
               <li><strong>Actividad:</strong> Gestión de alquiler y Rent to Rent</li>
             </ul>
           </div>

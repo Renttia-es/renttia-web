@@ -23,6 +23,7 @@ export default function PrivacidadPage() {
             <ul className="list-disc list-inside space-y-1 text-sm">
               <li><strong>Denominación:</strong> Renttia CB</li>
               <li><strong>Email:</strong> hola@renttia.es</li>
+              <li><strong>Teléfono:</strong> 692 87 61 36</li>
               <li><strong>Domicilio:</strong> Zaragoza, España</li>
             </ul>
           </div>

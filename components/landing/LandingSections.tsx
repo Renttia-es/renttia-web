@@ -48,9 +48,9 @@ export function CallPopup({ onClose }: { onClose: () => void }) {
         </div>
         <h3 className="font-serif text-navy text-xl font-light mb-2">Llámanos ahora</h3>
         <p className="font-sans text-gray-500 text-sm mb-6">Nuestro equipo te atiende de lunes a viernes de 9h a 19h.</p>
-        <a href="tel:+34976000000" className="btn-cta w-full py-4 text-base flex items-center justify-center gap-2 rounded-xl">
+        <a href="tel:+34692876136" className="btn-cta w-full py-4 text-base flex items-center justify-center gap-2 rounded-xl">
           <PhoneIcon className="w-5 h-5" />
-          +34 976 000 000
+          692 87 61 36
         </a>
         <p className="font-sans text-gray-300 text-xs mt-4">O rellena el formulario y te llamamos nosotros.</p>
       </div>

@@ -36,8 +36,12 @@ export default function Footer() {
               Alquiler de habitaciones premium, sin complicaciones para el propietario.
             </p>
             <a href="mailto:hola@renttia.es"
-              className="text-cta-light hover:text-white text-sm font-sans transition-colors">
+              className="text-cta-light hover:text-white text-sm font-sans transition-colors block mb-2">
               hola@renttia.es
+            </a>
+            <a href="tel:+34692876136"
+              className="text-cta-light hover:text-white text-sm font-sans transition-colors block">
+              692 87 61 36
             </a>
           </div>
 

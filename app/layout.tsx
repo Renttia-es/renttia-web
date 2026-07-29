@@ -53,6 +53,7 @@ const jsonLd = {
   logo: 'https://renttia.es/logo.png',
   description: 'Gestión profesional de inmuebles en Zaragoza y Huesca. Alquiler garantizado el día 1, sin impagos ni gestión para el propietario.',
   email: 'hola@renttia.es',
+  telephone: '+34692876136',
   areaServed: [
     { '@type': 'City', name: 'Zaragoza' },
     { '@type': 'City', name: 'Huesca' },
