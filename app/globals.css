@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Custom easing curves ────────────────────────────────────── */
+:root {
+  --ease-out:     cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out:  cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -37,32 +44,50 @@
   /* ── Botones ──────────────────────────────────────────────── */
   .btn-cta {
     @apply inline-flex items-center justify-center gap-2
-           bg-cta hover:bg-cta-hover text-white
+           bg-cta text-white
            font-sans font-medium text-[0.875rem] tracking-wide
-           px-7 py-3.5 rounded-xl transition-all duration-200
-           shadow-sm hover:shadow-md hover:-translate-y-px active:translate-y-0;
+           px-7 py-3.5 rounded-xl
+           shadow-sm;
     letter-spacing: 0.03em;
+    transition: background-color 200ms var(--ease-out),
+                transform       150ms var(--ease-out),
+                box-shadow      200ms var(--ease-out);
+  }
+  .btn-cta:hover {
+    @apply bg-cta-hover shadow-md;
+    transform: translateY(-1px);
+  }
+  .btn-cta:active {
+    transform: scale(0.97) translateY(0px);
+    @apply shadow-sm;
   }
 
   .btn-outline-white {
     @apply inline-flex items-center justify-center gap-2
            border border-white/30 text-white
-           hover:bg-white hover:text-navy
            font-sans font-medium text-[0.875rem]
-           px-7 py-3.5 rounded-xl transition-all duration-200
-           hover:-translate-y-px active:translate-y-0;
+           px-7 py-3.5 rounded-xl;
     letter-spacing: 0.03em;
+    transition: background-color 200ms var(--ease-out),
+                color            200ms var(--ease-out),
+                transform        150ms var(--ease-out);
   }
+  .btn-outline-white:hover  { @apply bg-white text-navy; transform: translateY(-1px); }
+  .btn-outline-white:active { transform: scale(0.97); }
 
   .btn-outline-navy {
     @apply inline-flex items-center justify-center gap-2
            border border-navy/20 text-navy
-           hover:bg-navy hover:text-white hover:border-navy
            font-sans font-medium text-[0.875rem]
-           px-7 py-3.5 rounded-xl transition-all duration-200
-           hover:-translate-y-px active:translate-y-0;
+           px-7 py-3.5 rounded-xl;
     letter-spacing: 0.03em;
+    transition: background-color 200ms var(--ease-out),
+                color            200ms var(--ease-out),
+                border-color     200ms var(--ease-out),
+                transform        150ms var(--ease-out);
   }
+  .btn-outline-navy:hover  { @apply bg-navy text-white border-navy; transform: translateY(-1px); }
+  .btn-outline-navy:active { transform: scale(0.97); }
 
   /* ── Label de sección ─────────────────────────────────────── */
   .section-label {
@@ -74,8 +99,9 @@
   .form-input {
     @apply w-full px-4 py-3 rounded-xl border border-gray-200 bg-white
            text-navy placeholder-gray-300 font-sans text-sm font-[350]
-           focus:outline-none focus:ring-2 focus:ring-cta/20 focus:border-cta/40
-           transition-all;
+           focus:outline-none focus:ring-2 focus:ring-cta/20 focus:border-cta/40;
+    transition: border-color 180ms var(--ease-out),
+                box-shadow   180ms var(--ease-out);
   }
 
   .form-label {
@@ -88,9 +114,11 @@
   .glass-card {
     @apply bg-white/75 backdrop-blur-md border border-navy/10;
     box-shadow: 0 0 0 1px rgba(18,52,98,0.06), 0 4px 20px rgba(18,52,98,0.08);
+    transition: box-shadow 300ms var(--ease-out), transform 300ms var(--ease-out);
   }
   .glass-card:hover {
     box-shadow: 0 0 0 1px rgba(18,52,98,0.12), 0 8px 28px rgba(18,52,98,0.12);
+    transform: translateY(-2px);
   }
   .glass-card-dark {
     @apply bg-white/10 backdrop-blur-md border border-white/10;
@@ -99,16 +127,50 @@
   /* ── Tipografía hero ─────────────────────────────────────── */
   .h1-hero {
     @apply font-serif font-light leading-[1.08] tracking-tight;
-    /* 1.9rem en móvil pequeño → 4.5rem en escritorio */
     font-size: clamp(1.9rem, 5vw + 0.5rem, 4.5rem);
     font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "swsh" 1;
   }
 
   .subtitle-italic {
     @apply font-serif font-light italic text-white/80 leading-relaxed;
-    /* 1rem en móvil → 1.25rem en escritorio */
     font-size: clamp(1rem, 1.5vw + 0.4rem, 1.3rem);
     letter-spacing: 0.01em;
+  }
+
+  /* ── Animaciones de entrada ──────────────────────────────── */
+  .fade-up {
+    animation: fadeUp 0.7s var(--ease-out) both;
+  }
+  .fade-up-delay-1 { animation-delay: 0.1s; }
+  .fade-up-delay-2 { animation-delay: 0.2s; }
+  .fade-up-delay-3 { animation-delay: 0.3s; }
+  .fade-up-delay-4 { animation-delay: 0.4s; }
+
+  .fade-in {
+    animation: fadeIn 0.6s var(--ease-out) both;
+  }
+}
+
+/* ── Keyframes de entrada ────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: translateX(0);     }
+}
+
+/* ── Reduced motion: desactiva todas las animaciones ──────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration:    0.01ms !important;
+    animation-delay:       0ms    !important;
+    transition-duration:   0.01ms !important;
   }
 }
 

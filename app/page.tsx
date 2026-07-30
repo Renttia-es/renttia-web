@@ -55,36 +55,40 @@ export default function HomePage() {
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-8 sm:pt-28 sm:pb-20 lg:pt-36 lg:pb-28 w-full">
           <div className="max-w-2xl">
-            <span className="section-label text-cta-light">Gestión profesional de inmuebles</span>
+            <span className="section-label text-cta-light fade-in" style={{animationDelay:'0.05s'}}>Gestión profesional de inmuebles</span>
 
             {/* H1 — keyword exacta del meta title, sin el pipe */}
-            <h1 className="h1-hero text-white mb-4 sm:mb-5">
+            <h1 className="h1-hero text-white mb-4 sm:mb-5 fade-up" style={{animationDelay:'0.15s'}}>
               Gestión integral del alquiler de su vivienda
             </h1>
 
-            <p className="subtitle-italic mb-6 sm:mb-10 max-w-lg">
+            <p className="subtitle-italic mb-6 sm:mb-10 max-w-lg fade-up" style={{animationDelay:'0.28s'}}>
               Somos el inquilino perfecto: recibe su pago el día 1 de cada mes. Acondicionamos su piso y reformamos si es necesario. Gestionamos todas las incidencias por usted.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex flex-col sm:flex-row gap-3 fade-up" style={{animationDelay:'0.38s'}}>
               <CTAButton texto="Solicitar valoración gratuita" className="btn-cta text-sm py-3.5 sm:py-4 px-6 sm:px-8 w-full sm:w-auto text-center" />
             </div>
           </div>
         </div>
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/25">
-          <svg className="w-5 h-5 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
-        </div>
       </section>
 
       {/* ── STATS ─────────────────────────────────────────────────── */}
-      <section className="bg-gray-100 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px">
-            {stats.map(s => (
-              <div key={s.etiqueta} className="bg-white text-center py-6 sm:py-8 lg:py-10 px-4">
-                <p className="font-serif text-navy text-3xl sm:text-4xl lg:text-6xl font-light">{s.valor}</p>
-                <p className="font-sans text-gray-400 text-[0.65rem] sm:text-xs mt-1.5 tracking-widest uppercase">{s.etiqueta}</p>
+      <section className="bg-navy overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/10">
+            {stats.map((s, i) => (
+              <div
+                key={s.etiqueta}
+                className="flex flex-col items-center justify-center py-10 sm:py-14 lg:py-16 px-4 text-center fade-up"
+                style={{ animationDelay: `${i * 0.08}s` }}
+              >
+                <p
+                  className="font-serif font-light text-white leading-none mb-2"
+                  style={{ fontSize: 'clamp(2.8rem, 5vw + 1rem, 5.5rem)', letterSpacing: '-0.03em' }}
+                >
+                  {s.valor}
+                </p>
+                <p className="font-sans text-white/35 text-[0.62rem] tracking-[0.14em] uppercase">{s.etiqueta}</p>
               </div>
             ))}
           </div>
@@ -98,9 +102,7 @@ export default function HomePage() {
       <section className="py-10 sm:py-16 lg:py-24 bg-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          <div className="text-center mb-6 sm:mb-8 lg:mb-14">
-            <span className="section-label">¿Qué buscas?</span>
-
+          <div className="text-center mb-6 sm:mb-8 lg:mb-14 fade-up">
             {/* H2 — miedo principal del propietario / impago moroso */}
             <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-light max-w-3xl mx-auto">
               Olvídese de los impagos y la morosidad al alquilar su propiedad
@@ -144,7 +146,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           <div className="grid lg:grid-cols-2 gap-6 sm:gap-10 lg:gap-16 items-start mb-8 sm:mb-12 lg:mb-16">
-            <div>
+            <div className="fade-up">
               <span className="section-label">Por qué Renttia</span>
 
               {/* H2 — keyword "inquilino perfecto alquiler" */}
@@ -152,39 +154,45 @@ export default function HomePage() {
                 Renttia es el inquilino perfecto.
               </h2>
             </div>
-            <p className="font-sans text-gray-400 text-sm lg:text-base leading-relaxed lg:pt-10">
+            <p className="font-sans text-gray-400 text-sm lg:text-base leading-relaxed lg:pt-10 fade-up fade-up-delay-1">
               Firmamos el contrato, pagamos el día 1 y nos encargamos de todo.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
+          {/* Bento asimétrico: card spotlight (col-span-2) + 3 cards regulares */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
 
-            {/* Card 1 — H3 "sin requisitos de scoring" */}
-            <div className="group flex flex-col gap-4 p-5 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl glass-card hover:shadow-xl transition-all duration-300 relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cta to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="w-12 h-12 rounded-2xl bg-navy/5 group-hover:bg-navy flex items-center justify-center text-navy group-hover:text-white transition-all duration-300 shrink-0">
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-                </svg>
+            {/* Card spotlight — ocupa 2 columnas en lg, fondo navy */}
+            <div className="group lg:col-span-2 relative overflow-hidden rounded-2xl sm:rounded-3xl bg-navy p-6 sm:p-8 lg:p-10 flex flex-col justify-between min-h-[220px] fade-up">
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.06),transparent_70%)]" />
+              <div className="relative z-10">
+                <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-white mb-5">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                  </svg>
+                </div>
+                {/* H3 — keyword "seguro impago alquiler requisitos" */}
+                <h3 className="font-serif text-white text-xl sm:text-2xl lg:text-3xl font-light leading-snug mb-3 max-w-lg">
+                  Sin los complejos requisitos de scoring ni el precio de una póliza
+                </h3>
+                <p className="font-sans text-white/55 text-sm leading-relaxed max-w-md">
+                  Ningún seguro le exige nóminas ni avales a sus inquilinos. Nosotros asumimos el riesgo directamente.
+                </p>
               </div>
-              {/* H3 — keyword "seguro impago alquiler requisitos" */}
-              <h3 className="font-serif text-navy text-base font-normal leading-snug">
-                Sin los complejos requisitos de scoring ni el precio de una póliza
-              </h3>
-              <p className="font-sans text-gray-400 text-sm leading-relaxed">
-                Ningún seguro le exige nóminas ni avales a sus inquilinos. Nosotros asumimos el riesgo.
-              </p>
+              <div className="relative z-10 mt-6">
+                <span className="font-sans text-white/35 text-[0.65rem] tracking-widest uppercase">Renttia garantiza su renta</span>
+              </div>
             </div>
 
-            {/* Card 2 — H3 "cobro puntual renta" */}
-            <div className="group flex flex-col gap-4 p-5 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl glass-card hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+            {/* Card 2 — cobro puntual */}
+            <div className="group flex flex-col gap-4 p-5 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl glass-card relative overflow-hidden fade-up fade-up-delay-1">
               <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cta to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="w-12 h-12 rounded-2xl bg-navy/5 group-hover:bg-navy flex items-center justify-center text-navy group-hover:text-white transition-all duration-300 shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-navy/5 group-hover:bg-navy flex items-center justify-center text-navy group-hover:text-white shrink-0" style={{transition:'background-color 200ms var(--ease-out), color 200ms var(--ease-out)'}}>
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
                 </svg>
               </div>
-              {/* H3 — keyword "cobro puntual renta" / "alquiler seguro impago" */}
+              {/* H3 — keyword "cobro puntual renta" */}
               <h3 className="font-serif text-navy text-base font-normal leading-snug">
                 Cobro puntual de la renta del 1 al 5 de cada mes
               </h3>
@@ -194,9 +202,9 @@ export default function HomePage() {
             </div>
 
             {/* Card 3 */}
-            <div className="group flex flex-col gap-4 p-5 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl glass-card hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+            <div className="group flex flex-col gap-4 p-5 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl glass-card relative overflow-hidden fade-up fade-up-delay-2">
               <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cta to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="w-12 h-12 rounded-2xl bg-navy/5 group-hover:bg-navy flex items-center justify-center text-navy group-hover:text-white transition-all duration-300 shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-navy/5 group-hover:bg-navy flex items-center justify-center text-navy group-hover:text-white shrink-0" style={{transition:'background-color 200ms var(--ease-out), color 200ms var(--ease-out)'}}>
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
                 </svg>
@@ -208,9 +216,9 @@ export default function HomePage() {
             </div>
 
             {/* Card 4 */}
-            <div className="group flex flex-col gap-4 p-5 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl glass-card hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+            <div className="group flex flex-col gap-4 p-5 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl glass-card relative overflow-hidden fade-up fade-up-delay-3">
               <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cta to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="w-12 h-12 rounded-2xl bg-navy/5 group-hover:bg-navy flex items-center justify-center text-navy group-hover:text-white transition-all duration-300 shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-navy/5 group-hover:bg-navy flex items-center justify-center text-navy group-hover:text-white shrink-0" style={{transition:'background-color 200ms var(--ease-out), color 200ms var(--ease-out)'}}>
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" />
                 </svg>
@@ -228,13 +236,13 @@ export default function HomePage() {
       <section className="py-10 sm:py-16 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-12 items-end mb-6 sm:mb-8 lg:mb-12">
-            <div>
+            <div className="fade-up">
               <span className="section-label">Su propiedad en nuestras manos</span>
               <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-light">
                 Así queda su piso cuando Renttia lo pone a punto.
               </h2>
             </div>
-            <p className="font-sans text-gray-400 text-sm lg:text-base leading-relaxed">
+            <p className="font-sans text-gray-400 text-sm lg:text-base leading-relaxed fade-up fade-up-delay-1">
               Equipamos y amueblamos cada habitación antes de entrar: cama, escritorio, armario, WIFI y suministros a nuestro cargo.
               Y si el piso necesita reforma, también la asumimos nosotros, sin coste para usted. Su propiedad siempre presentada en su mejor versión, sin que usted invierta nada.
             </p>
@@ -281,7 +289,7 @@ export default function HomePage() {
       <section id="como-funciona" className="py-10 sm:py-16 lg:py-24 bg-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+          <div className="text-center mb-8 sm:mb-12 lg:mb-16 fade-up">
             <span className="section-label">El proceso</span>
             {/* H2 — keyword "buscar inquilinos para mi piso" / "administracion alquileres" */}
             <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-light max-w-3xl mx-auto">
@@ -296,8 +304,8 @@ export default function HomePage() {
               { num: '02', t: 'Firmamos el contrato', d: 'Contrato legal entre usted y Renttia. Sin inquilinos, sin intermediarios.' },
               { num: '03', t: 'Lo ponemos a punto',   d: 'Reforma, mobiliario y suministros a nuestro cargo. Listo para entrar.' },
               { num: '04', t: 'Cobra cada mes',       d: 'Renta garantizada del 1 al 5. Sin llamadas. Sin gestión. Sin impagos.' },
-            ].map((p) => (
-              <div key={p.num} className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-7 transition-all duration-300 flex flex-col" style={{border:'1px solid rgba(18,52,98,0.08)',boxShadow:'0 0 0 1px rgba(18,52,98,0.05),0 4px 20px rgba(18,52,98,0.08)'}}>
+            ].map((p, i) => (
+              <div key={p.num} className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-7 flex flex-col fade-up" style={{border:'1px solid rgba(18,52,98,0.08)',boxShadow:'0 0 0 1px rgba(18,52,98,0.05),0 4px 20px rgba(18,52,98,0.08)', animationDelay:`${i * 0.09}s`, transition:'transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out)'}}>
                 <span className="font-serif text-cta text-3xl sm:text-4xl lg:text-5xl font-light leading-none mb-3 sm:mb-5 tracking-tight">
                   {p.num}
                 </span>
@@ -353,9 +361,7 @@ export default function HomePage() {
       <section className="py-10 sm:py-16 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-            <span className="section-label">Cobertura</span>
-
+          <div className="text-center mb-8 sm:mb-12 lg:mb-16 fade-up">
             {/* H2 — keyword "gestión arrendamientos" / "gestión inmobiliaria" local */}
             <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-light">
               Expertos locales en Zaragoza y Huesca
@@ -406,11 +412,7 @@ export default function HomePage() {
           />
           <div className="absolute inset-0 bg-navy/75" />
         </div>
-        <div className="relative max-w-xl mx-auto px-4 sm:px-6 text-center">
-          <span className="font-sans font-medium text-[0.7rem] tracking-widest uppercase mb-4 inline-block text-white/50">
-            Sin compromisos
-          </span>
-
+        <div className="relative max-w-xl mx-auto px-4 sm:px-6 text-center fade-up">
           {/* H2 — keyword "alquiler sin agencia" / "renta pasiva" */}
           <h2 className="font-serif text-white text-2xl sm:text-3xl lg:text-4xl font-light mb-4">
             Disfrute de una renta pasiva libre de comisiones de inmobiliarias
@@ -419,7 +421,10 @@ export default function HomePage() {
           <p className="font-sans text-white/65 text-base leading-relaxed mb-9">
             Valoración gratuita. Respuesta en 24 horas. Sin compromiso.
           </p>
-          <CTAButton texto="Solicitar valoración gratuita" className="inline-flex items-center justify-center gap-2 bg-white text-navy hover:bg-navy-50 font-sans font-medium text-sm tracking-wide px-8 sm:px-10 py-3.5 sm:py-4 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-px w-full sm:w-auto" />
+          <CTAButton
+            texto="Solicitar valoración gratuita"
+            className="inline-flex items-center justify-center gap-2 bg-white text-navy hover:bg-navy/5 active:scale-[0.97] font-sans font-medium text-sm tracking-wide px-8 sm:px-10 py-3.5 sm:py-4 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-px transition-[background-color,transform,box-shadow] duration-200 w-full sm:w-auto"
+          />
           <p className="font-sans text-white/40 text-xs mt-4">Sin coste · Sin compromiso · Respuesta en 24h</p>
         </div>
       </section>
