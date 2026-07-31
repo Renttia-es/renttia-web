@@ -73,22 +73,13 @@ export default function HomePage() {
       </section>
 
       {/* ── STATS ─────────────────────────────────────────────────── */}
-      <section className="bg-navy overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/10">
-            {stats.map((s, i) => (
-              <div
-                key={s.etiqueta}
-                className="flex flex-col items-center justify-center py-10 sm:py-14 lg:py-16 px-4 text-center fade-up"
-                style={{ animationDelay: `${i * 0.08}s` }}
-              >
-                <p
-                  className="font-serif font-light text-white leading-none mb-2"
-                  style={{ fontSize: 'clamp(2.8rem, 5vw + 1rem, 5.5rem)', letterSpacing: '-0.03em' }}
-                >
-                  {s.valor}
-                </p>
-                <p className="font-sans text-white/35 text-[0.62rem] tracking-[0.14em] uppercase">{s.etiqueta}</p>
+      <section className="bg-gray-100 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px">
+            {stats.map(s => (
+              <div key={s.etiqueta} className="bg-white text-center py-6 sm:py-8 lg:py-10 px-4">
+                <p className="font-serif text-navy text-3xl sm:text-4xl lg:text-6xl font-light">{s.valor}</p>
+                <p className="font-sans text-gray-400 text-[0.65rem] sm:text-xs mt-1.5 tracking-widest uppercase">{s.etiqueta}</p>
               </div>
             ))}
           </div>
