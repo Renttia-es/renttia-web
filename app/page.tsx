@@ -73,11 +73,11 @@ export default function HomePage() {
       </section>
 
       {/* ── STATS ─────────────────────────────────────────────────── */}
-      <section className="bg-gray-100 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px">
+      <section className="bg-gray-50 py-6 sm:py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
             {stats.map(s => (
-              <div key={s.etiqueta} className="bg-white text-center py-6 sm:py-8 lg:py-10 px-4">
+              <div key={s.etiqueta} className="bg-white text-center py-6 sm:py-8 lg:py-10 px-4 rounded-2xl shadow-[0_2px_12px_rgba(18,52,98,0.07)] border border-navy/5">
                 <p className="font-serif text-navy text-3xl sm:text-4xl lg:text-6xl font-light">{s.valor}</p>
                 <p className="font-sans text-gray-400 text-[0.65rem] sm:text-xs mt-1.5 tracking-widest uppercase">{s.etiqueta}</p>
               </div>
