@@ -7,7 +7,7 @@ import CTAButton from '@/components/CTAButton'
 export const metadata: Metadata = {
   title: 'Gestión integral del alquiler de su vivienda | Renttia',
   description:
-    'Renttia gestiona tu piso en Zaragoza y Huesca. Cobras el día 1 sin impagos, sin llamadas y sin comisiones de inmobiliaria. Gestión integral del alquiler. Valoración gratuita.',
+    'Renttia gestiona tu piso en Zaragoza y Huesca. Cobras el día 1 sin impagos, sin llamadas y sin preocupaciones. Gestión integral del alquiler. Valoración gratuita.',
   alternates: { canonical: 'https://renttia.es' },
   openGraph: {
     title: 'Gestión integral del alquiler de su vivienda | Renttia',
@@ -392,7 +392,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════
-          H2 — CTA / "alquiler sin inmobiliaria" / "renta pasiva"
+          H2 — CTA / "renta garantizada" / "renta pasiva"
           ═══════════════════════════════════════════════════════════ */}
       <section className="relative overflow-hidden py-12 sm:py-24">
         <div className="absolute inset-0">
@@ -404,9 +404,9 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-navy/75" />
         </div>
         <div className="relative max-w-xl mx-auto px-4 sm:px-6 text-center fade-up">
-          {/* H2 — keyword "alquiler sin agencia" / "renta pasiva" */}
+          {/* H2 — keyword "alquiler garantizado" / "renta pasiva" */}
           <h2 className="font-serif text-white text-2xl sm:text-3xl lg:text-4xl font-light mb-4">
-            Disfrute de una renta pasiva libre de comisiones de inmobiliarias
+            Disfrute de una renta garantizada, sin llamadas y sin preocupaciones
           </h2>
 
           <p className="font-sans text-white/65 text-base leading-relaxed mb-9">

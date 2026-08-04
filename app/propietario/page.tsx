@@ -135,7 +135,7 @@ const reviews = [
 ]
 
 const faqs = [
-  { pregunta: '¿Qué es Renttia y en qué se diferencia de una inmobiliaria?', respuesta: 'No somos una agencia ni buscamos inquilinos tradicionales. Renttia se convierte en tu único inquilino. Te pagamos el alquiler cada mes directamente como empresa y gestionamos el piso por completo, eliminando todos tus riesgos.' },
+  { pregunta: '¿Cómo funciona Renttia exactamente?', respuesta: 'Renttia se convierte en tu único inquilino. Firmamos un contrato contigo como empresa, te pagamos el alquiler cada mes directamente y gestionamos el piso por completo, eliminando todos tus riesgos.' },
   { pregunta: '¿Cómo me garantizáis que cobraré mi alquiler todos los meses?', respuesta: 'Tu contrato es con Renttia, no con un particular. Te pagamos el día estipulado, esté el piso ocupado o vacío. Si surge cualquier problema de impago con los residentes, lo asumimos nosotros. Tu renta está 100% garantizada.' },
   { pregunta: '¿Qué pasa si un residente no paga?', respuesta: 'Ese es un problema exclusivamente nuestro. Tú sigues recibiendo tu renta íntegra cada mes según lo pactado.' },
   { pregunta: '¿Quién se encarga del mantenimiento y los desperfectos diarios?', respuesta: 'Nosotros nos ocupamos del mantenimiento ordinario, las reparaciones por uso y la limpieza periódica del piso. Nos interesa que la vivienda esté siempre en perfecto estado, por lo que mantendrá o mejorará su valor.' },
