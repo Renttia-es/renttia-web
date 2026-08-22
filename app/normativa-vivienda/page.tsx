@@ -81,6 +81,13 @@ export default function GestionHabitacionesPage() {
                 y ahora, encima, más papeleo y registros obligatorios para poder alquilar.
                 Calcula el tiempo que te consume y descubre cómo pasar a una única renta fija sin gestionar nada.
               </p>
+              <div className="mt-5 flex items-start gap-3 bg-white/10 border border-white/15 rounded-xl px-4 py-3 max-w-lg">
+                <span className="text-xl mt-0.5">⚠️</span>
+                <p className="font-sans text-white/80 text-sm leading-snug">
+                  <strong className="text-white">La nueva ley alarga los desahucios por impago hasta 18 meses.</strong>{' '}
+                  Con Renttia cobras tu renta fija el día 1 pase lo que pase con los inquilinos.
+                </p>
+              </div>
             </div>
 
             <div className="order-2 bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 shadow-2xl">
