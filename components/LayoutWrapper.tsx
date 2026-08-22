@@ -11,6 +11,7 @@ const RUTAS_SIN_LAYOUT = [
   '/calculadora-gastos',
   '/alquiler-corporativo',
   '/normativa-vivienda',
+  '/reforma-incluida',
 ]
 
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
