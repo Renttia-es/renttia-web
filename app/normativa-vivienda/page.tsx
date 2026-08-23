@@ -12,12 +12,12 @@ import {
 const FUENTE = 'landing-normativa-vivienda'
 
 const beneficios: Beneficio[] = [
-  { icon: '💶', titulo: 'Una sola renta fija', texto: 'Cobras un único importe por todo el piso, el día 1, sin importar las habitaciones.' },
-  { icon: '🙅', titulo: 'Cero trato con inquilinos', texto: 'No vuelves a coordinar visitas, cobros ni conflictos. Solo hablas con nosotros.' },
-  { icon: '🔍', titulo: 'Nosotros seleccionamos', texto: 'Elegimos con filtros estrictos a las personas que viven en tu vivienda.' },
-  { icon: '🧹', titulo: 'Mantenimiento incluido', texto: 'Incidencias, averías y limpieza de zonas comunes, todo de nuestra cuenta.' },
-  { icon: '🛡️', titulo: 'Papeleo y registros, resueltos', texto: 'Cada vez se exige más burocracia y registros para alquilar por habitaciones. Lo gestionamos nosotros y te evitas errores, sustos y sanciones.' },
-  { icon: '🏠', titulo: 'Tu piso siempre cuidado', texto: 'Lo devolvemos igual o mejor que como lo entregaste al terminar.' },
+  { icon: '⚖️', titulo: 'Cumplimiento normativo a nuestro cargo', texto: 'Registros obligatorios, contratos adaptados a la ley vigente y toda la burocracia. Nosotros nos exponemos, no tú.' },
+  { icon: '💶', titulo: 'Renta fija garantizada el día 1', texto: 'Cobras siempre, independientemente de la ocupación, los cambios de ley o los problemas con inquilinos.' },
+  { icon: '🛡️', titulo: 'Sin riesgo de sanciones', texto: 'Precios mal anunciados, contratos incorrectos, registros omitidos... esos errores son nuestros, no tuyos.' },
+  { icon: '📋', titulo: 'Registros y declaraciones, gestionados', texto: 'Cada vez se exige más burocracia para alquilar. Nosotros lo hacemos bien desde el primer día.' },
+  { icon: '🔒', titulo: 'Sin impagos ni desahucios interminables', texto: 'La nueva ley alarga los desahucios hasta 18 meses. Con nosotros cobras siempre — el riesgo es nuestro.' },
+  { icon: '🏠', titulo: 'Tu piso siempre cuidado', texto: 'Lo devolvemos igual o mejor al terminar. Sin sorpresas ni disputas.' },
 ]
 
 const pasos: Paso[] = [
@@ -70,29 +70,29 @@ export default function GestionHabitacionesPage() {
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-14 items-center">
             <div className="order-1">
               <span className="inline-block bg-white/10 border border-white/15 text-white/80 text-[0.6rem] font-sans font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-5">
-                Alquiler por habitaciones · Zaragoza · Huesca
+                Nueva Ley de Vivienda · Zaragoza · Huesca
               </span>
               <h1 className="font-serif text-white text-[1.75rem] sm:text-4xl lg:text-[2.75rem] font-light leading-tight mb-4">
-                Alquilar por habitaciones da mucho trabajo.<br />
-                <span className="italic" style={{ color: '#C9A96E' }}>Nosotros te lo quitamos.</span>
+                La nueva ley hace el alquiler<br />
+                <span className="italic" style={{ color: '#C9A96E' }}>más arriesgado que nunca.</span>
               </h1>
               <p className="font-serif font-light text-white/85 text-base sm:text-lg leading-relaxed max-w-lg">
-                Anuncios, visitas, cobros a cada inquilino, incidencias a cualquier hora...
-                y ahora, encima, más papeleo y registros obligatorios para poder alquilar.
-                Calcula el tiempo que te consume y descubre cómo pasar a una única renta fija sin gestionar nada.
+                Registros obligatorios, sanciones por anunciar mal el precio, límites a la renta,
+                desahucios que se alargan hasta 18 meses... Muchos propietarios ya no saben si
+                pueden alquilar o no. Descubre cómo delegar todo y seguir cobrando sin exponerte.
               </p>
               <div className="mt-5 flex items-start gap-3 bg-white/10 border border-white/15 rounded-xl px-4 py-3 max-w-lg">
                 <span className="text-xl mt-0.5">⚠️</span>
                 <p className="font-sans text-white/80 text-sm leading-snug">
-                  <strong className="text-white">La nueva ley alarga los desahucios por impago hasta 18 meses.</strong>{' '}
-                  Con Renttia cobras tu renta fija el día 1 pase lo que pase con los inquilinos.
+                  <strong className="text-white">La ley cambia, las multas no perdonan.</strong>{' '}
+                  Con Renttia eres tú quien cobra la renta y nosotros los que nos ocupamos del cumplimiento normativo.
                 </p>
               </div>
             </div>
 
             <div className="order-2 bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 shadow-2xl">
-              <h2 className="font-serif text-navy text-lg sm:text-2xl font-light mb-1">¿Cuánto tiempo te come tu piso?</h2>
-              <p className="font-sans text-gray-500 text-sm mb-6">Elige cuántas habitaciones alquilas.</p>
+              <h2 className="font-serif text-navy text-lg sm:text-2xl font-light mb-1">¿Cuántas horas pierdes cumpliendo con la normativa?</h2>
+              <p className="font-sans text-gray-500 text-sm mb-6">Elige cuántas habitaciones gestionas tú ahora mismo.</p>
 
               <div className="space-y-2.5">
                 <div className="flex justify-between items-baseline">
@@ -125,11 +125,11 @@ export default function GestionHabitacionesPage() {
               </div>
 
               <p className="font-sans text-gray-500 text-xs mt-4 text-center">
-                Con Renttia: <strong className="text-navy">0 horas</strong> y <strong className="text-navy">un solo interlocutor</strong>. Cobras una renta fija por todo el piso.
+                Con Renttia: <strong className="text-navy">0 horas tuyas</strong> y <strong className="text-navy">cumplimiento normativo garantizado</strong>. Tú solo cobras.
               </p>
 
               <button onClick={scrollToForm} className="btn-cta w-full py-4 text-base mt-4">
-                Quiero delegarlo todo →
+                Quiero que Renttia lo gestione →
               </button>
             </div>
           </div>
@@ -137,18 +137,18 @@ export default function GestionHabitacionesPage() {
       </section>
 
       <TickerStrip />
-      <Beneficios label="Lo que cambia" titulo="Una renta fija, cero quebraderos de cabeza" subtitulo="Dejas de gestionar habitaciones y pasas a cobrar un único importe estable." items={beneficios} />
+      <Beneficios label="Lo que cambia" titulo="Tú cobras. Nosotros cumplimos la ley." subtitulo="Delegas la gestión y el cumplimiento normativo. Sin exposición, sin multas, sin estrés." items={beneficios} />
       <AntesDespues />
       <Proceso pasos={pasos} />
       <QuienesSomos />
       <Reviews />
 
-      <FormSection innerRef={formRef} titulo="Deja de gestionar. Empieza a cobrar tranquilo" texto="Déjanos tus datos y te llamamos en menos de 24 horas. Sin compromiso.">
+      <FormSection innerRef={formRef} titulo="Deja la normativa en nuestras manos" texto="Te explicamos cómo funciona y qué renta podrías cobrar. Sin compromiso.">
         <LeadForm fuente={FUENTE} estadoOpciones={estadoOpciones} />
       </FormSection>
 
       <FAQSection faqs={faqsCompletas} />
-      <FinalCTA titulo="Deja de gestionar habitaciones una a una." texto="Pasa a una única renta fija sin trato con inquilinos. Te llamamos en menos de 24 horas." ctaLabel="Quiero mi valoración gratuita →" onForm={scrollToForm} onCall={() => setCallPopup(true)} />
+      <FinalCTA titulo="La ley cambia. Tu renta no tiene que cambiar." texto="Nosotros asumimos el cumplimiento normativo y tú cobras tu renta fija el día 1. Te llamamos en menos de 24 horas." ctaLabel="Quiero mi valoración gratuita →" onForm={scrollToForm} onCall={() => setCallPopup(true)} />
       <LandingFooter />
     </div>
   )
