@@ -12,12 +12,12 @@ import {
 const FUENTE = 'landing-normativa-vivienda'
 
 const beneficios: Beneficio[] = [
-  { icon: '⚖️', titulo: 'Cumplimiento normativo a nuestro cargo', texto: 'Registros obligatorios, contratos adaptados a la ley vigente y toda la burocracia. Nosotros nos exponemos, no tú.' },
-  { icon: '💶', titulo: 'Renta fija garantizada el día 1', texto: 'Cobras siempre, independientemente de la ocupación, los cambios de ley o los problemas con inquilinos.' },
-  { icon: '🛡️', titulo: 'Sin riesgo de sanciones', texto: 'Precios mal anunciados, contratos incorrectos, registros omitidos... esos errores son nuestros, no tuyos.' },
-  { icon: '📋', titulo: 'Registros y declaraciones, gestionados', texto: 'Cada vez se exige más burocracia para alquilar. Nosotros lo hacemos bien desde el primer día.' },
-  { icon: '🔒', titulo: 'Sin impagos ni procesos judiciales', texto: 'Un desahucio por impago puede tardar entre 6 y 12 meses. Con Renttia cobramos nosotros y el riesgo es nuestro, no tuyo.' },
-  { icon: '🏠', titulo: 'Tu piso siempre cuidado', texto: 'Lo devolvemos igual o mejor al terminar. Sin sorpresas ni disputas.' },
+  { icon: '💶', titulo: 'Renta fija garantizada el día 1', texto: 'En alquiler tradicional cobras si el inquilino paga. Con Renttia cobras siempre, pase lo que pase.' },
+  { icon: '⚖️', titulo: 'Registros y burocracia, a nuestro cargo', texto: 'En alquiler tradicional los trámites son tuyos. Con Renttia, los contratos, registros y obligaciones legales los gestionamos nosotros.' },
+  { icon: '🔒', titulo: 'Sin procesos de reclamación', texto: 'En alquiler tradicional un impago puede costarte entre 6 y 12 meses de trámites. Con Renttia ese riesgo desaparece: somos nosotros tu inquilino.' },
+  { icon: '🙅', titulo: 'Cero trato con inquilinos', texto: 'En alquiler tradicional tú coordinas visitas, cobros e incidencias. Con Renttia solo hablas con nosotros.' },
+  { icon: '📋', titulo: 'Un contrato claro y estable', texto: 'Firmas con Renttia, no con desconocidos. Sin renovaciones inciertas, sin sorpresas al final del contrato.' },
+  { icon: '🏠', titulo: 'Tu piso siempre cuidado', texto: 'Lo preparamos al entrar y lo devolvemos igual o mejor. Sin disputas sobre fianza ni desperfectos.' },
 ]
 
 const pasos: Paso[] = [
@@ -70,23 +70,23 @@ export default function GestionHabitacionesPage() {
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-14 items-center">
             <div className="order-1">
               <span className="inline-block bg-white/10 border border-white/15 text-white/80 text-[0.6rem] font-sans font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-5">
-                Nueva Ley de Vivienda · Zaragoza · Huesca
+                Alternativa al alquiler tradicional · Zaragoza · Huesca
               </span>
               <h1 className="font-serif text-white text-[1.75rem] sm:text-4xl lg:text-[2.75rem] font-light leading-tight mb-4">
-                La nueva ley del alquiler<br />
-                <span className="italic" style={{ color: '#C9A96E' }}>genera más dudas que certezas.</span>
+                El alquiler tradicional<br />
+                <span className="italic" style={{ color: '#C9A96E' }}>ya no es lo que era.</span>
               </h1>
               <p className="font-serif font-light text-white/85 text-base sm:text-lg leading-relaxed max-w-lg">
-                Nuevos registros obligatorios, mediación previa antes de poder reclamar,
-                procesos de desahucio que se alargan entre 6 y 12 meses... y una ley que ya ha
-                cambiado varias veces. Muchos propietarios no saben qué pueden hacer ni cómo
-                protegerse. Descubre cómo delegar todo y seguir cobrando sin exponerte.
+                Nuevos registros, mediación obligatoria antes de poder reclamar, procesos
+                judiciales que se alargan meses... La normativa ha hecho el alquiler tradicional
+                más complicado y arriesgado que nunca. Existe una alternativa: delegar a Renttia
+                y cobrar una renta fija garantizada sin ninguno de esos problemas.
               </p>
               <div className="mt-5 flex items-start gap-3 bg-white/10 border border-white/15 rounded-xl px-4 py-3 max-w-lg">
-                <span className="text-xl mt-0.5">⚠️</span>
+                <span className="text-xl mt-0.5">💡</span>
                 <p className="font-sans text-white/80 text-sm leading-snug">
-                  <strong className="text-white">Desde abril de 2025, antes de reclamar a un inquilino hay que pasar por mediación obligatoria.</strong>{' '}
-                  Con Renttia, esos problemas son nuestros, no tuyos.
+                  <strong className="text-white">Con Renttia no alquilas tú — alquilamos nosotros.</strong>{' '}
+                  Tú cobras tu renta fija el día 1. Registros, incidencias y reclamaciones son nuestro problema.
                 </p>
               </div>
             </div>
@@ -138,7 +138,7 @@ export default function GestionHabitacionesPage() {
       </section>
 
       <TickerStrip />
-      <Beneficios label="Lo que cambia" titulo="Tú cobras. Nosotros cumplimos la ley." subtitulo="Delegas la gestión y el cumplimiento normativo. Sin exposición, sin multas, sin estrés." items={beneficios} />
+      <Beneficios label="Alquiler tradicional vs. Renttia" titulo="Una alternativa sin los riesgos del alquiler tradicional." subtitulo="Misma vivienda, mismo propietario. Pero sin inquilinos directos, sin incidencias y con renta garantizada el día 1." items={beneficios} />
       <AntesDespues />
       <Proceso pasos={pasos} />
       <QuienesSomos />
@@ -149,7 +149,7 @@ export default function GestionHabitacionesPage() {
       </FormSection>
 
       <FAQSection faqs={faqsCompletas} />
-      <FinalCTA titulo="La normativa cambia. Tu renta no tiene que cambiar." texto="Nosotros asumimos la gestión y el cumplimiento normativo. Tú cobras tu renta fija el día 1. Te llamamos en menos de 24 horas." ctaLabel="Quiero mi valoración gratuita →" onForm={scrollToForm} onCall={() => setCallPopup(true)} />
+      <FinalCTA titulo="Deja el alquiler tradicional atrás." texto="Con Renttia cobras una renta fija garantizada el día 1. Sin inquilinos, sin trámites, sin riesgos. Te llamamos en menos de 24 horas." ctaLabel="Quiero mi valoración gratuita →" onForm={scrollToForm} onCall={() => setCallPopup(true)} />
       <LandingFooter />
     </div>
   )
