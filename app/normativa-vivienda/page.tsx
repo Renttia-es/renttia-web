@@ -16,7 +16,7 @@ const beneficios: Beneficio[] = [
   { icon: '💶', titulo: 'Renta fija garantizada el día 1', texto: 'Cobras siempre, independientemente de la ocupación, los cambios de ley o los problemas con inquilinos.' },
   { icon: '🛡️', titulo: 'Sin riesgo de sanciones', texto: 'Precios mal anunciados, contratos incorrectos, registros omitidos... esos errores son nuestros, no tuyos.' },
   { icon: '📋', titulo: 'Registros y declaraciones, gestionados', texto: 'Cada vez se exige más burocracia para alquilar. Nosotros lo hacemos bien desde el primer día.' },
-  { icon: '🔒', titulo: 'Sin impagos ni desahucios interminables', texto: 'La nueva ley alarga los desahucios hasta 18 meses. Con nosotros cobras siempre — el riesgo es nuestro.' },
+  { icon: '🔒', titulo: 'Sin impagos ni procesos judiciales', texto: 'Un desahucio por impago puede tardar entre 6 y 12 meses. Con Renttia cobramos nosotros y el riesgo es nuestro, no tuyo.' },
   { icon: '🏠', titulo: 'Tu piso siempre cuidado', texto: 'Lo devolvemos igual o mejor al terminar. Sin sorpresas ni disputas.' },
 ]
 
@@ -73,19 +73,20 @@ export default function GestionHabitacionesPage() {
                 Nueva Ley de Vivienda · Zaragoza · Huesca
               </span>
               <h1 className="font-serif text-white text-[1.75rem] sm:text-4xl lg:text-[2.75rem] font-light leading-tight mb-4">
-                La nueva ley hace el alquiler<br />
-                <span className="italic" style={{ color: '#C9A96E' }}>más arriesgado que nunca.</span>
+                La nueva ley del alquiler<br />
+                <span className="italic" style={{ color: '#C9A96E' }}>genera más dudas que certezas.</span>
               </h1>
               <p className="font-serif font-light text-white/85 text-base sm:text-lg leading-relaxed max-w-lg">
-                Registros obligatorios, sanciones por anunciar mal el precio, límites a la renta,
-                desahucios que se alargan hasta 18 meses... Muchos propietarios ya no saben si
-                pueden alquilar o no. Descubre cómo delegar todo y seguir cobrando sin exponerte.
+                Nuevos registros obligatorios, mediación previa antes de poder reclamar,
+                procesos de desahucio que se alargan entre 6 y 12 meses... y una ley que ya ha
+                cambiado varias veces. Muchos propietarios no saben qué pueden hacer ni cómo
+                protegerse. Descubre cómo delegar todo y seguir cobrando sin exponerte.
               </p>
               <div className="mt-5 flex items-start gap-3 bg-white/10 border border-white/15 rounded-xl px-4 py-3 max-w-lg">
                 <span className="text-xl mt-0.5">⚠️</span>
                 <p className="font-sans text-white/80 text-sm leading-snug">
-                  <strong className="text-white">La ley cambia, las multas no perdonan.</strong>{' '}
-                  Con Renttia eres tú quien cobra la renta y nosotros los que nos ocupamos del cumplimiento normativo.
+                  <strong className="text-white">Desde abril de 2025, antes de reclamar a un inquilino hay que pasar por mediación obligatoria.</strong>{' '}
+                  Con Renttia, esos problemas son nuestros, no tuyos.
                 </p>
               </div>
             </div>
@@ -148,7 +149,7 @@ export default function GestionHabitacionesPage() {
       </FormSection>
 
       <FAQSection faqs={faqsCompletas} />
-      <FinalCTA titulo="La ley cambia. Tu renta no tiene que cambiar." texto="Nosotros asumimos el cumplimiento normativo y tú cobras tu renta fija el día 1. Te llamamos en menos de 24 horas." ctaLabel="Quiero mi valoración gratuita →" onForm={scrollToForm} onCall={() => setCallPopup(true)} />
+      <FinalCTA titulo="La normativa cambia. Tu renta no tiene que cambiar." texto="Nosotros asumimos la gestión y el cumplimiento normativo. Tú cobras tu renta fija el día 1. Te llamamos en menos de 24 horas." ctaLabel="Quiero mi valoración gratuita →" onForm={scrollToForm} onCall={() => setCallPopup(true)} />
       <LandingFooter />
     </div>
   )
