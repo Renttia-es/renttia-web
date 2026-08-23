@@ -18,7 +18,8 @@ export default function ContactForm({ ciudad = '', dark = false }: ContactFormPr
     email: '',
     ciudad: ciudad,
     tipo: 'piso-completo',
-    habitaciones: '3',
+    habitaciones: '',
+    metros: '',
     mensaje: '',
   })
 
@@ -102,17 +103,33 @@ export default function ContactForm({ ciudad = '', dark = false }: ContactFormPr
           </select>
         </div>
         <div>
-          <label className={labelClass}>Nº habitaciones</label>
+          <label className={labelClass}>Nº de habitaciones</label>
           <select
             className={inputClass}
             value={form.habitaciones}
             onChange={e => setForm({ ...form, habitaciones: e.target.value })}
           >
+            <option value="">Selecciona...</option>
+            <option value="2">2 habitaciones</option>
             <option value="3">3 habitaciones</option>
             <option value="4">4 habitaciones</option>
-            <option value="5+">5 o más</option>
+            <option value="5">5 habitaciones</option>
+            <option value="6+">6 o más</option>
           </select>
         </div>
+      </div>
+
+      <div>
+        <label className={labelClass}>Metros cuadrados (aprox.)</label>
+        <input
+          type="number"
+          min={20}
+          max={500}
+          placeholder="Ej: 80"
+          className={inputClass}
+          value={form.metros}
+          onChange={e => setForm({ ...form, metros: e.target.value })}
+        />
       </div>
 
       <div>

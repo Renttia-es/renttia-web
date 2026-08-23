@@ -471,6 +471,8 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
   const [email, setEmail] = useState('')
   const [ciudad, setCiudad] = useState('')
   const [estadoPiso, setEstadoPiso] = useState('')
+  const [habitaciones, setHabitaciones] = useState('')
+  const [metros, setMetros] = useState('')
   const [estado, setEstado] = useState<FormState>('idle')
 
   async function handleSubmit(e: FormEvent) {
@@ -481,7 +483,7 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
       const res = await fetch('/api/contacto', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre, telefono, email, ciudad, fuente, tipo: estadoPiso, eventId }),
+        body: JSON.stringify({ nombre, telefono, email, ciudad, fuente, tipo: estadoPiso, habitaciones, metros, eventId }),
       })
       setEstado(res.ok ? 'ok' : 'error')
     } catch { setEstado('error') }
@@ -529,6 +531,31 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
             <option value="">Selecciona...</option>
             {estadoOpciones.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
           </select>
+        </div>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label className="form-label">Nº de habitaciones</label>
+          <select value={habitaciones} onChange={e => setHabitaciones(e.target.value)} className="form-input">
+            <option value="">Selecciona...</option>
+            <option value="2">2 habitaciones</option>
+            <option value="3">3 habitaciones</option>
+            <option value="4">4 habitaciones</option>
+            <option value="5">5 habitaciones</option>
+            <option value="6+">6 o más</option>
+          </select>
+        </div>
+        <div>
+          <label className="form-label">Metros cuadrados (aprox.)</label>
+          <input
+            type="number"
+            min={20}
+            max={500}
+            placeholder="Ej: 80"
+            value={metros}
+            onChange={e => setMetros(e.target.value)}
+            className="form-input"
+          />
         </div>
       </div>
       {estado === 'error' && <p className="text-red-500 text-sm">Hubo un error. Llámanos al +34 976 000 000.</p>}

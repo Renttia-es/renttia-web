@@ -161,7 +161,7 @@ async function sendTelegram(text: string): Promise<void> {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    const { nombre, telefono, email, ciudad, tipo, habitaciones, mensaje, fuente, eventId: clientEventId } = body
+    const { nombre, telefono, email, ciudad, tipo, habitaciones, metros, mensaje, fuente, eventId: clientEventId } = body
 
     if (!nombre || !telefono) {
       return NextResponse.json({ error: 'Faltan campos obligatorios' }, { status: 400 })
@@ -171,6 +171,7 @@ export async function POST(req: NextRequest) {
     const fechaStr    = formatFechaMadrid(ahora)
     const ciudadLabel = ciudad ? ciudad.charAt(0).toUpperCase() + ciudad.slice(1) : 'No indicada'
     const habsLabel   = habitaciones || '—'
+    const metrosLabel = metros ? `${metros} m²` : '—'
     const horaLim     = horaLimite(ahora)
     const fuenteLabel = fuente || 'web-general'
 
@@ -192,9 +193,9 @@ export async function POST(req: NextRequest) {
         telefono,                      // C
         email,                         // D
         ciudadLabel,                   // E
-        habsLabel,                     // F
-        'Pendiente de llamada',        // G — Estado
-        '=INDIRECT("A"&ROW())+1',     // H — Fecha límite (+24 h)
+        habsLabel,                     // F — Habitaciones
+        metrosLabel,                   // G — Metros cuadrados
+        'Pendiente de llamada',        // H — Estado
         null,                          // I — Intentos (manual)
         null,                          // J — Notas (manual)
         fuenteLabel,                   // K — Fuente (landing de origen)
@@ -210,7 +211,8 @@ export async function POST(req: NextRequest) {
       await sendTelegram(
         `🚨 <b>¡NUEVO LEAD EN RENTTIA!</b>\n\n` +
         `👤 <b>Nombre:</b> ${nombre}\n` +
-        `📍 <b>Ciudad:</b> ${ciudadLabel} (${habsLabel} habs)\n` +
+        `📍 <b>Ciudad:</b> ${ciudadLabel}\n` +
+        `🚪 <b>Habitaciones:</b> ${habsLabel}  |  📐 <b>Metros:</b> ${metrosLabel}\n` +
         `📞 <b>Teléfono:</b> ${telefono}\n` +
         `✉️ <b>Email:</b> ${email}\n` +
         `🌐 <b>Fuente:</b> ${fuenteLabel}\n` +
