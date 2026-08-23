@@ -47,8 +47,9 @@ export function trackLeadConversion(userData: {
       ...(userData.nombre && { fn: userData.nombre }),
       ...(userData.ciudad && { ct: userData.ciudad }),
     }
-    window.fbq('track', 'Lead', user, { eventID: eventId })
-    window.fbq('track', 'Contact', user, { eventID: eventId })
+    window.fbq('track', 'Lead',               user, { eventID: eventId })
+    window.fbq('track', 'Contact',            user, { eventID: eventId })
+    window.fbq('track', 'CompleteRegistration', user, { eventID: eventId })
   }
 
   return eventId

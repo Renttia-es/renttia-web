@@ -12,6 +12,14 @@ function sha256(value: string): string {
   return createHash('sha256').update(value.trim().toLowerCase()).digest('hex')
 }
 
+/** Normaliza teléfono español a formato E.164 sin + para Meta CAPI */
+function normalizePhone(phone: string): string {
+  const digits = phone.replace(/\D/g, '') // quita todo menos dígitos
+  if (digits.startsWith('34') && digits.length === 11) return digits      // ya tiene prefijo
+  if (digits.length === 9) return `34${digits}`                            // número español sin prefijo
+  return digits
+}
+
 async function sendMetaEvent(
   eventName: string,
   userData: { email?: string; phone?: string; nombre?: string; ciudad?: string },
@@ -40,16 +48,16 @@ async function sendMetaEvent(
       user_data: {
         client_ip_address: ip,
         client_user_agent: userAgent,
-        ...(userData.email    && { em: sha256(userData.email)    }),
-        ...(userData.phone    && { ph: sha256(userData.phone.replace(/\s/g, ''))    }),
-        ...(userData.nombre   && { fn: sha256(userData.nombre)   }),
-        ...(userData.ciudad   && { ct: sha256(userData.ciudad)   }),
+        ...(userData.email  && { em: sha256(userData.email)                    }),
+        ...(userData.phone  && { ph: sha256(normalizePhone(userData.phone))    }),
+        ...(userData.nombre && { fn: sha256(userData.nombre)                   }),
+        ...(userData.ciudad && { ct: sha256(userData.ciudad)                   }),
       },
     }],
   }
 
   const res = await fetch(
-    `https://graph.facebook.com/v19.0/${pixelId}/events?access_token=${token}`,
+    `https://graph.facebook.com/v21.0/${pixelId}/events?access_token=${token}`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -297,8 +305,9 @@ export async function POST(req: NextRequest) {
       const eventId = typeof clientEventId === 'string' && clientEventId ? clientEventId : randomUUID()
       const metaUserData = { email, phone: telefono, nombre, ciudad }
       await Promise.all([
-        sendMetaEvent('Lead',    metaUserData, req, eventId),
-        sendMetaEvent('Contact', metaUserData, req, eventId),
+        sendMetaEvent('Lead',                 metaUserData, req, eventId),
+        sendMetaEvent('Contact',              metaUserData, req, eventId),
+        sendMetaEvent('CompleteRegistration', metaUserData, req, eventId),
       ])
     } catch (e) {
       console.error('Meta CAPI error:', e)
