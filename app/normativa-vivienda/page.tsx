@@ -92,13 +92,13 @@ export default function GestionHabitacionesPage() {
             </div>
 
             <div className="order-2 bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 shadow-2xl">
-              <h2 className="font-serif text-navy text-lg sm:text-2xl font-light mb-1">¿Cuántas horas pierdes cumpliendo con la normativa?</h2>
-              <p className="font-sans text-gray-500 text-sm mb-6">Elige cuántas habitaciones gestionas tú ahora mismo.</p>
+              <h2 className="font-serif text-navy text-lg sm:text-2xl font-light mb-1">¿Cuánto puedes perder con un inquilino que no paga?</h2>
+              <p className="font-sans text-gray-500 text-sm mb-6">Ajusta la renta mensual y mira el riesgo real.</p>
 
               <div className="space-y-2.5">
                 <div className="flex justify-between items-baseline">
-                  <span className="font-sans text-sm font-medium text-navy/70">Habitaciones que alquilas</span>
-                  <span className="font-serif text-xl font-light text-navy">{habitaciones}</span>
+                  <span className="font-sans text-sm font-medium text-navy/70">Renta mensual que cobras (€)</span>
+                  <span className="font-serif text-xl font-light text-navy">{habitaciones * 130} €</span>
                 </div>
                 <div className="group relative h-2 rounded-full bg-navy/10 cursor-pointer">
                   <div className="absolute inset-y-0 left-0 rounded-full bg-cta transition-all" style={{ width: `${((habitaciones - 2) / 4) * 100}%` }} />
@@ -111,26 +111,28 @@ export default function GestionHabitacionesPage() {
                   </div>
                   <input type="range" min={2} max={6} step={1} value={habitaciones} onChange={e => setHabitaciones(Number(e.target.value))} className="absolute -inset-y-3 inset-x-0 w-full h-8 opacity-0 cursor-grab active:cursor-grabbing" />
                 </div>
-                <div className="flex justify-between text-xs text-gray-400"><span>2</span><span>6</span></div>
+                <div className="flex justify-between text-xs text-gray-400"><span>260 €</span><span>780 €</span></div>
               </div>
 
               <div className="mt-6 grid grid-cols-2 gap-3">
-                <div className="p-4 rounded-2xl bg-cream border border-navy/10 text-center">
-                  <p className="font-serif text-3xl sm:text-4xl font-light text-navy tabular-nums">{horas}h</p>
-                  <p className="font-sans text-xs text-navy/50 mt-1">al mes gestionando</p>
+                <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-center">
+                  <p className="font-sans text-[10px] font-semibold uppercase tracking-wide text-red-400 mb-1">Alquiler tradicional</p>
+                  <p className="font-serif text-2xl sm:text-3xl font-light text-red-600 tabular-nums">{(habitaciones * 130 * 9).toLocaleString('es-ES')} €</p>
+                  <p className="font-sans text-xs text-red-400/80 mt-1">riesgo si deja de pagar<br/>(proceso ~9 meses)</p>
                 </div>
-                <div className="p-4 rounded-2xl bg-cream border border-navy/10 text-center">
-                  <p className="font-serif text-3xl sm:text-4xl font-light text-navy tabular-nums">{habitaciones}</p>
-                  <p className="font-sans text-xs text-navy/50 mt-1">inquilinos que coordinas</p>
+                <div className="p-4 rounded-2xl bg-green-50 border border-green-200 text-center">
+                  <p className="font-sans text-[10px] font-semibold uppercase tracking-wide text-green-600 mb-1">Con Renttia</p>
+                  <p className="font-serif text-2xl sm:text-3xl font-light text-green-700 tabular-nums">0 €</p>
+                  <p className="font-sans text-xs text-green-600/80 mt-1">riesgo de impago<br/>somos nosotros tu inquilino</p>
                 </div>
               </div>
 
-              <p className="font-sans text-gray-500 text-xs mt-4 text-center">
-                Con Renttia: <strong className="text-navy">0 horas tuyas</strong> y <strong className="text-navy">cumplimiento normativo garantizado</strong>. Tú solo cobras.
+              <p className="font-sans text-gray-400 text-xs mt-3 text-center">
+                Con Renttia cobras <strong className="text-navy">{(habitaciones * 130).toLocaleString('es-ES')} €/mes garantizados</strong> sin depender de nadie.
               </p>
 
               <button onClick={scrollToForm} className="btn-cta w-full py-4 text-base mt-4">
-                Quiero que Renttia lo gestione →
+                Quiero la alternativa sin riesgos →
               </button>
             </div>
           </div>
