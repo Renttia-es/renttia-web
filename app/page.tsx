@@ -18,20 +18,20 @@ export const metadata: Metadata = {
 const ciudadesPropietarios = [
   {
     ciudad: 'Zaragoza', slug: 'gestion-alquiler-zaragoza',
-    descripcion: 'Más de 40 habitaciones gestionadas. La mayor cartera de pisos compartidos premium de la ciudad.',
-    pisos: 40, ocupacion: '94%',
+    descripcion: 'Gestión de pisos compartidos premium en el corazón de Zaragoza. Renta garantizada y cero preocupaciones.',
+    pisos: 3, ocupacion: '94%',
     imagen: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80',
   },
   {
     ciudad: 'Huesca', slug: 'gestion-alquiler-huesca',
     descripcion: 'Pioneros en gestión de pisos compartidos en Huesca. Mercado con alta demanda y poca oferta.',
-    pisos: 8, ocupacion: '89%',
+    pisos: 9, ocupacion: '89%',
     imagen: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80',
   },
 ]
 
 const stats = [
-  { valor: '+20', etiqueta: 'Pisos gestionados'  },
+  { valor: '12', etiqueta: 'Pisos gestionados'  },
   { valor: '93%', etiqueta: 'Ocupación media'     },
   { valor: '0€',  etiqueta: 'Impagos en 3 años'  },
   { valor: '2',   etiqueta: 'Ciudades activas'    },
