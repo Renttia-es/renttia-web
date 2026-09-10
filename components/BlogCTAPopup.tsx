@@ -125,6 +125,7 @@ export default function BlogCTAPopup() {
               <div>
                 <label className="form-label">Ciudad del piso</label>
                 <select
+                  required
                   className="form-input"
                   value={form.ciudad}
                   onChange={e => setForm({ ...form, ciudad: e.target.value })}
@@ -132,6 +133,7 @@ export default function BlogCTAPopup() {
                   <option value="">Selecciona...</option>
                   <option value="zaragoza">Zaragoza</option>
                   <option value="huesca">Huesca</option>
+                  <option value="logrono">Logroño</option>
                 </select>
               </div>
 

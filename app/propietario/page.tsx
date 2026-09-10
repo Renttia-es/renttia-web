@@ -308,11 +308,12 @@ export default function PropietarioLanding() {
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="form-label">Ciudad</label>
-                    <select className="form-input" value={form.ciudad} onChange={e => setForm({ ...form, ciudad: e.target.value })}>
+                    <label className="form-label">Ciudad *</label>
+                    <select required className="form-input" value={form.ciudad} onChange={e => setForm({ ...form, ciudad: e.target.value })}>
                       <option value="">Ciudad...</option>
                       <option value="zaragoza">Zaragoza</option>
                       <option value="huesca">Huesca</option>
+                      <option value="logrono">Logroño</option>
                     </select>
                   </div>
                   <div>

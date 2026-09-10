@@ -223,6 +223,7 @@ export default function Header() {
                   <div>
                     <label className="block font-sans text-xs text-gray-500 mb-1.5 uppercase tracking-wide">Ciudad del piso</label>
                     <select
+                      required
                       value={ciudad}
                       onChange={e => setCiudad(e.target.value)}
                       className="w-full border border-gray-200 rounded-xl px-4 py-3 font-sans text-sm text-navy focus:outline-none focus:ring-2 focus:ring-navy/20 focus:border-navy/30 transition bg-white"
@@ -230,7 +231,7 @@ export default function Header() {
                       <option value="">Selecciona ciudad...</option>
                       <option value="zaragoza">Zaragoza</option>
                       <option value="huesca">Huesca</option>
-                      <option value="otra">Otra ciudad</option>
+                      <option value="logrono">Logroño</option>
                     </select>
                   </div>
 
