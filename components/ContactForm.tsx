@@ -101,6 +101,7 @@ export default function ContactForm({ ciudad = '', dark = false }: ContactFormPr
             <option value="">Selecciona tu ciudad...</option>
             <option value="zaragoza">Zaragoza</option>
             <option value="huesca">Huesca</option>
+            <option value="logrono">Logroño</option>
           </select>
         </div>
         <div>

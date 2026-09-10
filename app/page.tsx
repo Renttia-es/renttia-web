@@ -28,13 +28,19 @@ const ciudadesPropietarios = [
     pisos: 9, ocupacion: '89%',
     imagen: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80',
   },
+  {
+    ciudad: 'Logroño', slug: 'gestion-alquiler-logrono',
+    descripcion: 'Nueva ciudad en expansión. Alta demanda de alquiler compartido y poca oferta de calidad gestionada.',
+    pisos: 0, ocupacion: '—',
+    imagen: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80',
+  },
 ]
 
 const stats = [
   { valor: '12', etiqueta: 'Pisos gestionados'  },
   { valor: '93%', etiqueta: 'Ocupación media'     },
   { valor: '0€',  etiqueta: 'Impagos en 2 años'  },
-  { valor: '2',   etiqueta: 'Ciudades activas'    },
+  { valor: '3',   etiqueta: 'Ciudades activas'    },
 ]
 
 export default function HomePage() {

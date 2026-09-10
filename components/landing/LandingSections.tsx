@@ -510,6 +510,7 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
             <option value="">Selecciona tu ciudad...</option>
             <option value="zaragoza">Zaragoza</option>
             <option value="huesca">Huesca</option>
+            <option value="logrono">Logroño</option>
           </select>
         </div>
         <div>
