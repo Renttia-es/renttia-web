@@ -505,17 +505,16 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="form-label">Ciudad del piso</label>
-          <select value={ciudad} onChange={e => setCiudad(e.target.value)} className="form-input">
-            <option value="">Selecciona...</option>
+          <label className="form-label">Ciudad del piso *</label>
+          <select required value={ciudad} onChange={e => setCiudad(e.target.value)} className="form-input">
+            <option value="">Selecciona tu ciudad...</option>
             <option value="zaragoza">Zaragoza</option>
             <option value="huesca">Huesca</option>
-            <option value="otra">Otra</option>
           </select>
         </div>
         <div>
-          <label className="form-label">¿Cómo está el piso?</label>
-          <select value={estadoPiso} onChange={e => setEstadoPiso(e.target.value)} className="form-input">
+          <label className="form-label">¿Cómo está el piso? *</label>
+          <select required value={estadoPiso} onChange={e => setEstadoPiso(e.target.value)} className="form-input">
             <option value="">Selecciona...</option>
             {estadoOpciones.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
           </select>
@@ -523,8 +522,8 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="form-label">Nº de habitaciones</label>
-          <select value={habitaciones} onChange={e => setHabitaciones(e.target.value)} className="form-input">
+          <label className="form-label">Nº de habitaciones *</label>
+          <select required value={habitaciones} onChange={e => setHabitaciones(e.target.value)} className="form-input">
             <option value="">Selecciona...</option>
             <option value="2">2 habitaciones</option>
             <option value="3">3 habitaciones</option>
@@ -534,9 +533,10 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
           </select>
         </div>
         <div>
-          <label className="form-label">Metros cuadrados (aprox.)</label>
+          <label className="form-label">Metros cuadrados (aprox.) *</label>
           <input
             type="number"
+            required
             min={20}
             max={500}
             placeholder="Ej: 80"
