@@ -526,7 +526,6 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
           <label className="form-label">Nº de habitaciones *</label>
           <select required value={habitaciones} onChange={e => setHabitaciones(e.target.value)} className="form-input">
             <option value="">Selecciona...</option>
-            <option value="2">2 habitaciones</option>
             <option value="3">3 habitaciones</option>
             <option value="4">4 habitaciones</option>
             <option value="5">5 habitaciones</option>

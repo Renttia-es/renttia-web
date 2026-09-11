@@ -113,7 +113,6 @@ export default function ContactForm({ ciudad = '', dark = false }: ContactFormPr
             onChange={e => setForm({ ...form, habitaciones: e.target.value })}
           >
             <option value="">Selecciona...</option>
-            <option value="2">2 habitaciones</option>
             <option value="3">3 habitaciones</option>
             <option value="4">4 habitaciones</option>
             <option value="5">5 habitaciones</option>
