@@ -361,7 +361,7 @@ export default function HomePage() {
           <div className="text-center mb-8 sm:mb-12 lg:mb-16 fade-up">
             {/* H2 — keyword "gestión arrendamientos" / "gestión inmobiliaria" local */}
             <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-light">
-              Expertos locales en Zaragoza y Huesca
+              Expertos locales en Zaragoza, Huesca y Logroño
             </h2>
             <p className="font-sans text-gray-400 text-sm lg:text-base mt-4 max-w-md mx-auto leading-relaxed">
               Somos de aquí. Conocemos el mercado, los barrios y los precios de cada zona, y gestionamos tu piso de tú a tú.
@@ -384,6 +384,7 @@ export default function HomePage() {
                 <h4 className="font-serif text-navy text-lg font-normal leading-snug">
                   {c.slug === 'gestion-alquiler-zaragoza' && 'Gestión y supervisión de viviendas en Zaragoza'}
                   {c.slug === 'gestion-alquiler-huesca'   && 'Cobertura y protección para propietarios en Huesca'}
+                  {c.slug === 'gestion-alquiler-logrono'  && 'Nueva ciudad: gestión de pisos compartidos en Logroño'}
                 </h4>
                 <p className="font-sans text-gray-400 text-sm leading-relaxed">{c.descripcion}</p>
                 <div className="flex gap-3 mt-auto pt-2 border-t border-gray-100">

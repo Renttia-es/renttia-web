@@ -8,6 +8,7 @@ import { trackLeadConversion } from '@/lib/metaPixel'
 const ciudades = [
   { label: 'Zaragoza', href: '/gestion-alquiler-zaragoza' },
   { label: 'Huesca',   href: '/gestion-alquiler-huesca'   },
+  { label: 'Logroño',  href: '/gestion-alquiler-logrono'  },
 ]
 
 export default function Header() {
