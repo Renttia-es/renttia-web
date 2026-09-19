@@ -28,9 +28,9 @@ export function newEventId(): string {
 }
 
 /**
- * Dispara los eventos de conversión en el Pixel del navegador con un `eventID`.
- * Envía `Lead` y `Contact` para reflejar exactamente lo que manda la CAPI.
- * Devuelve el `eventId` para incluirlo en el POST a `/api/contacto`.
+ * Dispara el evento `CompleteRegistration` en el Pixel del navegador.
+ * Devuelve el `eventId` para incluirlo en el POST a `/api/contacto`,
+ * donde la CAPI enviará el mismo evento con el mismo ID → Meta deduplica.
  */
 export function trackLeadConversion(userData: {
   email?: string

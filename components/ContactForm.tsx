@@ -7,9 +7,10 @@ import { trackLeadConversion } from '@/lib/metaPixel'
 interface ContactFormProps {
   ciudad?: string
   dark?: boolean
+  fuente?: string
 }
 
-export default function ContactForm({ ciudad = '', dark = false }: ContactFormProps) {
+export default function ContactForm({ ciudad = '', dark = false, fuente = 'web-general' }: ContactFormProps) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [form, setForm] = useState({
@@ -39,7 +40,7 @@ export default function ContactForm({ ciudad = '', dark = false }: ContactFormPr
       const res = await fetch('/api/contacto', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, eventId }),
+        body: JSON.stringify({ ...form, fuente, eventId }),
       })
       if (!res.ok) throw new Error('Error al enviar')
       router.push('/gracias')

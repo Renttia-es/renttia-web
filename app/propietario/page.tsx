@@ -171,7 +171,7 @@ export default function PropietarioLanding() {
       const res = await fetch('/api/contacto', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, tipo: 'landing-propietario', eventId }),
+        body: JSON.stringify({ ...form, fuente: 'landing-propietario', eventId }),
       })
       if (!res.ok) throw new Error()
       router.push('/gracias')

@@ -12,6 +12,7 @@ interface LandingPropietarioProps {
   ocupacionMedia: string
   pisosActivos: number
   heroImagen?: string
+  fuente?: string
 }
 
 function getFaqs() {
@@ -149,6 +150,7 @@ export default function LandingPropietario({
   ocupacionMedia,
   pisosActivos,
   heroImagen = 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1600&q=85',
+  fuente,
 }: LandingPropietarioProps) {
   const faqs = getFaqs()
 
@@ -225,7 +227,7 @@ export default function LandingPropietario({
               <p className="font-sans text-gray-500 text-sm mb-5">
                 Evaluamos tu piso sin coste. Respuesta en menos de 24 horas. Sin compromiso.
               </p>
-              <ContactForm ciudad={slug} />
+              <ContactForm ciudad={slug} fuente={fuente ?? `landing-${slug}`} />
             </div>
           </div>
         </div>
