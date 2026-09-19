@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
-import { trackLeadConversion } from '@/lib/metaPixel'
+import { prepareEventId, firePixelConversion } from '@/lib/metaPixel'
 
 interface ContactFormProps {
   ciudad?: string
@@ -31,18 +31,16 @@ export default function ContactForm({ ciudad = '', dark = false, fuente = 'web-g
     e.preventDefault()
     setLoading(true)
     try {
-      const eventId = trackLeadConversion({
-        email: form.email,
-        telefono: form.telefono,
-        nombre: form.nombre,
-        ciudad: form.ciudad,
-      })
+      // 1. Generamos el ID antes del fetch (sin disparar el pixel todavía)
+      const eventId = prepareEventId()
       const res = await fetch('/api/contacto', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...form, fuente, eventId }),
       })
       if (!res.ok) throw new Error('Error al enviar')
+      // 2. Solo si el servidor confirma → disparamos el pixel (conversión real)
+      firePixelConversion(eventId, { email: form.email, telefono: form.telefono, nombre: form.nombre, ciudad: form.ciudad })
       router.push('/gracias')
     } catch {
       alert('Ha ocurrido un error. Por favor llámanos directamente.')

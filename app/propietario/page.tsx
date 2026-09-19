@@ -3,7 +3,7 @@
 import { useState, useEffect, type FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { trackLeadConversion } from '@/lib/metaPixel'
+import { prepareEventId, firePixelConversion } from '@/lib/metaPixel'
 
 /* ─── POPUP TELÉFONO ──────────────────────────────────────────────────────── */
 function CallPopup({ onClose }: { onClose: () => void }) {
@@ -162,18 +162,14 @@ export default function PropietarioLanding() {
     e.preventDefault()
     setLoading(true)
     try {
-      const eventId = trackLeadConversion({
-        email: form.email,
-        telefono: form.telefono,
-        nombre: form.nombre,
-        ciudad: form.ciudad,
-      })
+      const eventId = prepareEventId()
       const res = await fetch('/api/contacto', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...form, fuente: 'landing-propietario', eventId }),
       })
       if (!res.ok) throw new Error()
+      firePixelConversion(eventId, { email: form.email, telefono: form.telefono, nombre: form.nombre, ciudad: form.ciudad })
       router.push('/gracias')
     } catch {
       alert('Ha ocurrido un error. Por favor llámanos directamente.')

@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent, type ReactNode } from 'react'
 import Image from 'next/image'
-import { trackLeadConversion } from '@/lib/metaPixel'
+import { prepareEventId, firePixelConversion } from '@/lib/metaPixel'
 
 /* ══════════════════════════════════════════════════════════════════════════
    Secciones compartidas que replican la estructura de la landing /propietario.
@@ -467,12 +467,13 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
     e.preventDefault()
     setEstado('sending')
     try {
-      const eventId = trackLeadConversion({ email, telefono, nombre, ciudad })
+      const eventId = prepareEventId()
       const res = await fetch('/api/contacto', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nombre, telefono, email, ciudad, fuente, tipo: estadoPiso, habitaciones, metros, eventId }),
       })
+      if (res.ok) firePixelConversion(eventId, { email, telefono, nombre, ciudad })
       setEstado(res.ok ? 'ok' : 'error')
     } catch { setEstado('error') }
   }

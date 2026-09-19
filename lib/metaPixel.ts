@@ -1,9 +1,13 @@
 /**
  * Helpers de Meta Pixel (lado navegador) para deduplicación con la Conversions API.
  *
- * El navegador y el servidor deben enviar el MISMO `eventID` para cada par
- * (nombre de evento + eventID). Así Meta entiende que Pixel y CAPI reportan la
- * misma conversión y no la cuenta dos veces.
+ * Flujo correcto para conversiones REALES:
+ * 1. Generar eventId ANTES del fetch → prepareEventId()
+ * 2. Enviar eventId al servidor en el body del POST
+ * 3. Solo si el servidor responde OK → firePixelConversion() con el mismo eventId
+ *
+ * Así el pixel NUNCA dispara si el formulario no llega de verdad al servidor.
+ * La CAPI (server-side) también dispara con el mismo eventId → Meta deduplica.
  */
 
 type FbqUserData = {
@@ -20,7 +24,7 @@ declare global {
 }
 
 /** Genera un identificador de evento único, compartido entre Pixel y CAPI. */
-export function newEventId(): string {
+export function prepareEventId(): string {
   if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) {
     return crypto.randomUUID()
   }
@@ -28,27 +32,30 @@ export function newEventId(): string {
 }
 
 /**
- * Dispara el evento `CompleteRegistration` en el Pixel del navegador.
- * Devuelve el `eventId` para incluirlo en el POST a `/api/contacto`,
- * donde la CAPI enviará el mismo evento con el mismo ID → Meta deduplica.
+ * Dispara `CompleteRegistration` en el Pixel del navegador.
+ * Llamar SOLO después de confirmar que el servidor aceptó el lead (res.ok).
+ * Usar el mismo eventId generado con prepareEventId() → Meta deduplica con CAPI.
  */
-export function trackLeadConversion(userData: {
-  email?: string
-  telefono?: string
-  nombre?: string
-  ciudad?: string
-} = {}): string {
-  const eventId = newEventId()
+export function firePixelConversion(
+  eventId: string,
+  userData: { email?: string; telefono?: string; nombre?: string; ciudad?: string } = {}
+): void {
+  if (typeof window === 'undefined' || typeof window.fbq !== 'function') return
 
-  if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
-    const user: FbqUserData = {
-      ...(userData.email && { em: userData.email }),
-      ...(userData.telefono && { ph: userData.telefono }),
-      ...(userData.nombre && { fn: userData.nombre }),
-      ...(userData.ciudad && { ct: userData.ciudad }),
-    }
-    window.fbq('track', 'CompleteRegistration', user, { eventID: eventId })
+  const user: FbqUserData = {
+    ...(userData.email    && { em: userData.email    }),
+    ...(userData.telefono && { ph: userData.telefono }),
+    ...(userData.nombre   && { fn: userData.nombre   }),
+    ...(userData.ciudad   && { ct: userData.ciudad   }),
   }
+  window.fbq('track', 'CompleteRegistration', user, { eventID: eventId })
+}
 
+/** @deprecated Usar prepareEventId() + firePixelConversion() por separado */
+export function trackLeadConversion(userData: {
+  email?: string; telefono?: string; nombre?: string; ciudad?: string
+} = {}): string {
+  const eventId = prepareEventId()
+  firePixelConversion(eventId, userData)
   return eventId
 }
