@@ -306,11 +306,7 @@ export async function POST(req: NextRequest) {
       // Mismo eventId que el Pixel del navegador → Meta deduplica Pixel + CAPI.
       const eventId = typeof clientEventId === 'string' && clientEventId ? clientEventId : randomUUID()
       const metaUserData = { email, phone: telefono, nombre, ciudad }
-      await Promise.all([
-        sendMetaEvent('Lead',                 metaUserData, req, eventId),
-        sendMetaEvent('Contact',              metaUserData, req, eventId),
-        sendMetaEvent('CompleteRegistration', metaUserData, req, eventId),
-      ])
+      await sendMetaEvent('CompleteRegistration', metaUserData, req, eventId)
     } catch (e) {
       console.error('Meta CAPI error:', e)
     }
