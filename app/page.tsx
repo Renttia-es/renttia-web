@@ -37,10 +37,9 @@ const ciudadesPropietarios = [
 ]
 
 const stats = [
-  { valor: '12', etiqueta: 'Pisos gestionados'  },
-  { valor: '93%', etiqueta: 'Ocupación media'     },
-  { valor: '0€',  etiqueta: 'Impagos en 2 años'  },
-  { valor: '3',   etiqueta: 'Ciudades activas'    },
+  { valor: '93%', etiqueta: 'Ocupación media'    },
+  { valor: '0€',  etiqueta: 'Impagos en 2 años' },
+  { valor: '3',   etiqueta: 'Ciudades activas'   },
 ]
 
 export default function HomePage() {
