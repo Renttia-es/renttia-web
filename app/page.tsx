@@ -38,7 +38,7 @@ const ciudadesPropietarios = [
 
 const stats = [
   { valor: '93%', etiqueta: 'Ocupación media'    },
-  { valor: '0€',  etiqueta: 'Impagos en 2 años' },
+  { valor: '0€',  etiqueta: 'Impagos en 1 año'  },
   { valor: '3',   etiqueta: 'Ciudades activas'   },
 ]
 
