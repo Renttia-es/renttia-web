@@ -285,7 +285,7 @@ export function QuienesSomos() {
         </div>
         <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-light mb-5">Un equipo aragonés, con raíces en Jaca</h2>
         <p className="font-serif font-light text-gray-600 text-base sm:text-lg lg:text-xl leading-relaxed mb-4">
-          Renttia nació en Jaca con un propósito claro: ofrecer a los propietarios la tranquilidad que el alquiler tradicional nunca ha dado. En nuestros 2 años de experiencia hemos llegado a conocer Zaragoza, Huesca y Logroño, sus barrios y su mercado.
+          Renttia nació en Jaca con un propósito claro: ofrecer a los propietarios la tranquilidad que el alquiler tradicional nunca ha dado. En nuestro primer año de actividad hemos llegado a conocer Zaragoza, Huesca y Logroño, sus barrios y su mercado.
         </p>
         <p className="font-serif font-light text-gray-500 text-base sm:text-lg lg:text-xl leading-relaxed">
           No somos una gran corporación. Somos un equipo pequeño y comprometido que trata cada piso como si fuera el nuestro, porque en cierto sentido, lo es.
