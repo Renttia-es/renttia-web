@@ -164,7 +164,7 @@ export default function GuiaPropietarioPage() {
         />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 relative text-center">
           <span className="inline-block bg-red-500/20 border border-red-400/30 text-red-300 text-[0.6rem] font-sans font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-6">
-            ⚠️ Guía urgente para propietarios · España 2024–2025
+            ⚠️ Guía urgente para propietarios · Decretos RDL 28/2026 y 29/2026 · Octubre 2026
           </span>
           <h1 className="font-serif text-white text-[1.9rem] sm:text-4xl lg:text-5xl font-light leading-tight mb-5">
             Todo lo que necesitas saber<br />
@@ -180,7 +180,7 @@ export default function GuiaPropietarioPage() {
             <p className="font-sans text-white/50 text-[0.65rem] font-bold uppercase tracking-widest mb-4">Índice de esta guía</p>
             <div className="grid sm:grid-cols-2 gap-2 sm:gap-3">
               {[
-                { n: '01', t: 'La nueva Ley de Vivienda y decretos 2024', color: 'text-red-300' },
+                { n: '01', t: 'RDL 28 y 29/2026: los decretos de octubre', color: 'text-red-300' },
                 { n: '02', t: 'El coste real de un impago', color: 'text-amber-300' },
                 { n: '03', t: 'La pesadilla de la ocupación ilegal', color: 'text-orange-300' },
                 { n: '04', t: 'Reforma incluida, a nuestro cargo', color: 'text-green-300' },
@@ -209,70 +209,98 @@ export default function GuiaPropietarioPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <ChapterHeader
             num="01"
-            titulo="La nueva Ley de Vivienda y los decretos del gobierno"
-            subtitulo="Lo que ha cambiado en los últimos meses y por qué el alquiler tradicional es hoy más arriesgado que nunca."
+            titulo="RDL 28/2026 y 29/2026: los dos decretos de octubre que cambian todo"
+            subtitulo="Aprobados el 6 de octubre de 2026 y ya en el BOE. Congelación de rentas, prórrogas automáticas de 7 años e indemnizaciones obligatorias. Si tienes un piso en alquiler, esto te afecta ahora."
           />
 
-          <div className="prose-renttia">
-            <p className="font-serif font-light text-gray-600 text-base sm:text-lg leading-relaxed mb-6">
-              La Ley 12/2023 de Vivienda y los decretos aprobados desde entonces han alterado radicalmente las reglas del juego para los propietarios. Lo que antes era un alquiler relativamente sencillo se ha convertido en un campo minado legal y burocrático.
-            </p>
+          {/* Alerta decretos */}
+          <div className="bg-red-50 border border-red-200 rounded-2xl p-4 sm:p-5 flex gap-3 mb-8">
+            <span className="text-xl shrink-0">🚨</span>
+            <div>
+              <p className="font-sans text-xs font-bold uppercase tracking-widest text-red-600 mb-1">Publicado en el BOE el 7 de octubre de 2026</p>
+              <p className="font-serif text-red-800 text-base leading-relaxed">
+                El Consejo de Ministros aprobó dos decretos de vivienda que ya están en vigor o entran en vigor el 15 de noviembre. Si tienes un piso en alquiler, estas medidas te afectan directamente.
+              </p>
+            </div>
+          </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-              <RiesgoCard
-                emoji="📋"
-                titulo="Registro obligatorio de contratos"
-                texto="Nuevos trámites burocráticos obligatorios. Si no cumples los plazos, puedes enfrentarte a sanciones directas como propietario."
-                color="red"
-              />
-              <RiesgoCard
-                emoji="⚖️"
-                titulo="Mediación antes de poder reclamar"
-                texto="Antes de iniciar un desahucio, la ley obliga a un proceso de mediación previo que puede alargar el procedimiento varios meses más."
-                color="red"
-              />
-              <RiesgoCard
-                emoji="🔒"
-                titulo="Zonas tensionadas y control de precios"
-                texto="El gobierno puede declarar zonas tensionadas donde los propietarios no pueden subir el alquiler libremente, incluso si el mercado lo justifica."
-                color="amber"
-              />
-              <RiesgoCard
-                emoji="📅"
-                titulo="Prórrogas forzosas ampliadas"
-                texto="El inquilino puede extender el contrato más allá de lo pactado en ciertos escenarios. El propietario no puede recuperar su vivienda con tanta facilidad."
-                color="amber"
-              />
-              <RiesgoCard
-                emoji="🏛️"
-                titulo="Grandes tenedores con más restricciones"
-                texto="Si tienes más de 5 propiedades en zona tensionada, las obligaciones se multiplican. Las sanciones también."
-                color="orange"
-              />
-              <RiesgoCard
-                emoji="💰"
-                titulo="Gastos de formalización al propietario"
-                texto="Los costes de escrituras, registro y algunos gastos asociados al contrato pasan a cargo del propietario, no del inquilino."
-                color="orange"
-              />
+          <div className="prose-renttia">
+            {/* Decreto 29 */}
+            <div className="mb-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="shrink-0 bg-red-100 border border-red-200 rounded-xl px-3 py-1.5">
+                  <span className="font-sans text-[0.6rem] font-bold uppercase tracking-widest text-red-700">RDL 29/2026 · En vigor desde 8 oct 2026</span>
+                </div>
+              </div>
+              <h3 className="font-serif text-navy text-lg sm:text-xl font-light mb-4">Congelación de rentas y prórroga extraordinaria obligatoria</h3>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                <RiesgoCard
+                  emoji="❄️"
+                  titulo="Subida de renta: 0% o máx. 2%"
+                  texto="Si tu alquiler supera el índice SERVAPI del Ministerio: no puedes subir la renta. Si está por debajo, el máximo es un 2% hasta finales de 2027."
+                  color="red"
+                />
+                <RiesgoCard
+                  emoji="📅"
+                  titulo="Prórroga extraordinaria forzosa"
+                  texto="El inquilino puede exigirte prorrogar el contrato 1 año más (ampliable a 2) si vence antes del 31 de diciembre de 2028. Estás obligado a aceptar y sin poder subir la renta."
+                  color="red"
+                />
+                <RiesgoCard
+                  emoji="🚫"
+                  titulo="Cierre de contratos 'alternativos'"
+                  texto="El decreto modifica la LAU para perseguir fórmulas contractuales que el gobierno considera que 'desvirtúan la finalidad residencial'. Contratos temporales bajo escrutinio."
+                  color="amber"
+                />
+              </div>
+            </div>
+
+            {/* Decreto 28 */}
+            <div className="mb-8">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="shrink-0 bg-orange-100 border border-orange-200 rounded-xl px-3 py-1.5">
+                  <span className="font-sans text-[0.6rem] font-bold uppercase tracking-widest text-orange-700">RDL 28/2026 · En vigor desde 15 nov 2026</span>
+                </div>
+              </div>
+              <h3 className="font-serif text-navy text-lg sm:text-xl font-light mb-4">Prórrogas automáticas de hasta 7 años e indemnización si no renuevas</h3>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                <RiesgoCard
+                  emoji="🔄"
+                  titulo="Prórroga automática de 5 o 7 años"
+                  texto="Una vez cumplido el mínimo legal (5 años), el contrato se prorroga automáticamente por 5 años más. Si te niegas sin causa justificada, tienes que indemnizar al inquilino."
+                  color="red"
+                />
+                <RiesgoCard
+                  emoji="🗓️"
+                  titulo="Preaviso de 6 meses para el propietario"
+                  texto="Para no renovar necesitas avisar con 6 meses de antelación (antes eran 4). Si avisas tarde, el contrato se renueva automáticamente."
+                  color="amber"
+                />
+                <RiesgoCard
+                  emoji="💸"
+                  titulo="Indemnización obligatoria al inquilino"
+                  texto="Si el propietario no renueva sin causa legal justificada, debe pagar al inquilino el mayor entre 12 mensualidades o 1 mes por cada año vivido. Una cifra muy elevada."
+                  color="red"
+                />
+              </div>
             </div>
 
             <div className="bg-navy/5 border border-navy/10 rounded-2xl p-6 sm:p-8 mb-8">
               <p className="font-sans text-[0.65rem] font-bold uppercase tracking-widest text-cta mb-3">La solución de Renttia</p>
               <h3 className="font-serif text-navy text-xl sm:text-2xl font-light mb-4">
-                El contrato corporativo te blindan ante toda esta normativa
+                El contrato corporativo con Renttia queda al margen de ambos decretos
               </h3>
               <p className="font-serif font-light text-gray-600 text-base sm:text-lg leading-relaxed mb-4">
-                Cuando Renttia es tu inquilino, firmamos un <strong>contrato de arrendamiento para uso distinto del de vivienda</strong> (LAU Art. 3), regulado por el Código Civil. Este tipo de contrato <strong>queda fuera del ámbito de la nueva Ley de Vivienda</strong> y de las restricciones de las zonas tensionadas.
+                Cuando Renttia es tu inquilino, firmamos un <strong>contrato de arrendamiento para uso no residencial</strong> (LAU Art. 3), regulado por el Código Civil. Este tipo de contrato es un acuerdo <strong>entre empresa y propietario</strong>, no entre particular e inquilino. Eso significa que los RDL 28/2026 y 29/2026 <strong>no le son de aplicación</strong>: ni los topes de renta, ni las prórrogas automáticas, ni la indemnización por no renovar.
               </p>
               <div className="grid sm:grid-cols-2 gap-3">
                 {[
-                  { e: '✅', t: 'Fuera de las zonas tensionadas' },
-                  { e: '✅', t: 'Sin mediación obligatoria previa' },
-                  { e: '✅', t: 'Sin restricciones de precio' },
-                  { e: '✅', t: 'Sin prórrogas forzosas' },
-                  { e: '✅', t: 'Contratos claros de 3 a 7 años' },
-                  { e: '✅', t: 'Revisado por abogado especializado' },
+                  { e: '✅', t: 'Sin topes de renta (no aplica el SERVAPI)' },
+                  { e: '✅', t: 'Sin prórroga forzosa de 1 o 2 años' },
+                  { e: '✅', t: 'Sin prórrogas automáticas de 5-7 años' },
+                  { e: '✅', t: 'Sin indemnización por no renovar' },
+                  { e: '✅', t: 'Sin preaviso de 6 meses para recuperar tu piso' },
+                  { e: '✅', t: 'Revisado por abogado especializado en LAU' },
                 ].map(({ e, t }) => (
                   <div key={t} className="flex items-center gap-2.5 font-sans text-navy text-sm">
                     <span>{e}</span><span>{t}</span>
