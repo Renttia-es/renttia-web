@@ -31,36 +31,52 @@ const estadoOpciones: EstadoOpcion[] = [
 
 const faqs: Faq[] = [
   {
-    pregunta: '¿Cómo funciona exactamente esta alternativa al alquiler tradicional?',
-    respuesta: 'Nos convertimos en tus únicos inquilinos directos mediante un contrato de arrendamiento corporativo a largo plazo. Nos encargamos de poner a punto la vivienda, mantenerla impecable y gestionar el alojamiento de perfiles profesionales seleccionados. Tú cobras tu renta fijada mes a mes de forma puntual y delegas el 100% de la gestión.',
+    pregunta: '¿Cómo funciona este acuerdo entre Renttia y el propietario?',
+    respuesta: 'Hacemos equipo Renttia–Propietario. Tú tienes la seguridad de cobrar tu renta cada mes sin sobresaltos, mientras nosotros nos encargamos del 100% del trabajo: ponemos a punto el piso, seleccionamos a los residentes con lupa (de ello depende nuestro negocio), gestionamos la convivencia y el mantenimiento diario. Tú te dedicas a ingresar tu dinero a fin de mes y olvidarte de todo lo demás.',
   },
   {
     pregunta: '¿Es 100% legal ceder el piso a una empresa?',
-    respuesta: 'Sí, totalmente legal. Firmamos un contrato amparado por la Ley de Arrendamientos Urbanos (LAU). Al tratarse de un contrato corporativo entre empresa y propietario, quedas blindado frente a las incertidumbres de la nueva Ley de Vivienda, impagos y problemas de ocupación.',
+    respuesta: 'Sí, totalmente legal. Firmamos un contrato de arrendamiento para uso no residencial amparado por la LAU (Art. 3), un acuerdo entre empresa y propietario. Este tipo de contrato te blinda ante la nueva normativa de vivienda: sin prórrogas forzosas, sin indemnizaciones al inquilino, sin topes de renta. Revisado por abogado especializado.',
   },
   {
-    pregunta: '¿Qué pasa si mi piso es antiguo o tiene muebles viejos?',
-    respuesta: 'No te preocupes por nada. Nos encargamos de la actualización o el lavado de cara del piso íntegramente a nuestro cargo. Si el piso tiene muebles antiguos, los retiramos e incluso trasladamos a donde nos indiques aquellos muebles o enseres que quieras conservar.',
+    pregunta: '¿Qué es la carencia y cómo nos afecta?',
+    respuesta: 'La carencia es un periodo pactado al inicio del contrato —habitualmente 1 o 2 meses— durante el cual Renttia no paga la renta al propietario. Se utiliza para acondicionar el piso, hacer las reformas necesarias y equiparlo antes de la entrada de los residentes. Es una condición estándar en nuestro modelo y se acuerda de forma transparente antes de firmar.',
   },
   {
-    pregunta: '¿Quién paga los seguros del inmueble?',
-    respuesta: 'Para total claridad: tú solo mantienes el seguro de hogar básico que cubre la estructura de la vivienda (Continente). Nosotros nos encargamos de asegurar todo el equipamiento, mobiliario y enseres que introducimos (Contenido), además de garantizar la cobertura frente a cualquier incidencia del día a día.',
+    pregunta: '¿Renttia paga fianza al propietario?',
+    respuesta: 'No. Renttia no aporta fianza al propietario al firmar el contrato corporativo. Sí depositamos en el Gobierno de Aragón la fianza legal correspondiente según normativa, pero no hacemos entrega de ninguna cantidad al propietario como garantía previa. Lo que garantiza el acuerdo es el propio contrato y la solidez del modelo de negocio de Renttia.',
   },
   {
-    pregunta: '¿Qué ocurre si hay alguna avería o rotura en el piso?',
-    respuesta: 'Nosotros asumimos el mantenimiento continuo y la resolución de pequeñas averías o reparaciones derivadas del uso diario. Tu teléfono no volverá a sonar un domingo por la tarde porque se haya estropeado un grifo o un electrodoméstico.',
+    pregunta: '¿Qué hacemos si el piso tiene muebles antiguos o necesita actualizarse?',
+    respuesta: 'Revalorizamos la vivienda sin que tengas que mover un dedo ni invertir nada. Nos encargamos del lavado de cara necesario y de retirar el mobiliario viejo. Si hay muebles o enseres que quieras conservar, los trasladamos nosotros mismos a donde nos indiques, sin coste ni molestias.',
   },
   {
-    pregunta: '¿Cómo sé que cuidarán mi vivienda?',
-    respuesta: 'Nuestro modelo de negocio depende de que la vivienda esté siempre en estado de revista. Realizamos limpiezas periódicas y supervisamos el estado del inmueble continuamente. A diferencia de un inquilino tradicional, a nosotros nos va el negocio en mantener el piso impecable.',
+    pregunta: '¿Cómo nos repartimos el tema de los seguros?',
+    respuesta: 'De forma transparente y sencilla: tú solo mantienes el seguro de hogar básico para la estructura de la vivienda (Continente). En Renttia aseguramos todo el mobiliario, equipamiento y contenido que introducimos en el piso, garantizando cobertura ante cualquier imprevisto del día a día.',
   },
   {
-    pregunta: '¿Tiene algún coste para mí este servicio?',
-    respuesta: 'Ninguno. No somos una agencia inmobiliaria y no te cobramos ninguna comisión. Al contrario: invertimos nuestro propio dinero en actualizar tu piso y te pagamos la renta acordada de forma íntegra todos los meses.',
+    pregunta: '¿Qué gastos sigue pagando el propietario?',
+    respuesta: 'El propietario continúa asumiendo los gastos propios de la titularidad del inmueble: IBI, cuota de comunidad de propietarios y el seguro de hogar del continente. Los suministros (luz, agua, gas, internet) pasan a nombre de Renttia desde el día de la firma: son nuestro gasto, no el tuyo.',
+  },
+  {
+    pregunta: '¿Qué tipo de alquiler hacemos en las habitaciones?',
+    respuesta: 'Gestionamos el piso por habitaciones mediante contratos temporales. Así tenemos control total sobre quién entra, cuánto tiempo se queda, la convivencia y el estado del piso. Además, tanto el propietario como Renttia tenemos acceso a las zonas comunes durante toda la vigencia del contrato, lo que hace la ocupación ilegal prácticamente imposible.',
+  },
+  {
+    pregunta: 'Si hay una avería o un problema con la comunidad, ¿quién responde?',
+    respuesta: 'Nosotros respondemos por todo. Asumimos las pequeñas reparaciones, el mantenimiento diario y cualquier incidencia con los vecinos. Tu teléfono no volverá a sonar un domingo por un grifo que gotea o una bombilla fundida.',
+  },
+  {
+    pregunta: '¿La renta que recibo es el importe bruto o el neto?',
+    respuesta: 'Cuando el propietario es persona física (particular), Renttia aplica la retención legal del 19% del IRPF y la ingresa trimestralmente a Hacienda en nombre del propietario (Modelo 115). El propietario recibe el importe neto cada mes pero declara el bruto en su IRPF anual. Es una retención de tu propio impuesto, no un coste adicional.',
+  },
+  {
+    pregunta: '¿Tiene algún coste este acuerdo para el propietario?',
+    respuesta: 'Ninguno. No somos una gestora ni cobramos comisiones. Al contrario: invertimos nuestro propio dinero en actualizar y equipar tu piso, y te pagamos la renta acordada todos los meses. El único coste previo que puede surgir es el del impuesto de transmisiones patrimoniales (ITP) del contrato, que asume Renttia.',
   },
   {
     pregunta: '¿Cómo recupero mi vivienda al finalizar el contrato?',
-    respuesta: 'Al terminar el periodo acordado, te devolvemos las llaves con el piso en el mismo estado —o mejor— en el que nos lo entregaste, completamente limpio y listo para lo que decidas.',
+    respuesta: 'Al terminar el periodo acordado te devolvemos las llaves con el piso en el mismo estado —o mejor— en el que nos lo entregaste, limpio y listo. Sin disputas, sin retenciones de fianza, sin sorpresas.',
   },
 ]
 
