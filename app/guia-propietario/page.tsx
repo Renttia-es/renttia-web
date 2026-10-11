@@ -323,78 +323,47 @@ export default function GuiaPropietarioPage() {
       </section>
       <AntesDespues />
 
-      {/* ══ WIN-WIN ═══════════════════════════════════════════════════════ */}
+      {/* ══ LO QUE GANAS ══════════════════════════════════════════════════ */}
       <section className="py-16 sm:py-24 bg-navy relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-navy via-[#0f2d55] to-navy/90" />
         <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 relative">
           <div className="text-center mb-12">
             <span className="inline-block bg-white/10 border border-white/15 text-white/70 text-[0.6rem] font-sans font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-4">
-              La fórmula
+              Lo que consigues
             </span>
             <h2 className="font-serif text-white text-2xl sm:text-4xl font-light mb-4">
-              Tú ganas. Nosotros ganamos.{' '}
-              <span className="italic" style={{ color: '#C9A96E' }}>Así de sencillo.</span>
+              Tu piso trabaja para ti.{' '}
+              <span className="italic" style={{ color: '#C9A96E' }}>Tú no trabajas para él.</span>
             </h2>
-            <p className="font-serif font-light text-white/75 text-base sm:text-xl max-w-2xl mx-auto">
-              No somos una gestora que te cobra por trabajar. Somos tu inquilino: nos va bien cuando a ti te va bien. Por eso el modelo funciona para los dos.
+            <p className="font-serif font-light text-white/75 text-base sm:text-lg max-w-2xl mx-auto">
+              Esto es exactamente lo que cambia en tu vida el día que firmas con Renttia.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-6 sm:gap-8 mb-12">
-            {/* Propietario */}
-            <div className="bg-white/8 border border-white/15 rounded-2xl p-6 sm:p-8">
-              <p className="font-sans text-[0.65rem] font-bold uppercase tracking-widest text-cta-light mb-4">Tú, propietario</p>
-              <ul className="space-y-3.5">
-                {[
-                  'Renta fija garantizada el día 1, cada mes',
-                  'Piso reformado y revalorizado sin invertir nada',
-                  'Sin llamadas, sin averías, sin gestión',
-                  'Protegido ante la normativa de vivienda',
-                  'Un solo interlocutor: Renttia',
-                ].map(t => (
-                  <li key={t} className="flex items-start gap-3 font-sans text-sm text-white/85">
-                    <svg className="w-4 h-4 text-green-400 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    {t}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Renttia */}
-            <div className="bg-white/8 border border-white/15 rounded-2xl p-6 sm:p-8">
-              <p className="font-sans text-[0.65rem] font-bold uppercase tracking-widest text-cta-light mb-4">Renttia</p>
-              <ul className="space-y-3.5">
-                {[
-                  'Gestionamos el piso y obtenemos nuestro margen',
-                  'Cuidamos el inmueble como si fuera nuestro',
-                  'Seleccionamos residentes solventes con esmero',
-                  'Mantenemos el piso en perfecto estado siempre',
-                  'Construimos una relación de largo plazo contigo',
-                ].map(t => (
-                  <li key={t} className="flex items-start gap-3 font-sans text-sm text-white/85">
-                    <svg className="w-4 h-4 text-cta-light shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    {t}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* Frase central */}
-          <div className="text-center bg-white/8 border border-white/15 rounded-2xl p-6 sm:p-8 mb-10">
-            <p className="font-serif text-white text-lg sm:text-2xl font-light leading-relaxed max-w-2xl mx-auto">
-              "Cuando tú tienes un piso que renta sin problemas, nosotros también ganamos.<br />
-              <span className="italic" style={{ color: '#C9A96E' }}>Por eso cuidamos tu piso como si fuera el nuestro."</span>
-            </p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-10">
+            {[
+              { e: '💶', t: 'Renta fija el día 1',            s: 'Sin esperas, sin excusas. El dinero en tu cuenta cada mes, siempre.' },
+              { e: '🏠', t: 'Piso reformado sin coste',        s: 'Lo recibimos como está y lo dejamos impecable. Tú no inviertes nada.' },
+              { e: '📵', t: 'Cero llamadas',                   s: 'Averías, incidencias, vecinos. Todo lo gestionamos nosotros. Tu teléfono, en silencio.' },
+              { e: '🛡️', t: 'Blindado ante la normativa',      s: 'Contrato corporativo que te protege de las restricciones del alquiler tradicional.' },
+              { e: '🔒', t: 'Piso siempre ocupado y vigilado', s: 'Nunca vacío, nunca desatendido. La ocupación ilegal es prácticamente imposible.' },
+              { e: '🤝', t: 'Un solo interlocutor para todo',  s: 'Nosotros respondemos por todo. Tú no tienes que coordinarte con nadie más.' },
+            ].map(b => (
+              <div key={b.t}
+                className="bg-white rounded-2xl p-5 sm:p-6 flex gap-4 items-start"
+                style={{ boxShadow: '0 10px 40px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.10)' }}>
+                <div className="w-10 h-10 rounded-xl bg-navy/8 flex items-center justify-center shrink-0 text-lg">{b.e}</div>
+                <div>
+                  <h3 className="font-serif text-navy text-sm sm:text-base font-normal mb-1">{b.t}</h3>
+                  <p className="font-sans text-gray-500 text-xs sm:text-sm leading-relaxed">{b.s}</p>
+                </div>
+              </div>
+            ))}
           </div>
 
           <div className="text-center">
             <button onClick={scrollToForm} className="btn-cta-white text-sm py-4 px-10">
-              Quiero empezar este acuerdo →
+              Quiero esto para mi piso →
             </button>
             <p className="font-sans text-white/35 text-xs mt-3">Sin compromiso · Respuesta en menos de 24 h</p>
           </div>
