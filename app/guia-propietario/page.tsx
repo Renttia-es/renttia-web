@@ -138,7 +138,7 @@ function InlineCTA({ onForm, texto = '¿Quieres eliminar estos riesgos? Pide tu 
   return (
     <div className="my-8 sm:my-10 bg-navy rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-4 justify-between">
       <p className="font-serif text-white text-base sm:text-lg font-light text-center sm:text-left">{texto}</p>
-      <button onClick={onForm} className="btn-cta shrink-0 text-sm py-3 px-7 whitespace-nowrap">
+      <button onClick={onForm} className="btn-cta-white shrink-0 text-sm py-3 px-7 whitespace-nowrap">
         Solicitar valoración →
       </button>
     </div>
@@ -192,7 +192,7 @@ export default function GuiaPropietarioPage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 items-start">
-            <button onClick={scrollToForm} className="btn-cta text-sm py-4 px-10">
+            <button onClick={scrollToForm} className="btn-cta-white text-sm py-4 px-10">
               Solicitar valoración gratuita →
             </button>
           </div>
@@ -563,7 +563,7 @@ export default function GuiaPropietarioPage() {
           </div>
 
           <div className="text-center">
-            <button onClick={scrollToForm} className="btn-cta text-sm py-4 px-10">
+            <button onClick={scrollToForm} className="btn-cta-white text-sm py-4 px-10">
               Quiero mi valoración gratuita →
             </button>
             <p className="font-sans text-white/35 text-xs mt-3">Sin compromiso · Respuesta en menos de 24 h</p>

@@ -71,7 +71,7 @@ export default function HomePage() {
               Somos el inquilino perfecto: recibe su pago el día 1 de cada mes. Acondicionamos su piso y reformamos si es necesario. Gestionamos todas las incidencias por usted.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 fade-up" style={{animationDelay:'0.38s'}}>
-              <CTAButton texto="Solicitar valoración gratuita" className="btn-cta text-sm py-3.5 sm:py-4 px-6 sm:px-8 w-full sm:w-auto text-center" />
+              <CTAButton texto="Solicitar valoración gratuita" className="btn-cta-white text-sm py-3.5 sm:py-4 px-6 sm:px-8 w-full sm:w-auto text-center" />
             </div>
           </div>
         </div>
@@ -126,7 +126,7 @@ export default function HomePage() {
                 <p className="font-sans text-white/70 text-sm sm:text-base leading-relaxed mb-6">
                   Firma con Renttia su contrato de alquiler, no con el inquilino. Se olvida de cualquier preocupación y recibe su renta el día uno.
                 </p>
-                <span className="btn-cta text-sm self-start">Ver cómo funciona →</span>
+                <span className="btn-cta-white text-sm self-start">Ver cómo funciona →</span>
               </div>
             </Link>
 

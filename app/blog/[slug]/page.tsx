@@ -250,7 +250,7 @@ export default async function ArticuloPage({ params }: Props) {
                   ¿Quieres cobrar el día 1 sin gestionar nada?
                 </p>
                 <p className="font-sans text-white/60 text-xs mb-5">Valoración gratuita en menos de 24 h.</p>
-                <CTAButton texto="Solicitar valoración →" className="btn-cta text-sm py-3 px-5 w-full" />
+                <CTAButton texto="Solicitar valoración →" className="btn-cta-white text-sm py-3 px-5 w-full" />
               </div>
               {/* Artículos relacionados */}
               {relacionados.length > 0 && (
