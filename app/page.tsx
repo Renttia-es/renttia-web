@@ -339,7 +339,7 @@ export default function HomePage() {
               </div>
               <div>
                 <h3 className="font-serif text-navy text-lg font-normal mb-2">
-                  Contratos estables de 3 a 7 años con un único interlocutor, Renttia.
+                  Contratos estables de larga duración con un único interlocutor, Renttia.
                 </h3>
                 <p className="font-sans text-gray-400 text-sm leading-relaxed">
                   Un solo contrato. Una sola renta. Sin cambios de inquilino.

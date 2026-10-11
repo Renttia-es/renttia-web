@@ -36,7 +36,7 @@ const faqs: Faq[] = [
   },
   {
     pregunta: '¿Es 100% legal ceder el piso a una empresa?',
-    respuesta: 'Sí, totalmente legal. Firmamos un contrato de arrendamiento para uso no residencial amparado por la LAU (Art. 3), un acuerdo entre empresa y propietario. Este tipo de contrato te blinda ante la nueva normativa de vivienda: sin prórrogas forzosas, sin indemnizaciones al inquilino, sin topes de renta. Revisado por abogado especializado.',
+    respuesta: 'Sí, totalmente legal. Firmamos un contrato corporativo entre empresa y propietario. Este tipo de acuerdo te blinda ante la nueva normativa de vivienda: sin prórrogas forzosas, sin indemnizaciones al inquilino, sin topes de renta. Revisado por abogado especializado.',
   },
   {
     pregunta: '¿Qué es la carencia y cómo nos afecta?',
@@ -309,7 +309,7 @@ export default function GuiaPropietarioPage() {
                 Nuestro contrato corporativo te saca del juego legislativo
               </h3>
               <p className="font-serif font-light text-gray-600 text-base sm:text-lg leading-relaxed mb-3">
-                Cuando Renttia es tu inquilino, firmamos un <strong>contrato de arrendamiento para uso no residencial</strong> (LAU Art. 3): un acuerdo entre empresa y propietario. Los decretos RDL 28 y 29/2026 regulan el <em>arrendamiento de vivienda habitual</em> — un tipo de contrato completamente distinto. <strong>Ni las prórrogas forzosas, ni las indemnizaciones, ni los topes futuros te afectan.</strong>
+                Cuando Renttia es tu inquilino, firmamos un <strong>contrato corporativo entre empresa y propietario</strong>. Los decretos RDL 28 y 29/2026 regulan el arrendamiento de vivienda habitual entre particulares — un tipo de contrato completamente distinto al nuestro. <strong>Ni las prórrogas forzosas, ni las indemnizaciones, ni los topes futuros te afectan.</strong>
               </p>
               <p className="font-serif font-light text-gray-500 text-sm sm:text-base leading-relaxed mb-5">
                 El alquiler por habitaciones a nuestros residentes es un asunto nuestro. Tú solo tienes un contrato con Renttia. Cuando el Gobierno cambie las reglas, tú ya habrás salido del tablero.
@@ -321,7 +321,7 @@ export default function GuiaPropietarioPage() {
                   { e: '✅', t: 'Sin preaviso de 6 meses obligatorio' },
                   { e: '✅', t: 'Sin topes de renta, hoy ni en el futuro' },
                   { e: '✅', t: 'Condiciones pactadas y fijas por contrato' },
-                  { e: '✅', t: 'Revisado por abogado especializado en LAU' },
+                  { e: '✅', t: 'Revisado por abogado especializado' },
                 ].map(({ e, t }) => (
                   <div key={t} className="flex items-center gap-2.5 font-sans text-navy text-sm">
                     <span>{e}</span><span>{t}</span>
@@ -416,7 +416,7 @@ export default function GuiaPropietarioPage() {
                   'Da igual si nuestros residentes pagan o no: ese es nuestro problema.',
                   'Sin abogados. Sin juzgados. Sin esperas.',
                   'Sin pérdidas. Sin stress. Sin llamadas.',
-                  'Renta garantizada por contrato de 3 a 7 años.',
+                  'Renta garantizada por contrato de larga duración.',
                   'Si surge cualquier incidencia, la resolvemos nosotros.',
                 ].map(t => (
                   <li key={t} className="flex items-start gap-2.5 font-sans text-sm text-gray-600">
@@ -541,7 +541,7 @@ export default function GuiaPropietarioPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-10">
             {[
               { e: '💶', t: 'Renta garantizada el día 1',      s: 'Pagas tú o no pague nadie, tu renta llega siempre puntual.' },
-              { e: '📋', t: 'Contrato corporativo blindado',    s: 'Amparado en la LAU, fuera de las restricciones de la nueva normativa.' },
+              { e: '📋', t: 'Contrato corporativo blindado',    s: 'Acuerdo entre empresa y propietario, fuera de las restricciones de la nueva normativa.' },
               { e: '🔑', t: 'Acceso permanente',                s: 'Supervisamos el piso continuamente. La ocupación ilegal es imposible.' },
               { e: '🛠️', t: 'Mantenimiento incluido',           s: 'Averías, reparaciones, limpieza. Tu teléfono no volverá a sonar.' },
               { e: '🏠', t: 'Reforma y equipamiento gratis',    s: 'Invertimos en tu piso para revalorizarlo. Sin coste para ti.' },
