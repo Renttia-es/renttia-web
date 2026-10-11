@@ -58,40 +58,36 @@ export function CallPopup({ onClose }: { onClose: () => void }) {
   )
 }
 
-/* ─── HEADER (logo oficial + llamar) ──────────────────────────────────────── */
-export function LandingHeader({ onCall }: { onCall: () => void }) {
+/* ─── HEADER (logo oficial + solicitar) ──────────────────────────────────── */
+export function LandingHeader({ onCall, onForm }: { onCall?: () => void; onForm?: () => void }) {
   return (
     <header className="bg-white border-b border-navy/10 py-3 sm:py-4 sticky top-0 z-50 shadow-sm">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         <Image src="/logo.png" alt="Renttia" width={140} height={42} className="h-8 sm:h-10 w-auto" priority />
-        <button onClick={onCall}
-          className="flex items-center gap-2 bg-cta text-white font-sans text-sm font-semibold px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl hover:bg-cta/90 transition-colors shadow-md shadow-cta/20">
-          <PhoneIcon />
-          <span className="hidden xs:inline">Llamar ahora</span>
-          <span className="xs:hidden">Llamar</span>
-        </button>
+        {onForm && (
+          <button onClick={onForm}
+            className="flex items-center gap-2 bg-cta text-white font-sans text-sm font-semibold px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl hover:bg-cta/90 transition-colors shadow-md shadow-cta/20">
+            <span className="hidden xs:inline">Solicitar valoración</span>
+            <span className="xs:hidden">Valoración</span>
+          </button>
+        )}
       </div>
     </header>
   )
 }
 
 /* ─── BARRA CTA STICKY ────────────────────────────────────────────────────── */
-export function StickyCTA({ show, onForm, onCall, ctaLabel }: { show: boolean; onForm: () => void; onCall: () => void; ctaLabel: string }) {
+export function StickyCTA({ show, onForm, onCall, ctaLabel }: { show: boolean; onForm: () => void; onCall?: () => void; ctaLabel: string }) {
   return (
     <div className={`fixed bottom-0 left-0 right-0 z-40 transition-transform duration-300 ${show ? 'translate-y-0' : 'translate-y-full'}`}>
       <div className="bg-white border-t border-navy/10 shadow-2xl">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
           <div className="hidden sm:block">
             <p className="font-serif text-navy text-base font-light leading-tight">¿Te interesa? Solicita tu valoración gratuita.</p>
-            <p className="font-sans text-gray-400 text-xs mt-0.5">Te llamamos en menos de 24 horas. Sin compromiso.</p>
+            <p className="font-sans text-gray-400 text-xs mt-0.5">Respuesta en menos de 24 horas. Sin compromiso.</p>
           </div>
           <div className="flex items-center gap-3 w-full sm:w-auto">
             <button onClick={onForm} className="btn-cta flex-1 sm:flex-none text-sm py-3 px-6 whitespace-nowrap">{ctaLabel}</button>
-            <button onClick={onCall}
-              className="flex items-center gap-2 border-2 border-navy text-navy font-sans text-sm font-semibold py-3 px-4 sm:px-5 rounded-xl hover:bg-navy hover:text-white transition-colors whitespace-nowrap">
-              <PhoneIcon />
-              <span className="hidden sm:inline">Llamar</span>
-            </button>
           </div>
         </div>
       </div>
@@ -413,7 +409,7 @@ export function FAQSection({ faqs }: { faqs: Faq[] }) {
 }
 
 /* ─── CTA FINAL (blanco) ──────────────────────────────────────────────────── */
-export function FinalCTA({ titulo, texto, ctaLabel, onForm, onCall }: { titulo: string; texto: string; ctaLabel: string; onForm: () => void; onCall: () => void }) {
+export function FinalCTA({ titulo, texto, ctaLabel, onForm, onCall }: { titulo: string; texto: string; ctaLabel: string; onForm: () => void; onCall?: () => void }) {
   return (
     <section className="bg-white py-14 sm:py-20 border-t border-navy/8">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
@@ -421,11 +417,6 @@ export function FinalCTA({ titulo, texto, ctaLabel, onForm, onCall }: { titulo: 
         <p className="font-serif font-light text-gray-500 text-base sm:text-lg lg:text-xl mb-8 max-w-md mx-auto">{texto}</p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <button onClick={onForm} className="btn-cta text-sm py-4 px-8">{ctaLabel}</button>
-          <button onClick={onCall}
-            className="inline-flex items-center justify-center gap-2 border-2 border-navy text-navy font-sans text-sm font-semibold py-4 px-7 rounded-xl hover:bg-navy hover:text-white transition-colors">
-            <PhoneIcon />
-            Prefiero llamar
-          </button>
         </div>
       </div>
     </section>

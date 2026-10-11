@@ -12,6 +12,7 @@ const RUTAS_SIN_LAYOUT = [
   '/alquiler-corporativo',
   '/normativa-vivienda',
   '/reforma-incluida',
+  '/guia-propietario',
 ]
 
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {

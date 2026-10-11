@@ -39,7 +39,6 @@ export default function GestionHabitacionesPage() {
   const [habitaciones, setHabitaciones] = useState(4)
   const horas = habitaciones * 4
 
-  const [callPopup, setCallPopup] = useState(false)
   const [showSticky, setShowSticky] = useState(false)
   const heroRef = useRef<HTMLDivElement>(null)
   const formRef = useRef<HTMLDivElement>(null)
@@ -55,9 +54,8 @@ export default function GestionHabitacionesPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
 
-      {callPopup && <CallPopup onClose={() => setCallPopup(false)} />}
-      <StickyCTA show={showSticky} onForm={scrollToForm} onCall={() => setCallPopup(true)} ctaLabel="Quiero delegar la gestión →" />
-      <LandingHeader onCall={() => setCallPopup(true)} />
+      <StickyCTA show={showSticky} onForm={scrollToForm} ctaLabel="Quiero delegar la gestión →" />
+      <LandingHeader onForm={scrollToForm} />
 
       {/* ── HERO + CALCULADORA (above the fold) ────────────────────────── */}
       <section ref={heroRef} className="bg-navy relative overflow-hidden">
@@ -151,7 +149,7 @@ export default function GestionHabitacionesPage() {
       </FormSection>
 
       <FAQSection faqs={faqsCompletas} />
-      <FinalCTA titulo="Deja el alquiler tradicional atrás." texto="Con Renttia cobras una renta fija garantizada el día 1. Sin inquilinos, sin trámites, sin riesgos. Te llamamos en menos de 24 horas." ctaLabel="Quiero mi valoración gratuita →" onForm={scrollToForm} onCall={() => setCallPopup(true)} />
+      <FinalCTA titulo="Deja el alquiler tradicional atrás." texto="Con Renttia cobras una renta fija garantizada el día 1. Sin inquilinos, sin trámites, sin riesgos. Te llamamos en menos de 24 horas." ctaLabel="Quiero mi valoración gratuita →" onForm={scrollToForm}  />
       <LandingFooter />
     </div>
   )

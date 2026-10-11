@@ -147,7 +147,6 @@ function InlineCTA({ onForm, texto = '¿Quieres eliminar estos riesgos? Pide tu 
 
 /* ══════════════════════════════════════════════════════════════════════════ */
 export default function GuiaPropietarioPage() {
-  const [callPopup, setCallPopup] = useState(false)
   const [showSticky, setShowSticky] = useState(false)
   const heroRef = useRef<HTMLDivElement>(null)
   const formRef = useRef<HTMLDivElement>(null)
@@ -164,53 +163,40 @@ export default function GuiaPropietarioPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
 
-      {callPopup && <CallPopup onClose={() => setCallPopup(false)} />}
-      <StickyCTA show={showSticky} onForm={scrollToForm} onCall={() => setCallPopup(true)} ctaLabel="Solicitar valoración gratuita →" />
-      <LandingHeader onCall={() => setCallPopup(true)} />
+      <StickyCTA show={showSticky} onForm={scrollToForm} ctaLabel="Solicitar valoración gratuita →" />
+      <LandingHeader onForm={scrollToForm} />
 
       {/* ══ HERO ══════════════════════════════════════════════════════════ */}
-      <section ref={heroRef} className="bg-navy relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-navy via-[#0f2d55] to-[#091e3a]" />
-        <div className="absolute inset-0 opacity-[0.04]"
-          style={{ backgroundImage: 'repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.4) 39px,rgba(255,255,255,.4) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.4) 39px,rgba(255,255,255,.4) 40px)' }}
-        />
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 relative text-center">
+      <section ref={heroRef} className="bg-navy relative overflow-hidden min-h-[75vh] flex items-center">
+        {/* Foto de fondo */}
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1800&q=80&auto=format&fit=crop"
+            alt=""
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-navy/75" />
+          <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/60 to-transparent" />
+        </div>
+        <div className="w-full px-6 sm:px-10 lg:px-20 py-20 sm:py-28 relative text-left max-w-7xl mx-auto">
           <span className="inline-block bg-red-500/20 border border-red-400/30 text-red-300 text-[0.6rem] font-sans font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-6">
-            ⚠️ Guía urgente para propietarios · Decretos RDL 28/2026 y 29/2026 · Octubre 2026
+            ⚠️ Guía urgente para propietarios · Octubre 2026
           </span>
-          <h1 className="font-serif text-white text-[1.9rem] sm:text-4xl lg:text-5xl font-light leading-tight mb-5">
+          <h1 className="font-serif text-white text-[2rem] sm:text-5xl lg:text-6xl font-light leading-tight mb-6 max-w-3xl">
             Todo lo que necesitas saber<br />
-            <span className="italic" style={{ color: '#C9A96E' }}>para proteger tu piso en España</span>
+            <span className="italic" style={{ color: '#C9A96E' }}>para proteger tu piso</span>
           </h1>
-          <p className="font-serif font-light text-white/80 text-base sm:text-xl leading-relaxed max-w-2xl mx-auto mb-8">
-            Nueva normativa de vivienda, riesgo de impagos, ocupación ilegal, pisos que necesitan reforma…
-            En esta guía encontrarás la respuesta honesta a cada problema y una alternativa real al alquiler tradicional.
+          <p className="font-serif font-light text-white/80 text-base sm:text-xl leading-relaxed max-w-xl mb-10">
+            Normativa de vivienda, impagos, ocupación ilegal, pisos sin reformar…
+            En esta guía tienes la respuesta honesta a cada problema y una alternativa real.
           </p>
 
-          {/* Índice visual */}
-          <div className="bg-white/8 border border-white/15 rounded-2xl p-5 sm:p-6 text-left max-w-2xl mx-auto mb-8">
-            <p className="font-sans text-white/50 text-[0.65rem] font-bold uppercase tracking-widest mb-4">Índice de esta guía</p>
-            <div className="grid sm:grid-cols-2 gap-2 sm:gap-3">
-              {[
-                { n: '01', t: 'RDL 28 y 29/2026: los decretos de octubre', color: 'text-red-300' },
-                { n: '02', t: 'El coste real de un impago', color: 'text-amber-300' },
-                { n: '03', t: 'La pesadilla de la ocupación ilegal', color: 'text-orange-300' },
-                { n: '04', t: 'Reforma incluida, a nuestro cargo', color: 'text-green-300' },
-                { n: '05', t: 'Cómo funciona Renttia', color: 'text-blue-300' },
-                { n: '06', t: 'Preguntas frecuentes + formulario', color: 'text-white/60' },
-              ].map(({ n, t, color }) => (
-                <div key={n} className="flex items-center gap-3">
-                  <span className={`font-serif text-lg font-light shrink-0 ${color}`}>{n}</span>
-                  <span className="font-sans text-white/70 text-sm">{t}</span>
-                </div>
-              ))}
-            </div>
+          <div className="flex flex-col sm:flex-row gap-4 items-start">
+            <button onClick={scrollToForm} className="btn-cta text-sm py-4 px-10">
+              Solicitar valoración gratuita →
+            </button>
           </div>
-
-          <button onClick={scrollToForm} className="btn-cta text-sm py-4 px-10">
-            Solicitar valoración gratuita →
-          </button>
-          <p className="font-sans text-white/35 text-xs mt-3">Sin compromiso. Respuesta en menos de 24 h.</p>
+          <p className="font-sans text-white/35 text-xs mt-4">Sin compromiso. Respuesta en menos de 24 h.</p>
         </div>
       </section>
 
@@ -218,7 +204,7 @@ export default function GuiaPropietarioPage() {
 
       {/* ══ CAP 1: LEY DE VIVIENDA ════════════════════════════════════════ */}
       <section className="py-14 sm:py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
           <ChapterHeader
             num="01"
             titulo="Los decretos de octubre de 2026: qué aplica realmente y qué no"
@@ -351,7 +337,7 @@ export default function GuiaPropietarioPage() {
 
       {/* ══ CAP 2: IMPAGOS ════════════════════════════════════════════════ */}
       <section className="py-14 sm:py-20 bg-cream">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
           <ChapterHeader
             num="02"
             titulo="El coste real de un impago que nadie te cuenta"
@@ -450,7 +436,7 @@ export default function GuiaPropietarioPage() {
 
       {/* ══ CAP 3: OCUPACIÓN ══════════════════════════════════════════════ */}
       <section className="py-14 sm:py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
           <ChapterHeader
             num="03"
             titulo="La ocupación ilegal: la pesadilla que ningún propietario quiere vivir"
@@ -505,7 +491,7 @@ export default function GuiaPropietarioPage() {
 
       {/* ══ CAP 4: REFORMA INCLUIDA ═══════════════════════════════════════ */}
       <section className="py-14 sm:py-20 bg-cream">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
           <ChapterHeader
             num="04"
             titulo="La reforma del piso: nosotros la asumimos, sin coste para ti"
@@ -543,7 +529,7 @@ export default function GuiaPropietarioPage() {
       {/* ══ CAP 5: CÓMO FUNCIONA RENTTIA ═════════════════════════════════ */}
       <section className="py-14 sm:py-20 bg-navy relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-navy via-[#0f2d55] to-navy/90" />
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 relative">
           <div className="text-center mb-10 sm:mb-14">
             <span className="inline-block bg-white/10 border border-white/15 text-white/70 text-[0.6rem] font-sans font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-4">Capítulo 05</span>
             <h2 className="font-serif text-white text-2xl sm:text-3xl lg:text-4xl font-light mb-3">La solución completa: qué hace Renttia</h2>
@@ -612,7 +598,6 @@ export default function GuiaPropietarioPage() {
         texto="Sin impagos, sin ocupación, sin reforma, sin burocracia. Todo eso es nuestro problema ahora."
         ctaLabel="Quiero mi valoración gratuita →"
         onForm={scrollToForm}
-        onCall={() => setCallPopup(true)}
       />
 
       <LandingFooter />

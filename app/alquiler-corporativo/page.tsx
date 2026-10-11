@@ -67,7 +67,6 @@ export default function AlquilerCorporativoPage() {
   const enRiesgo = renta * mesesImpago
   const rentaAnual = renta * 12
 
-  const [callPopup, setCallPopup] = useState(false)
   const [showSticky, setShowSticky] = useState(false)
   const heroRef = useRef<HTMLDivElement>(null)
   const formRef = useRef<HTMLDivElement>(null)
@@ -84,9 +83,8 @@ export default function AlquilerCorporativoPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
 
-      {callPopup && <CallPopup onClose={() => setCallPopup(false)} />}
-      <StickyCTA show={showSticky} onForm={scrollToForm} onCall={() => setCallPopup(true)} ctaLabel="Quiero cobrar sin riesgo →" />
-      <LandingHeader onCall={() => setCallPopup(true)} />
+      <StickyCTA show={showSticky} onForm={scrollToForm} ctaLabel="Quiero cobrar sin riesgo →" />
+      <LandingHeader onForm={scrollToForm} />
 
       {/* ── HERO + CALCULADORA (above the fold) ────────────────────────── */}
       <section ref={heroRef} className="bg-navy relative overflow-hidden">
@@ -155,7 +153,7 @@ export default function AlquilerCorporativoPage() {
       </FormSection>
 
       <FAQSection faqs={faqsCompletas} />
-      <FinalCTA titulo="Alquila sin miedo a los impagos." texto="Cobra tu renta el día 1, los 12 meses del año. Te llamamos en menos de 24 horas." ctaLabel="Quiero mi valoración gratuita →" onForm={scrollToForm} onCall={() => setCallPopup(true)} />
+      <FinalCTA titulo="Alquila sin miedo a los impagos." texto="Cobra tu renta el día 1, los 12 meses del año. Te llamamos en menos de 24 horas." ctaLabel="Quiero mi valoración gratuita →" onForm={scrollToForm} />
       <LandingFooter />
     </div>
   )

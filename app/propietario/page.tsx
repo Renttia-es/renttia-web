@@ -5,35 +5,6 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { prepareEventId, firePixelConversion } from '@/lib/metaPixel'
 
-/* ─── POPUP TELÉFONO ──────────────────────────────────────────────────────── */
-function CallPopup({ onClose }: { onClose: () => void }) {
-  return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" onClick={onClose}>
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
-      <div className="relative bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl text-center" onClick={e => e.stopPropagation()}>
-        <button onClick={onClose} className="absolute top-4 right-4 text-gray-300 hover:text-gray-500 transition-colors">
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-        <div className="w-14 h-14 rounded-2xl bg-cta/10 flex items-center justify-center mx-auto mb-5">
-          <svg className="w-7 h-7 text-cta" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-          </svg>
-        </div>
-        <h3 className="font-serif text-navy text-xl font-light mb-2">Llámanos ahora</h3>
-        <p className="font-sans text-gray-500 text-sm mb-6">Nuestro equipo te atiende de lunes a viernes de 9h a 19h.</p>
-        <a href="tel:+34692876136" className="btn-cta w-full py-4 text-base flex items-center justify-center gap-2 rounded-xl">
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-          </svg>
-          692 87 61 36
-        </a>
-        <p className="font-sans text-gray-300 text-xs mt-4">O rellena el formulario y te llamamos nosotros.</p>
-      </div>
-    </div>
-  )
-}
 
 /* ─── FAQ ACORDEÓN ────────────────────────────────────────────────────────── */
 function FAQ({ pregunta, respuesta }: { pregunta: string; respuesta: string }) {
@@ -148,7 +119,6 @@ const tickerItems = [
 export default function PropietarioLanding() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
-  const [callPopup, setCallPopup] = useState(false)
   const [showStickyBar, setShowStickyBar] = useState(false)
   const [form, setForm] = useState({ nombre: '', telefono: '', email: '', ciudad: '', habitaciones: '3' })
 
@@ -180,8 +150,6 @@ export default function PropietarioLanding() {
   return (
     <div className="min-h-screen bg-white font-sans">
 
-      {callPopup && <CallPopup onClose={() => setCallPopup(false)} />}
-
       {/* ── BARRA CTA STICKY ───────────────────────────────────────────── */}
       <div className={`fixed bottom-0 left-0 right-0 z-40 transition-transform duration-300 ${showStickyBar ? 'translate-y-0' : 'translate-y-full'}`}>
         {/* Fondo blur */}
@@ -204,15 +172,6 @@ export default function PropietarioLanding() {
               >
                 Solicitar valoración →
               </a>
-              <button
-                onClick={() => setCallPopup(true)}
-                className="flex items-center gap-2 border-2 border-navy text-navy font-sans text-sm font-semibold py-3 px-4 sm:px-5 rounded-xl hover:bg-navy hover:text-white transition-colors whitespace-nowrap"
-              >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-                </svg>
-                <span className="hidden sm:inline">Llamar</span>
-              </button>
             </div>
           </div>
         </div>
@@ -222,14 +181,12 @@ export default function PropietarioLanding() {
       <header className="bg-white border-b border-navy/10 py-3 sm:py-4 sticky top-0 z-50 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           <Image src="/logo.png" alt="Renttia" width={140} height={42} className="h-8 sm:h-10 w-auto" priority />
-          <button onClick={() => setCallPopup(true)}
+          <a href="#formulario"
+            onClick={e => { e.preventDefault(); document.getElementById('formulario')?.scrollIntoView({ behavior: 'smooth', block: 'center' }) }}
             className="flex items-center gap-2 bg-cta text-white font-sans text-sm font-semibold px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl hover:bg-cta/90 transition-colors shadow-md shadow-cta/20">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-            </svg>
-            <span className="hidden xs:inline">Llamar ahora</span>
-            <span className="xs:hidden">Llamar</span>
-          </button>
+            <span className="hidden xs:inline">Solicitar valoración</span>
+            <span className="xs:hidden">Valoración</span>
+          </a>
         </div>
       </header>
 
@@ -582,13 +539,6 @@ export default function PropietarioLanding() {
             <a href="#formulario" className="btn-cta text-sm py-4 px-8">
               Quiero mi valoración gratuita →
             </a>
-            <button onClick={() => setCallPopup(true)}
-              className="inline-flex items-center justify-center gap-2 border-2 border-navy text-navy font-sans text-sm font-semibold py-4 px-7 rounded-xl hover:bg-navy hover:text-white transition-colors">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-              </svg>
-              Prefiero llamar
-            </button>
           </div>
         </div>
       </section>

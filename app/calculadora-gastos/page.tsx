@@ -66,7 +66,6 @@ export default function CalculadoraGastosPage() {
   const [meses, setMeses] = useState(6)
   const perdida = renta * meses
 
-  const [callPopup, setCallPopup] = useState(false)
   const [showSticky, setShowSticky] = useState(false)
   const heroRef = useRef<HTMLDivElement>(null)
   const formRef = useRef<HTMLDivElement>(null)
@@ -83,9 +82,8 @@ export default function CalculadoraGastosPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
 
-      {callPopup && <CallPopup onClose={() => setCallPopup(false)} />}
-      <StickyCTA show={showSticky} onForm={scrollToForm} onCall={() => setCallPopup(true)} ctaLabel="Quiero cobrar renta fija →" />
-      <LandingHeader onCall={() => setCallPopup(true)} />
+      <StickyCTA show={showSticky} onForm={scrollToForm} ctaLabel="Quiero cobrar renta fija →" />
+      <LandingHeader onForm={scrollToForm} />
 
       {/* ── HERO + CALCULADORA (above the fold) ────────────────────────── */}
       <section ref={heroRef} className="bg-navy relative overflow-hidden">
@@ -147,7 +145,7 @@ export default function CalculadoraGastosPage() {
       </FormSection>
 
       <FAQSection faqs={faqsCompletas} />
-      <FinalCTA titulo="Deja de perder dinero con tu piso vacío." texto="Convierte esa pérdida en una renta fija garantizada. Te llamamos en menos de 24 horas." ctaLabel="Quiero mi valoración gratuita →" onForm={scrollToForm} onCall={() => setCallPopup(true)} />
+      <FinalCTA titulo="Deja de perder dinero con tu piso vacío." texto="Convierte esa pérdida en una renta fija garantizada. Te llamamos en menos de 24 horas." ctaLabel="Quiero mi valoración gratuita →" onForm={scrollToForm} />
       <LandingFooter />
     </div>
   )

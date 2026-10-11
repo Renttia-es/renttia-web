@@ -73,7 +73,6 @@ export default function ReformaIncluidaPage() {
   const [tipo, setTipo]     = useState<keyof typeof COSTE_M2>('parcial')
   const coste = metros * COSTE_M2[tipo].precio
 
-  const [callPopup, setCallPopup] = useState(false)
   const [showSticky, setShowSticky] = useState(false)
   const heroRef = useRef<HTMLDivElement>(null)
   const formRef = useRef<HTMLDivElement>(null)
@@ -90,9 +89,8 @@ export default function ReformaIncluidaPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
 
-      {callPopup && <CallPopup onClose={() => setCallPopup(false)} />}
-      <StickyCTA show={showSticky} onForm={scrollToForm} onCall={() => setCallPopup(true)} ctaLabel="Quiero la reforma incluida →" />
-      <LandingHeader onCall={() => setCallPopup(true)} />
+      <StickyCTA show={showSticky} onForm={scrollToForm} ctaLabel="Quiero la reforma incluida →" />
+      <LandingHeader onForm={scrollToForm} />
 
       {/* ── HERO + CALCULADORA ───────────────────────────────────────── */}
       <section ref={heroRef} className="bg-navy relative overflow-hidden">
@@ -199,7 +197,6 @@ export default function ReformaIncluidaPage() {
         texto="Sin inversión por tu parte. Sin gestión. Solo tu renta fija el día 1."
         ctaLabel="Quiero mi valoración gratuita →"
         onForm={scrollToForm}
-        onCall={() => setCallPopup(true)}
       />
       <LandingFooter />
     </div>
