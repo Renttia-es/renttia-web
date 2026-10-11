@@ -67,10 +67,6 @@ const faqs: Faq[] = [
     respuesta: 'Nosotros respondemos por todo. Asumimos las pequeñas reparaciones, el mantenimiento diario y cualquier incidencia con los vecinos. Tu teléfono no volverá a sonar un domingo por un grifo que gotea o una bombilla fundida.',
   },
   {
-    pregunta: '¿La renta que recibo es el importe bruto o el neto?',
-    respuesta: 'Cuando el propietario es persona física (particular), Renttia aplica la retención legal del 19% del IRPF y la ingresa trimestralmente a Hacienda en nombre del propietario (Modelo 115). El propietario recibe el importe neto cada mes pero declara el bruto en su IRPF anual. Es una retención de tu propio impuesto, no un coste adicional.',
-  },
-  {
     pregunta: '¿Tiene algún coste este acuerdo para el propietario?',
     respuesta: 'Ninguno. No somos una gestora ni cobramos comisiones. Al contrario: invertimos nuestro propio dinero en actualizar y equipar tu piso, y te pagamos la renta acordada todos los meses. El único coste previo que puede surgir es el del impuesto de transmisiones patrimoniales (ITP) del contrato, que asume Renttia.',
   },
