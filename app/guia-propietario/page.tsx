@@ -209,97 +209,120 @@ export default function GuiaPropietarioPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <ChapterHeader
             num="01"
-            titulo="RDL 28/2026 y 29/2026: los dos decretos de octubre que cambian todo"
-            subtitulo="Aprobados el 6 de octubre de 2026 y ya en el BOE. Congelación de rentas, prórrogas automáticas de 7 años e indemnizaciones obligatorias. Si tienes un piso en alquiler, esto te afecta ahora."
+            titulo="Los decretos de octubre de 2026: qué aplica realmente y qué no"
+            subtitulo="RDL 28/2026 y 29/2026, publicados en el BOE el 7 de octubre. Mucho ruido, pero no todo aplica en Zaragoza, Huesca y Logroño. Te explicamos la realidad sin alarmar ni minimizar."
           />
 
-          {/* Alerta decretos */}
-          <div className="bg-red-50 border border-red-200 rounded-2xl p-4 sm:p-5 flex gap-3 mb-8">
-            <span className="text-xl shrink-0">🚨</span>
+          {/* Alerta contexto */}
+          <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 sm:p-5 flex gap-3 mb-8">
+            <span className="text-xl shrink-0">📢</span>
             <div>
-              <p className="font-sans text-xs font-bold uppercase tracking-widest text-red-600 mb-1">Publicado en el BOE el 7 de octubre de 2026</p>
-              <p className="font-serif text-red-800 text-base leading-relaxed">
-                El Consejo de Ministros aprobó dos decretos de vivienda que ya están en vigor o entran en vigor el 15 de noviembre. Si tienes un piso en alquiler, estas medidas te afectan directamente.
+              <p className="font-sans text-xs font-bold uppercase tracking-widest text-amber-700 mb-1">Lo que de verdad necesitas saber</p>
+              <p className="font-serif text-amber-900 text-base leading-relaxed">
+                Hay dos decretos nuevos. Algunos de sus efectos aplican en toda España. Otros solo en <strong>zonas tensionadas</strong> — y Zaragoza, Huesca y Logroño <strong>no lo son</strong> (ni está previsto que lo sean). A continuación, la tabla real de qué te afecta hoy.
               </p>
             </div>
           </div>
 
           <div className="prose-renttia">
-            {/* Decreto 29 */}
-            <div className="mb-6">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="shrink-0 bg-red-100 border border-red-200 rounded-xl px-3 py-1.5">
-                  <span className="font-sans text-[0.6rem] font-bold uppercase tracking-widest text-red-700">RDL 29/2026 · En vigor desde 8 oct 2026</span>
-                </div>
+
+            {/* Tabla qué aplica / qué no */}
+            <div className="grid sm:grid-cols-2 gap-4 mb-8">
+              <div className="bg-red-50 border border-red-100 rounded-2xl p-5 sm:p-6">
+                <p className="font-sans text-[0.65rem] font-bold uppercase tracking-widest text-red-500 mb-3">⚠️ Aplica en TODA España — incluidas nuestras ciudades</p>
+                <ul className="space-y-3.5">
+                  {[
+                    { t: 'Prórroga extraordinaria forzosa hasta dic. 2028', s: 'El inquilino puede exigirte ampliar el contrato 1-2 años si vence antes de esa fecha, sin subir la renta. RDL 29/2026, ya en vigor.' },
+                    { t: 'Prórrogas automáticas de 5-7 años', s: 'Desde el 15 de noviembre (RDL 28/2026): una vez cumplido el mínimo legal, el contrato se renueva solo indefinidamente.' },
+                    { t: 'Preaviso de 6 meses para no renovar', s: 'Antes eran 4 meses. Si avisas tarde, el contrato se renueva automáticamente sin poder hacer nada.' },
+                    { t: 'Indemnización obligatoria al inquilino', s: 'Si no renuevas sin causa legal justificada: lo mayor entre 12 mensualidades o 1 mes por año vivido.' },
+                  ].map(({ t, s }) => (
+                    <li key={t} className="font-sans text-sm text-red-800 list-none">
+                      <span className="font-semibold block mb-0.5">{t}</span>
+                      <span className="text-red-600/75 text-xs leading-relaxed">{s}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <h3 className="font-serif text-navy text-lg sm:text-xl font-light mb-4">Congelación de rentas y prórroga extraordinaria obligatoria</h3>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-                <RiesgoCard
-                  emoji="❄️"
-                  titulo="Subida de renta: 0% o máx. 2%"
-                  texto="Si tu alquiler supera el índice SERVAPI del Ministerio: no puedes subir la renta. Si está por debajo, el máximo es un 2% hasta finales de 2027."
-                  color="red"
-                />
-                <RiesgoCard
-                  emoji="📅"
-                  titulo="Prórroga extraordinaria forzosa"
-                  texto="El inquilino puede exigirte prorrogar el contrato 1 año más (ampliable a 2) si vence antes del 31 de diciembre de 2028. Estás obligado a aceptar y sin poder subir la renta."
-                  color="red"
-                />
-                <RiesgoCard
-                  emoji="🚫"
-                  titulo="Cierre de contratos 'alternativos'"
-                  texto="El decreto modifica la LAU para perseguir fórmulas contractuales que el gobierno considera que 'desvirtúan la finalidad residencial'. Contratos temporales bajo escrutinio."
-                  color="amber"
-                />
+
+              <div className="bg-green-50 border border-green-100 rounded-2xl p-5 sm:p-6">
+                <p className="font-sans text-[0.65rem] font-bold uppercase tracking-widest text-green-600 mb-3">✅ NO aplica en Zaragoza · Huesca · Logroño</p>
+                <ul className="space-y-3.5">
+                  {[
+                    { t: 'Topes de renta (0% o máx. 2%)', s: 'Solo en zonas tensionadas. Aragón las vetó por unanimidad en junio 2026. La Rioja tampoco tiene ninguna declarada.' },
+                    { t: 'Límite de precio por habitaciones', s: 'Solo aplica en zonas tensionadas. Fuera de ellas el precio por habitación no está regulado.' },
+                    { t: 'Sanciones directas al propietario', s: 'Las sanciones de los decretos son para plataformas digitales (Airbnb, Booking...), no para propietarios.' },
+                    { t: 'Control de rentas sin histórico', s: 'El índice SERVAPI requiere datos históricos de la vivienda. Sin ellos, no se puede calcular ni aplicar ningún tope.' },
+                  ].map(({ t, s }) => (
+                    <li key={t} className="font-sans text-sm text-green-800 list-none">
+                      <span className="font-semibold block mb-0.5">{t}</span>
+                      <span className="text-green-700/70 text-xs leading-relaxed">{s}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
 
-            {/* Decreto 28 */}
-            <div className="mb-8">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="shrink-0 bg-orange-100 border border-orange-200 rounded-xl px-3 py-1.5">
-                  <span className="font-sans text-[0.6rem] font-bold uppercase tracking-widest text-orange-700">RDL 28/2026 · En vigor desde 15 nov 2026</span>
-                </div>
+            {/* Dato Aragón */}
+            <div className="bg-navy/5 border border-navy/10 rounded-2xl p-5 sm:p-6 mb-8 flex gap-4 items-start">
+              <span className="text-2xl shrink-0">🏛️</span>
+              <div>
+                <p className="font-sans text-[0.65rem] font-bold uppercase tracking-widest text-navy/50 mb-2">Dato verificado · BOA, 1 de julio de 2026</p>
+                <p className="font-serif text-navy text-base sm:text-lg font-light leading-relaxed">
+                  El Gobierno de Aragón aprobó por unanimidad el <strong>24 de junio de 2026</strong> vetar las zonas tensionadas en todo Aragón.{' '}
+                  Ningún municipio aragonés tendrá zonas tensionadas mientras gobierne el PP. La Rioja tampoco figura en el BOE.{' '}
+                  <strong>Hoy, en nuestras tres ciudades, los topes de renta no tienen ningún efecto práctico.</strong>
+                </p>
               </div>
-              <h3 className="font-serif text-navy text-lg sm:text-xl font-light mb-4">Prórrogas automáticas de hasta 7 años e indemnización si no renuevas</h3>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+            </div>
+
+            {/* El problema real */}
+            <div className="mb-8">
+              <h3 className="font-serif text-navy text-xl sm:text-2xl font-light mb-4">Entonces, ¿cuál es el problema real?</h3>
+              <p className="font-serif font-light text-gray-600 text-base sm:text-lg leading-relaxed mb-6">
+                El problema no es lo que aplica hoy en Zaragoza. El problema es la <strong>incertidumbre permanente</strong>. Las prórrogas automáticas y las indemnizaciones ya son una realidad en toda España desde noviembre. Y la dirección legislativa es clara: cada año hay nuevas restricciones para los propietarios. El que firma hoy con un inquilino particular no sabe con qué reglas tendrá que convivir dentro de dos años.
+              </p>
+              <div className="grid sm:grid-cols-3 gap-4">
                 <RiesgoCard
                   emoji="🔄"
-                  titulo="Prórroga automática de 5 o 7 años"
-                  texto="Una vez cumplido el mínimo legal (5 años), el contrato se prorroga automáticamente por 5 años más. Si te niegas sin causa justificada, tienes que indemnizar al inquilino."
+                  titulo="Atrapado 5-7 años sin poder salir"
+                  texto="Las prórrogas automáticas del RDL 28/2026 aplican ya en toda España. Sin causa legal, recuperar tu piso puede tardar casi una década."
                   color="red"
-                />
-                <RiesgoCard
-                  emoji="🗓️"
-                  titulo="Preaviso de 6 meses para el propietario"
-                  texto="Para no renovar necesitas avisar con 6 meses de antelación (antes eran 4). Si avisas tarde, el contrato se renueva automáticamente."
-                  color="amber"
                 />
                 <RiesgoCard
                   emoji="💸"
-                  titulo="Indemnización obligatoria al inquilino"
-                  texto="Si el propietario no renueva sin causa legal justificada, debe pagar al inquilino el mayor entre 12 mensualidades o 1 mes por cada año vivido. Una cifra muy elevada."
-                  color="red"
+                  titulo="Pagar al inquilino por no renovar"
+                  texto="Desde el 15 de noviembre: si no renuevas sin justificación, puedes deber hasta 12 mensualidades de indemnización. La libertad del propietario tiene ahora un coste."
+                  color="amber"
+                />
+                <RiesgoCard
+                  emoji="📋"
+                  titulo="Normativa que cambia cada mes"
+                  texto="Desde 2023, han salido varios decretos de vivienda. Imposible saber hoy qué reglas te exigirán cuando tu próximo contrato venza."
+                  color="orange"
                 />
               </div>
             </div>
 
+            {/* Solución */}
             <div className="bg-navy/5 border border-navy/10 rounded-2xl p-6 sm:p-8 mb-8">
               <p className="font-sans text-[0.65rem] font-bold uppercase tracking-widest text-cta mb-3">La solución de Renttia</p>
               <h3 className="font-serif text-navy text-xl sm:text-2xl font-light mb-4">
-                El contrato corporativo con Renttia queda al margen de ambos decretos
+                Nuestro contrato corporativo te saca del juego legislativo
               </h3>
-              <p className="font-serif font-light text-gray-600 text-base sm:text-lg leading-relaxed mb-4">
-                Cuando Renttia es tu inquilino, firmamos un <strong>contrato de arrendamiento para uso no residencial</strong> (LAU Art. 3), regulado por el Código Civil. Este tipo de contrato es un acuerdo <strong>entre empresa y propietario</strong>, no entre particular e inquilino. Eso significa que los RDL 28/2026 y 29/2026 <strong>no le son de aplicación</strong>: ni los topes de renta, ni las prórrogas automáticas, ni la indemnización por no renovar.
+              <p className="font-serif font-light text-gray-600 text-base sm:text-lg leading-relaxed mb-3">
+                Cuando Renttia es tu inquilino, firmamos un <strong>contrato de arrendamiento para uso no residencial</strong> (LAU Art. 3): un acuerdo entre empresa y propietario. Los decretos RDL 28 y 29/2026 regulan el <em>arrendamiento de vivienda habitual</em> — un tipo de contrato completamente distinto. <strong>Ni las prórrogas forzosas, ni las indemnizaciones, ni los topes futuros te afectan.</strong>
+              </p>
+              <p className="font-serif font-light text-gray-500 text-sm sm:text-base leading-relaxed mb-5">
+                El alquiler por habitaciones a nuestros residentes es un asunto nuestro. Tú solo tienes un contrato con Renttia. Cuando el Gobierno cambie las reglas, tú ya habrás salido del tablero.
               </p>
               <div className="grid sm:grid-cols-2 gap-3">
                 {[
-                  { e: '✅', t: 'Sin topes de renta (no aplica el SERVAPI)' },
-                  { e: '✅', t: 'Sin prórroga forzosa de 1 o 2 años' },
                   { e: '✅', t: 'Sin prórrogas automáticas de 5-7 años' },
                   { e: '✅', t: 'Sin indemnización por no renovar' },
-                  { e: '✅', t: 'Sin preaviso de 6 meses para recuperar tu piso' },
+                  { e: '✅', t: 'Sin preaviso de 6 meses obligatorio' },
+                  { e: '✅', t: 'Sin topes de renta, hoy ni en el futuro' },
+                  { e: '✅', t: 'Condiciones pactadas y fijas por contrato' },
                   { e: '✅', t: 'Revisado por abogado especializado en LAU' },
                 ].map(({ e, t }) => (
                   <div key={t} className="flex items-center gap-2.5 font-sans text-navy text-sm">
@@ -310,7 +333,7 @@ export default function GuiaPropietarioPage() {
             </div>
           </div>
 
-          <InlineCTA onForm={scrollToForm} texto="¿Quieres estar blindado ante la nueva normativa? Hablamos." />
+          <InlineCTA onForm={scrollToForm} texto="¿Quieres salir del tablero legislativo para siempre? Hablamos." />
         </div>
       </section>
 
