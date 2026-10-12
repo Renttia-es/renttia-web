@@ -442,6 +442,7 @@ export function LandingFooter() {
 
 /* ─── FORMULARIO DE CONTACTO ──────────────────────────────────────────────── */
 type FormState = 'idle' | 'sending' | 'ok' | 'error'
+const HABITACIONES_VALIDAS = ['3', '4', '5', '6+']
 
 export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valoración gratuita →' }: {
   fuente: string
@@ -450,11 +451,9 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
 }) {
   const [nombre, setNombre] = useState('')
   const [telefono, setTelefono] = useState('')
-  const [email, setEmail] = useState('')
   const [ciudad, setCiudad] = useState('')
   const [estadoPiso, setEstadoPiso] = useState('')
   const [habitaciones, setHabitaciones] = useState('')
-  const [metros, setMetros] = useState('')
   const [estado, setEstado] = useState<FormState>('idle')
   const borrador = `renttia-lead-${fuente}`
 
@@ -463,11 +462,9 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
       const guardado = JSON.parse(sessionStorage.getItem(borrador) || '{}') as Record<string, string>
       if (guardado.nombre) setNombre(guardado.nombre)
       if (guardado.telefono) setTelefono(guardado.telefono)
-      if (guardado.email) setEmail(guardado.email)
       if (guardado.ciudad) setCiudad(guardado.ciudad)
       if (guardado.estadoPiso) setEstadoPiso(guardado.estadoPiso)
-      if (guardado.habitaciones) setHabitaciones(guardado.habitaciones)
-      if (guardado.metros) setMetros(guardado.metros)
+      if (HABITACIONES_VALIDAS.includes(guardado.habitaciones)) setHabitaciones(guardado.habitaciones)
     } catch { /* el borrador es opcional */ }
   }, [borrador])
 
@@ -486,10 +483,10 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
       const res = await fetch('/api/contacto', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre, telefono, email, ciudad, fuente, tipo: estadoPiso, habitaciones, metros, eventId }),
+        body: JSON.stringify({ nombre, telefono, ciudad, fuente, tipo: estadoPiso, habitaciones, eventId }),
       })
       if (res.ok) {
-        firePixelConversion(eventId, { email, telefono, nombre, ciudad })
+        firePixelConversion(eventId, { telefono, nombre, ciudad })
         try { sessionStorage.removeItem(borrador) } catch { /* nada */ }
       }
       setEstado(res.ok ? 'ok' : 'error')
@@ -518,10 +515,6 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
           <input id={`${fuente}-telefono`} type="tel" name="tel" inputMode="tel" autoComplete="tel" required value={telefono} onChange={e => { setTelefono(e.target.value); recordar('telefono', e.target.value) }} placeholder="600 000 000" className="form-input" />
         </div>
       </div>
-      <div>
-        <label className="form-label" htmlFor={`${fuente}-email`}>Email *</label>
-        <input id={`${fuente}-email`} type="email" name="email" autoComplete="email" required value={email} onChange={e => { setEmail(e.target.value); recordar('email', e.target.value) }} placeholder="tu@email.com" className="form-input" />
-      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="form-label" htmlFor={`${fuente}-ciudad`}>Ciudad del piso *</label>
@@ -540,33 +533,16 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
           </select>
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label className="form-label" htmlFor={`${fuente}-habitaciones`}>Nº de habitaciones *</label>
-          <select id={`${fuente}-habitaciones`} required value={habitaciones} onChange={e => { setHabitaciones(e.target.value); recordar('habitaciones', e.target.value) }} className="form-input">
-            <option value="">Selecciona...</option>
-            <option value="menos-de-3">Menos de 3</option>
-            <option value="3">3 habitaciones</option>
-            <option value="4">4 habitaciones</option>
-            <option value="5">5 habitaciones</option>
-            <option value="6+">6 o más</option>
-          </select>
-        </div>
-        <div>
-          <label className="form-label" htmlFor={`${fuente}-metros`}>Metros cuadrados (aprox.) *</label>
-          <input
-            id={`${fuente}-metros`}
-            type="number"
-            inputMode="numeric"
-            required
-            min={20}
-            max={500}
-            placeholder="Ej: 80"
-            value={metros}
-            onChange={e => { setMetros(e.target.value); recordar('metros', e.target.value) }}
-            className="form-input"
-          />
-        </div>
+      <div>
+        <label className="form-label" htmlFor={`${fuente}-habitaciones`}>Habitaciones, sin contar el salón *</label>
+        <select id={`${fuente}-habitaciones`} required value={habitaciones} onChange={e => { setHabitaciones(e.target.value); recordar('habitaciones', e.target.value) }} className="form-input">
+          <option value="">Selecciona...</option>
+          <option value="3">3 habitaciones</option>
+          <option value="4">4 habitaciones</option>
+          <option value="5">5 habitaciones</option>
+          <option value="6+">6 o más</option>
+        </select>
+        <p className="font-sans text-sm text-slate-600 mt-2">El mínimo es 3 habitaciones, más el salón.</p>
       </div>
       {estado === 'error' && (
         <p role="alert" className="font-sans text-sm font-semibold text-red-800">

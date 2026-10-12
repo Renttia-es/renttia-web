@@ -26,6 +26,7 @@ export default function Header() {
   const [nombre, setNombre] = useState('')
   const [telefono, setTelefono] = useState('')
   const [ciudad, setCiudad] = useState('')
+  const [habitaciones, setHabitaciones] = useState('')
   const [sending, setSending] = useState(false)
   const [sent, setSent] = useState(false)
 
@@ -37,7 +38,7 @@ export default function Header() {
       const res = await fetch('/api/contacto', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre, telefono, ciudad, fuente: 'navbar-cta', eventId }),
+        body: JSON.stringify({ nombre, telefono, ciudad, habitaciones, fuente: 'navbar-cta', eventId }),
       })
       if (res.ok) firePixelConversion(eventId, { telefono, nombre, ciudad })
       setSent(true)
@@ -235,6 +236,22 @@ export default function Header() {
                       <option value="huesca">Huesca</option>
                       <option value="logrono">Logroño</option>
                     </select>
+                  </div>
+                  <div>
+                    <label className="block font-sans text-xs text-gray-500 mb-1.5 uppercase tracking-wide">Habitaciones, sin el salón</label>
+                    <select
+                      required
+                      value={habitaciones}
+                      onChange={e => setHabitaciones(e.target.value)}
+                      className="w-full border border-gray-200 rounded-xl px-4 py-3 font-sans text-sm text-navy focus:outline-none focus:ring-2 focus:ring-navy/20 focus:border-navy/30 transition bg-white"
+                    >
+                      <option value="">Selecciona...</option>
+                      <option value="3">3 habitaciones</option>
+                      <option value="4">4 habitaciones</option>
+                      <option value="5">5 habitaciones</option>
+                      <option value="6+">6 o más</option>
+                    </select>
+                    <p className="font-sans text-xs text-gray-500 mt-2">El mínimo es 3 habitaciones, más el salón.</p>
                   </div>
 
                   <button

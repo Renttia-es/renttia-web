@@ -55,7 +55,7 @@ const razones = [
 
 const pasos = [
   { num: '01', t: 'Valoración gratuita', d: 'Analizamos su piso y le damos una renta estimada en 24h. Sin compromiso.' },
-  { num: '02', t: 'Firmamos el contrato', d: 'Contrato legal entre usted y Renttia. Sin inquilinos, sin intermediarios.' },
+  { num: '02', t: 'Firmamos el contrato', d: 'Contrato entre usted y Renttia. Sin inquilinos, sin intermediarios.' },
   { num: '03', t: 'Lo ponemos a punto', d: 'Pintura, decoración, mobiliario y suministros a nuestro cargo. Listo para entrar.' },
   { num: '04', t: 'Cobra cada mes', d: 'Renta garantizada del 1 al 5. Sin llamadas. Sin gestión. Sin impagos.' },
 ]
@@ -239,10 +239,10 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-10">
             <h2 className="font-serif text-navy text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.05]">
-              Expertos locales en Zaragoza, Huesca y Logroño
+              Estamos en Zaragoza, Huesca y Logroño
             </h2>
             <p className="font-sans text-slate-700 text-base sm:text-lg leading-relaxed max-w-md">
-              Somos de aquí. Conocemos el mercado, los barrios y los precios de cada zona, y gestionamos tu piso de tú a tú.
+              Gestionamos tu piso desde aquí, de tú a tú.
             </p>
           </div>
           <div className="grid lg:grid-cols-3 gap-4">

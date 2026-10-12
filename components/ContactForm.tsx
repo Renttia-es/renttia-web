@@ -16,11 +16,9 @@ export default function ContactForm({ ciudad = '', dark = false, fuente = 'web-g
   const [form, setForm] = useState({
     nombre: '',
     telefono: '',
-    email: '',
     ciudad: ciudad,
     tipo: '',
     habitaciones: '',
-    metros: '',
     mensaje: '',
   })
 
@@ -40,7 +38,7 @@ export default function ContactForm({ ciudad = '', dark = false, fuente = 'web-g
       })
       if (!res.ok) throw new Error('Error al enviar')
       // 2. Solo si el servidor confirma → disparamos el pixel (conversión real)
-      firePixelConversion(eventId, { email: form.email, telefono: form.telefono, nombre: form.nombre, ciudad: form.ciudad })
+      firePixelConversion(eventId, { telefono: form.telefono, nombre: form.nombre, ciudad: form.ciudad })
       router.push('/gracias')
     } catch {
       alert('Ha ocurrido un error. Por favor llámanos directamente.')
@@ -76,18 +74,6 @@ export default function ContactForm({ ciudad = '', dark = false, fuente = 'web-g
         </div>
       </div>
 
-      <div>
-        <label className={labelClass}>Email *</label>
-        <input
-          type="email"
-          required
-          placeholder="tu@email.com"
-          className={inputClass}
-          value={form.email}
-          onChange={e => setForm({ ...form, email: e.target.value })}
-        />
-      </div>
-
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className={labelClass}>Ciudad *</label>
@@ -104,7 +90,7 @@ export default function ContactForm({ ciudad = '', dark = false, fuente = 'web-g
           </select>
         </div>
         <div>
-          <label className={labelClass}>Nº de habitaciones *</label>
+          <label className={labelClass}>Habitaciones, sin contar el salón *</label>
           <select
             required
             className={inputClass}
@@ -117,21 +103,8 @@ export default function ContactForm({ ciudad = '', dark = false, fuente = 'web-g
             <option value="5">5 habitaciones</option>
             <option value="6+">6 o más</option>
           </select>
+          <p className={`font-sans text-sm mt-2 ${dark ? 'text-white/70' : 'text-slate-600'}`}>El mínimo es 3 habitaciones, más el salón.</p>
         </div>
-      </div>
-
-      <div>
-        <label className={labelClass}>Metros cuadrados (aprox.) *</label>
-        <input
-          type="number"
-          required
-          min={20}
-          max={500}
-          placeholder="Ej: 80"
-          className={inputClass}
-          value={form.metros}
-          onChange={e => setForm({ ...form, metros: e.target.value })}
-        />
       </div>
 
       <div>

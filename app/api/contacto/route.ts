@@ -162,9 +162,14 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
     const { nombre, telefono, email, ciudad, tipo, habitaciones, metros, mensaje, fuente, eventId: clientEventId } = body
+    const habitacionesValidas = new Set(['3', '4', '5', '6+'])
 
     if (!nombre || !telefono) {
       return NextResponse.json({ error: 'Faltan campos obligatorios' }, { status: 400 })
+    }
+
+    if (!habitacionesValidas.has(String(habitaciones ?? ''))) {
+      return NextResponse.json({ error: 'El piso tiene que tener al menos 3 habitaciones, más el salón.' }, { status: 400 })
     }
 
     const ahora       = new Date()
@@ -178,7 +183,7 @@ export async function POST(req: NextRequest) {
     /* 1 — Supabase ──────────────────────────────────────────────────────── */
     try {
       const { error: dbError } = await supabase.from('contactos').insert([
-        { nombre, telefono, email, ciudad, tipo, habitaciones, mensaje },
+        { nombre, telefono, email: email || null, ciudad, tipo, habitaciones, mensaje },
       ])
       if (dbError) console.error('Supabase error:', dbError)
     } catch (e) {
@@ -191,7 +196,7 @@ export async function POST(req: NextRequest) {
         fechaStr,                      // A — Hora registro
         nombre,                        // B
         telefono,                      // C
-        email,                         // D
+        email || '',                   // D
         ciudadLabel,                   // E
         habsLabel,                     // F — Habitaciones
         metrosLabel,                   // G — Metros cuadrados
@@ -212,9 +217,9 @@ export async function POST(req: NextRequest) {
         `🚨 <b>¡NUEVO LEAD EN RENTTIA!</b>\n\n` +
         `👤 <b>Nombre:</b> ${nombre}\n` +
         `📍 <b>Ciudad:</b> ${ciudadLabel}\n` +
-        `🚪 <b>Habitaciones:</b> ${habsLabel}  |  📐 <b>Metros:</b> ${metrosLabel}\n` +
+        `🚪 <b>Habitaciones:</b> ${habsLabel}${metros ? `  |  📐 <b>Metros:</b> ${metrosLabel}` : ''}\n` +
         `📞 <b>Teléfono:</b> ${telefono}\n` +
-        `✉️ <b>Email:</b> ${email}\n` +
+        (email ? `✉️ <b>Email:</b> ${email}\n` : '') +
         `🌐 <b>Fuente:</b> ${fuenteLabel}\n` +
         `⏱️ Tienes hasta mañana a las <b>${horaLim}</b> para llamarle.`
       )
@@ -239,14 +244,14 @@ export async function POST(req: NextRequest) {
             <div style="padding:28px 32px;">
               <table style="width:100%;border-collapse:collapse;">
                 <tr><td style="padding:10px 0;border-bottom:1px solid #e8eef8;font-size:12px;color:#8A9AB8;font-weight:600;text-transform:uppercase;width:40%;">Teléfono</td><td style="padding:10px 0;border-bottom:1px solid #e8eef8;font-size:14px;color:#123462;"><a href="tel:${telefono}" style="color:#123462;">${telefono}</a></td></tr>
-                <tr><td style="padding:10px 0;border-bottom:1px solid #e8eef8;font-size:12px;color:#8A9AB8;font-weight:600;text-transform:uppercase;">Email</td><td style="padding:10px 0;border-bottom:1px solid #e8eef8;font-size:14px;color:#123462;"><a href="mailto:${email}" style="color:#123462;">${email}</a></td></tr>
+                ${email ? `<tr><td style="padding:10px 0;border-bottom:1px solid #e8eef8;font-size:12px;color:#8A9AB8;font-weight:600;text-transform:uppercase;">Email</td><td style="padding:10px 0;border-bottom:1px solid #e8eef8;font-size:14px;color:#123462;"><a href="mailto:${email}" style="color:#123462;">${email}</a></td></tr>` : ''}
                 <tr><td style="padding:10px 0;border-bottom:1px solid #e8eef8;font-size:12px;color:#8A9AB8;font-weight:600;text-transform:uppercase;">Ciudad</td><td style="padding:10px 0;border-bottom:1px solid #e8eef8;font-size:14px;color:#123462;">${ciudadLabel}</td></tr>
                 <tr><td style="padding:10px 0;font-size:12px;color:#8A9AB8;font-weight:600;text-transform:uppercase;">Habitaciones</td><td style="padding:10px 0;font-size:14px;color:#123462;">${habsLabel}</td></tr>
               </table>
             </div>
             <div style="padding:20px 32px;background:#FAFAF7;border-top:1px solid #e8eef8;text-align:center;">
               <a href="tel:${telefono}" style="display:inline-block;background:#123462;color:#fff;text-decoration:none;padding:12px 28px;border-radius:8px;font-size:13px;font-weight:500;margin-right:8px;">📞 Llamar ahora</a>
-              <a href="mailto:${email}" style="display:inline-block;background:#fff;color:#123462;text-decoration:none;padding:12px 28px;border-radius:8px;font-size:13px;font-weight:500;border:1px solid #e8eef8;">✉️ Responder por email</a>
+              ${email ? `<a href="mailto:${email}" style="display:inline-block;background:#fff;color:#123462;text-decoration:none;padding:12px 28px;border-radius:8px;font-size:13px;font-weight:500;border:1px solid #e8eef8;">✉️ Responder por email</a>` : ''}
             </div>
           </div>
         `,
@@ -256,8 +261,8 @@ export async function POST(req: NextRequest) {
       console.error('Resend interno error:', e)
     }
 
-    /* 5 — Email confirmación → lead ─────────────────────────────────────── */
-    try {
+    /* 5 — Email confirmación → lead (solo si dejó email) ───────────────── */
+    if (email) try {
       const calendarLink = process.env.CALENDAR_LINK ?? 'https://calendar.google.com'
 
       await resend.emails.send({

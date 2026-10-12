@@ -7,7 +7,7 @@ import { trackLeadConversion } from '@/lib/metaPixel'
 export default function BlogCTAPopup() {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [form, setForm] = useState({ nombre: '', telefono: '', email: '', ciudad: '' })
+  const [form, setForm] = useState({ nombre: '', telefono: '', ciudad: '', habitaciones: '' })
   const router = useRouter()
 
   async function handleSubmit(e: FormEvent) {
@@ -15,7 +15,6 @@ export default function BlogCTAPopup() {
     setLoading(true)
     try {
       const eventId = trackLeadConversion({
-        email: form.email,
         telefono: form.telefono,
         nombre: form.nombre,
         ciudad: form.ciudad,
@@ -23,7 +22,7 @@ export default function BlogCTAPopup() {
       const res = await fetch('/api/contacto', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, tipo: 'blog-cta', habitaciones: '', mensaje: '', eventId }),
+        body: JSON.stringify({ ...form, tipo: 'blog-cta', mensaje: '', eventId }),
       })
       if (!res.ok) throw new Error()
       setOpen(false)
@@ -111,18 +110,6 @@ export default function BlogCTAPopup() {
               </div>
 
               <div>
-                <label className="form-label">Email *</label>
-                <input
-                  type="email"
-                  required
-                  placeholder="tu@email.com"
-                  className="form-input"
-                  value={form.email}
-                  onChange={e => setForm({ ...form, email: e.target.value })}
-                />
-              </div>
-
-              <div>
                 <label className="form-label">Ciudad del piso</label>
                 <select
                   required
@@ -135,6 +122,23 @@ export default function BlogCTAPopup() {
                   <option value="huesca">Huesca</option>
                   <option value="logrono">Logroño</option>
                 </select>
+              </div>
+
+              <div>
+                <label className="form-label">Habitaciones, sin contar el salón *</label>
+                <select
+                  required
+                  className="form-input"
+                  value={form.habitaciones}
+                  onChange={e => setForm({ ...form, habitaciones: e.target.value })}
+                >
+                  <option value="">Selecciona...</option>
+                  <option value="3">3 habitaciones</option>
+                  <option value="4">4 habitaciones</option>
+                  <option value="5">5 habitaciones</option>
+                  <option value="6+">6 o más</option>
+                </select>
+                <p className="font-sans text-sm text-slate-600 mt-2">El mínimo es 3 habitaciones, más el salón.</p>
               </div>
 
               <p className="text-xs text-gray-400">

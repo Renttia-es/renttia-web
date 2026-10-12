@@ -120,7 +120,7 @@ export default function PropietarioLanding() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [showStickyBar, setShowStickyBar] = useState(false)
-  const [form, setForm] = useState({ nombre: '', telefono: '', email: '', ciudad: '', habitaciones: '3' })
+  const [form, setForm] = useState({ nombre: '', telefono: '', ciudad: '', habitaciones: '3' })
 
   useEffect(() => {
     const onScroll = () => setShowStickyBar(window.scrollY > 600)
@@ -139,7 +139,7 @@ export default function PropietarioLanding() {
         body: JSON.stringify({ ...form, fuente: 'landing-propietario', eventId }),
       })
       if (!res.ok) throw new Error()
-      firePixelConversion(eventId, { email: form.email, telefono: form.telefono, nombre: form.nombre, ciudad: form.ciudad })
+      firePixelConversion(eventId, { telefono: form.telefono, nombre: form.nombre, ciudad: form.ciudad })
       router.push('/gracias')
     } catch {
       alert('Ha ocurrido un error. Por favor llámanos directamente.')
@@ -255,10 +255,6 @@ export default function PropietarioLanding() {
                     <input type="tel" required placeholder="600 000 000" className="form-input" value={form.telefono} onChange={e => setForm({ ...form, telefono: e.target.value })} />
                   </div>
                 </div>
-                <div>
-                  <label className="form-label">Email *</label>
-                  <input type="email" required placeholder="tu@email.com" className="form-input" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} />
-                </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <label className="form-label">Ciudad *</label>
@@ -271,7 +267,7 @@ export default function PropietarioLanding() {
                   </div>
                   <div>
                     <label className="form-label">Habitaciones</label>
-                    <select className="form-input" value={form.habitaciones} onChange={e => setForm({ ...form, habitaciones: e.target.value })}>
+                    <select required className="form-input" value={form.habitaciones} onChange={e => setForm({ ...form, habitaciones: e.target.value })}>
                       <option value="3">3 hab.</option>
                       <option value="4">4 hab.</option>
                       <option value="5">5 hab.</option>
@@ -279,6 +275,7 @@ export default function PropietarioLanding() {
                     </select>
                   </div>
                 </div>
+                <p className="font-sans text-sm text-slate-600">Sin contar el salón. El mínimo es 3 habitaciones, más el salón.</p>
                 <p className="text-xs text-gray-400">
                   Al enviar aceptas nuestra <a href="/privacidad" className="underline hover:text-navy transition-colors">política de privacidad</a>.
                 </p>

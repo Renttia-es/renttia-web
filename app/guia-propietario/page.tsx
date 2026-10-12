@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, type ReactNode } from 'react'
 import {
   LandingHeader, StickyCTA, TickerStrip,
   AntesDespues, Proceso, QuienesSomos, Reviews,
-  FAQSection, FinalCTA, LandingFooter,
+  FAQSection, LandingFooter,
   FormSection, LeadForm,
   type Paso, type EstadoOpcion, type Faq,
 } from '@/components/landing/LandingSections'
@@ -33,32 +33,28 @@ const faqs: Faq[] = [
     respuesta: 'Hacemos equipo. Tú cobras el día 1 de cada mes, aunque haya habitaciones vacías, y nosotros nos encargamos del 100% del trabajo: ponemos a punto el piso, seleccionamos a los residentes y gestionamos la convivencia y el mantenimiento.',
   },
   {
-    pregunta: '¿Es legal alquilar mi piso a Renttia?',
-    respuesta: 'Sí, totalmente. Tú firmas con Renttia y nosotros nos encargamos de todo lo demás. Nuestros contratos están revisados por abogados para que estés tranquilo desde el primer día.',
+    pregunta: '¿Contáis el salón como una habitación?',
+    respuesta: 'Sí. El salón cuenta como una habitación más. Es un requisito: el piso tiene que tener, como mínimo, 3 habitaciones y el salón. Sin el salón, no podemos trabajar el piso.',
   },
   {
     pregunta: '¿Qué es la carencia y cómo nos afecta?',
-    respuesta: 'La carencia es un periodo pactado al inicio —habitualmente 1 o 2 meses— durante el cual no pagamos la renta mientras acondicionamos el piso. Se acuerda de forma transparente antes de firmar y sirve para que el inmueble esté listo desde el primer día.',
+    respuesta: 'La carencia es un periodo pactado al inicio, habitualmente de 1 o 2 meses, durante el cual no pagamos la renta mientras acondicionamos el piso y buscamos los inquilinos de las habitaciones. Depende del estado de la vivienda: hay pisos que no necesitan ese lavado de cara y, en esos casos, la carencia no hace falta. Lo habitual es que el inmueble sí lo necesite. Se acuerda de forma transparente antes de firmar y sirve para que el inmueble esté listo desde el primer día.',
   },
   {
     pregunta: '¿Renttia paga fianza al propietario?',
-    respuesta: 'No. Renttia no aporta fianza al propietario al firmar. Lo que garantiza el acuerdo es el propio contrato y la solidez del modelo. Sí depositamos la fianza legal correspondiente en el organismo autonómico, como exige la normativa.',
+    respuesta: 'No. Entendemos que nuestra garantía es que, como empresa, cuidamos el piso y asumimos los costes del lavado de cara o la actualización inicial, y también el mantenimiento y las reparaciones del día a día. Eso lo consideramos garantía suficiente.',
   },
   {
     pregunta: '¿Qué pasa si el piso tiene muebles antiguos o necesita ponerse al día?',
-    respuesta: 'Lo actualizamos: retiramos muebles viejos, pintamos, decoramos y lo equipamos. Si quieres conservar algo, lo trasladamos nosotros. Sin coste para ti. Si el piso ya está listo, mejor: solo delegas y cobras. Si necesita un lavado de cara, lo hacemos nosotros.',
+    respuesta: 'Lo actualizamos: retiramos los muebles viejos, pintamos, decoramos y hacemos lo que el inmueble necesite. Si quieres quedarte con parte del mobiliario, nos encargamos del traslado al lugar que nos indiques. Corre de nuestra cuenta.',
   },
   {
     pregunta: '¿Cómo nos repartimos los seguros?',
-    respuesta: 'Tú solo mantienes el seguro de hogar básico (continente). Nosotros aseguramos todo el mobiliario y contenido que introducimos en el piso.',
+    respuesta: 'Lo único que mantienes es el seguro del hogar, el del continente. Nosotros aseguramos el contenido del piso. Los electrodomésticos que necesiten una reparación por el uso normal, las revisiones y el mantenimiento también corren de nuestra cuenta.',
   },
   {
     pregunta: '¿Qué gastos sigue pagando el propietario?',
-    respuesta: 'IBI, cuota de comunidad y seguro del continente. Los suministros (luz, agua, gas, internet) pasan a nombre de Renttia desde el día de la firma.',
-  },
-  {
-    pregunta: 'Si hay una avería o problema, ¿quién responde?',
-    respuesta: 'Nosotros respondemos por todo. Pequeñas reparaciones, mantenimiento, incidencias con vecinos. Tu teléfono no volverá a sonar un domingo por un grifo que gotea.',
+    respuesta: 'Renttia asume los gastos de los suministros (luz, agua, gas, internet) y la renta acordada del alquiler.',
   },
   {
     pregunta: '¿Tiene algún coste este acuerdo para el propietario?',
@@ -66,7 +62,7 @@ const faqs: Faq[] = [
   },
   {
     pregunta: '¿Cómo recupero mi vivienda al finalizar el contrato?',
-    respuesta: 'Te devolvemos el piso en el mismo estado —o mejor— en el que nos lo entregaste, limpio y listo. Sin disputas, sin retenciones, sin sorpresas.',
+    respuesta: 'Por contrato, te devolvemos el piso en el mismo estado —o mejor— en el que nos lo entregaste, limpio y listo. Sin disputas, sin retenciones, sin sorpresas.',
   },
 ]
 
@@ -381,7 +377,7 @@ export default function GuiaPropietarioPage() {
             </p>
             <ul className="grid sm:grid-cols-3 gap-4">
               {[
-                'Ideal si tienes un piso de 3 o más habitaciones',
+                '3 habitaciones, más el salón',
                 'Ideal si está vacío, heredado o necesita un lavado de cara',
                 'Ideal si estás cansado de gestionar inquilinos',
               ].map(t => (
@@ -506,17 +502,10 @@ export default function GuiaPropietarioPage() {
       <FormSection
         innerRef={formRef}
         titulo="Déjanos tus datos. Te llamamos nosotros."
-        texto="Cobras el día 1 aunque haya una habitación vacía. Te llamamos en menos de 24 horas, sin compromiso. Funciona mejor con 3 habitaciones o más."
+        texto="Cobras el día 1 aunque haya una habitación vacía. Te llamamos en menos de 24 horas, sin compromiso. El mínimo es 3 habitaciones, más el salón."
       >
         <LeadForm fuente={FUENTE} estadoOpciones={estadoOpciones} ctaLabel="Solicitar valoración gratuita →" />
       </FormSection>
-
-      <FinalCTA
-        titulo="Cobra el día 1. Para siempre."
-        texto="Sin impagos, sin gestión, sin preocuparte por la normativa. Todo eso es nuestro problema ahora."
-        ctaLabel="Quiero mi valoración gratuita →"
-        onForm={scrollToForm}
-      />
       </main>
 
       <LandingFooter />
