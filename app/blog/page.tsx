@@ -6,7 +6,7 @@ import { articulos } from '@/lib/blog-articulos'
 export const metadata: Metadata = {
   title: 'Blog — Guías y consejos para propietarios que quieren alquilar sin riesgos',
   description:
-    'Artículos y guías sobre inquiocupación, impagos, Rent to Rent y cómo alquilar tu piso de forma segura en Zaragoza y Huesca.',
+    'Artículos y guías sobre inquiokupación, impagos, Rent to Rent y cómo alquilar tu piso de forma segura en Zaragoza y Huesca.',
   alternates: { canonical: 'https://renttia.es/blog' },
 }
 

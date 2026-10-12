@@ -19,7 +19,7 @@ export default function ZaragozaPage() {
       ciudad="Zaragoza"
       slug="zaragoza"
       h1="Gestión integral de su piso en Zaragoza. Renta garantizada el día 1."
-      heroSubtitulo="Somos tu inquilino. Firmamos nosotros, tú cobras el día 1. Sin impagos, sin inquiocupación, sin llamadas. El único contrato es con Renttia."
+      heroSubtitulo="Somos tu inquilino. Firmamos nosotros, tú cobras el día 1. Sin impagos, sin inquiokupación, sin llamadas. El único contrato es con Renttia."
       dolorTexto="El alquiler tradicional en Zaragoza tiene tres riesgos que ningún propietario debería asumir. Nosotros los eliminamos de raíz."
       mercadoTexto="Zaragoza es la 5ª ciudad de España y una de las de mayor demanda de habitaciones compartidas. Zonas como el Actur, Delicias, la Universidad y el Centro tienen ocupación casi permanente. La tasa de ocupación de nuestros pisos supera el 94%. Pocos mercados ofrecen tanta estabilidad."
       rentaMedia="900€"

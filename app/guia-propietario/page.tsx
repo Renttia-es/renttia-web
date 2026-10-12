@@ -34,8 +34,8 @@ const faqs: Faq[] = [
     respuesta: 'Hacemos equipo. Tú tienes la seguridad de cobrar tu renta cada mes sin sobresaltos, mientras nosotros nos encargamos del 100% del trabajo: ponemos a punto el piso, seleccionamos a los residentes, gestionamos la convivencia y el mantenimiento. Tú solo ingresas tu dinero a fin de mes.',
   },
   {
-    pregunta: '¿Es 100% legal ceder el piso a una empresa?',
-    respuesta: 'Sí, totalmente legal. Firmamos un contrato corporativo entre empresa y propietario, revisado por abogado especializado. Este acuerdo te blinda ante la nueva normativa: sin prórrogas forzosas, sin indemnizaciones al inquilino, sin topes de renta.',
+    pregunta: '¿Es legal alquilar mi piso a Renttia?',
+    respuesta: 'Sí, totalmente. Tú firmas con Renttia y nosotros nos encargamos de todo lo demás. Nuestros contratos están revisados por abogados para que estés tranquilo desde el primer día.',
   },
   {
     pregunta: '¿Qué es la carencia y cómo nos afecta?',
@@ -112,11 +112,11 @@ const dolores = [
 
 /* ── SOLUCIONES ─────────────────────────────────────────────────────────── */
 const soluciones = [
-  { emoji: '💶', dolor: 'Impagos', solucion: 'Somos nosotros tu inquilino. Te pagamos el día 1, siempre, independientemente de lo que pase con los residentes.' },
-  { emoji: '⚖️', dolor: 'Normativa', solucion: 'Firmamos un contrato corporativo empresa-propietario. Sin prórrogas forzosas, sin indemnizaciones, sin topes de renta.' },
+  { emoji: '💶', dolor: 'Impagos', solucion: 'Cobras el día 1, siempre, sin importar si las habitaciones tienen inquilino o no. Ese riesgo lo asumimos nosotros.' },
+  { emoji: '⚖️', dolor: 'Normativa', solucion: 'Firmamos nosotros el contrato. Las restricciones de la nueva normativa de vivienda no te afectan — ese es nuestro problema, no el tuyo.' },
   { emoji: '🛠️', dolor: 'Reforma', solucion: 'Nos encargamos nosotros. Retiramos muebles viejos, pintamos, equipamos. Sin inversión por tu parte.' },
-  { emoji: '🔑', dolor: 'Ocupación', solucion: 'El piso nunca está vacío ni sin supervisión. Tenemos acceso permanente y realizamos visitas periódicas.' },
-  { emoji: '🤝', dolor: 'Gestión', solucion: 'Ni una llamada tuya. Averías, convivencia, incidencias, todo lo gestionamos nosotros. Tú solo cobras.' },
+  { emoji: '🔒', dolor: 'Okupación', solucion: 'Reducimos el riesgo de okupación drásticamente. El perfil de inquilinos que seleccionamos y la naturaleza de nuestros contratos hacen mucho más difícil okupar una habitación que un piso completo. Además, tenemos acceso permanente a las zonas comunes y realizamos limpiezas periódicas.' },
+  { emoji: '🤝', dolor: 'Gestión', solucion: 'Delegas la gestión del piso al 100%. Te olvidas de todo — nosotros respondemos por cualquier cosa que surja.' },
 ]
 
 /* ── STAT BOX ───────────────────────────────────────────────────────────── */
@@ -253,6 +253,70 @@ export default function GuiaPropietarioPage() {
         </div>
       </section>
 
+      {/* ══ CÓMO TRABAJAMOS (ESQUEMA) ═════════════════════════════════════ */}
+      <section className="py-16 sm:py-24 bg-navy relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-navy via-[#0f2d55] to-navy/90" />
+        <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 relative">
+          <div className="text-center mb-12 sm:mb-16">
+            <span className="inline-block bg-white/10 border border-white/15 text-white/70 text-[0.6rem] font-sans font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-4">
+              Cómo trabajamos
+            </span>
+            <h2 className="font-serif text-white text-2xl sm:text-4xl font-light">
+              Tres pasos.{' '}
+              <span className="italic" style={{ color: '#F5C842' }}>Tú solo das el primero.</span>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 md:gap-4 relative">
+            {[
+              { n: '01', e: '🔑', t: 'Te alquilamos el piso', s: 'Firmamos contigo y pasamos a ser tu inquilino. Desde ese momento cobras una renta fija cada mes.' },
+              { n: '02', e: '🛠️', t: 'Lo ponemos a punto', s: 'Pintamos, decoramos, equipamos o reformamos según lo que necesite. Todo a nuestro cargo.' },
+              { n: '03', e: '🛏️', t: 'Lo alquilamos por habitaciones', s: 'Seleccionamos a cada inquilino con un filtro muy estricto y gestionamos el día a día del piso.' },
+            ].map((p, i) => (
+              <div key={p.n} className="relative">
+                <div className="bg-white rounded-2xl p-6 sm:p-7 h-full" style={{ boxShadow: '0 10px 40px rgba(0,0,0,0.20)' }}>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-3xl">{p.e}</span>
+                    <span className="font-serif text-4xl font-light text-navy/15">{p.n}</span>
+                  </div>
+                  <h3 className="font-serif text-navy text-lg sm:text-xl font-semibold mb-2">{p.t}</h3>
+                  <p className="font-sans text-gray-600 text-sm leading-relaxed">{p.s}</p>
+                </div>
+                {i < 2 && (
+                  <div className="hidden md:flex absolute top-1/2 -right-4 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-[#F5C842] items-center justify-center shadow-lg">
+                    <svg className="w-4 h-4 text-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 sm:mt-16 bg-white/8 border border-white/15 rounded-2xl p-6 sm:p-10">
+            <p className="font-sans text-[0.65rem] font-bold uppercase tracking-widest text-[#F5C842] mb-3">¿Por qué es una buena opción para ti?</p>
+            <p className="font-serif text-white text-lg sm:text-2xl font-light leading-relaxed mb-6">
+              Con Renttia, cobras el día 1, siempre, sin importar si las habitaciones tienen inquilino o no.{' '}
+              <span className="italic" style={{ color: '#F5C842' }}>Ese riesgo lo asumimos nosotros.</span>
+            </p>
+            <div className="grid sm:grid-cols-3 gap-4">
+              {[
+                'Ideal si tienes un piso de 3 o más habitaciones',
+                'Ideal si está vacío, heredado o necesita un lavado de cara',
+                'Ideal si estás cansado de gestionar inquilinos',
+              ].map(t => (
+                <div key={t} className="flex items-start gap-2.5 font-sans text-sm text-white/85">
+                  <svg className="w-4 h-4 text-green-400 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  {t}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ══ CALCULADORA IMPAGO ════════════════════════════════════════════ */}
       <section className="py-16 sm:py-24 bg-cream">
         <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
@@ -341,8 +405,8 @@ export default function GuiaPropietarioPage() {
               { e: '💶', t: 'Renta fija el día 1',            s: 'Sin esperas, sin excusas. El dinero en tu cuenta cada mes, siempre.' },
               { e: '🏠', t: 'Piso reformado sin coste',        s: 'Lo recibimos como está y lo dejamos impecable. Tú no inviertes nada.' },
               { e: '📵', t: 'Cero llamadas',                   s: 'Averías, incidencias, vecinos. Todo lo gestionamos nosotros. Tu teléfono, en silencio.' },
-              { e: '🛡️', t: 'Blindado ante la normativa',      s: 'Contrato corporativo que te protege de las restricciones del alquiler tradicional.' },
-              { e: '🔒', t: 'Piso siempre ocupado y vigilado', s: 'Nunca vacío, nunca desatendido. La ocupación ilegal es prácticamente imposible.' },
+              { e: '🛡️', t: 'La normativa no es tu problema',  s: 'Firmamos nosotros. Las restricciones del alquiler tradicional no te afectan.' },
+              { e: '🔒', t: 'Riesgo de okupación mínimo',     s: 'Habitaciones con inquilinos seleccionados y acceso permanente a las zonas comunes.' },
               { e: '🤝', t: 'Un solo interlocutor para todo',  s: 'Nosotros respondemos por todo. Tú no tienes que coordinarte con nadie más.' },
             ].map(b => (
               <div key={b.t}

@@ -64,7 +64,7 @@ function ReviewCard({ r }: { r: typeof reviews[0] }) {
 /* ─── DATOS ───────────────────────────────────────────────────────────────── */
 const beneficios = [
   { icon: '🔒', titulo: 'Renta 100% garantizada', texto: 'Cobras el día estipulado, esté el piso ocupado o vacío. Sin excepciones.' },
-  { icon: '🚫', titulo: 'Inquiocupación imposible', texto: 'Al ser una empresa tu inquilino, los riesgos del alquiler tradicional desaparecen.' },
+  { icon: '🚫', titulo: 'Inquiokupación imposible', texto: 'Al ser una empresa tu inquilino, los riesgos del alquiler tradicional desaparecen.' },
   { icon: '🔧', titulo: 'Cero gestión para ti', texto: 'Averías, incidencias, rotaciones. Tú no recibes ninguna llamada.' },
   { icon: '🏠', titulo: 'Tu piso siempre cuidado', texto: 'Lo acondicionamos antes de entrar y lo devolvemos igual o mejor al salir.' },
   { icon: '📄', titulo: 'Un solo contrato', texto: 'Firmamos tú y Renttia. Sin inquilinos en tu contrato, sin complicaciones.' },
@@ -219,7 +219,7 @@ export default function PropietarioLanding() {
                 <span className="italic" style={{ color: '#C9A96E' }}>sin riesgos, sin gestiones.</span>
               </h1>
               <p className="font-serif font-light text-white/85 text-base sm:text-lg lg:text-xl leading-relaxed mb-6 max-w-lg">
-                Renttia firma como tu inquilino, paga tu renta el día 1 de cada mes y gestiona todo por ti. Sin impagos. Sin inquiocupación. Sin llamadas.
+                Renttia firma como tu inquilino, paga tu renta el día 1 de cada mes y gestiona todo por ti. Sin impagos. Sin inquiokupación. Sin llamadas.
               </p>
               <div className="flex flex-col gap-2.5 mb-6">
                 {['Renta garantizada el día 1, siempre', 'Contrato revisado por abogado', 'Sin comisiones ni tarifas ocultas', 'Acceso permanente a la vivienda'].map(t => (
