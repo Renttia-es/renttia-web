@@ -68,7 +68,7 @@ export default function HomePage() {
             </h1>
 
             <p className="subtitle-italic mb-6 sm:mb-10 max-w-lg fade-up" style={{animationDelay:'0.28s'}}>
-              Somos el inquilino perfecto: recibe su pago el día 1 de cada mes. Acondicionamos su piso y reformamos si es necesario. Gestionamos todas las incidencias por usted.
+              Somos el inquilino perfecto: recibe su pago el día 1 de cada mes. Acondicionamos y decoramos su piso a nuestro cargo. Gestionamos todas las incidencias por usted.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 fade-up" style={{animationDelay:'0.38s'}}>
               <CTAButton texto="Solicitar valoración gratuita" className="btn-cta-white text-sm py-3.5 sm:py-4 px-6 sm:px-8 w-full sm:w-auto text-center" />
@@ -221,7 +221,7 @@ export default function HomePage() {
               </div>
               <h3 className="font-serif text-navy text-base font-normal leading-snug">Piso devuelto en perfecto estado</h3>
               <p className="font-sans text-gray-400 text-sm leading-relaxed">
-                Si es necesario, reformamos antes de empezar sin coste para usted. Mantenemos durante el contrato. Se lo devolvemos igual o mejor.
+                Lo ponemos a punto antes de empezar, sin coste para usted. Lo mantenemos durante el contrato. Se lo devolvemos igual o mejor.
               </p>
             </div>
           </div>
@@ -240,7 +240,7 @@ export default function HomePage() {
             </div>
             <p className="font-sans text-gray-400 text-sm lg:text-base leading-relaxed fade-up fade-up-delay-1">
               Equipamos y amueblamos cada habitación antes de entrar: cama, escritorio, armario, WIFI y suministros a nuestro cargo.
-              Y si el piso necesita reforma, también la asumimos nosotros, sin coste para usted. Su propiedad siempre presentada en su mejor versión, sin que usted invierta nada.
+              Pintamos y decoramos según las tendencias actuales, sin coste para usted. Su propiedad siempre presentada en su mejor versión, sin que usted invierta nada.
             </p>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 lg:gap-4">
@@ -298,7 +298,7 @@ export default function HomePage() {
             {[
               { num: '01', t: 'Valoración gratuita',  d: 'Analizamos su piso y le damos una renta estimada en 24h. Sin compromiso.' },
               { num: '02', t: 'Firmamos el contrato', d: 'Contrato legal entre usted y Renttia. Sin inquilinos, sin intermediarios.' },
-              { num: '03', t: 'Lo ponemos a punto',   d: 'Reforma, mobiliario y suministros a nuestro cargo. Listo para entrar.' },
+              { num: '03', t: 'Lo ponemos a punto',   d: 'Pintura, decoración, mobiliario y suministros a nuestro cargo. Listo para entrar.' },
               { num: '04', t: 'Cobra cada mes',       d: 'Renta garantizada del 1 al 5. Sin llamadas. Sin gestión. Sin impagos.' },
             ].map((p, i) => (
               <div key={p.num} className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-7 flex flex-col fade-up" style={{border:'1px solid rgba(18,52,98,0.08)',boxShadow:'0 0 0 1px rgba(18,52,98,0.05),0 4px 20px rgba(18,52,98,0.08)', animationDelay:`${i * 0.09}s`, transition:'transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out)'}}>
@@ -326,7 +326,7 @@ export default function HomePage() {
                   Revalorizamos su inmueble, con la tranquilidad de cobrar el día 1.
                 </h3>
                 <p className="font-sans text-gray-400 text-sm leading-relaxed">
-                  Equipamos y amueblamos cada habitación antes de entrar y, si es necesario, reformamos sin coste para usted. La inversión corre de nuestra parte.
+                  Equipamos, decoramos y amueblamos cada habitación antes de entrar, sin coste para usted. La inversión corre de nuestra parte.
                 </p>
               </div>
             </div>

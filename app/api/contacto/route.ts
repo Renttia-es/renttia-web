@@ -96,7 +96,7 @@ function horaLimite(date: Date): string {
 function estadoPisoLabel(tipo?: string): string {
   const mapa: Record<string, string> = {
     'vacio-cerrado':          'Vacío / Cerrado',
-    'necesita-reforma':       'Necesita reforma',
+    'necesita-reforma':       'Necesita lavado de cara',
     'alquilado-cambio':       'Alquilado, busca cambiar',
     'heredado':               'Heredado',
     'alquilado-habitaciones': 'Alquilado por habitaciones',

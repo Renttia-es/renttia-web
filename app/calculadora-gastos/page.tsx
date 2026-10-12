@@ -29,7 +29,7 @@ const pasos: Paso[] = [
 
 const estadoOpciones: EstadoOpcion[] = [
   { value: 'vacio-cerrado', label: 'Vacío / Cerrado' },
-  { value: 'necesita-reforma', label: 'Necesita reforma' },
+  { value: 'necesita-reforma', label: 'Necesita un lavado de cara' },
   { value: 'alquilado-cambio', label: 'Alquilado, busco cambiar' },
   { value: 'heredado', label: 'Heredado' },
 ]

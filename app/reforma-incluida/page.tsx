@@ -12,9 +12,9 @@ import {
 const FUENTE = 'landing-reforma-incluida'
 
 const beneficios: Beneficio[] = [
-  { icon: '🔨', titulo: 'Ponemos el piso a punto nosotros', texto: 'Pintamos, amueblamos y acondicionamos la vivienda. Tú no pones un euro ni coordinas nada.' },
-  { icon: '💶', titulo: 'Renta fija garantizada desde el día 1', texto: 'En cuanto firmamos, cobras tu renta mensual. Aunque la obra aún no haya terminado.' },
-  { icon: '🚫', titulo: 'Sin presupuestos ni obras', texto: 'No tienes que buscar empresa, comparar precios ni supervisar trabajos. Eso lo hacemos nosotros.' },
+  { icon: '🎨', titulo: 'Ponemos el piso a punto nosotros', texto: 'Pintamos, decoramos y amueblamos la vivienda según las tendencias actuales. Tú no pones un euro ni coordinas nada.' },
+  { icon: '💶', titulo: 'Renta fija garantizada cada mes', texto: 'Una vez listo el piso, cobras tu renta mensual siempre, tengan inquilino las habitaciones o no.' },
+  { icon: '🚫', titulo: 'Sin presupuestos ni proveedores', texto: 'No tienes que buscar empresa, comparar precios ni supervisar trabajos. Eso lo hacemos nosotros.' },
   { icon: '🔒', titulo: 'Sin riesgo de impago', texto: 'Tu inquilino somos nosotros. Cobramos a las personas que viven ahí — tú no tratas con nadie.' },
   { icon: '📄', titulo: 'Un solo contrato largo y claro', texto: 'Firmamos un contrato de gestión estable. Sin sorpresas ni cláusulas raras.' },
   { icon: '🏠', titulo: 'Lo devolvemos como lo recibimos', texto: 'Al terminar el contrato, el piso te vuelve en perfectas condiciones.' },
@@ -22,14 +22,14 @@ const beneficios: Beneficio[] = [
 
 const pasos: Paso[] = [
   { num: '01', titulo: 'Nos dejas tus datos', texto: 'Rellenas el formulario y te llamamos en menos de 24 horas.' },
-  { num: '02', titulo: 'Visitamos y valoramos', texto: 'Vemos el estado del piso y te hacemos una propuesta concreta: renta mensual + reforma incluida.' },
+  { num: '02', titulo: 'Visitamos y valoramos', texto: 'Vemos el estado del piso y te hacemos una propuesta concreta: renta mensual + puesta a punto incluida.' },
   { num: '03', titulo: 'Firmamos y nosotros nos ponemos a ello', texto: 'Asumimos la puesta a punto. Tú no gestionas nada.' },
-  { num: '04', titulo: 'Cobras cada mes', texto: 'Renta fija el día 1, aunque el piso esté en obras. Sin excusas.' },
+  { num: '04', titulo: 'Cobras cada mes', texto: 'Renta fija el día 1, todos los meses. Sin excusas.' },
 ]
 
 const estadoOpciones: EstadoOpcion[] = [
-  { value: 'necesita-reforma', label: 'Necesita reforma' },
   { value: 'vacio-cerrado', label: 'Vacío / Sin amueblar' },
+  { value: 'necesita-reforma', label: 'Necesita un lavado de cara' },
   { value: 'heredado', label: 'Heredado' },
   { value: 'alquilado-cambio', label: 'Alquilado, quiero cambiar' },
 ]
@@ -60,11 +60,11 @@ function Slider({ label, value, min, max, step = 1, unit, onChange }: {
   )
 }
 
-/* ── Coste estimado por tipo de reforma ─────────────────────────────────── */
+/* ── Coste estimado por tipo de puesta a punto ──────────────────────────── */
 const COSTE_M2: Record<string, { label: string; precio: number }> = {
   pintura:  { label: 'Pintura y limpieza',        precio: 25  },
   parcial:  { label: 'Lavado de cara + muebles',  precio: 90  },
-  integral: { label: 'Reforma integral',           precio: 500 },
+  completo: { label: 'Decoración y equipamiento', precio: 140 },
 }
 
 /* ══════════════════════════════════════════════════════════════════════════ */
@@ -89,7 +89,7 @@ export default function ReformaIncluidaPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
 
-      <StickyCTA show={showSticky} onForm={scrollToForm} ctaLabel="Quiero la reforma incluida →" />
+      <StickyCTA show={showSticky} onForm={scrollToForm} ctaLabel="Quiero mi piso puesto a punto →" />
       <LandingHeader onForm={scrollToForm} />
 
       {/* ── HERO + CALCULADORA ───────────────────────────────────────── */}
@@ -106,17 +106,17 @@ export default function ReformaIncluidaPage() {
                 Para propietarios · Zaragoza · Huesca
               </span>
               <h1 className="font-serif text-white text-[1.75rem] sm:text-4xl lg:text-[2.75rem] font-light leading-tight mb-4">
-                Tu piso necesita reforma.<br />
-                <span className="italic" style={{ color: '#C9A96E' }}>Nosotros la ponemos.</span>
+                Tu piso se ha quedado anticuado.<br />
+                <span className="italic" style={{ color: '#F5C842' }}>Nosotros lo ponemos al día.</span>
               </h1>
               <p className="font-serif font-light text-white/85 text-base sm:text-lg leading-relaxed max-w-lg">
-                No tienes que invertir nada. Renttia asume la puesta a punto del piso a cambio de
-                gestionar el alquiler por habitaciones. Tú cobras tu renta fija desde el primer mes.
+                No tienes que invertir nada. Pintamos, decoramos y equipamos tu piso según las tendencias actuales.
+                Tú cobras tu renta fija cada mes.
               </p>
               <div className="mt-5 flex items-start gap-3 bg-white/10 border border-white/15 rounded-xl px-4 py-3 max-w-lg">
                 <span className="text-xl mt-0.5">💡</span>
                 <p className="font-sans text-white/80 text-sm leading-snug">
-                  <strong className="text-white">0€ de tu bolsillo en obra o mobiliario.</strong>{' '}
+                  <strong className="text-white">0€ de tu bolsillo en pintura, decoración o mobiliario.</strong>{' '}
                   Nosotros invertimos, tú cobras. Así de simple.
                 </p>
               </div>
@@ -124,10 +124,10 @@ export default function ReformaIncluidaPage() {
 
             {/* ── CALCULADORA ─────────────────────────────────────────── */}
             <div className="order-2 bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 shadow-2xl">
-              <h2 className="font-serif text-navy text-lg sm:text-2xl font-light mb-1">¿Cuánto te costaría reformarlo tú solo?</h2>
+              <h2 className="font-serif text-navy text-lg sm:text-2xl font-light mb-1">¿Cuánto te costaría ponerlo al día tú solo?</h2>
               <p className="font-sans text-gray-500 text-sm mb-5">Ajusta los datos. Así de real es el ahorro.</p>
 
-              {/* Tipo de reforma */}
+              {/* Tipo de puesta a punto */}
               <div className="mb-5">
                 <p className="font-sans text-sm font-medium text-navy/70 mb-2">Tipo de intervención que necesitas</p>
                 <div className="grid grid-cols-3 gap-2">
@@ -193,7 +193,7 @@ export default function ReformaIncluidaPage() {
 
       <FAQSection faqs={faqsCompletas} />
       <FinalCTA
-        titulo="Tu piso necesita reforma. Nosotros la ponemos."
+        titulo="Tu piso, al día. Tu renta, garantizada."
         texto="Sin inversión por tu parte. Sin gestión. Solo tu renta fija el día 1."
         ctaLabel="Quiero mi valoración gratuita →"
         onForm={scrollToForm}

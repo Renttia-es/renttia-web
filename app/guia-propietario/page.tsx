@@ -21,7 +21,7 @@ const pasos: Paso[] = [
 
 const estadoOpciones: EstadoOpcion[] = [
   { value: 'vacio-cerrado',          label: 'Vacío / Cerrado'                  },
-  { value: 'necesita-reforma',       label: 'Necesita reforma'                 },
+  { value: 'necesita-reforma',       label: 'Necesita un lavado de cara'       },
   { value: 'alquilado-tradicional',  label: 'Alquiler tradicional'             },
   { value: 'alquilado-habitaciones', label: 'Alquilado por habitaciones'       },
   { value: 'heredado',               label: 'Heredado'                         },
@@ -89,8 +89,8 @@ const dolores = [
   },
   {
     emoji: '🏚️',
-    titulo: 'Reformar cuesta dinero. No reformar también.',
-    texto: 'Muchos propietarios tienen el piso parado esperando una reforma que siempre se aplaza. Mientras tanto, cada mes sin rentar es dinero que no vuelve.',
+    titulo: 'Un piso anticuado pierde dinero cada mes que pasa vacío.',
+    texto: 'Muchos propietarios tienen el piso parado porque se ha quedado anticuado y no quieren invertir para ponerlo al día. Mientras tanto, cada mes sin rentar es dinero que no vuelve.',
     color: 'border-orange-100 bg-orange-50',
     badge: 'text-orange-600 bg-orange-100',
   },
