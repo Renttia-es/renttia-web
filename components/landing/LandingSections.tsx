@@ -171,7 +171,7 @@ export function AntesDespues() {
           <span className="inline-block text-cta text-[0.65rem] font-sans font-semibold uppercase tracking-widest mb-3">La transformación</span>
           <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-light">Así transformamos tu piso</h2>
           <p className="font-serif font-light text-gray-500 mt-3 text-base sm:text-lg max-w-xl mx-auto">
-            Recibimos el piso tal como está y lo equipamos completamente. Si necesita reforma, la asumimos nosotros, sin coste para ti.
+            Acondicionamos tu piso a las tendencias actuales: pintura, decoración y equipamiento completo, a nuestro cargo.
           </p>
         </div>
         <div className="relative grid sm:grid-cols-2 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl">

@@ -46,8 +46,8 @@ const faqs: Faq[] = [
     respuesta: 'No. Renttia no aporta fianza al propietario al firmar. Lo que garantiza el acuerdo es el propio contrato y la solidez del modelo. Sí depositamos la fianza legal correspondiente en el organismo autonómico, como exige la normativa.',
   },
   {
-    pregunta: '¿Qué hacemos si el piso tiene muebles antiguos o necesita reforma?',
-    respuesta: 'Entréganos el piso tal como está. Retiramos muebles viejos, hacemos el lavado de cara necesario y lo equipamos completamente. Si quieres conservar algo, lo trasladamos nosotros. Sin coste para ti.',
+    pregunta: '¿Qué pasa si el piso tiene muebles antiguos o necesita ponerse al día?',
+    respuesta: 'Lo acondicionamos a las tendencias actuales: retiramos muebles viejos, pintamos, decoramos y lo equipamos. Si quieres conservar algo, lo trasladamos nosotros. Sin coste para ti. Trabajamos con pisos listos para entrar o que solo necesitan un lavado de cara; no hacemos reformas integrales.',
   },
   {
     pregunta: '¿Cómo nos repartimos los seguros?',
@@ -113,10 +113,10 @@ const dolores = [
 /* ── SOLUCIONES ─────────────────────────────────────────────────────────── */
 const soluciones = [
   { emoji: '💶', dolor: 'Impagos', solucion: 'Cobras el día 1, siempre, sin importar si las habitaciones tienen inquilino o no. Ese riesgo lo asumimos nosotros.' },
-  { emoji: '⚖️', dolor: 'Normativa', solucion: 'Firmamos nosotros el contrato. Las restricciones de la nueva normativa de vivienda no te afectan — ese es nuestro problema, no el tuyo.' },
-  { emoji: '🛠️', dolor: 'Reforma', solucion: 'Nos encargamos nosotros. Retiramos muebles viejos, pintamos, equipamos. Sin inversión por tu parte.' },
-  { emoji: '🔒', dolor: 'Okupación', solucion: 'Reducimos el riesgo de okupación drásticamente. El perfil de inquilinos que seleccionamos y la naturaleza de nuestros contratos hacen mucho más difícil okupar una habitación que un piso completo. Además, tenemos acceso permanente a las zonas comunes y realizamos limpiezas periódicas.' },
-  { emoji: '🤝', dolor: 'Gestión', solucion: 'Delegas la gestión del piso al 100%. Te olvidas de todo — nosotros respondemos por cualquier cosa que surja.' },
+  { emoji: '⚖️', dolor: 'Normativa', solucion: 'Tu acuerdo es con Renttia, no con un particular. Los cambios en la ley de vivienda no recaen sobre ti: de eso nos ocupamos nosotros.' },
+  { emoji: '🛠️', dolor: 'Puesta a punto', solucion: 'Lo acondicionamos a las tendencias actuales: retiramos muebles viejos, pintamos, decoramos y equipamos. Sin inversión por tu parte.' },
+  { emoji: '🔒', dolor: 'Okupación', solucion: 'Reducimos el riesgo de okupación drásticamente. El perfil de los inquilinos que seleccionamos y la propia naturaleza temporal de los contratos hacen mucho más difícil que se okupe una habitación que un piso completo. Además, tenemos acceso permanente a las zonas comunes de la vivienda y realizamos limpiezas periódicas.' },
+  { emoji: '🤝', dolor: 'Gestión', solucion: 'Delegas la gestión del piso al 100% y te olvidas de cualquier problema del día a día.' },
 ]
 
 /* ── STAT BOX ───────────────────────────────────────────────────────────── */
@@ -270,7 +270,7 @@ export default function GuiaPropietarioPage() {
           <div className="grid md:grid-cols-3 gap-6 md:gap-4 relative">
             {[
               { n: '01', e: '🔑', t: 'Te alquilamos el piso', s: 'Firmamos contigo y pasamos a ser tu inquilino. Desde ese momento cobras una renta fija cada mes.' },
-              { n: '02', e: '🛠️', t: 'Lo ponemos a punto', s: 'Pintamos, decoramos, equipamos o reformamos según lo que necesite. Todo a nuestro cargo.' },
+              { n: '02', e: '🛠️', t: 'Lo ponemos a punto', s: 'Pintamos, decoramos y equipamos el piso según las tendencias actuales. Todo a nuestro cargo.' },
               { n: '03', e: '🛏️', t: 'Lo alquilamos por habitaciones', s: 'Seleccionamos a cada inquilino con un filtro muy estricto y gestionamos el día a día del piso.' },
             ].map((p, i) => (
               <div key={p.n} className="relative">
@@ -350,7 +350,7 @@ export default function GuiaPropietarioPage() {
               <div className="p-5 rounded-2xl bg-red-50 border border-red-100 text-center">
                 <p className="font-sans text-[0.65rem] font-bold uppercase tracking-wide text-red-400 mb-2">Alquiler tradicional</p>
                 <p className="font-serif text-3xl text-red-600 font-light">{((rentaMensual * 15) + 5000).toLocaleString('es-ES')} €</p>
-                <p className="font-sans text-xs text-red-400/80 mt-1.5">pérdida total estimada<br />(renta + legal + reforma)</p>
+                <p className="font-sans text-xs text-red-400/80 mt-1.5">pérdida total estimada<br />(renta + legal + reparaciones)</p>
               </div>
               <div className="p-5 rounded-2xl bg-green-50 border border-green-100 text-center">
                 <p className="font-sans text-[0.65rem] font-bold uppercase tracking-wide text-green-600 mb-2">Con Renttia</p>
@@ -372,12 +372,13 @@ export default function GuiaPropietarioPage() {
       {/* ══ REFORMA ANTES / DESPUÉS ═══════════════════════════════════════ */}
       <section className="pt-16 sm:pt-24 pb-0 bg-white">
         <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 text-center mb-10">
-          <p className="font-sans text-[0.65rem] font-bold uppercase tracking-widest text-cta mb-3">🛠️ Reforma incluida</p>
+          <p className="font-sans text-[0.65rem] font-bold uppercase tracking-widest text-cta mb-3">✨ Puesta a punto incluida</p>
           <h2 className="font-serif text-navy text-2xl sm:text-4xl font-light mb-3">
-            Entréganos el piso tal como está
+            Tu piso, al día con lo que hoy se busca
           </h2>
-          <p className="font-serif font-light text-gray-500 text-base sm:text-lg max-w-xl mx-auto">
-            Sin que tengas que invertir un euro ni mover un dedo.
+          <p className="font-serif font-light text-gray-500 text-base sm:text-lg max-w-2xl mx-auto">
+            Lo acondicionamos a las tendencias actuales: pintura, decoración y equipamiento, a nuestro cargo.
+            Y si tu piso ya está listo, mejor todavía: solo tienes que delegar y cobrar.
           </p>
         </div>
       </section>
@@ -403,9 +404,9 @@ export default function GuiaPropietarioPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-10">
             {[
               { e: '💶', t: 'Renta fija el día 1',            s: 'Sin esperas, sin excusas. El dinero en tu cuenta cada mes, siempre.' },
-              { e: '🏠', t: 'Piso reformado sin coste',        s: 'Lo recibimos como está y lo dejamos impecable. Tú no inviertes nada.' },
+              { e: '🏠', t: 'Piso puesto al día sin coste',    s: 'Lo acondicionamos y decoramos según las tendencias actuales. Tú no inviertes nada.' },
               { e: '📵', t: 'Cero llamadas',                   s: 'Averías, incidencias, vecinos. Todo lo gestionamos nosotros. Tu teléfono, en silencio.' },
-              { e: '🛡️', t: 'La normativa no es tu problema',  s: 'Firmamos nosotros. Las restricciones del alquiler tradicional no te afectan.' },
+              { e: '🛡️', t: 'La normativa no es tu problema',  s: 'Tu acuerdo es con Renttia, no con un particular. Los cambios de la ley no recaen sobre ti.' },
               { e: '🔒', t: 'Riesgo de okupación mínimo',     s: 'Habitaciones con inquilinos seleccionados y acceso permanente a las zonas comunes.' },
               { e: '🤝', t: 'Un solo interlocutor para todo',  s: 'Nosotros respondemos por todo. Tú no tienes que coordinarte con nadie más.' },
             ].map(b => (
@@ -463,7 +464,7 @@ export default function GuiaPropietarioPage() {
       {/* ══ FINAL CTA ══════════════════════════════════════════════════════ */}
       <FinalCTA
         titulo="Cobra el día 1. Para siempre."
-        texto="Sin impagos, sin reforma, sin normativa, sin gestión. Todo eso es nuestro problema ahora."
+        texto="Sin impagos, sin gestión, sin preocuparte por la normativa. Todo eso es nuestro problema ahora."
         ctaLabel="Quiero mi valoración gratuita →"
         onForm={scrollToForm}
       />
