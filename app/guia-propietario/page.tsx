@@ -180,7 +180,7 @@ export default function GuiaPropietarioPage() {
           </p>
           <h1 className="font-serif text-white text-[1.9rem] sm:text-5xl lg:text-6xl font-light leading-tight mb-5 max-w-3xl">
             Un inquilino que paga el día 1,{' '}
-            <span className="italic" style={{ color: '#C9A96E' }}>no protesta y deja el piso mejor de como lo encontró.</span>
+            <span className="italic" style={{ color: '#F5C842' }}>no protesta y deja el piso mejor de como lo encontró.</span>
           </h1>
           <p className="font-serif font-light text-white/80 text-base sm:text-xl leading-relaxed max-w-xl mb-10">
             Porque un piso debería darte ingresos, no trabajo.
@@ -212,7 +212,7 @@ export default function GuiaPropietarioPage() {
               <div key={d.titulo}
                 className={`rounded-2xl border p-6 sm:p-7 flex flex-col gap-3 ${d.color} ${i === 4 ? 'sm:col-span-2 lg:col-span-1' : ''}`}>
                 <div className="text-3xl">{d.emoji}</div>
-                <h3 className="font-serif text-navy text-lg sm:text-xl font-normal leading-snug">{d.titulo}</h3>
+                <h3 className="font-serif text-navy text-lg sm:text-xl font-semibold leading-snug">{d.titulo}</h3>
                 <p className="font-sans text-sm text-gray-600 leading-relaxed">{d.texto}</p>
               </div>
             ))}
@@ -329,7 +329,7 @@ export default function GuiaPropietarioPage() {
             </span>
             <h2 className="font-serif text-white text-2xl sm:text-4xl font-light mb-4">
               Tu piso trabaja para ti.{' '}
-              <span className="italic" style={{ color: '#C9A96E' }}>Tú no trabajas para él.</span>
+              <span className="italic" style={{ color: '#F5C842' }}>Tú no trabajas para él.</span>
             </h2>
             <p className="font-serif font-light text-white/75 text-base sm:text-lg max-w-2xl mx-auto">
               Esto es exactamente lo que cambia en tu vida el día que firmas con Renttia.
