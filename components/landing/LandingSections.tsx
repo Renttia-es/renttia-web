@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, type FormEvent, type ReactNode } from 'react'
+import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import Image from 'next/image'
 import { prepareEventId, firePixelConversion } from '@/lib/metaPixel'
 
@@ -65,10 +65,9 @@ export function LandingHeader({ onCall, onForm }: { onCall?: () => void; onForm?
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         <Image src="/logo.png" alt="Renttia" width={140} height={42} className="h-8 sm:h-10 w-auto" priority />
         {onForm && (
-          <button onClick={onForm}
-            className="flex items-center gap-2 bg-cta text-white font-sans text-sm font-semibold px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl hover:bg-cta/90 transition-colors shadow-md shadow-cta/20">
-            <span className="hidden xs:inline">Solicitar valoración</span>
-            <span className="xs:hidden">Valoración</span>
+          <button onClick={onForm} className="btn-cta text-sm px-4 sm:px-6 py-2.5 sm:py-3">
+            <span className="sm:hidden">Valorar mi piso</span>
+            <span className="hidden sm:inline">Solicitar valoración</span>
           </button>
         )}
       </div>
@@ -84,7 +83,7 @@ export function StickyCTA({ show, onForm, onCall, ctaLabel }: { show: boolean; o
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
           <div className="hidden sm:block">
             <p className="font-serif text-navy text-base font-light leading-tight">¿Te interesa? Solicita tu valoración gratuita.</p>
-            <p className="font-sans text-gray-400 text-xs mt-0.5">Respuesta en menos de 24 horas. Sin compromiso.</p>
+            <p className="font-sans text-slate-600 text-xs mt-0.5">Respuesta en menos de 24 horas. Sin compromiso.</p>
           </div>
           <div className="flex items-center gap-3 w-full sm:w-auto">
             <button onClick={onForm} className="btn-cta flex-1 sm:flex-none text-sm py-3 px-6 whitespace-nowrap">{ctaLabel}</button>
@@ -100,7 +99,7 @@ const tickerItems = [
   { icon: 'M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z', text: 'Olvídate de los impagos' },
   { icon: 'M15 10.5a3 3 0 11-6 0 3 3 0 016 0zM19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z', text: 'Zaragoza · Huesca · Logroño' },
   { icon: 'M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z', text: 'Respuesta en menos de 24 h' },
-  { icon: 'M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z', text: 'Acceso permanente a tu vivienda' },
+  { icon: 'M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z', text: 'Acceso a las zonas comunes' },
   { icon: 'M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z', text: 'Revalorizamos tu piso, sin coste' },
   { icon: 'M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25', text: 'Cero preocupaciones' },
   { icon: 'M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z', text: 'Contratos de larga duración' },
@@ -172,7 +171,7 @@ export function AntesDespues({
     <section className="bg-white py-14 sm:py-24">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8 sm:mb-10">
-          <span className="inline-block text-cta text-[0.65rem] font-sans font-semibold uppercase tracking-widest mb-3">{label}</span>
+          {label ? <span className="inline-block text-cta text-[0.65rem] font-sans font-semibold uppercase tracking-widest mb-3">{label}</span> : null}
           <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">{titulo}</h2>
           <p className="font-sans text-slate-600 mt-3 text-base sm:text-lg max-w-2xl mx-auto">{texto}</p>
         </div>
@@ -180,7 +179,7 @@ export function AntesDespues({
           {/* Panel ANTES */}
           <div className="relative min-h-[300px] sm:min-h-[460px]">
             <Image src="/antes-1.png" alt="Habitación antes de Renttia" fill className="object-cover" sizes="(max-width:640px) 100vw, 50vw" />
-            <div className="absolute inset-0 bg-gradient-to-br from-gray-900/85 via-gray-800/75 to-gray-900/80" />
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-950/80 via-gray-950/25 to-transparent" />
             <div className="relative p-6 sm:p-10 flex flex-col justify-end h-full">
               <span className="inline-flex items-center gap-2 bg-red-500/20 border border-red-400/30 text-red-300 font-sans text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-4 w-fit">
                 <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
@@ -207,7 +206,7 @@ export function AntesDespues({
           {/* Panel DESPUÉS */}
           <div className="relative min-h-[300px] sm:min-h-[460px]">
             <Image src="/despues-1.png" alt="Habitación equipada por Renttia" fill className="object-cover" sizes="(max-width:640px) 100vw, 50vw" />
-            <div className="absolute inset-0 bg-gradient-to-br from-navy/80 via-navy/75 to-[#0f2d55]/85" />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy/85 via-navy/30 to-transparent" />
             <div className="relative p-6 sm:p-10 flex flex-col justify-end h-full">
               <span className="inline-flex items-center gap-2 bg-white/15 border border-white/25 text-white font-sans text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-4 w-fit">
                 <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
@@ -227,11 +226,13 @@ export function AntesDespues({
         </div>
 
         <div className="grid grid-cols-2 gap-2 sm:gap-3 mt-2 sm:mt-3">
-          <div className="relative h-32 sm:h-48 rounded-xl sm:rounded-2xl overflow-hidden">
+          <div className="relative h-44 sm:h-56 rounded-xl sm:rounded-2xl overflow-hidden">
             <Image src="/antes-2.png" alt="Habitación vacía antes" fill className="object-cover" sizes="(max-width:640px) 50vw, 33vw" />
+            <span className="absolute left-3 bottom-3 bg-white text-navy font-sans text-xs font-bold px-2.5 py-1 rounded-full">Antes</span>
           </div>
-          <div className="relative h-32 sm:h-48 rounded-xl sm:rounded-2xl overflow-hidden">
+          <div className="relative h-44 sm:h-56 rounded-xl sm:rounded-2xl overflow-hidden">
             <Image src="/despues-2.png" alt="Habitación amueblada después" fill className="object-cover" sizes="(max-width:640px) 50vw, 33vw" />
+            <span className="absolute left-3 bottom-3 font-sans text-xs font-bold px-2.5 py-1 rounded-full text-navy" style={{ backgroundColor: '#F5C842' }}>Después</span>
           </div>
         </div>
       </div>
@@ -259,7 +260,7 @@ export function Proceso({ pasos }: { pasos: Paso[] }) {
               className={`bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 text-center hover:-translate-y-1 transition-transform duration-300 ${i % 2 === 0 ? 'lg:-translate-y-2' : 'lg:translate-y-2'}`}
               style={{ boxShadow: '0 10px 40px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.12)' }}
             >
-              <span className="font-serif text-cta text-4xl sm:text-5xl font-light leading-none block mb-3">{p.num}</span>
+              <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl font-sans text-lg font-bold text-navy mb-3" style={{ backgroundColor: '#F5C842' }}>{p.num}</span>
               <h3 className="font-serif text-navy text-base sm:text-lg font-semibold mb-1.5">{p.titulo}</h3>
               <p className="font-sans text-slate-600 text-xs sm:text-sm leading-relaxed">{p.texto}</p>
             </div>
@@ -300,7 +301,7 @@ const reviews = [
   { nombre: 'Isabel P.', ciudad: 'Huesca', texto: 'Proceso rapidísimo. En menos de un mes tenía el contrato firmado y el piso listo. Equipo muy atento.', estrellas: 5 },
   { nombre: 'Sofía T.', ciudad: 'Huesca', texto: 'Quedé muy satisfecha con la atención recibida. Me resolvieron todas las dudas antes de firmar.', estrellas: 5 },
   { nombre: 'Rosa M.', ciudad: 'Huesca', texto: 'Soy propietaria de dos pisos con Renttia. La gestión es excelente y la comunicación muy fluida.', estrellas: 5 },
-  { nombre: 'Laura Q.', ciudad: 'Huesca', texto: 'El contrato es muy claro. Sin comisiones ocultas, sin sorpresas. Justo lo que necesitaba.', estrellas: 5 },
+  { nombre: 'Laura Q.', ciudad: 'Huesca', texto: 'El contrato es muy claro. Sin sorpresas. Justo lo que necesitaba.', estrellas: 5 },
   { nombre: 'Cristina J.', ciudad: 'Huesca', texto: 'Después de años con inquilinos problemáticos, Renttia ha sido un soplo de aire fresco. Muy recomendable.', estrellas: 5 },
   { nombre: 'Pilar W.', ciudad: 'Huesca', texto: 'Desde la primera llamada hasta la firma, todo fue fluido y transparente. Gran experiencia.', estrellas: 5 },
   { nombre: 'Carmen R.', ciudad: 'Zaragoza', texto: 'Llevo dos años cobrando puntualmente el día 1. No he tenido que llamar ni una sola vez. Ojalá lo hubiera conocido antes.', estrellas: 5 },
@@ -330,18 +331,17 @@ export function Reviews() {
   return (
     <section className="py-14 sm:py-24 bg-cream overflow-hidden">
       <div className="text-center mb-8 sm:mb-10 px-4">
-        <span className="inline-block text-cta text-[0.65rem] font-sans font-semibold uppercase tracking-widest mb-3">Opiniones reales</span>
         <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">Lo que dicen nuestros propietarios</h2>
         <div className="flex items-center justify-center gap-1.5 mt-3">
           {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5" />)}
-          <span className="font-sans text-navy/60 text-sm ml-1.5">5.0 · 12 reseñas verificadas</span>
+          <span className="font-sans text-navy text-sm font-semibold ml-1.5">{reviews.length} opiniones</span>
         </div>
       </div>
       <div className="mb-3 sm:mb-4">
         <div className="reviews-left">
           {[...Array(2)].map((_, rep) => (
             <div key={rep} className="flex gap-3 sm:gap-4 pr-3 sm:pr-4">
-              {reviews.slice(0, 12).map((r, i) => <ReviewCard key={i} r={r} />)}
+              {reviews.slice(0, 6).map((r, i) => <ReviewCard key={i} r={r} />)}
             </div>
           ))}
         </div>
@@ -350,7 +350,7 @@ export function Reviews() {
         <div className="reviews-right">
           {[...Array(2)].map((_, rep) => (
             <div key={rep} className="flex gap-3 sm:gap-4 pr-3 sm:pr-4">
-              {reviews.slice(12).map((r, i) => <ReviewCard key={i} r={r} />)}
+              {reviews.slice(6).map((r, i) => <ReviewCard key={i} r={r} />)}
             </div>
           ))}
         </div>
@@ -364,7 +364,7 @@ function FAQItem({ pregunta, respuesta }: Faq) {
   const [open, setOpen] = useState(false)
   return (
     <div className="border-b border-white/15 last:border-0">
-      <button onClick={() => setOpen(!open)} className="w-full flex items-center justify-between gap-3 py-5 text-left group">
+      <button type="button" aria-expanded={open} onClick={() => setOpen(!open)} className="w-full flex items-center justify-between gap-3 py-5 text-left group">
         <span className="font-sans text-white text-base sm:text-lg font-semibold group-hover:text-white/80 transition-colors">{pregunta}</span>
         <span className={`shrink-0 w-7 h-7 rounded-full border border-white/25 flex items-center justify-center transition-transform duration-200 ${open ? 'rotate-45 bg-white/10' : ''}`}>
           <svg className="w-3 h-3 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -428,11 +428,13 @@ export function FinalCTA({ titulo, texto, ctaLabel, onForm, onCall }: { titulo: 
 export function LandingFooter() {
   return (
     <div className="bg-navy border-t border-white/10 py-5 px-4 text-center">
-      <p className="font-sans text-xs text-white/40">
+        <p className="font-sans text-sm text-white/85">
         © {new Date().getFullYear()} Renttia S.L. ·{' '}
-        <a href="/privacidad" className="hover:text-white/70 transition-colors">Política de Privacidad</a>
+        <a href="mailto:hola@renttia.es" className="underline underline-offset-2 hover:text-white">hola@renttia.es</a>
         {' · '}
-        <a href="/aviso-legal" className="hover:text-white/70 transition-colors">Aviso Legal</a>
+        <a href="/privacidad" className="hover:text-white transition-colors">Política de Privacidad</a>
+        {' · '}
+        <a href="/aviso-legal" className="hover:text-white transition-colors">Aviso Legal</a>
       </p>
     </div>
   )
@@ -454,6 +456,27 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
   const [habitaciones, setHabitaciones] = useState('')
   const [metros, setMetros] = useState('')
   const [estado, setEstado] = useState<FormState>('idle')
+  const borrador = `renttia-lead-${fuente}`
+
+  useEffect(() => {
+    try {
+      const guardado = JSON.parse(sessionStorage.getItem(borrador) || '{}') as Record<string, string>
+      if (guardado.nombre) setNombre(guardado.nombre)
+      if (guardado.telefono) setTelefono(guardado.telefono)
+      if (guardado.email) setEmail(guardado.email)
+      if (guardado.ciudad) setCiudad(guardado.ciudad)
+      if (guardado.estadoPiso) setEstadoPiso(guardado.estadoPiso)
+      if (guardado.habitaciones) setHabitaciones(guardado.habitaciones)
+      if (guardado.metros) setMetros(guardado.metros)
+    } catch { /* el borrador es opcional */ }
+  }, [borrador])
+
+  function recordar(campo: string, valor: string) {
+    try {
+      const previo = JSON.parse(sessionStorage.getItem(borrador) || '{}') as Record<string, string>
+      sessionStorage.setItem(borrador, JSON.stringify({ ...previo, [campo]: valor }))
+    } catch { /* seguir sin borrador */ }
+  }
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
@@ -465,7 +488,10 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nombre, telefono, email, ciudad, fuente, tipo: estadoPiso, habitaciones, metros, eventId }),
       })
-      if (res.ok) firePixelConversion(eventId, { email, telefono, nombre, ciudad })
+      if (res.ok) {
+        firePixelConversion(eventId, { email, telefono, nombre, ciudad })
+        try { sessionStorage.removeItem(borrador) } catch { /* nada */ }
+      }
       setEstado(res.ok ? 'ok' : 'error')
     } catch { setEstado('error') }
   }
@@ -475,8 +501,8 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
       <div className="w-14 h-14 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-4">
         <svg className="w-7 h-7 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
       </div>
-      <h3 className="font-serif text-navy text-xl font-light mb-2">¡Recibido!</h3>
-      <p className="font-sans text-gray-500 text-sm">Te llamamos en menos de 24 horas. Sin compromiso.</p>
+      <h3 className="font-serif text-navy text-xl font-semibold mb-2">¡Recibido!</h3>
+      <p className="font-sans text-slate-700 text-base font-medium">Te llamamos en menos de 24 horas. Sin compromiso.</p>
     </div>
   )
 
@@ -484,22 +510,22 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="form-label">Nombre *</label>
-          <input type="text" required value={nombre} onChange={e => setNombre(e.target.value)} placeholder="Tu nombre" className="form-input" />
+          <label className="form-label" htmlFor={`${fuente}-nombre`}>Nombre *</label>
+          <input id={`${fuente}-nombre`} type="text" name="name" autoComplete="name" required value={nombre} onChange={e => { setNombre(e.target.value); recordar('nombre', e.target.value) }} placeholder="Tu nombre" className="form-input" />
         </div>
         <div>
-          <label className="form-label">Teléfono *</label>
-          <input type="tel" required value={telefono} onChange={e => setTelefono(e.target.value)} placeholder="600 000 000" className="form-input" />
+          <label className="form-label" htmlFor={`${fuente}-telefono`}>Teléfono *</label>
+          <input id={`${fuente}-telefono`} type="tel" name="tel" inputMode="tel" autoComplete="tel" required value={telefono} onChange={e => { setTelefono(e.target.value); recordar('telefono', e.target.value) }} placeholder="600 000 000" className="form-input" />
         </div>
       </div>
       <div>
-        <label className="form-label">Email *</label>
-        <input type="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder="tu@email.com" className="form-input" />
+        <label className="form-label" htmlFor={`${fuente}-email`}>Email *</label>
+        <input id={`${fuente}-email`} type="email" name="email" autoComplete="email" required value={email} onChange={e => { setEmail(e.target.value); recordar('email', e.target.value) }} placeholder="tu@email.com" className="form-input" />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="form-label">Ciudad del piso *</label>
-          <select required value={ciudad} onChange={e => setCiudad(e.target.value)} className="form-input">
+          <label className="form-label" htmlFor={`${fuente}-ciudad`}>Ciudad del piso *</label>
+          <select id={`${fuente}-ciudad`} required value={ciudad} onChange={e => { setCiudad(e.target.value); recordar('ciudad', e.target.value) }} className="form-input">
             <option value="">Selecciona tu ciudad...</option>
             <option value="zaragoza">Zaragoza</option>
             <option value="huesca">Huesca</option>
@@ -507,8 +533,8 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
           </select>
         </div>
         <div>
-          <label className="form-label">¿Cómo está el piso? *</label>
-          <select required value={estadoPiso} onChange={e => setEstadoPiso(e.target.value)} className="form-input">
+          <label className="form-label" htmlFor={`${fuente}-estado`}>¿Cómo está el piso? *</label>
+          <select id={`${fuente}-estado`} required value={estadoPiso} onChange={e => { setEstadoPiso(e.target.value); recordar('estadoPiso', e.target.value) }} className="form-input">
             <option value="">Selecciona...</option>
             {estadoOpciones.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
           </select>
@@ -516,9 +542,10 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="form-label">Nº de habitaciones *</label>
-          <select required value={habitaciones} onChange={e => setHabitaciones(e.target.value)} className="form-input">
+          <label className="form-label" htmlFor={`${fuente}-habitaciones`}>Nº de habitaciones *</label>
+          <select id={`${fuente}-habitaciones`} required value={habitaciones} onChange={e => { setHabitaciones(e.target.value); recordar('habitaciones', e.target.value) }} className="form-input">
             <option value="">Selecciona...</option>
+            <option value="menos-de-3">Menos de 3</option>
             <option value="3">3 habitaciones</option>
             <option value="4">4 habitaciones</option>
             <option value="5">5 habitaciones</option>
@@ -526,24 +553,30 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
           </select>
         </div>
         <div>
-          <label className="form-label">Metros cuadrados (aprox.) *</label>
+          <label className="form-label" htmlFor={`${fuente}-metros`}>Metros cuadrados (aprox.) *</label>
           <input
+            id={`${fuente}-metros`}
             type="number"
+            inputMode="numeric"
             required
             min={20}
             max={500}
             placeholder="Ej: 80"
             value={metros}
-            onChange={e => setMetros(e.target.value)}
+            onChange={e => { setMetros(e.target.value); recordar('metros', e.target.value) }}
             className="form-input"
           />
         </div>
       </div>
-      {estado === 'error' && <p className="text-red-500 text-sm">Hubo un error. Llámanos al +34 976 000 000.</p>}
+      {estado === 'error' && (
+        <p role="alert" className="font-sans text-sm font-semibold text-red-800">
+          No se ha enviado. Inténtalo de nuevo o escríbenos a <a href="mailto:hola@renttia.es" className="underline">hola@renttia.es</a>.
+        </p>
+      )}
       <button type="submit" disabled={estado === 'sending'} className="btn-cta w-full py-4 text-base disabled:opacity-70">
         {estado === 'sending' ? 'Enviando...' : ctaLabel}
       </button>
-      <p className="text-center text-xs text-gray-400">
+      <p className="text-center text-sm text-slate-600">
         Al enviar aceptas nuestra <a href="/privacidad" className="underline hover:text-navy">política de privacidad</a>.
       </p>
     </form>

@@ -44,23 +44,24 @@
   /* ── Botones ──────────────────────────────────────────────── */
   .btn-cta {
     @apply inline-flex items-center justify-center gap-2
-           bg-cta text-white
-           font-sans font-medium text-[0.875rem] tracking-wide
-           px-7 py-3.5 rounded-xl
-           shadow-sm;
-    letter-spacing: 0.03em;
+           text-navy
+           font-sans font-semibold text-[0.875rem]
+           px-7 py-3.5 rounded-xl;
+    background-color: #F5C842;
+    box-shadow: 0 8px 24px -8px rgba(245, 200, 66, 0.45);
     transition: background-color 200ms var(--ease-out),
                 transform       150ms var(--ease-out),
                 box-shadow      200ms var(--ease-out);
   }
   .btn-cta:hover {
-    @apply bg-cta-hover shadow-md;
+    background-color: #FFD65C;
     transform: translateY(-1px);
+    box-shadow: 0 12px 28px -8px rgba(245, 200, 66, 0.65);
   }
   .btn-cta:active {
     transform: scale(0.97) translateY(0px);
-    @apply shadow-sm;
   }
+  .btn-cta:focus-visible { outline: 2px solid #123462; outline-offset: 3px; }
 
   /* Botón CTA sobre fondos azul navy — blanco con texto navy */
   .btn-cta-white {
@@ -127,16 +128,14 @@
   /* ── Formulario ───────────────────────────────────────────── */
   .form-input {
     @apply w-full px-4 py-3 rounded-xl border border-gray-200 bg-white
-           text-navy placeholder-gray-300 font-sans text-sm font-[350]
+           text-navy placeholder-slate-500 font-sans text-sm font-[350]
            focus:outline-none focus:ring-2 focus:ring-cta/20 focus:border-cta/40;
     transition: border-color 180ms var(--ease-out),
                 box-shadow   180ms var(--ease-out);
   }
 
   .form-label {
-    @apply block text-[0.72rem] font-sans font-medium tracking-wider
-           text-navy/50 uppercase mb-1.5;
-    letter-spacing: 0.08em;
+    @apply block text-sm font-sans font-semibold text-navy mb-1.5;
   }
 
   /* ── Glassmorphism ───────────────────────────────────────── */
@@ -155,13 +154,13 @@
 
   /* ── Tipografía hero ─────────────────────────────────────── */
   .h1-hero {
-    @apply font-serif font-light leading-[1.08] tracking-tight;
+    @apply font-serif font-semibold leading-[1.08] tracking-tight;
     font-size: clamp(1.9rem, 5vw + 0.5rem, 4.5rem);
     font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "swsh" 1;
   }
 
   .subtitle-italic {
-    @apply font-serif font-light italic text-white/80 leading-relaxed;
+    @apply font-serif font-medium italic text-white/90 leading-relaxed;
     font-size: clamp(1rem, 1.5vw + 0.4rem, 1.3rem);
     letter-spacing: 0.01em;
   }
@@ -226,6 +225,10 @@
 .reviews-right { display: flex; width: max-content; animation: scrollRight 45s linear infinite; }
 .reviews-left:hover,
 .reviews-right:hover { animation-play-state: paused; }
+@media (hover: none) {
+  .reviews-left,
+  .reviews-right { animation-play-state: paused; }
+}
 
 /* ── Scrollbar minimalista ──────────────────────────────────── */
 ::-webkit-scrollbar { width: 3px; }

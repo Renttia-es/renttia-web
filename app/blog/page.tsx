@@ -29,11 +29,11 @@ export default function BlogPage() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_0%_0%,rgba(29,78,216,0.25),transparent)]" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-[88px] pb-14 lg:pb-20">
           <div className="max-w-2xl">
-            <span className="section-label text-cta-light">Recursos y consejos</span>
-            <h1 className="font-serif text-white text-3xl sm:text-4xl lg:text-5xl font-light leading-tight mb-4">
+            <p className="font-sans text-sm font-semibold mb-3" style={{ color: '#F5C842' }}>Recursos y consejos</p>
+            <h1 className="font-serif text-white text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight mb-4">
               Blog de Renttia
             </h1>
-            <p className="font-sans text-white/55 text-base leading-relaxed">
+            <p className="font-sans text-white/90 text-base leading-relaxed">
               Guías, análisis de mercado y consejos prácticos sobre gestión profesional de inmuebles
               y alquiler de habitaciones premium en Aragón.
             </p>
@@ -148,10 +148,10 @@ export default function BlogPage() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_80%_at_-10%_-10%,rgba(29,78,216,0.4),transparent)]" />
           <div className="relative grid lg:grid-cols-2 gap-8 items-center">
             <div>
-              <h2 className="font-serif text-white text-2xl sm:text-3xl font-light mb-3">
+              <h2 className="font-serif text-white text-2xl sm:text-3xl font-semibold mb-3">
                 ¿Eres propietario en Aragón?
               </h2>
-              <p className="font-sans text-white/50 text-sm leading-relaxed">
+              <p className="font-sans text-white/90 text-sm leading-relaxed">
                 Solicita una valoración gratuita de tu inmueble y descubre cuánto puedes cobrar
                 con gestión profesional. Sin compromiso, en menos de 24 horas.
               </p>

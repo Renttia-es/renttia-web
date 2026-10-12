@@ -17,7 +17,7 @@ const recursos = [
 
 export default function Footer() {
   return (
-    <footer className="bg-navy text-white/60">
+    <footer className="bg-navy text-white/85">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-12">
 
@@ -32,12 +32,12 @@ export default function Footer() {
                 className="h-10 w-auto brightness-0 invert opacity-80"
               />
             </Link>
-            <p className="font-sans text-sm leading-relaxed text-white/45 mb-5">
+            <p className="font-sans text-sm leading-relaxed text-white/85 mb-5">
               Gestión profesional de inmuebles en Zaragoza, Huesca y Logroño.
               Alquiler de habitaciones premium, sin complicaciones para el propietario.
             </p>
             <a href="mailto:hola@renttia.es"
-              className="text-cta-light hover:text-white text-sm font-sans transition-colors block">
+              className="font-sans text-sm font-semibold transition-colors block hover:underline" style={{ color: '#F5C842' }}>
               hola@renttia.es
             </a>
           </div>

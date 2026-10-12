@@ -216,7 +216,7 @@ export default function PropietarioLanding() {
               </span>
               <h1 className="font-serif text-white text-[1.75rem] sm:text-4xl lg:text-[2.75rem] font-light leading-tight mb-4">
                 Tu piso alquilado<br />
-                <span className="italic" style={{ color: '#C9A96E' }}>sin riesgos, sin gestiones.</span>
+                <span className="italic" style={{ color: '#F5C842' }}>sin riesgos, sin gestiones.</span>
               </h1>
               <p className="font-serif font-light text-white/85 text-base sm:text-lg lg:text-xl leading-relaxed mb-6 max-w-lg">
                 Renttia firma como tu inquilino, paga tu renta el día 1 de cada mes y gestiona todo por ti. Sin impagos. Sin inquiokupación. Sin llamadas.
@@ -448,7 +448,7 @@ export default function PropietarioLanding() {
                 }`}
                 style={{ boxShadow: '0 10px 40px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.12)' }}
               >
-                <span className="font-serif text-cta text-4xl sm:text-5xl font-light leading-none block mb-3">{p.num}</span>
+                <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl font-sans text-lg font-bold text-navy mb-3" style={{ backgroundColor: '#F5C842' }}>{p.num}</span>
                 <h3 className="font-serif text-navy text-sm sm:text-base font-normal mb-1.5">{p.titulo}</h3>
                 <p className="font-sans font-normal text-gray-500 text-xs sm:text-sm leading-relaxed">{p.texto}</p>
               </div>

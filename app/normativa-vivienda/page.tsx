@@ -72,7 +72,7 @@ export default function GestionHabitacionesPage() {
               </span>
               <h1 className="font-serif text-white text-[1.75rem] sm:text-4xl lg:text-[2.75rem] font-light leading-tight mb-4">
                 El alquiler tradicional<br />
-                <span className="italic" style={{ color: '#C9A96E' }}>ya no es lo que era.</span>
+                <span className="italic" style={{ color: '#F5C842' }}>ya no es lo que era.</span>
               </h1>
               <p className="font-serif font-light text-white/85 text-base sm:text-lg leading-relaxed max-w-lg">
                 Nuevos registros, mediación obligatoria antes de poder reclamar, procesos

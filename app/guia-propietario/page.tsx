@@ -21,18 +21,16 @@ const pasos: Paso[] = [
 ]
 
 const estadoOpciones: EstadoOpcion[] = [
-  { value: 'vacio-cerrado',          label: 'Vacío / Cerrado'                  },
-  { value: 'necesita-reforma',       label: 'Necesita un lavado de cara'       },
-  { value: 'alquilado-tradicional',  label: 'Alquiler tradicional'             },
-  { value: 'alquilado-habitaciones', label: 'Alquilado por habitaciones'       },
-  { value: 'heredado',               label: 'Heredado'                         },
-  { value: 'alquilado-cambio',       label: 'Alquilado, busco cambiar'         },
+  { value: 'vacio-cerrado',         label: 'Vacío' },
+  { value: 'heredado',              label: 'Heredado' },
+  { value: 'necesita-reforma',      label: 'Necesita un lavado de cara' },
+  { value: 'alquilado-tradicional', label: 'Ya está alquilado' },
 ]
 
 const faqs: Faq[] = [
   {
     pregunta: '¿Cómo funciona el acuerdo con Renttia?',
-    respuesta: 'Hacemos equipo. Tú tienes la seguridad de cobrar tu renta cada mes sin sobresaltos, mientras nosotros nos encargamos del 100% del trabajo: ponemos a punto el piso, seleccionamos a los residentes, gestionamos la convivencia y el mantenimiento. Tú solo ingresas tu dinero a fin de mes.',
+    respuesta: 'Hacemos equipo. Tú cobras el día 1 de cada mes, aunque haya habitaciones vacías, y nosotros nos encargamos del 100% del trabajo: ponemos a punto el piso, seleccionamos a los residentes y gestionamos la convivencia y el mantenimiento.',
   },
   {
     pregunta: '¿Es legal alquilar mi piso a Renttia?',
@@ -48,7 +46,7 @@ const faqs: Faq[] = [
   },
   {
     pregunta: '¿Qué pasa si el piso tiene muebles antiguos o necesita ponerse al día?',
-    respuesta: 'Lo acondicionamos a las tendencias actuales: retiramos muebles viejos, pintamos, decoramos y lo equipamos. Si quieres conservar algo, lo trasladamos nosotros. Sin coste para ti. Trabajamos con pisos listos para entrar o que solo necesitan un lavado de cara; no hacemos reformas integrales.',
+    respuesta: 'Lo actualizamos: retiramos muebles viejos, pintamos, decoramos y lo equipamos. Si quieres conservar algo, lo trasladamos nosotros. Sin coste para ti. Si el piso ya está listo, mejor: solo delegas y cobras. Si necesita un lavado de cara, lo hacemos nosotros.',
   },
   {
     pregunta: '¿Cómo nos repartimos los seguros?',
@@ -99,27 +97,27 @@ const dolores = [
 /* ── COMPARATIVA: ALQUILER TRADICIONAL vs RENTTIA ───────────────────────── */
 const comparativa = [
   {
-    emoji: '💶', tema: 'Impagos',
+    tema: 'Impagos',
     sin: 'Si el inquilino deja de pagar, dejas de cobrar. Y recuperar el piso puede llevar más de un año.',
     con: 'Cobras el día 1, siempre, sin importar si las habitaciones tienen inquilino o no. Ese riesgo lo asumimos nosotros.',
   },
   {
-    emoji: '⚖️', tema: 'Normativa',
+    tema: 'Normativa',
     sin: 'Prórrogas forzosas, preavisos largos e indemnizaciones si decides no renovar.',
     con: 'Tu acuerdo es con Renttia, no con un particular. Los cambios en la ley de vivienda no recaen sobre ti: de eso nos ocupamos nosotros.',
   },
   {
-    emoji: '🎨', tema: 'Puesta a punto',
+    tema: 'Puesta a punto',
     sin: 'Tienes que invertir tú en pintura, muebles y decoración antes de poder alquilar.',
     con: 'Lo acondicionamos a las tendencias actuales: retiramos muebles viejos, pintamos, decoramos y equipamos. Sin inversión por tu parte.',
   },
   {
-    emoji: '🔒', tema: 'Okupación',
+    tema: 'Okupación',
     sin: 'Un piso vacío o alquilado completo es mucho más vulnerable a la okupación.',
     con: 'Reducimos el riesgo de okupación drásticamente. El perfil de los inquilinos que seleccionamos y la propia naturaleza temporal de los contratos hacen mucho más difícil que se okupe una habitación que un piso completo. Además, tenemos acceso permanente a las zonas comunes y realizamos limpiezas periódicas.',
   },
   {
-    emoji: '🤝', tema: 'Gestión',
+    tema: 'Gestión',
     sin: 'Llamadas, averías, conflictos y renovaciones a cualquier hora.',
     con: 'Delegas la gestión del piso al 100% y te olvidas de cualquier problema del día a día.',
   },
@@ -127,15 +125,6 @@ const comparativa = [
 
 /* ── PIEZAS DE UI ───────────────────────────────────────────────────────── */
 const H2 = 'font-serif text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.08] [text-wrap:balance]'
-
-function Eyebrow({ children, light }: { children: ReactNode; light?: boolean }) {
-  return (
-    <p className={`inline-flex items-center gap-2.5 font-sans text-xs font-bold uppercase tracking-[0.16em] mb-4 ${light ? 'text-white/85' : 'text-navy'}`}>
-      <span className="w-6 h-[2px] rounded-full" style={{ backgroundColor: GOLD }} />
-      {children}
-    </p>
-  )
-}
 
 function CheckIcon({ className = 'w-4 h-4' }: { className?: string }) {
   return (
@@ -153,15 +142,6 @@ function CrossIcon({ className = 'w-4 h-4' }: { className?: string }) {
   )
 }
 
-function StatBox({ valor, etiqueta }: { valor: string; etiqueta: string }) {
-  return (
-    <div className="rounded-2xl p-4 sm:p-5 text-center bg-red-50 border border-red-100">
-      <p className="font-sans text-2xl sm:text-3xl font-bold text-red-600 tabular-nums mb-1">{valor}</p>
-      <p className="font-sans text-xs sm:text-sm font-semibold text-red-700/80">{etiqueta}</p>
-    </div>
-  )
-}
-
 function InlineCTA({ onForm, texto }: { onForm: () => void; texto: string }) {
   return (
     <div className="mt-12 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-5 justify-between bg-navy"
@@ -176,7 +156,7 @@ function InlineCTA({ onForm, texto }: { onForm: () => void; texto: string }) {
 
 function Notificacion({ icono, titulo, texto, className = '' }: { icono: ReactNode; titulo: string; texto: string; className?: string }) {
   return (
-    <div className={`flex items-center gap-4 bg-white rounded-2xl px-5 py-4 w-[320px] ${className}`}
+    <div className={`flex items-center gap-4 bg-white rounded-2xl px-5 py-4 w-full lg:w-[320px] ${className}`}
       style={{ boxShadow: '0 20px 50px -12px rgba(6,20,45,0.55)' }}>
       <div className="shrink-0 w-11 h-11 rounded-xl flex items-center justify-center bg-navy/[0.06]">{icono}</div>
       <div>
@@ -195,16 +175,24 @@ export default function GuiaPropietarioPage() {
   const [rentaMensual, setRentaMensual] = useState(650)
 
   useEffect(() => {
-    const onScroll = () => setShowSticky((heroRef.current?.getBoundingClientRect().bottom ?? 0) < 0)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    const hero = heroRef.current
+    const form = formRef.current
+    if (!hero || !form) return
+    let heroGone = false
+    let formVisible = false
+    const update = () => setShowSticky(heroGone && !formVisible)
+    const heroObs = new IntersectionObserver(([entry]) => { heroGone = !entry.isIntersecting; update() })
+    const formObs = new IntersectionObserver(([entry]) => { formVisible = entry.isIntersecting; update() }, { threshold: 0.2 })
+    heroObs.observe(hero)
+    formObs.observe(form)
+    return () => { heroObs.disconnect(); formObs.disconnect() }
   }, [])
 
   const scrollToForm = () => formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   const pct = ((rentaMensual - 300) / 1200) * 100
 
   return (
-    <div className="min-h-screen bg-white font-sans">
+    <div className={`min-h-screen bg-white font-sans ${showSticky ? 'pb-24' : ''}`}>
 
       <StickyCTA show={showSticky} onForm={scrollToForm} ctaLabel="Solicitar valoración gratuita →" />
       <LandingHeader onForm={scrollToForm} />
@@ -218,13 +206,13 @@ export default function GuiaPropietarioPage() {
             alt=""
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/90 to-navy/45" />
-          <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/85 to-navy/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy/70 via-transparent to-navy/30" />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-16 sm:py-24 lg:py-28 grid lg:grid-cols-[1.25fr_0.75fr] gap-12 items-center">
           <div>
-            <Eyebrow light>Para propietarios · Zaragoza · Huesca · Logroño</Eyebrow>
+            <p className="font-sans text-sm font-semibold text-white/90 mb-4">Zaragoza · Huesca · Logroño</p>
             <h1 className="font-serif text-white text-[2.3rem] sm:text-6xl lg:text-[4.1rem] font-semibold leading-[1.04] tracking-tight mb-6 [text-wrap:balance]">
               Un inquilino que paga el día 1,{' '}
               <span className="italic" style={{ color: GOLD }}>no protesta y deja el piso mejor de como lo encontró.</span>
@@ -250,9 +238,9 @@ export default function GuiaPropietarioPage() {
           </div>
 
           {/* Tarjetas tipo notificación: cómo se vive siendo propietario con Renttia */}
-          <div className="hidden lg:flex flex-col gap-4 items-end" aria-hidden="true">
+          <div className="flex flex-col gap-3 lg:items-end">
             <Notificacion
-              className="mr-10"
+              className="lg:mr-10"
               icono={<CheckIcon className="w-5 h-5 text-green-600" />}
               titulo="Renta ingresada"
               texto="Día 1 · Como cada mes"
@@ -263,7 +251,7 @@ export default function GuiaPropietarioPage() {
               texto="Grifo de la cocina · Lo gestionó Renttia"
             />
             <Notificacion
-              className="mr-16"
+              className="lg:mr-16"
               icono={<span className="text-xl">🛏️</span>}
               titulo="Habitación libre este mes"
               texto="Tu renta, cobrada igualmente"
@@ -278,7 +266,6 @@ export default function GuiaPropietarioPage() {
       <section className="py-20 sm:py-28 bg-cream">
         <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 grid lg:grid-cols-[0.8fr_1.2fr] gap-10 lg:gap-16">
           <div className="lg:sticky lg:top-28 self-start">
-            <Eyebrow>Lo que frena a los propietarios</Eyebrow>
             <h2 className={`${H2} text-navy mb-5`}>¿Te suena alguno de estos problemas?</h2>
             <p className="font-sans text-slate-700 text-lg leading-relaxed mb-8 max-w-md">
               Si has pensado alguna vez en cualquiera de estos, sigue leyendo.
@@ -309,7 +296,6 @@ export default function GuiaPropietarioPage() {
       <section className="py-20 sm:py-28 bg-white">
         <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="max-w-3xl mb-12 sm:mb-14">
-            <Eyebrow>La respuesta a cada dolor</Eyebrow>
             <h2 className={`${H2} text-navy`}>
               Renttia resuelve cada problema, <span className="italic">uno a uno.</span>
             </h2>
@@ -325,7 +311,6 @@ export default function GuiaPropietarioPage() {
             {comparativa.map(c => (
               <div key={c.tema} className="grid md:grid-cols-[170px_1fr_1.25fr] gap-3 md:gap-4">
                 <div className="flex md:flex-col items-center md:items-start gap-3 md:gap-2 md:pt-5">
-                  <span className="text-2xl">{c.emoji}</span>
                   <span className="font-sans text-navy text-base font-bold">{c.tema}</span>
                 </div>
                 <div className="rounded-2xl bg-red-50 border border-red-100 p-5 flex gap-3">
@@ -358,9 +343,8 @@ export default function GuiaPropietarioPage() {
         style={{ backgroundImage: 'radial-gradient(ellipse at 15% 0%, rgba(245,200,66,0.10), transparent 55%), radial-gradient(ellipse at 100% 100%, rgba(31,80,128,0.6), transparent 60%)' }}>
         <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 relative">
           <div className="max-w-3xl mb-12 sm:mb-16">
-            <Eyebrow light>Cómo trabajamos</Eyebrow>
             <h2 className={`${H2} text-white`}>
-              Tres pasos. <span className="italic" style={{ color: GOLD }}>Tú solo das el primero.</span>
+              Tres pasos. <span className="italic" style={{ color: GOLD }}>Tú solo dejas tus datos.</span>
             </h2>
           </div>
 
@@ -417,10 +401,9 @@ export default function GuiaPropietarioPage() {
       <section className="py-20 sm:py-28 bg-cream">
         <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 grid lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16 items-center">
           <div>
-            <Eyebrow>El riesgo que nadie visualiza</Eyebrow>
             <h2 className={`${H2} text-navy mb-5`}>¿Cuánto puede costarte un impago?</h2>
             <p className="font-sans text-slate-700 text-lg leading-relaxed max-w-md">
-              Ajusta la renta de tu piso y ve el impacto real.
+              Ajusta la renta de tu piso. La cifra de la izquierda es una estimación: 12 meses sin cobrar, más 5.000 € de abogado y reparaciones. Con Renttia, ese dinero no sale de tu bolsillo.
             </p>
           </div>
 
@@ -431,7 +414,7 @@ export default function GuiaPropietarioPage() {
                 <span className="font-sans text-base font-semibold text-navy">Tu renta mensual</span>
                 <span className="font-sans text-3xl text-navy font-bold tabular-nums">{rentaMensual.toLocaleString('es-ES')} €</span>
               </div>
-              <div className="relative h-2.5 rounded-full bg-navy/10 cursor-pointer">
+              <div className="relative h-2.5 rounded-full bg-navy/10 cursor-pointer focus-within:ring-2 focus-within:ring-navy focus-within:ring-offset-4">
                 <div className="absolute inset-y-0 left-0 rounded-full bg-navy" style={{ width: `${pct}%` }} />
                 <div className="absolute top-1/2 w-7 h-7 -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-navy shadow-lg pointer-events-none"
                   style={{ left: `${pct}%`, backgroundColor: GOLD }} />
@@ -443,22 +426,19 @@ export default function GuiaPropietarioPage() {
               <div className="flex justify-between font-sans text-sm text-slate-500"><span>300 €</span><span>1.500 €</span></div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-3 sm:mb-4">
-              <div className="p-5 rounded-2xl bg-red-50 border border-red-100 text-center">
-                <p className="font-sans text-xs font-bold uppercase tracking-wider text-red-600 mb-2">Alquiler tradicional</p>
-                <p className="font-sans text-3xl sm:text-4xl text-red-600 font-bold tabular-nums">{((rentaMensual * 15) + 5000).toLocaleString('es-ES')} €</p>
-                <p className="font-sans text-sm text-red-700/80 mt-1.5">pérdida total estimada<br />(renta + legal + reparaciones)</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              <div className="p-5 rounded-2xl bg-red-50 border border-red-100">
+                <p className="font-sans text-xs font-bold uppercase tracking-wider text-red-700 mb-2">Alquiler tradicional</p>
+                <p className="font-sans text-3xl sm:text-4xl text-red-700 font-bold tabular-nums">{((rentaMensual * 12) + 5000).toLocaleString('es-ES')} €</p>
+                <p className="font-sans text-sm font-medium text-red-900/80 mt-2">
+                  {(rentaMensual * 12).toLocaleString('es-ES')} € de 12 meses sin cobrar + 5.000 € de estimación legal y reparaciones
+                </p>
               </div>
-              <div className="p-5 rounded-2xl bg-navy text-center">
+              <div className="p-5 rounded-2xl bg-navy">
                 <p className="font-sans text-xs font-bold uppercase tracking-wider mb-2" style={{ color: GOLD }}>Con Renttia</p>
                 <p className="font-sans text-3xl sm:text-4xl text-white font-bold">0 €</p>
-                <p className="font-sans text-sm text-white/85 mt-1.5">riesgo de impago<br />somos nosotros tu inquilino</p>
+                <p className="font-sans text-sm font-medium text-white mt-2">Cobras el día 1. El riesgo de impago es nuestro.</p>
               </div>
-            </div>
-            <div className="grid grid-cols-3 gap-3">
-              <StatBox valor={`${(rentaMensual * 12).toLocaleString('es-ES')} €`} etiqueta="Riesgo anual" />
-              <StatBox valor={`${(rentaMensual * 3 + 4000).toLocaleString('es-ES')} €`} etiqueta="Coste legal mín." />
-              <StatBox valor="12–18 m." etiqueta="Sin cobrar (media)" />
             </div>
           </div>
         </div>
@@ -469,7 +449,7 @@ export default function GuiaPropietarioPage() {
 
       {/* ══ PUESTA A PUNTO (ANTES / DESPUÉS) ══════════════════════════════ */}
       <AntesDespues
-        label="✨ Puesta a punto incluida"
+        label=""
         titulo="Tu piso, al día con lo que hoy se busca"
         texto="Lo acondicionamos a las tendencias actuales: pintura, decoración y equipamiento, a nuestro cargo. Y si tu piso ya está listo, mejor todavía: solo tienes que delegar y cobrar."
       />
@@ -479,7 +459,6 @@ export default function GuiaPropietarioPage() {
         style={{ backgroundImage: 'radial-gradient(ellipse at 85% 0%, rgba(245,200,66,0.10), transparent 55%)' }}>
         <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 relative">
           <div className="max-w-3xl mb-12">
-            <Eyebrow light>Lo que consigues</Eyebrow>
             <h2 className={`${H2} text-white mb-5`}>
               Tu piso trabaja para ti. <span className="italic" style={{ color: GOLD }}>Tú no trabajas para él.</span>
             </h2>
@@ -490,16 +469,18 @@ export default function GuiaPropietarioPage() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-12">
             {[
-              { e: '💶', t: 'Renta fija el día 1',            s: 'Sin esperas, sin excusas. El dinero en tu cuenta cada mes, siempre.' },
-              { e: '🏠', t: 'Piso puesto al día sin coste',    s: 'Lo acondicionamos y decoramos según las tendencias actuales. Tú no inviertes nada.' },
-              { e: '📵', t: 'Cero llamadas',                   s: 'Averías, incidencias, vecinos. Todo lo gestionamos nosotros. Tu teléfono, en silencio.' },
-              { e: '🛡️', t: 'La normativa no es tu problema',  s: 'Tu acuerdo es con Renttia, no con un particular. Los cambios de la ley no recaen sobre ti.' },
-              { e: '🔒', t: 'Riesgo de okupación mínimo',      s: 'Habitaciones con inquilinos seleccionados y acceso permanente a las zonas comunes.' },
-              { e: '🤝', t: 'Un solo interlocutor para todo',  s: 'Nosotros respondemos por todo. Tú no tienes que coordinarte con nadie más.' },
+              { t: 'Renta fija el día 1',            s: 'Sin esperas, sin excusas. El dinero en tu cuenta cada mes, siempre.' },
+              { t: 'Piso puesto al día sin coste',    s: 'Lo acondicionamos y decoramos según las tendencias actuales. Tú no inviertes nada.' },
+              { t: 'Cero llamadas',                   s: 'Averías, incidencias, vecinos. Todo lo gestionamos nosotros. Tu teléfono, en silencio.' },
+              { t: 'La normativa no es tu problema',  s: 'Tu acuerdo es con Renttia, no con un particular. Los cambios de la ley no recaen sobre ti.' },
+              { t: 'Riesgo de okupación mínimo',      s: 'Habitaciones con inquilinos seleccionados y acceso a las zonas comunes.' },
+              { t: 'Un solo interlocutor para todo',  s: 'Nosotros respondemos por todo. Tú no tienes que coordinarte con nadie más.' },
             ].map(b => (
               <div key={b.t} className="bg-white rounded-2xl p-6 flex gap-4 items-start"
                 style={{ boxShadow: '0 20px 50px -24px rgba(0,0,0,0.55)' }}>
-                <div className="w-11 h-11 rounded-xl bg-navy/[0.06] flex items-center justify-center shrink-0 text-xl">{b.e}</div>
+                <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: GOLD }}>
+                  <CheckIcon className="w-5 h-5 text-navy" />
+                </div>
                 <div>
                   <h3 className="font-serif text-navy text-lg sm:text-xl font-semibold leading-snug mb-1">{b.t}</h3>
                   <p className="font-sans text-slate-600 text-[15px] leading-relaxed">{b.s}</p>
@@ -517,15 +498,6 @@ export default function GuiaPropietarioPage() {
         </div>
       </section>
 
-      {/* ══ SEPARADOR ═════════════════════════════════════════════════════ */}
-      <section className="py-14 sm:py-16 bg-cream">
-        <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
-          <p className="font-serif text-navy text-2xl sm:text-3xl font-semibold tracking-tight [text-wrap:balance]">
-            ¿Cómo se empieza? <span className="italic">Es más sencillo de lo que crees.</span>
-          </p>
-        </div>
-      </section>
-
       <Proceso pasos={pasos} />
       <QuienesSomos />
       <Reviews />
@@ -533,8 +505,8 @@ export default function GuiaPropietarioPage() {
 
       <FormSection
         innerRef={formRef}
-        titulo="¿Tu piso encaja con nuestro modelo?"
-        texto="Cuéntanos los detalles y te damos una respuesta concreta en menos de 24 horas. Sin compromiso."
+        titulo="Déjanos tus datos. Te llamamos nosotros."
+        texto="Cobras el día 1 aunque haya una habitación vacía. Te llamamos en menos de 24 horas, sin compromiso. Funciona mejor con 3 habitaciones o más."
       >
         <LeadForm fuente={FUENTE} estadoOpciones={estadoOpciones} ctaLabel="Solicitar valoración gratuita →" />
       </FormSection>

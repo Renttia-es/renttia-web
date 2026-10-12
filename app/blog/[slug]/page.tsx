@@ -81,7 +81,7 @@ export default async function ArticuloPage({ params }: Props) {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-[96px] pb-12 lg:pb-16">
           {/* Volver — bloque propio */}
           <div className="mb-5">
-            <Link href="/blog" className="inline-flex items-center gap-2 text-white/45 hover:text-white/75 text-sm font-sans transition-colors">
+            <Link href="/blog" className="inline-flex items-center gap-2 text-white/80 hover:text-white text-sm font-sans font-semibold transition-colors">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
               </svg>
@@ -250,7 +250,7 @@ export default async function ArticuloPage({ params }: Props) {
                   ¿Quieres cobrar el día 1 sin gestionar nada?
                 </p>
                 <p className="font-sans text-white/60 text-xs mb-5">Valoración gratuita en menos de 24 h.</p>
-                <CTAButton texto="Solicitar valoración →" className="btn-cta-white text-sm py-3 px-5 w-full" />
+                <CTAButton texto="Solicitar valoración →" className="btn-cta-gold text-sm py-3 px-5 w-full" />
               </div>
               {/* Artículos relacionados */}
               {relacionados.length > 0 && (

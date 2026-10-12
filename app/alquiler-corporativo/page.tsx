@@ -101,7 +101,7 @@ export default function AlquilerCorporativoPage() {
               </span>
               <h1 className="font-serif text-white text-[1.75rem] sm:text-4xl lg:text-[2.75rem] font-light leading-tight mb-4">
                 Alquila sin miedo a los impagos.<br />
-                <span className="italic" style={{ color: '#C9A96E' }}>Cobra los 12 meses.</span>
+                <span className="italic" style={{ color: '#F5C842' }}>Cobra los 12 meses.</span>
               </h1>
               <p className="font-serif font-light text-white/85 text-base sm:text-lg leading-relaxed max-w-lg">
                 Cuando una empresa es tu inquilino, tu renta llega el día 1 pase lo que pase.

@@ -60,18 +60,17 @@ export default function HomePage() {
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-8 sm:pt-28 sm:pb-20 lg:pt-36 lg:pb-28 w-full">
           <div className="max-w-2xl">
-            <span className="section-label text-cta-light fade-in" style={{animationDelay:'0.05s'}}>Gestión profesional de inmuebles</span>
+            <p className="font-sans text-sm font-semibold mb-4 fade-in" style={{ color: '#F5C842', animationDelay: '0.05s' }}>Zaragoza · Huesca · Logroño</p>
 
-            {/* H1 — keyword exacta del meta title, sin el pipe */}
             <h1 className="h1-hero text-white mb-4 sm:mb-5 fade-up" style={{animationDelay:'0.15s'}}>
               Gestión integral del alquiler de su vivienda
             </h1>
 
-            <p className="subtitle-italic mb-6 sm:mb-10 max-w-lg fade-up" style={{animationDelay:'0.28s'}}>
-              Somos el inquilino perfecto: recibe su pago el día 1 de cada mes. Acondicionamos y decoramos su piso a nuestro cargo. Gestionamos todas las incidencias por usted.
+            <p className="font-sans text-white/90 text-lg sm:text-xl leading-relaxed mb-6 sm:mb-10 max-w-lg fade-up" style={{animationDelay:'0.28s'}}>
+              Somos el inquilino perfecto: recibe su pago <span className="font-serif italic font-semibold" style={{ color: '#F5C842' }}>el día 1 de cada mes.</span> Acondicionamos y decoramos su piso a nuestro cargo. Gestionamos todas las incidencias por usted.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 fade-up" style={{animationDelay:'0.38s'}}>
-              <CTAButton texto="Solicitar valoración gratuita" className="btn-cta-white text-sm py-3.5 sm:py-4 px-6 sm:px-8 w-full sm:w-auto text-center" />
+              <CTAButton texto="Solicitar valoración gratuita" className="btn-cta-gold text-sm py-3.5 sm:py-4 px-6 sm:px-8 w-full sm:w-auto text-center" />
             </div>
           </div>
         </div>
@@ -84,7 +83,7 @@ export default function HomePage() {
             {stats.map(s => (
               <div key={s.etiqueta} className="bg-white text-center py-6 sm:py-8 lg:py-10 px-4 rounded-2xl shadow-[0_2px_12px_rgba(18,52,98,0.07)] border border-navy/5">
                 <p className="font-serif text-navy text-3xl sm:text-4xl lg:text-6xl font-light">{s.valor}</p>
-                <p className="font-sans text-gray-400 text-[0.65rem] sm:text-xs mt-1.5 tracking-widest uppercase">{s.etiqueta}</p>
+                <p className="font-sans text-slate-600 text-xs sm:text-sm mt-1.5 font-semibold">{s.etiqueta}</p>
               </div>
             ))}
           </div>
@@ -100,7 +99,7 @@ export default function HomePage() {
 
           <div className="text-center mb-6 sm:mb-8 lg:mb-14 fade-up">
             {/* H2 — miedo principal del propietario / impago moroso */}
-            <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-light max-w-3xl mx-auto">
+            <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight max-w-3xl mx-auto">
               Olvídese de los impagos y la morosidad al alquilar su propiedad
             </h2>
           </div>
@@ -116,17 +115,17 @@ export default function HomePage() {
               />
               <div className="absolute inset-0 bg-gradient-to-br from-navy/90 via-navy/65 to-navy/30" />
               <div className="relative z-10 flex flex-col flex-1 p-6 sm:p-12 lg:p-16 justify-end max-w-2xl">
-                <span className="inline-block bg-cta text-white text-[0.65rem] font-sans font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-4 self-start">
+                <span className="inline-block text-navy text-[0.65rem] font-sans font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4 self-start" style={{ backgroundColor: '#F5C842' }}>
                   Soy propietario
                 </span>
                 {/* H3 — keyword "inquiokupación" */}
-                <h3 className="font-serif text-white text-2xl sm:text-3xl lg:text-4xl font-light mb-4 leading-snug">
+                <h3 className="font-serif text-white text-2xl sm:text-3xl lg:text-4xl font-semibold mb-4 leading-snug">
                   Máxima tranquilidad frente al riesgo de la inquiokupación
                 </h3>
-                <p className="font-sans text-white/70 text-sm sm:text-base leading-relaxed mb-6">
-                  Firma con Renttia su contrato de alquiler, no con el inquilino. Se olvida de cualquier preocupación y recibe su renta el día uno.
+                <p className="font-sans text-white/90 text-sm sm:text-base leading-relaxed mb-6">
+                  Firma con Renttia su contrato de alquiler, no con el inquilino. Se olvida de cualquier preocupación y recibe su renta <span className="font-serif italic font-semibold" style={{ color: '#F5C842' }}>el día uno.</span>
                 </p>
-                <span className="btn-cta-white text-sm self-start">Ver cómo funciona →</span>
+                <span className="btn-cta-gold text-sm self-start">Ver cómo funciona →</span>
               </div>
             </Link>
 
@@ -146,11 +145,11 @@ export default function HomePage() {
               <span className="section-label">Por qué Renttia</span>
 
               {/* H2 — keyword "inquilino perfecto alquiler" */}
-              <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-light">
+              <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">
                 Renttia es el inquilino perfecto.
               </h2>
             </div>
-            <p className="font-sans text-gray-400 text-sm lg:text-base leading-relaxed lg:pt-10 fade-up fade-up-delay-1">
+            <p className="font-sans text-slate-700 text-base lg:text-lg leading-relaxed lg:pt-10 fade-up fade-up-delay-1">
               Firmamos el contrato, pagamos el día 1 y nos encargamos de todo.
             </p>
           </div>
@@ -171,12 +170,12 @@ export default function HomePage() {
                 <h3 className="font-serif text-white text-xl sm:text-2xl lg:text-3xl font-light leading-snug mb-3 max-w-lg">
                   Sin los complejos requisitos de scoring ni el precio de una póliza
                 </h3>
-                <p className="font-sans text-white/55 text-sm leading-relaxed max-w-md">
+                <p className="font-sans text-white/90 text-sm leading-relaxed max-w-md">
                   Ningún seguro le exige nóminas ni avales a sus inquilinos. Nosotros asumimos el riesgo directamente.
                 </p>
               </div>
               <div className="relative z-10 mt-6">
-                <span className="font-sans text-white/35 text-[0.65rem] tracking-widest uppercase">Renttia garantiza su renta</span>
+                <span className="font-sans text-sm font-semibold" style={{ color: '#F5C842' }}>Renttia garantiza su renta</span>
               </div>
             </div>
 
@@ -192,7 +191,7 @@ export default function HomePage() {
               <h3 className="font-serif text-navy text-base font-normal leading-snug">
                 Cobro puntual de la renta del 1 al 5 de cada mes
               </h3>
-              <p className="font-sans text-gray-400 text-sm leading-relaxed">
+              <p className="font-sans text-slate-600 text-sm leading-relaxed">
                 Sin esperas. La renta llega a su cuenta en los primeros días del mes, siempre.
               </p>
             </div>
@@ -206,7 +205,7 @@ export default function HomePage() {
                 </svg>
               </div>
               <h3 className="font-serif text-navy text-base font-normal leading-snug">Sin llamadas de inquilinos</h3>
-              <p className="font-sans text-gray-400 text-sm leading-relaxed">
+              <p className="font-sans text-slate-600 text-sm leading-relaxed">
                 Renttia es su único interlocutor. Averías, incidencias, rotaciones. Usted no recibe ninguna llamada.
               </p>
             </div>
@@ -220,7 +219,7 @@ export default function HomePage() {
                 </svg>
               </div>
               <h3 className="font-serif text-navy text-base font-normal leading-snug">Piso devuelto en perfecto estado</h3>
-              <p className="font-sans text-gray-400 text-sm leading-relaxed">
+              <p className="font-sans text-slate-600 text-sm leading-relaxed">
                 Lo ponemos a punto antes de empezar, sin coste para usted. Lo mantenemos durante el contrato. Se lo devolvemos igual o mejor.
               </p>
             </div>
@@ -238,7 +237,7 @@ export default function HomePage() {
                 Así queda su piso cuando Renttia lo pone a punto.
               </h2>
             </div>
-            <p className="font-sans text-gray-400 text-sm lg:text-base leading-relaxed fade-up fade-up-delay-1">
+            <p className="font-sans text-slate-600 text-sm lg:text-base leading-relaxed fade-up fade-up-delay-1">
               Equipamos y amueblamos cada habitación antes de entrar: cama, escritorio, armario, WIFI y suministros a nuestro cargo.
               Pintamos y decoramos según las tendencias actuales, sin coste para usted. Su propiedad siempre presentada en su mejor versión, sin que usted invierta nada.
             </p>
@@ -302,12 +301,11 @@ export default function HomePage() {
               { num: '04', t: 'Cobra cada mes',       d: 'Renta garantizada del 1 al 5. Sin llamadas. Sin gestión. Sin impagos.' },
             ].map((p, i) => (
               <div key={p.num} className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-7 flex flex-col fade-up" style={{border:'1px solid rgba(18,52,98,0.08)',boxShadow:'0 0 0 1px rgba(18,52,98,0.05),0 4px 20px rgba(18,52,98,0.08)', animationDelay:`${i * 0.09}s`, transition:'transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out)'}}>
-                <span className="font-serif text-cta text-3xl sm:text-4xl lg:text-5xl font-light leading-none mb-3 sm:mb-5 tracking-tight">
+                <span className="inline-flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-xl font-sans text-base sm:text-lg font-bold text-navy mb-3 sm:mb-5" style={{ backgroundColor: '#F5C842' }}>
                   {p.num}
                 </span>
-                <div className="w-6 sm:w-8 h-px bg-navy/15 mb-3 sm:mb-5" />
-                <h3 className="font-serif text-navy text-sm sm:text-base lg:text-lg font-normal leading-snug mb-2">{p.t}</h3>
-                <p className="font-sans text-gray-400 text-xs sm:text-sm leading-relaxed hidden sm:block">{p.d}</p>
+                <h3 className="font-serif text-navy text-sm sm:text-base lg:text-lg font-semibold leading-snug mb-2">{p.t}</h3>
+                <p className="font-sans text-slate-600 text-xs sm:text-sm leading-relaxed hidden sm:block">{p.d}</p>
               </div>
             ))}
           </div>
@@ -316,8 +314,8 @@ export default function HomePage() {
           <div className="grid md:grid-cols-2 gap-4">
             {/* H3 — "revalorización inmueble" */}
             <div className="glass-card rounded-3xl p-6 lg:p-7 border border-gray-100 flex items-start gap-5">
-              <div className="w-10 h-10 rounded-xl bg-cta-light flex items-center justify-center shrink-0 mt-0.5">
-                <svg className="w-5 h-5 text-cta" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5" style={{ backgroundColor: '#F5C842' }}>
+                <svg className="w-5 h-5 text-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75" />
                 </svg>
               </div>
@@ -325,15 +323,15 @@ export default function HomePage() {
                 <h3 className="font-serif text-navy text-lg font-normal mb-2">
                   Revalorizamos su inmueble, con la tranquilidad de cobrar el día 1.
                 </h3>
-                <p className="font-sans text-gray-400 text-sm leading-relaxed">
+                <p className="font-sans text-slate-600 text-sm leading-relaxed">
                   Equipamos, decoramos y amueblamos cada habitación antes de entrar, sin coste para usted. La inversión corre de nuestra parte.
                 </p>
               </div>
             </div>
             {/* H3 — "contratos estables" */}
             <div className="glass-card rounded-3xl p-6 lg:p-7 border border-gray-100 flex items-start gap-5">
-              <div className="w-10 h-10 rounded-xl bg-cta-light flex items-center justify-center shrink-0 mt-0.5">
-                <svg className="w-5 h-5 text-cta" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5" style={{ backgroundColor: '#F5C842' }}>
+                <svg className="w-5 h-5 text-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                 </svg>
               </div>
@@ -341,7 +339,7 @@ export default function HomePage() {
                 <h3 className="font-serif text-navy text-lg font-normal mb-2">
                   Contratos estables de larga duración con un único interlocutor, Renttia.
                 </h3>
-                <p className="font-sans text-gray-400 text-sm leading-relaxed">
+                <p className="font-sans text-slate-600 text-sm leading-relaxed">
                   Un solo contrato. Una sola renta. Sin cambios de inquilino.
                 </p>
               </div>
@@ -362,7 +360,7 @@ export default function HomePage() {
             <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-light">
               Expertos locales en Zaragoza, Huesca y Logroño
             </h2>
-            <p className="font-sans text-gray-400 text-sm lg:text-base mt-4 max-w-md mx-auto leading-relaxed">
+            <p className="font-sans text-slate-600 text-sm lg:text-base mt-4 max-w-md mx-auto leading-relaxed">
               Somos de aquí. Conocemos el mercado, los barrios y los precios de cada zona, y gestionamos tu piso de tú a tú.
             </p>
           </div>
@@ -374,7 +372,7 @@ export default function HomePage() {
                 className="group glass-card rounded-2xl sm:rounded-3xl p-5 sm:p-7 border border-navy/10 shadow-[0_0_0_1px_rgba(18,52,98,0.06),0_4px_24px_rgba(18,52,98,0.08)] hover:shadow-[0_0_0_1px_rgba(18,52,98,0.15),0_8px_32px_rgba(18,52,98,0.14)] transition-all duration-300 flex flex-col gap-4 sm:gap-5">
                 {/* Indicador ciudad */}
                 <div className="flex items-center justify-between">
-                  <span className="font-sans text-[0.65rem] font-semibold uppercase tracking-widest text-cta">{c.ciudad}</span>
+                  <span className="font-sans text-xs font-bold uppercase tracking-widest text-navy">{c.ciudad}</span>
                   <svg className="w-4 h-4 text-navy/25 group-hover:text-navy/60 group-hover:translate-x-0.5 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                   </svg>
@@ -385,7 +383,7 @@ export default function HomePage() {
                   {c.slug === 'gestion-alquiler-huesca'   && 'Cobertura y protección para propietarios en Huesca'}
                   {c.slug === 'gestion-alquiler-logrono'  && 'Nueva ciudad: gestión de pisos compartidos en Logroño'}
                 </h4>
-                <p className="font-sans text-gray-400 text-sm leading-relaxed">{c.descripcion}</p>
+                <p className="font-sans text-slate-600 text-sm leading-relaxed">{c.descripcion}</p>
                 <div className="flex gap-3 mt-auto pt-2 border-t border-gray-100">
                   <span className="font-sans text-navy/60 text-xs"><strong className="font-semibold text-navy">{c.pisos}</strong> pisos activos</span>
                   <span className="text-gray-200">·</span>
@@ -411,18 +409,18 @@ export default function HomePage() {
         </div>
         <div className="relative max-w-xl mx-auto px-4 sm:px-6 text-center fade-up">
           {/* H2 — keyword "alquiler garantizado" / "renta pasiva" */}
-          <h2 className="font-serif text-white text-2xl sm:text-3xl lg:text-4xl font-light mb-4">
-            Disfrute de una renta garantizada, sin llamadas y sin preocupaciones
+          <h2 className="font-serif text-white text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight mb-4">
+            Disfrute de una renta garantizada, <span className="italic" style={{ color: '#F5C842' }}>sin llamadas y sin preocupaciones</span>
           </h2>
 
-          <p className="font-sans text-white/65 text-base leading-relaxed mb-9">
+          <p className="font-sans text-white/90 text-base leading-relaxed mb-9">
             Valoración gratuita. Respuesta en 24 horas. Sin compromiso.
           </p>
           <CTAButton
             texto="Solicitar valoración gratuita"
-            className="inline-flex items-center justify-center gap-2 bg-white text-navy hover:bg-navy/5 active:scale-[0.97] font-sans font-medium text-sm tracking-wide px-8 sm:px-10 py-3.5 sm:py-4 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-px transition-[background-color,transform,box-shadow] duration-200 w-full sm:w-auto"
+            className="btn-cta-gold w-full sm:w-auto"
           />
-          <p className="font-sans text-white/40 text-xs mt-4">Sin coste · Sin compromiso · Respuesta en 24h</p>
+          <p className="font-sans text-white/80 text-sm mt-4">Sin coste · Sin compromiso · Respuesta en 24h</p>
         </div>
       </section>
 

@@ -100,7 +100,7 @@ export default function CalculadoraGastosPage() {
               </span>
               <h1 className="font-serif text-white text-[1.75rem] sm:text-4xl lg:text-[2.75rem] font-light leading-tight mb-4">
                 Tu piso cerrado te cuesta dinero.<br />
-                <span className="italic" style={{ color: '#C9A96E' }}>Calcula cuánto.</span>
+                <span className="italic" style={{ color: '#F5C842' }}>Calcula cuánto.</span>
               </h1>
               <p className="font-serif font-light text-white/85 text-base sm:text-lg leading-relaxed max-w-lg">
                 Un piso vacío no descansa: cada mes que pasa cerrado es dinero que dejas de ingresar.
