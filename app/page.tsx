@@ -3,7 +3,6 @@ import Link from 'next/link'
 import ReviewsTicker from '@/components/ReviewsTicker'
 import CTAButton from '@/components/CTAButton'
 
-/* ── SEO ── keyword principal en title + description enriquecida ── */
 export const metadata: Metadata = {
   title: 'Gestión integral del alquiler de su vivienda | Renttia',
   description:
@@ -20,374 +19,244 @@ const ciudadesPropietarios = [
     ciudad: 'Zaragoza', slug: 'gestion-alquiler-zaragoza',
     descripcion: 'Gestión de pisos compartidos premium en el corazón de Zaragoza. Renta garantizada y cero preocupaciones.',
     pisos: 3, ocupacion: '94%',
-    imagen: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80',
+    imagen: '/hab-comun.jpg',
+    titulo: 'Gestión y supervisión de viviendas en Zaragoza',
   },
   {
     ciudad: 'Huesca', slug: 'gestion-alquiler-huesca',
     descripcion: 'Pioneros en gestión de pisos compartidos en Huesca. Mercado con alta demanda y poca oferta.',
     pisos: 9, ocupacion: '89%',
-    imagen: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80',
+    imagen: '/hab-4.jpg',
+    titulo: 'Cobertura y protección para propietarios en Huesca',
   },
   {
     ciudad: 'Logroño', slug: 'gestion-alquiler-logrono',
     descripcion: 'Nueva ciudad en expansión. Alta demanda de alquiler compartido y poca oferta de calidad gestionada.',
     pisos: 0, ocupacion: '—',
-    imagen: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80',
+    imagen: '/hab-escritorio.jpg',
+    titulo: 'Nueva ciudad: gestión de pisos compartidos en Logroño',
   },
 ]
 
-const stats = [
-  { valor: '93%', etiqueta: 'Ocupación media'    },
-  { valor: '0€',  etiqueta: 'Impagos en 1 año'  },
-  { valor: '3',   etiqueta: 'Ciudades activas'   },
+const razones = [
+  {
+    t: 'Cobro puntual de la renta del 1 al 5 de cada mes',
+    d: 'Sin esperas. La renta llega a su cuenta en los primeros días del mes, siempre.',
+  },
+  {
+    t: 'Sin llamadas de inquilinos',
+    d: 'Renttia es su único interlocutor. Averías, incidencias, rotaciones. Usted no recibe ninguna llamada.',
+  },
+  {
+    t: 'Piso devuelto en perfecto estado',
+    d: 'Lo ponemos a punto antes de empezar, sin coste para usted. Lo mantenemos durante el contrato. Se lo devolvemos igual o mejor.',
+  },
+]
+
+const pasos = [
+  { num: '01', t: 'Valoración gratuita', d: 'Analizamos su piso y le damos una renta estimada en 24h. Sin compromiso.' },
+  { num: '02', t: 'Firmamos el contrato', d: 'Contrato legal entre usted y Renttia. Sin inquilinos, sin intermediarios.' },
+  { num: '03', t: 'Lo ponemos a punto', d: 'Pintura, decoración, mobiliario y suministros a nuestro cargo. Listo para entrar.' },
+  { num: '04', t: 'Cobra cada mes', d: 'Renta garantizada del 1 al 5. Sin llamadas. Sin gestión. Sin impagos.' },
+]
+
+const fotos = [
+  { src: '/hab-1.jpg', alt: 'Habitación con cama y escritorio para estudiante', label: 'Cama y escritorio', clase: 'lg:col-span-2 lg:row-span-2 min-h-[280px] lg:min-h-[560px]' },
+  { src: '/hab-escritorio.jpg', alt: 'Escritorio de estudio en habitación', label: 'Zona de trabajo', clase: 'min-h-[200px]' },
+  { src: '/hab-armario.jpg', alt: 'Armario y almacenaje en habitación', label: 'Armario', clase: 'min-h-[200px]' },
+  { src: '/hab-comun.jpg', alt: 'Zona común del piso compartido', label: 'Zonas comunes', clase: 'lg:col-span-2 min-h-[220px]' },
 ]
 
 export default function HomePage() {
   return (
     <>
-      {/* ═══════════════════════════════════════════════════════════
-          H1 — keyword principal: "gestión integral del alquiler"
-          ═══════════════════════════════════════════════════════════ */}
-      <section className="relative z-[1] overflow-hidden min-h-[65vh] sm:min-h-[92vh] flex items-center -mt-16">
-        <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=1600&q=85"
-            alt="Apartamento en alquiler gestionado por Renttia"
-            className="w-full h-full object-cover"
-          />
-          {/* Degradado diagonal: azul desde arriba-izquierda, foto original abajo-derecha */}
-          <div className="absolute inset-0 bg-gradient-to-br from-navy/95 via-navy/55 to-transparent" />
-        </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-8 sm:pt-28 sm:pb-20 lg:pt-36 lg:pb-28 w-full">
-          <div className="max-w-2xl">
-            <p className="font-sans text-sm font-semibold mb-4 fade-in" style={{ color: '#F5C842', animationDelay: '0.05s' }}>Zaragoza · Huesca · Logroño</p>
-
-            <h1 className="h1-hero text-white mb-4 sm:mb-5 fade-up" style={{animationDelay:'0.15s'}}>
+      <section className="relative z-[1] bg-navy -mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-14 sm:pt-32 sm:pb-20 lg:pt-40 lg:pb-24 grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-end">
+          <div>
+            <p className="font-sans text-sm font-semibold mb-5" style={{ color: '#F5C842' }}>Zaragoza · Huesca · Logroño</p>
+            <h1 className="font-serif text-white font-semibold tracking-tight leading-[0.98] text-[2.5rem] sm:text-6xl lg:text-[4.75rem] [text-wrap:balance]">
               Gestión integral del alquiler de su vivienda
             </h1>
-
-            <p className="font-sans text-white/90 text-lg sm:text-xl leading-relaxed mb-6 sm:mb-10 max-w-lg fade-up" style={{animationDelay:'0.28s'}}>
+            <p className="font-sans text-white/90 text-lg sm:text-xl leading-relaxed mt-6 max-w-xl">
               Somos el inquilino perfecto: recibe su pago <span className="font-serif italic font-semibold" style={{ color: '#F5C842' }}>el día 1 de cada mes.</span> Acondicionamos y decoramos su piso a nuestro cargo. Gestionamos todas las incidencias por usted.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 fade-up" style={{animationDelay:'0.38s'}}>
-              <CTAButton texto="Solicitar valoración gratuita" className="btn-cta-gold text-sm py-3.5 sm:py-4 px-6 sm:px-8 w-full sm:w-auto text-center" />
+            <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-4">
+              <CTAButton texto="Solicitar valoración gratuita" className="btn-cta-gold w-full sm:w-auto" />
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── STATS ─────────────────────────────────────────────────── */}
-      <section className="bg-gray-50 py-6 sm:py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-3 gap-3 sm:gap-4 max-w-3xl mx-auto">
-            {stats.map(s => (
-              <div key={s.etiqueta} className="bg-white text-center py-6 sm:py-8 lg:py-10 px-4 rounded-2xl shadow-[0_2px_12px_rgba(18,52,98,0.07)] border border-navy/5">
-                <p className="font-serif text-navy text-3xl sm:text-4xl lg:text-6xl font-light">{s.valor}</p>
-                <p className="font-sans text-slate-600 text-xs sm:text-sm mt-1.5 font-semibold">{s.etiqueta}</p>
+            <dl className="mt-10 grid grid-cols-3 gap-4 max-w-lg border-t border-white/15 pt-6">
+              <div>
+                <dt className="font-sans text-xs font-semibold text-white/75">Impagos en 1 año</dt>
+                <dd className="font-serif text-3xl sm:text-4xl font-semibold text-white mt-1">0 €</dd>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════════
-          H2 — "olvídese de los impagos…" / "morosidad alquiler"
-          H3 — "inquiokupación" / riesgo inquilino
-          ═══════════════════════════════════════════════════════════ */}
-      <section className="py-10 sm:py-16 lg:py-24 bg-cream">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          <div className="text-center mb-6 sm:mb-8 lg:mb-14 fade-up">
-            {/* H2 — miedo principal del propietario / impago moroso */}
-            <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight max-w-3xl mx-auto">
-              Olvídese de los impagos y la morosidad al alquilar su propiedad
-            </h2>
+              <div>
+                <dt className="font-sans text-xs font-semibold text-white/75">Ocupación media</dt>
+                <dd className="font-serif text-3xl sm:text-4xl font-semibold mt-1" style={{ color: '#F5C842' }}>93%</dd>
+              </div>
+              <div>
+                <dt className="font-sans text-xs font-semibold text-white/75">Ciudades</dt>
+                <dd className="font-serif text-3xl sm:text-4xl font-semibold text-white mt-1">3</dd>
+              </div>
+            </dl>
           </div>
 
-          <div className="grid gap-4 sm:gap-5">
-
-            {/* Propietarios — H3 inquiokupación */}
-            <Link href="/#como-funciona" className="group relative rounded-3xl overflow-hidden min-h-[320px] sm:min-h-[440px] flex flex-col">
+          <div className="relative">
+            <div className="relative aspect-[4/5] sm:aspect-[5/4] lg:aspect-[4/5] overflow-hidden rounded-[1.75rem]">
               <img
-                src="/hab-4.jpg"
-                alt="Propietario protegido frente a la inquiokupación"
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                src="/hab-1.jpg"
+                alt="Habitación puesta a punto por Renttia"
+                className="absolute inset-0 w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-navy/90 via-navy/65 to-navy/30" />
-              <div className="relative z-10 flex flex-col flex-1 p-6 sm:p-12 lg:p-16 justify-end max-w-2xl">
-                <span className="inline-block text-navy text-[0.65rem] font-sans font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4 self-start" style={{ backgroundColor: '#F5C842' }}>
-                  Soy propietario
-                </span>
-                {/* H3 — keyword "inquiokupación" */}
-                <h3 className="font-serif text-white text-2xl sm:text-3xl lg:text-4xl font-semibold mb-4 leading-snug">
-                  Máxima tranquilidad frente al riesgo de la inquiokupación
-                </h3>
-                <p className="font-sans text-white/90 text-sm sm:text-base leading-relaxed mb-6">
-                  Firma con Renttia su contrato de alquiler, no con el inquilino. Se olvida de cualquier preocupación y recibe su renta <span className="font-serif italic font-semibold" style={{ color: '#F5C842' }}>el día uno.</span>
-                </p>
-                <span className="btn-cta-gold text-sm self-start">Ver cómo funciona →</span>
-              </div>
-            </Link>
-
+              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-navy/80 to-transparent" />
+              <p className="absolute left-5 bottom-5 font-serif text-white text-2xl sm:text-3xl font-semibold">Su piso, puesto al día</p>
+            </div>
+            <div className="relative z-10 -mt-8 ml-4 sm:ml-8 bg-white rounded-2xl px-5 py-4 max-w-[280px] shadow-[0_18px_40px_-18px_rgba(6,20,45,0.55)]">
+              <p className="font-sans text-xs font-bold uppercase tracking-[0.14em] text-navy">Cada mes</p>
+              <p className="font-serif text-navy text-3xl font-semibold leading-none mt-1">Día 1</p>
+              <p className="font-sans text-slate-700 text-sm mt-1">La renta entra. Haya habitaciones libres o no.</p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════
-          H2 — "seguro de impago de alquiler" alternativa
-          H3 — "requisitos scoring" / "cobro puntual renta"
-          ═══════════════════════════════════════════════════════════ */}
-      <section className="py-10 sm:py-16 lg:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          <div className="grid lg:grid-cols-2 gap-6 sm:gap-10 lg:gap-16 items-start mb-8 sm:mb-12 lg:mb-16">
-            <div className="fade-up">
-              <span className="section-label">Por qué Renttia</span>
-
-              {/* H2 — keyword "inquilino perfecto alquiler" */}
-              <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">
-                Renttia es el inquilino perfecto.
-              </h2>
+      <section className="bg-cream pt-20 pb-16 sm:pt-28 sm:pb-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-8 lg:gap-16 items-end">
+          <h2 className="font-serif text-navy text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.05] [text-wrap:balance]">
+            Olvídese de los impagos y la morosidad al alquilar su propiedad
+          </h2>
+          <Link href="/#como-funciona" className="group relative block min-h-[360px] sm:min-h-[440px] overflow-hidden rounded-[1.75rem]">
+            <img
+              src="/hab-4.jpg"
+              alt="Propietario protegido frente a la inquiokupación"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/35 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+              <h3 className="font-serif text-white text-2xl sm:text-3xl font-semibold leading-snug [text-wrap:balance]">
+                Máxima tranquilidad frente al riesgo de la inquiokupación
+              </h3>
+              <p className="font-sans text-white/90 text-base leading-relaxed mt-3 max-w-md">
+                Firma con Renttia su contrato de alquiler, no con el inquilino. Se olvida de cualquier preocupación y recibe su renta <span className="font-serif italic font-semibold" style={{ color: '#F5C842' }}>el día uno.</span>
+              </p>
+              <span className="inline-block mt-5 font-sans text-sm font-bold" style={{ color: '#F5C842' }}>Ver cómo funciona →</span>
             </div>
-            <p className="font-sans text-slate-700 text-base lg:text-lg leading-relaxed lg:pt-10 fade-up fade-up-delay-1">
+          </Link>
+        </div>
+      </section>
+
+      <section className="bg-white py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-20 items-end mb-12 lg:mb-16">
+            <h2 className="font-serif text-navy text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.05]">
+              Renttia es el inquilino perfecto.
+            </h2>
+            <p className="font-sans text-slate-700 text-lg leading-relaxed">
               Firmamos el contrato, pagamos el día 1 y nos encargamos de todo.
             </p>
           </div>
 
-          {/* Bento asimétrico: card spotlight (col-span-2) + 3 cards regulares */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
-
-            {/* Card spotlight — ocupa 2 columnas en lg, fondo navy */}
-            <div className="group lg:col-span-2 relative overflow-hidden rounded-2xl sm:rounded-3xl bg-navy p-6 sm:p-8 lg:p-10 flex flex-col justify-between min-h-[220px] fade-up">
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.06),transparent_70%)]" />
-              <div className="relative z-10">
-                <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-white mb-5">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-                  </svg>
-                </div>
-                {/* H3 — keyword "seguro impago alquiler requisitos" */}
-                <h3 className="font-serif text-white text-xl sm:text-2xl lg:text-3xl font-light leading-snug mb-3 max-w-lg">
-                  Sin los complejos requisitos de scoring ni el precio de una póliza
-                </h3>
-                <p className="font-sans text-white/90 text-sm leading-relaxed max-w-md">
-                  Ningún seguro le exige nóminas ni avales a sus inquilinos. Nosotros asumimos el riesgo directamente.
-                </p>
-              </div>
-              <div className="relative z-10 mt-6">
-                <span className="font-sans text-sm font-semibold" style={{ color: '#F5C842' }}>Renttia garantiza su renta</span>
-              </div>
-            </div>
-
-            {/* Card 2 — cobro puntual */}
-            <div className="group flex flex-col gap-4 p-5 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl glass-card relative overflow-hidden fade-up fade-up-delay-1">
-              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cta to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="w-12 h-12 rounded-2xl bg-navy/5 group-hover:bg-navy flex items-center justify-center text-navy group-hover:text-white shrink-0" style={{transition:'background-color 200ms var(--ease-out), color 200ms var(--ease-out)'}}>
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
-                </svg>
-              </div>
-              {/* H3 — keyword "cobro puntual renta" */}
-              <h3 className="font-serif text-navy text-base font-normal leading-snug">
-                Cobro puntual de la renta del 1 al 5 de cada mes
-              </h3>
-              <p className="font-sans text-slate-600 text-sm leading-relaxed">
-                Sin esperas. La renta llega a su cuenta en los primeros días del mes, siempre.
-              </p>
-            </div>
-
-            {/* Card 3 */}
-            <div className="group flex flex-col gap-4 p-5 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl glass-card relative overflow-hidden fade-up fade-up-delay-2">
-              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cta to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="w-12 h-12 rounded-2xl bg-navy/5 group-hover:bg-navy flex items-center justify-center text-navy group-hover:text-white shrink-0" style={{transition:'background-color 200ms var(--ease-out), color 200ms var(--ease-out)'}}>
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-                </svg>
-              </div>
-              <h3 className="font-serif text-navy text-base font-normal leading-snug">Sin llamadas de inquilinos</h3>
-              <p className="font-sans text-slate-600 text-sm leading-relaxed">
-                Renttia es su único interlocutor. Averías, incidencias, rotaciones. Usted no recibe ninguna llamada.
-              </p>
-            </div>
-
-            {/* Card 4 */}
-            <div className="group flex flex-col gap-4 p-5 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl glass-card relative overflow-hidden fade-up fade-up-delay-3">
-              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cta to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="w-12 h-12 rounded-2xl bg-navy/5 group-hover:bg-navy flex items-center justify-center text-navy group-hover:text-white shrink-0" style={{transition:'background-color 200ms var(--ease-out), color 200ms var(--ease-out)'}}>
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" />
-                </svg>
-              </div>
-              <h3 className="font-serif text-navy text-base font-normal leading-snug">Piso devuelto en perfecto estado</h3>
-              <p className="font-sans text-slate-600 text-sm leading-relaxed">
-                Lo ponemos a punto antes de empezar, sin coste para usted. Lo mantenemos durante el contrato. Se lo devolvemos igual o mejor.
-              </p>
-            </div>
+          <div className="rounded-[1.75rem] bg-navy px-6 py-8 sm:px-10 sm:py-12 mb-8" style={{ backgroundImage: 'radial-gradient(ellipse at 100% 0%, rgba(245,200,66,0.16), transparent 55%)' }}>
+            <h3 className="font-serif text-white text-2xl sm:text-4xl font-semibold leading-snug max-w-3xl [text-wrap:balance]">
+              Sin los complejos requisitos de scoring ni el precio de una póliza
+            </h3>
+            <p className="font-sans text-white/90 text-base sm:text-lg leading-relaxed mt-4 max-w-2xl">
+              Ningún seguro le exige nóminas ni avales a sus inquilinos. Nosotros asumimos el riesgo directamente.
+            </p>
+            <p className="font-sans text-sm font-bold mt-6" style={{ color: '#F5C842' }}>Renttia garantiza su renta</p>
           </div>
+
+          <ol className="divide-y divide-navy/10 border-y border-navy/10">
+            {razones.map((r, i) => (
+              <li key={r.t} className="grid sm:grid-cols-[4rem_1fr] gap-3 sm:gap-8 py-6 sm:py-8">
+                <span className="font-sans text-sm font-bold tabular-nums text-navy">{String(i + 1).padStart(2, '0')}</span>
+                <div>
+                  <h3 className="font-serif text-navy text-xl sm:text-2xl font-semibold leading-snug">{r.t}</h3>
+                  <p className="font-sans text-slate-700 text-base leading-relaxed mt-2 max-w-2xl">{r.d}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
-      {/* ── GALERÍA ────────────────────────────────────────────────── */}
-      <section className="py-10 sm:py-16 lg:py-24 bg-white">
+      <section className="bg-cream py-16 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-12 items-end mb-6 sm:mb-8 lg:mb-12">
-            <div className="fade-up">
-              <span className="section-label">Su propiedad en nuestras manos</span>
-              <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-light">
-                Así queda su piso cuando Renttia lo pone a punto.
-              </h2>
-            </div>
-            <p className="font-sans text-slate-600 text-sm lg:text-base leading-relaxed fade-up fade-up-delay-1">
-              Equipamos y amueblamos cada habitación antes de entrar: cama, escritorio, armario, WIFI y suministros a nuestro cargo.
-              Pintamos y decoramos según las tendencias actuales, sin coste para usted. Su propiedad siempre presentada en su mejor versión, sin que usted invierta nada.
+          <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-6 lg:gap-16 items-end mb-10">
+            <h2 className="font-serif text-navy text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.05] [text-wrap:balance]">
+              Así queda su piso cuando Renttia lo pone a punto.
+            </h2>
+            <p className="font-sans text-slate-700 text-base sm:text-lg leading-relaxed">
+              Equipamos y amueblamos cada habitación antes de entrar: cama, escritorio, armario, WIFI y suministros a nuestro cargo. Pintamos y decoramos según las tendencias actuales, sin coste para usted. Su propiedad siempre presentada en su mejor versión, sin que usted invierta nada.
             </p>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 lg:gap-4">
-            <div className="col-span-2 lg:col-span-1 lg:row-span-2 rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden relative group aspect-[16/9] sm:aspect-video lg:aspect-auto lg:min-h-[520px]">
-              <img src="/hab-1.jpg" alt="Habitación con cama y escritorio para estudiante" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy/85 via-navy/30 to-transparent" />
-              <div className="absolute bottom-3 left-3 lg:bottom-5 lg:left-5">
-                <p className="font-serif text-white text-sm sm:text-base lg:text-lg font-light">Cama + escritorio</p>
-                <p className="font-sans text-white/60 text-[0.65rem] sm:text-xs hidden sm:block">Lo que un estudiante necesita</p>
-              </div>
-            </div>
-            <div className="rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden relative group aspect-[4/3]">
-              <img src="/hab-escritorio.jpg" alt="Escritorio de estudio en habitación" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent" />
-              <div className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 lg:bottom-4 lg:left-4"><p className="font-serif text-white text-xs sm:text-sm lg:text-base font-light">Zona de trabajo</p></div>
-            </div>
-            <div className="rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden relative group aspect-[4/3]">
-              <img src="/hab-armario.jpg" alt="Armario y almacenaje en habitación" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent" />
-              <div className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 lg:bottom-4 lg:left-4"><p className="font-serif text-white text-xs sm:text-sm lg:text-base font-light">Armario y almacenaje</p></div>
-            </div>
-            <div className="rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden relative group aspect-[4/3]">
-              <img src="/hab-comun.jpg" alt="Zona común del piso compartido" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent" />
-              <div className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 lg:bottom-4 lg:left-4"><p className="font-serif text-white text-xs sm:text-sm lg:text-base font-light">Zonas comunes</p></div>
-            </div>
-            <div className="rounded-xl sm:rounded-2xl lg:rounded-3xl bg-navy relative overflow-hidden flex flex-col items-start justify-end p-4 sm:p-5 lg:p-6 aspect-[4/3]">
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(18,52,98,0.6),transparent)]" />
-              <div className="relative">
-                <p className="font-serif text-white text-lg sm:text-xl lg:text-2xl font-light">Próximamente</p>
-                <p className="font-sans text-white/50 text-[0.65rem] sm:text-xs">Habitaciones disponibles en breve</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════════
-          H2 — "empresa de gestión de alquileres" / "buscar inquilinos"
-          H3 — "gestión coliving" / "contratos estables 5 años"
-          ═══════════════════════════════════════════════════════════ */}
-      <section id="como-funciona" className="py-10 sm:py-16 lg:py-24 bg-cream">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          <div className="text-center mb-8 sm:mb-12 lg:mb-16 fade-up">
-            <span className="section-label">El proceso</span>
-            {/* H2 — keyword "buscar inquilinos para mi piso" / "administracion alquileres" */}
-            <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-light max-w-3xl mx-auto">
-              Nos encargamos de buscar inquilinos y administrar todo el papeleo por usted
-            </h2>
-          </div>
-
-          {/* 4 pasos numerados */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 lg:mb-10">
-            {[
-              { num: '01', t: 'Valoración gratuita',  d: 'Analizamos su piso y le damos una renta estimada en 24h. Sin compromiso.' },
-              { num: '02', t: 'Firmamos el contrato', d: 'Contrato legal entre usted y Renttia. Sin inquilinos, sin intermediarios.' },
-              { num: '03', t: 'Lo ponemos a punto',   d: 'Pintura, decoración, mobiliario y suministros a nuestro cargo. Listo para entrar.' },
-              { num: '04', t: 'Cobra cada mes',       d: 'Renta garantizada del 1 al 5. Sin llamadas. Sin gestión. Sin impagos.' },
-            ].map((p, i) => (
-              <div key={p.num} className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-7 flex flex-col fade-up" style={{border:'1px solid rgba(18,52,98,0.08)',boxShadow:'0 0 0 1px rgba(18,52,98,0.05),0 4px 20px rgba(18,52,98,0.08)', animationDelay:`${i * 0.09}s`, transition:'transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out)'}}>
-                <span className="inline-flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-xl font-sans text-base sm:text-lg font-bold text-navy mb-3 sm:mb-5" style={{ backgroundColor: '#F5C842' }}>
-                  {p.num}
-                </span>
-                <h3 className="font-serif text-navy text-sm sm:text-base lg:text-lg font-semibold leading-snug mb-2">{p.t}</h3>
-                <p className="font-sans text-slate-600 text-xs sm:text-sm leading-relaxed hidden sm:block">{p.d}</p>
-              </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            {fotos.map(f => (
+              <figure key={f.src} className={`relative overflow-hidden rounded-[1.25rem] ${f.clase}`}>
+                <img src={f.src} alt={f.alt} className="absolute inset-0 w-full h-full object-cover" />
+                <figcaption className="absolute left-3 bottom-3 bg-white/95 text-navy font-sans text-xs sm:text-sm font-semibold px-3 py-1.5 rounded-full">{f.label}</figcaption>
+              </figure>
             ))}
           </div>
+          <p className="font-sans text-slate-700 text-sm font-semibold mt-5">Próximamente: habitaciones disponibles en breve.</p>
+        </div>
+      </section>
 
-          {/* Características clave debajo de los pasos */}
-          <div className="grid md:grid-cols-2 gap-4">
-            {/* H3 — "revalorización inmueble" */}
-            <div className="glass-card rounded-3xl p-6 lg:p-7 border border-gray-100 flex items-start gap-5">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5" style={{ backgroundColor: '#F5C842' }}>
-                <svg className="w-5 h-5 text-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75" />
-                </svg>
-              </div>
-              <div>
-                <h3 className="font-serif text-navy text-lg font-normal mb-2">
-                  Revalorizamos su inmueble, con la tranquilidad de cobrar el día 1.
-                </h3>
-                <p className="font-sans text-slate-600 text-sm leading-relaxed">
-                  Equipamos, decoramos y amueblamos cada habitación antes de entrar, sin coste para usted. La inversión corre de nuestra parte.
-                </p>
-              </div>
+      <section id="como-funciona" className="bg-navy py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="font-serif text-white text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.05] max-w-3xl [text-wrap:balance]">
+            Nos encargamos de buscar inquilinos y administrar todo el papeleo por usted
+          </h2>
+          <ol className="mt-12 grid lg:grid-cols-4 gap-8 lg:gap-6">
+            {pasos.map(p => (
+              <li key={p.num}>
+                <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl font-sans text-lg font-bold text-navy" style={{ backgroundColor: '#F5C842' }}>{p.num}</span>
+                <h3 className="font-serif text-white text-xl font-semibold mt-4 leading-snug">{p.t}</h3>
+                <p className="font-sans text-white/85 text-sm sm:text-base leading-relaxed mt-2">{p.d}</p>
+              </li>
+            ))}
+          </ol>
+          <div className="mt-14 grid md:grid-cols-2 gap-8 border-t border-white/15 pt-10">
+            <div>
+              <h3 className="font-serif text-white text-xl sm:text-2xl font-semibold leading-snug">
+                Revalorizamos su inmueble, con la tranquilidad de cobrar el día 1.
+              </h3>
+              <p className="font-sans text-white/85 text-base leading-relaxed mt-3">
+                Equipamos, decoramos y amueblamos cada habitación antes de entrar, sin coste para usted. La inversión corre de nuestra parte.
+              </p>
             </div>
-            {/* H3 — "contratos estables" */}
-            <div className="glass-card rounded-3xl p-6 lg:p-7 border border-gray-100 flex items-start gap-5">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5" style={{ backgroundColor: '#F5C842' }}>
-                <svg className="w-5 h-5 text-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                </svg>
-              </div>
-              <div>
-                <h3 className="font-serif text-navy text-lg font-normal mb-2">
-                  Contratos estables de larga duración con un único interlocutor, Renttia.
-                </h3>
-                <p className="font-sans text-slate-600 text-sm leading-relaxed">
-                  Un solo contrato. Una sola renta. Sin cambios de inquilino.
-                </p>
-              </div>
+            <div>
+              <h3 className="font-serif text-white text-xl sm:text-2xl font-semibold leading-snug">
+                Contratos estables de larga duración con un único interlocutor, Renttia.
+              </h3>
+              <p className="font-sans text-white/85 text-base leading-relaxed mt-3">
+                Un solo contrato. Una sola renta. Sin cambios de inquilino.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════
-          H2 — "gestión inmobiliaria" local / "gestión arrendamientos"
-          H4 — una por ciudad
-          ═══════════════════════════════════════════════════════════ */}
-      <section className="py-10 sm:py-16 lg:py-24 bg-white">
+      <section className="bg-white py-16 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          <div className="text-center mb-8 sm:mb-12 lg:mb-16 fade-up">
-            {/* H2 — keyword "gestión arrendamientos" / "gestión inmobiliaria" local */}
-            <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-light">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-10">
+            <h2 className="font-serif text-navy text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.05]">
               Expertos locales en Zaragoza, Huesca y Logroño
             </h2>
-            <p className="font-sans text-slate-600 text-sm lg:text-base mt-4 max-w-md mx-auto leading-relaxed">
+            <p className="font-sans text-slate-700 text-base sm:text-lg leading-relaxed max-w-md">
               Somos de aquí. Conocemos el mercado, los barrios y los precios de cada zona, y gestionamos tu piso de tú a tú.
             </p>
           </div>
-
-          {/* H4 por ciudad — SEO local "gestión inmobiliaria zaragoza" etc. */}
-          <div className="grid sm:grid-cols-2 gap-5 max-w-3xl mx-auto">
+          <div className="grid lg:grid-cols-3 gap-4">
             {ciudadesPropietarios.map(c => (
-              <Link key={c.slug} href={`/${c.slug}`}
-                className="group glass-card rounded-2xl sm:rounded-3xl p-5 sm:p-7 border border-navy/10 shadow-[0_0_0_1px_rgba(18,52,98,0.06),0_4px_24px_rgba(18,52,98,0.08)] hover:shadow-[0_0_0_1px_rgba(18,52,98,0.15),0_8px_32px_rgba(18,52,98,0.14)] transition-all duration-300 flex flex-col gap-4 sm:gap-5">
-                {/* Indicador ciudad */}
-                <div className="flex items-center justify-between">
-                  <span className="font-sans text-xs font-bold uppercase tracking-widest text-navy">{c.ciudad}</span>
-                  <svg className="w-4 h-4 text-navy/25 group-hover:text-navy/60 group-hover:translate-x-0.5 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                  </svg>
-                </div>
-                {/* H4 — keyword ciudad + gestión */}
-                <h4 className="font-serif text-navy text-lg font-normal leading-snug">
-                  {c.slug === 'gestion-alquiler-zaragoza' && 'Gestión y supervisión de viviendas en Zaragoza'}
-                  {c.slug === 'gestion-alquiler-huesca'   && 'Cobertura y protección para propietarios en Huesca'}
-                  {c.slug === 'gestion-alquiler-logrono'  && 'Nueva ciudad: gestión de pisos compartidos en Logroño'}
-                </h4>
-                <p className="font-sans text-slate-600 text-sm leading-relaxed">{c.descripcion}</p>
-                <div className="flex gap-3 mt-auto pt-2 border-t border-gray-100">
-                  <span className="font-sans text-navy/60 text-xs"><strong className="font-semibold text-navy">{c.pisos}</strong> pisos activos</span>
-                  <span className="text-gray-200">·</span>
-                  <span className="font-sans text-navy/60 text-xs"><strong className="font-semibold text-navy">{c.ocupacion}</strong> ocupación</span>
+              <Link key={c.slug} href={`/${c.slug}`} className="group relative min-h-[380px] overflow-hidden rounded-[1.75rem] block">
+                <img src={c.imagen} alt="" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/50 to-navy/10" />
+                <div className="absolute inset-x-0 bottom-0 p-6">
+                  <p className="font-sans text-xs font-bold uppercase tracking-[0.16em]" style={{ color: '#F5C842' }}>{c.ciudad}</p>
+                  <h4 className="font-serif text-white text-2xl font-semibold leading-snug mt-2">{c.titulo}</h4>
+                  <p className="font-sans text-white/90 text-sm leading-relaxed mt-2">{c.descripcion}</p>
+                  {c.pisos > 0 && (
+                    <p className="font-sans text-white text-sm font-semibold mt-4">{c.pisos} pisos activos · {c.ocupacion} ocupación</p>
+                  )}
                 </div>
               </Link>
             ))}
@@ -395,38 +264,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════
-          H2 — CTA / "renta garantizada" / "renta pasiva"
-          ═══════════════════════════════════════════════════════════ */}
-      <section className="relative overflow-hidden py-12 sm:py-24">
-        <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=1600&q=85"
-            alt=""
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-navy/75" />
-        </div>
-        <div className="relative max-w-xl mx-auto px-4 sm:px-6 text-center fade-up">
-          {/* H2 — keyword "alquiler garantizado" / "renta pasiva" */}
-          <h2 className="font-serif text-white text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight mb-4">
+      <section className="bg-navy py-20 sm:py-28">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+          <h2 className="font-serif text-white text-3xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.05] [text-wrap:balance]">
             Disfrute de una renta garantizada, <span className="italic" style={{ color: '#F5C842' }}>sin llamadas y sin preocupaciones</span>
           </h2>
-
-          <p className="font-sans text-white/90 text-base leading-relaxed mb-9">
-            Valoración gratuita. Respuesta en 24 horas. Sin compromiso.
-          </p>
-          <CTAButton
-            texto="Solicitar valoración gratuita"
-            className="btn-cta-gold w-full sm:w-auto"
-          />
+          <p className="font-sans text-white/90 text-lg mt-6">Valoración gratuita. Respuesta en 24 horas. Sin compromiso.</p>
+          <CTAButton texto="Solicitar valoración gratuita" className="btn-cta-gold mt-8" />
           <p className="font-sans text-white/80 text-sm mt-4">Sin coste · Sin compromiso · Respuesta en 24h</p>
         </div>
       </section>
 
-      {/* ── REVIEWS TICKER ───────────────────────────────────────────── */}
       <ReviewsTicker />
-
     </>
   )
 }
