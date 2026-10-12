@@ -76,6 +76,21 @@
   .btn-cta-white:hover  { @apply bg-white/90 shadow-lg; transform: translateY(-1px); }
   .btn-cta-white:active { transform: scale(0.97) translateY(0px); @apply shadow-md; }
 
+  /* Botón CTA principal dorado — máximo contraste sobre navy y sobre claro */
+  .btn-cta-gold {
+    @apply inline-flex items-center justify-center gap-2
+           text-navy font-sans font-semibold text-[0.95rem]
+           px-8 py-4 rounded-xl;
+    background-color: #F5C842;
+    box-shadow: 0 8px 24px -8px rgba(245, 200, 66, 0.55);
+    transition: background-color 200ms var(--ease-out),
+                transform       150ms var(--ease-out),
+                box-shadow      200ms var(--ease-out);
+  }
+  .btn-cta-gold:hover  { background-color: #FFD65C; transform: translateY(-1px); box-shadow: 0 12px 28px -8px rgba(245, 200, 66, 0.7); }
+  .btn-cta-gold:active { transform: scale(0.97) translateY(0px); }
+  .btn-cta-gold:focus-visible { outline: 2px solid #ffffff; outline-offset: 3px; }
+
   .btn-outline-white {
     @apply inline-flex items-center justify-center gap-2
            border border-white/30 text-white

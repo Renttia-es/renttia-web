@@ -138,9 +138,9 @@ export function Beneficios({ label, titulo, subtitulo, items }: { label: string;
       </div>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center mb-10 sm:mb-12">
-          <span className="inline-block text-white/50 text-[0.65rem] font-sans font-semibold uppercase tracking-widest mb-3">{label}</span>
-          <h2 className="font-serif text-white text-2xl sm:text-3xl lg:text-4xl font-light">{titulo}</h2>
-          {subtitulo && <p className="font-serif font-light text-white/80 mt-3 max-w-xl mx-auto text-base sm:text-lg">{subtitulo}</p>}
+          <span className="inline-block text-white/75 text-[0.65rem] font-sans font-semibold uppercase tracking-widest mb-3">{label}</span>
+          <h2 className="font-serif text-white text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">{titulo}</h2>
+          {subtitulo && <p className="font-sans text-white/90 mt-3 max-w-xl mx-auto text-base sm:text-lg">{subtitulo}</p>}
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {items.map((b, i) => (
@@ -151,8 +151,8 @@ export function Beneficios({ label, titulo, subtitulo, items }: { label: string;
             >
               <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-navy/8 flex items-center justify-center shrink-0 text-lg sm:text-xl">{b.icon}</div>
               <div>
-                <h3 className="font-serif text-navy text-base font-normal mb-1">{b.titulo}</h3>
-                <p className="font-sans font-normal text-gray-500 text-sm leading-relaxed">{b.texto}</p>
+                <h3 className="font-serif text-navy text-base sm:text-lg font-semibold mb-1">{b.titulo}</h3>
+                <p className="font-sans text-slate-600 text-sm leading-relaxed">{b.texto}</p>
               </div>
             </div>
           ))}
@@ -163,16 +163,18 @@ export function Beneficios({ label, titulo, subtitulo, items }: { label: string;
 }
 
 /* ─── ANTES / DESPUÉS ─────────────────────────────────────────────────────── */
-export function AntesDespues() {
+export function AntesDespues({
+  label = 'La transformación',
+  titulo = 'Así transformamos tu piso',
+  texto = 'Acondicionamos tu piso a las tendencias actuales: pintura, decoración y equipamiento completo, a nuestro cargo.',
+}: { label?: string; titulo?: string; texto?: string } = {}) {
   return (
     <section className="bg-white py-14 sm:py-24">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8 sm:mb-10">
-          <span className="inline-block text-cta text-[0.65rem] font-sans font-semibold uppercase tracking-widest mb-3">La transformación</span>
-          <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-light">Así transformamos tu piso</h2>
-          <p className="font-serif font-light text-gray-500 mt-3 text-base sm:text-lg max-w-xl mx-auto">
-            Acondicionamos tu piso a las tendencias actuales: pintura, decoración y equipamiento completo, a nuestro cargo.
-          </p>
+          <span className="inline-block text-cta text-[0.65rem] font-sans font-semibold uppercase tracking-widest mb-3">{label}</span>
+          <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">{titulo}</h2>
+          <p className="font-sans text-slate-600 mt-3 text-base sm:text-lg max-w-2xl mx-auto">{texto}</p>
         </div>
         <div className="relative grid sm:grid-cols-2 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl">
           {/* Panel ANTES */}
@@ -184,7 +186,7 @@ export function AntesDespues() {
                 <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
                 Antes
               </span>
-              <h3 className="font-serif text-white text-lg sm:text-2xl font-light mb-3">El piso tal como nos lo entregan</h3>
+              <h3 className="font-serif text-white text-lg sm:text-2xl font-semibold mb-3">El piso tal como nos lo entregan</h3>
               <ul className="space-y-2">
                 {['Piso vacío, sin ingresos', 'Sin amueblar, sin preparar', 'Estrés de buscar inquilino', 'Riesgo total para el propietario'].map(t => (
                   <li key={t} className="flex items-center gap-2 font-sans text-white/75 text-sm">
@@ -211,7 +213,7 @@ export function AntesDespues() {
                 <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
                 Después
               </span>
-              <h3 className="font-serif text-white text-lg sm:text-2xl font-light mb-3">Equipado, listo y generando renta</h3>
+              <h3 className="font-serif text-white text-lg sm:text-2xl font-semibold mb-3">Equipado, listo y generando renta</h3>
               <ul className="space-y-2">
                 {['Renta garantizada desde el día 1', 'Equipado por Renttia, sin coste tuyo', 'Tú no gestionas nada, jamás', 'Contrato estable de larga duración'].map(t => (
                   <li key={t} className="flex items-center gap-2 font-sans text-white/85 text-sm">
@@ -247,8 +249,8 @@ export function Proceso({ pasos }: { pasos: Paso[] }) {
       </div>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center mb-10 sm:mb-12">
-          <span className="inline-block text-white/50 text-[0.65rem] font-sans font-semibold uppercase tracking-widest mb-3">El proceso</span>
-          <h2 className="font-serif text-white text-2xl sm:text-3xl lg:text-4xl font-light">Simple, rápido y sin sorpresas</h2>
+          <span className="inline-block text-white/75 text-[0.65rem] font-sans font-semibold uppercase tracking-widest mb-3">El proceso</span>
+          <h2 className="font-serif text-white text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">Simple, rápido y sin sorpresas</h2>
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
           {pasos.map((p, i) => (
@@ -258,8 +260,8 @@ export function Proceso({ pasos }: { pasos: Paso[] }) {
               style={{ boxShadow: '0 10px 40px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.12)' }}
             >
               <span className="font-serif text-cta text-4xl sm:text-5xl font-light leading-none block mb-3">{p.num}</span>
-              <h3 className="font-serif text-navy text-sm sm:text-base font-normal mb-1.5">{p.titulo}</h3>
-              <p className="font-sans font-normal text-gray-500 text-xs sm:text-sm leading-relaxed">{p.texto}</p>
+              <h3 className="font-serif text-navy text-base sm:text-lg font-semibold mb-1.5">{p.titulo}</h3>
+              <p className="font-sans text-slate-600 text-xs sm:text-sm leading-relaxed">{p.texto}</p>
             </div>
           ))}
         </div>
@@ -278,11 +280,11 @@ export function QuienesSomos() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
           </svg>
         </div>
-        <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-light mb-5">Un equipo aragonés, con raíces en Jaca</h2>
-        <p className="font-serif font-light text-gray-600 text-base sm:text-lg lg:text-xl leading-relaxed mb-4">
+        <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight mb-5">Un equipo aragonés, con raíces en Jaca</h2>
+        <p className="font-sans text-slate-700 text-base sm:text-lg leading-relaxed mb-4">
           Renttia nació en Jaca con un propósito claro: ofrecer a los propietarios la tranquilidad que el alquiler tradicional nunca ha dado. En nuestro primer año de actividad hemos llegado a conocer Zaragoza, Huesca y Logroño, sus barrios y su mercado.
         </p>
-        <p className="font-serif font-light text-gray-500 text-base sm:text-lg lg:text-xl leading-relaxed">
+        <p className="font-sans text-slate-600 text-base sm:text-lg leading-relaxed">
           No somos una gran corporación. Somos un equipo pequeño y comprometido que trata cada piso como si fuera el nuestro, porque en cierto sentido, lo es.
         </p>
       </div>
@@ -310,7 +312,7 @@ function ReviewCard({ r }: { r: typeof reviews[0] }) {
   return (
     <div className="w-64 sm:w-72 shrink-0 bg-white rounded-2xl p-5" style={{ border: '1px solid rgba(18,52,98,0.08)', boxShadow: '0 2px 12px rgba(18,52,98,0.06)' }}>
       <div className="flex items-center gap-1 mb-3">{[...Array(r.estrellas)].map((_, s) => <Star key={s} />)}</div>
-      <p className="font-serif font-light text-navy text-sm leading-relaxed mb-3">&quot;{r.texto}&quot;</p>
+      <p className="font-sans text-slate-700 text-sm leading-relaxed mb-3">&quot;{r.texto}&quot;</p>
       <div className="flex items-center gap-2">
         <div className="w-7 h-7 rounded-full bg-navy/10 flex items-center justify-center shrink-0">
           <span className="font-sans text-navy text-xs font-semibold">{r.nombre[0]}</span>
@@ -329,7 +331,7 @@ export function Reviews() {
     <section className="py-14 sm:py-24 bg-cream overflow-hidden">
       <div className="text-center mb-8 sm:mb-10 px-4">
         <span className="inline-block text-cta text-[0.65rem] font-sans font-semibold uppercase tracking-widest mb-3">Opiniones reales</span>
-        <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-light">Lo que dicen nuestros propietarios</h2>
+        <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">Lo que dicen nuestros propietarios</h2>
         <div className="flex items-center justify-center gap-1.5 mt-3">
           {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5" />)}
           <span className="font-sans text-navy/60 text-sm ml-1.5">5.0 · 12 reseñas verificadas</span>
@@ -363,14 +365,14 @@ function FAQItem({ pregunta, respuesta }: Faq) {
   return (
     <div className="border-b border-white/15 last:border-0">
       <button onClick={() => setOpen(!open)} className="w-full flex items-center justify-between gap-3 py-5 text-left group">
-        <span className="font-serif text-white text-base sm:text-lg font-light group-hover:text-white/80 transition-colors">{pregunta}</span>
+        <span className="font-sans text-white text-base sm:text-lg font-semibold group-hover:text-white/80 transition-colors">{pregunta}</span>
         <span className={`shrink-0 w-7 h-7 rounded-full border border-white/25 flex items-center justify-center transition-transform duration-200 ${open ? 'rotate-45 bg-white/10' : ''}`}>
           <svg className="w-3 h-3 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
           </svg>
         </span>
       </button>
-      {open && <p className="font-serif font-light text-white/80 text-base sm:text-lg leading-relaxed pb-5 pr-4 sm:pr-10">{respuesta}</p>}
+      {open && <p className="font-sans text-white/90 text-base sm:text-lg leading-relaxed pb-5 pr-4 sm:pr-10">{respuesta}</p>}
     </div>
   )
 }
@@ -396,8 +398,8 @@ export function FAQSection({ faqs }: { faqs: Faq[] }) {
       </div>
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center mb-8 sm:mb-10">
-          <span className="inline-block text-white/50 text-[0.65rem] font-sans font-semibold uppercase tracking-widest mb-3">Preguntas frecuentes</span>
-          <h2 className="font-serif text-white text-2xl sm:text-3xl lg:text-4xl font-light">Resolvemos tus dudas</h2>
+          <span className="inline-block text-white/75 text-[0.65rem] font-sans font-semibold uppercase tracking-widest mb-3">Preguntas frecuentes</span>
+          <h2 className="font-serif text-white text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">Resolvemos tus dudas</h2>
         </div>
         <div className="bg-white/5 border border-white/10 rounded-2xl sm:rounded-3xl px-5 sm:px-8 py-2 backdrop-blur-sm">
           {faqs.map(f => <FAQItem key={f.pregunta} pregunta={f.pregunta} respuesta={f.respuesta} />)}
@@ -412,8 +414,8 @@ export function FinalCTA({ titulo, texto, ctaLabel, onForm, onCall }: { titulo: 
   return (
     <section className="bg-white py-14 sm:py-20 border-t border-navy/8">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
-        <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-light mb-4">{titulo}</h2>
-        <p className="font-serif font-light text-gray-500 text-base sm:text-lg lg:text-xl mb-8 max-w-md mx-auto">{texto}</p>
+        <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight mb-4">{titulo}</h2>
+        <p className="font-sans text-slate-600 text-base sm:text-lg mb-8 max-w-md mx-auto">{texto}</p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <button onClick={onForm} className="btn-cta text-sm py-4 px-8">{ctaLabel}</button>
         </div>
@@ -555,8 +557,8 @@ export function FormSection({ titulo, texto, children, innerRef }: { titulo: str
       <div className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
           <span className="section-label">Valoración gratuita</span>
-          <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-light mb-3">{titulo}</h2>
-          <p className="font-serif font-light text-gray-500 text-base sm:text-lg">{texto}</p>
+          <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight mb-3">{titulo}</h2>
+          <p className="font-sans text-slate-600 text-base sm:text-lg">{texto}</p>
         </div>
         <div className="bg-cream rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-navy/10">
           {children}
