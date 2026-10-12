@@ -178,19 +178,17 @@ export default function GuiaPropietarioPage() {
           <p className="font-sans text-[0.65rem] font-bold uppercase tracking-widest text-cta-light mb-4">
             Para propietarios · Zaragoza · Huesca · Logroño
           </p>
-          <h1 className="font-serif text-white text-[2rem] sm:text-5xl lg:text-6xl font-light leading-tight mb-5 max-w-3xl">
-            Todos los problemas<br />
-            de tu piso,{' '}
-            <span className="italic" style={{ color: '#C9A96E' }}>resueltos de una vez.</span>
+          <h1 className="font-serif text-white text-[1.9rem] sm:text-5xl lg:text-6xl font-light leading-tight mb-5 max-w-3xl">
+            Un inquilino que paga el día 1,{' '}
+            <span className="italic" style={{ color: '#C9A96E' }}>no protesta y deja el piso mejor de como lo encontró.</span>
           </h1>
           <p className="font-serif font-light text-white/80 text-base sm:text-xl leading-relaxed max-w-xl mb-10">
-            Impagos, normativa, reforma, ocupación, gestión diaria…
-            Hay una forma de eliminar todos esos riesgos y cobrar el día 1, sin excepciones.
+            Porque un piso debería darte ingresos, no trabajo.
           </p>
           <button onClick={scrollToForm} className="btn-cta-white text-sm py-4 px-10">
-            Quiero saber más →
+            Quiero ese inquilino para mi piso →
           </button>
-          <p className="font-sans text-white/35 text-xs mt-4">Sin compromiso. Te llamamos en menos de 24 h.</p>
+          <p className="font-sans text-white/35 text-xs mt-4">Te llamamos sin compromiso.</p>
         </div>
       </section>
 
