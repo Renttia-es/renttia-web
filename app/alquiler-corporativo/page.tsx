@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import {
   CallPopup, LandingHeader, StickyCTA, TickerStrip, Beneficios, AntesDespues,
-  Proceso, QuienesSomos, Reviews, FAQSection, FinalCTA, LandingFooter,
+  Proceso, QuienesSomos, Reviews, FAQSection, LandingFooter,
   LeadForm, FormSection, faqsCompletas,
   type Beneficio, type Paso, type EstadoOpcion,
 } from '@/components/landing/LandingSections'
@@ -153,7 +153,6 @@ export default function AlquilerCorporativoPage() {
       </FormSection>
 
       <FAQSection faqs={faqsCompletas} />
-      <FinalCTA titulo="Alquila sin miedo a los impagos." texto="Cobra tu renta el día 1, los 12 meses del año. Te llamamos en menos de 24 horas." ctaLabel="Quiero mi valoración gratuita →" onForm={scrollToForm} />
       <LandingFooter />
     </div>
   )

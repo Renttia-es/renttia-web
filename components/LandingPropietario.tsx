@@ -382,31 +382,6 @@ export default function LandingPropietario({
         </div>
       </section>
 
-      {/* ── 6. CTA FINAL — foto + navy ────────────────────────────── */}
-      <section className="relative overflow-hidden py-16 sm:py-24">
-        <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1600&q=85"
-            alt={`Piso gestionado por Renttia en ${ciudad}`}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-navy/70" />
-        </div>
-        <div className="relative max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <span className="inline-block text-white/50 text-[0.65rem] font-sans font-semibold uppercase tracking-widest mb-4">
-            Tu inquilino perfecto
-          </span>
-          <h2 className="font-serif text-white text-2xl sm:text-3xl lg:text-4xl font-light mb-4">
-            Deja de buscar al inquilino ideal. Ya lo tienes.
-          </h2>
-          <p className="font-serif font-light text-white/80 text-base sm:text-lg mb-8 max-w-xl mx-auto">
-            Valoración gratuita de tu piso en {ciudad}. Respuesta en menos de 24 h. Sin compromiso.
-          </p>
-          <a href="#contacto" className="btn-cta w-full sm:w-auto text-sm py-4 px-10">
-            Consulta si tu piso encaja, es gratis →
-          </a>
-        </div>
-      </section>
     </>
   )
 }

@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import {
   CallPopup, LandingHeader, StickyCTA, TickerStrip, Beneficios, AntesDespues,
-  Proceso, QuienesSomos, Reviews, FAQSection, FinalCTA, LandingFooter,
+  Proceso, QuienesSomos, Reviews, FAQSection, LandingFooter,
   LeadForm, FormSection, faqsCompletas,
   type Beneficio, type Paso, type EstadoOpcion,
 } from '@/components/landing/LandingSections'
@@ -145,7 +145,6 @@ export default function CalculadoraGastosPage() {
       </FormSection>
 
       <FAQSection faqs={faqsCompletas} />
-      <FinalCTA titulo="Deja de perder dinero con tu piso vacío." texto="Convierte esa pérdida en una renta fija garantizada. Te llamamos en menos de 24 horas." ctaLabel="Quiero mi valoración gratuita →" onForm={scrollToForm} />
       <LandingFooter />
     </div>
   )

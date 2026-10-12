@@ -409,21 +409,6 @@ export function FAQSection({ faqs }: { faqs: Faq[] }) {
   )
 }
 
-/* ─── CTA FINAL (blanco) ──────────────────────────────────────────────────── */
-export function FinalCTA({ titulo, texto, ctaLabel, onForm, onCall }: { titulo: string; texto: string; ctaLabel: string; onForm: () => void; onCall?: () => void }) {
-  return (
-    <section className="bg-white py-14 sm:py-20 border-t border-navy/8">
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
-        <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight mb-4">{titulo}</h2>
-        <p className="font-sans text-slate-600 text-base sm:text-lg mb-8 max-w-md mx-auto">{texto}</p>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <button onClick={onForm} className="btn-cta text-sm py-4 px-8">{ctaLabel}</button>
-        </div>
-      </div>
-    </section>
-  )
-}
-
 /* ─── FOOTER ──────────────────────────────────────────────────────────────── */
 export function LandingFooter() {
   return (

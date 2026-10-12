@@ -523,23 +523,6 @@ export default function PropietarioLanding() {
         </div>
       </section>
 
-      {/* ── 10. CTA FINAL — blanco ─────────────────────────────────────── */}
-      <section className="bg-white py-14 sm:py-20 border-t border-navy/8">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-light mb-4">
-            Deja de buscar el inquilino ideal.
-          </h2>
-          <p className="font-serif font-light text-gray-500 text-base sm:text-lg lg:text-xl mb-8 max-w-md mx-auto">
-            Ya lo tienes. Solicita tu valoración gratuita hoy y te llamamos en menos de 24 horas.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="#formulario" className="btn-cta text-sm py-4 px-8">
-              Quiero mi valoración gratuita →
-            </a>
-          </div>
-        </div>
-      </section>
-
       {/* ── FOOTER ─────────────────────────────────────────────────────── */}
       <div className="bg-navy border-t border-white/10 py-5 px-4 text-center">
         <p className="font-sans text-xs text-white/40">

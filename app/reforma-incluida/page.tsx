@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import {
   CallPopup, LandingHeader, StickyCTA, TickerStrip, Beneficios, AntesDespues,
-  Proceso, QuienesSomos, Reviews, FAQSection, FinalCTA, LandingFooter,
+  Proceso, QuienesSomos, Reviews, FAQSection, LandingFooter,
   LeadForm, FormSection, faqsCompletas,
   type Beneficio, type Paso, type EstadoOpcion,
 } from '@/components/landing/LandingSections'
@@ -192,12 +192,6 @@ export default function ReformaIncluidaPage() {
       </FormSection>
 
       <FAQSection faqs={faqsCompletas} />
-      <FinalCTA
-        titulo="Tu piso, al día. Tu renta, garantizada."
-        texto="Sin inversión por tu parte. Sin gestión. Solo tu renta fija el día 1."
-        ctaLabel="Quiero mi valoración gratuita →"
-        onForm={scrollToForm}
-      />
       <LandingFooter />
     </div>
   )
