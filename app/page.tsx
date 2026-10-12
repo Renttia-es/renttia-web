@@ -71,7 +71,7 @@ export default function HomePage() {
   return (
     <>
       <section className="relative z-[1] bg-navy -mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-14 sm:pt-32 sm:pb-20 lg:pt-40 lg:pb-24 grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-end">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-14 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-16 grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-start">
           <div>
             <p className="font-sans text-sm font-semibold mb-5" style={{ color: '#F5C842' }}>Zaragoza · Huesca · Logroño</p>
             <h1 className="font-serif text-white font-semibold tracking-tight leading-[0.98] text-[2.5rem] sm:text-6xl lg:text-[4.75rem] [text-wrap:balance]">
