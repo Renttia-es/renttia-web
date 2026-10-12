@@ -197,7 +197,7 @@ export default function GuiaPropietarioPage() {
       <TickerStrip />
 
       {/* ══ LOS 5 DOLORES ═════════════════════════════════════════════════ */}
-      <section className="py-16 sm:py-24 bg-white">
+      <section className="py-16 sm:py-24 bg-cream">
         <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="text-center mb-12">
             <p className="font-sans text-[0.65rem] font-bold uppercase tracking-widest text-cta mb-3">Lo que frena a los propietarios</p>
@@ -225,7 +225,7 @@ export default function GuiaPropietarioPage() {
       </section>
 
       {/* ══ RENTTIA LO RESUELVE TODO ══════════════════════════════════════ */}
-      <section className="py-16 sm:py-24 bg-cream">
+      <section className="py-16 sm:py-24 bg-white">
         <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="text-center mb-12">
             <p className="font-sans text-[0.65rem] font-bold uppercase tracking-widest text-cta mb-3">La respuesta a cada dolor</p>
@@ -256,7 +256,7 @@ export default function GuiaPropietarioPage() {
       </section>
 
       {/* ══ CALCULADORA IMPAGO ════════════════════════════════════════════ */}
-      <section className="py-16 sm:py-24 bg-white">
+      <section className="py-16 sm:py-24 bg-cream">
         <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="text-center mb-10">
             <p className="font-sans text-[0.65rem] font-bold uppercase tracking-widest text-red-500 mb-3">💸 El riesgo que nadie visualiza</p>
@@ -308,17 +308,15 @@ export default function GuiaPropietarioPage() {
       </section>
 
       {/* ══ REFORMA ANTES / DESPUÉS ═══════════════════════════════════════ */}
-      <section className="py-4 sm:py-8 bg-white">
-        <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
-          <div className="text-center mb-10">
-            <p className="font-sans text-[0.65rem] font-bold uppercase tracking-widest text-cta mb-3">🛠️ Reforma incluida</p>
-            <h2 className="font-serif text-navy text-2xl sm:text-4xl font-light mb-3">
-              Entréganos el piso tal como está
-            </h2>
-            <p className="font-serif font-light text-gray-500 text-base sm:text-lg max-w-xl mx-auto">
-              Sin que tengas que invertir un euro ni mover un dedo.
-            </p>
-          </div>
+      <section className="pt-16 sm:pt-24 pb-0 bg-white">
+        <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 text-center mb-10">
+          <p className="font-sans text-[0.65rem] font-bold uppercase tracking-widest text-cta mb-3">🛠️ Reforma incluida</p>
+          <h2 className="font-serif text-navy text-2xl sm:text-4xl font-light mb-3">
+            Entréganos el piso tal como está
+          </h2>
+          <p className="font-serif font-light text-gray-500 text-base sm:text-lg max-w-xl mx-auto">
+            Sin que tengas que invertir un euro ni mover un dedo.
+          </p>
         </div>
       </section>
       <AntesDespues />
@@ -367,6 +365,15 @@ export default function GuiaPropietarioPage() {
             </button>
             <p className="font-sans text-white/35 text-xs mt-3">Sin compromiso · Respuesta en menos de 24 h</p>
           </div>
+        </div>
+      </section>
+
+      {/* ══ SEPARADOR ═════════════════════════════════════════════════════ */}
+      <section className="py-12 sm:py-16 bg-cream">
+        <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
+          <p className="font-serif text-navy text-xl sm:text-2xl font-light max-w-2xl mx-auto">
+            ¿Cómo se empieza? Es más sencillo de lo que crees.
+          </p>
         </div>
       </section>
 
