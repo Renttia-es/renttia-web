@@ -481,7 +481,7 @@ export default function GuiaPropietarioPage() {
       </section>
 
       <Proceso pasos={pasos} claro />
-      <QuienesSomos />
+      <QuienesSomos azul />
       <Reviews />
       <FAQSection faqs={faqs} />
 

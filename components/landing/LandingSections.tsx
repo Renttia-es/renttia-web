@@ -274,20 +274,20 @@ export function Proceso({ pasos, claro = false }: { pasos: Paso[]; claro?: boole
 }
 
 /* ─── QUIÉNES SOMOS ───────────────────────────────────────────────────────── */
-export function QuienesSomos() {
+export function QuienesSomos({ azul = false }: { azul?: boolean } = {}) {
   return (
-    <section className="py-14 sm:py-20 bg-white">
+    <section className={`py-14 sm:py-20 ${azul ? 'bg-navy' : 'bg-white'}`}>
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="w-14 h-14 rounded-2xl bg-navy/6 flex items-center justify-center mx-auto mb-6">
-          <svg className="w-7 h-7 text-cta" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-6 ${azul ? '' : 'bg-navy/6'}`} style={azul ? { backgroundColor: '#F5C842' } : undefined}>
+          <svg className={`w-7 h-7 ${azul ? 'text-navy' : 'text-cta'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
           </svg>
         </div>
-        <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight mb-5">Un equipo aragonés, con raíces en Jaca</h2>
-        <p className="font-sans text-slate-700 text-base sm:text-lg leading-relaxed mb-4">
+        <h2 className={`font-serif text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight mb-5 ${azul ? 'text-white' : 'text-navy'}`}>Un equipo aragonés, con raíces en Jaca</h2>
+        <p className={`font-sans text-base sm:text-lg leading-relaxed mb-4 ${azul ? 'text-white/90' : 'text-slate-700'}`}>
           Renttia nació en Jaca con un propósito claro: ofrecer a los propietarios la tranquilidad que el alquiler tradicional nunca ha dado. En nuestro primer año de actividad hemos llegado a conocer Zaragoza, Huesca, Logroño y Burgos, sus barrios y su mercado.
         </p>
-        <p className="font-sans text-slate-600 text-base sm:text-lg leading-relaxed">
+        <p className={`font-sans text-base sm:text-lg leading-relaxed ${azul ? 'text-white/85' : 'text-slate-600'}`}>
           No somos una gran corporación. Somos un equipo pequeño y comprometido que trata cada piso como si fuera el nuestro, porque en cierto sentido, lo es.
         </p>
       </div>
