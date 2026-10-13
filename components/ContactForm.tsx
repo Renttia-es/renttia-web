@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
-import { prepareEventId, firePixelConversion } from '@/lib/metaPixel'
+import { prepareEventId } from '@/lib/metaPixel'
 
 interface ContactFormProps {
   ciudad?: string
@@ -37,8 +37,6 @@ export default function ContactForm({ ciudad = '', dark = false, fuente = 'web-g
         body: JSON.stringify({ ...form, fuente, eventId }),
       })
       if (!res.ok) throw new Error('Error al enviar')
-      // 2. Solo si el servidor confirma → disparamos el pixel (conversión real)
-      firePixelConversion(eventId, { telefono: form.telefono, nombre: form.nombre, ciudad: form.ciudad })
       router.push('/gracias')
     } catch {
       alert('Ha ocurrido un error. Por favor llámanos directamente.')
@@ -87,6 +85,7 @@ export default function ContactForm({ ciudad = '', dark = false, fuente = 'web-g
             <option value="zaragoza">Zaragoza</option>
             <option value="huesca">Huesca</option>
             <option value="logrono">Logroño</option>
+            <option value="burgos">Burgos</option>
           </select>
         </div>
         <div>

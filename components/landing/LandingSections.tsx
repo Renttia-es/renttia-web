@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import Image from 'next/image'
-import { prepareEventId, firePixelConversion } from '@/lib/metaPixel'
+import { prepareEventId } from '@/lib/metaPixel'
 
 /* ══════════════════════════════════════════════════════════════════════════
    Secciones compartidas que replican la estructura de la landing /propietario.
@@ -97,7 +97,7 @@ export function StickyCTA({ show, onForm, onCall, ctaLabel }: { show: boolean; o
 /* ─── FRANJA AUTORIDAD (ticker) ───────────────────────────────────────────── */
 const tickerItems = [
   { icon: 'M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z', text: 'Olvídate de los impagos' },
-  { icon: 'M15 10.5a3 3 0 11-6 0 3 3 0 016 0zM19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z', text: 'Zaragoza · Huesca · Logroño' },
+  { icon: 'M15 10.5a3 3 0 11-6 0 3 3 0 016 0zM19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z', text: 'Zaragoza · Huesca · Logroño · Burgos' },
   { icon: 'M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z', text: 'Respuesta en menos de 24 h' },
   { icon: 'M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z', text: 'Acceso a las zonas comunes' },
   { icon: 'M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z', text: 'Revalorizamos tu piso, sin coste' },
@@ -241,24 +241,26 @@ export function AntesDespues({
 }
 
 /* ─── PROCESO (azul, tarjetas flotantes) ──────────────────────────────────── */
-export function Proceso({ pasos }: { pasos: Paso[] }) {
+export function Proceso({ pasos, claro = false }: { pasos: Paso[]; claro?: boolean }) {
   return (
-    <section className="bg-navy relative overflow-hidden py-14 sm:py-24">
-      <div className="absolute inset-0">
-        <Image src="/antes-2.png" alt="" fill className="object-cover opacity-[0.06]" sizes="100vw" />
-        <div className="absolute inset-0 bg-navy/93" />
-      </div>
+    <section className={`relative overflow-hidden py-14 sm:py-24 ${claro ? 'bg-white' : 'bg-navy'}`}>
+      {!claro && (
+        <div className="absolute inset-0">
+          <Image src="/antes-2.png" alt="" fill className="object-cover opacity-[0.06]" sizes="100vw" />
+          <div className="absolute inset-0 bg-navy/93" />
+        </div>
+      )}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center mb-10 sm:mb-12">
-          <span className="inline-block text-white/75 text-[0.65rem] font-sans font-semibold uppercase tracking-widest mb-3">El proceso</span>
-          <h2 className="font-serif text-white text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">Simple, rápido y sin sorpresas</h2>
+          <span className={`inline-block text-[0.65rem] font-sans font-semibold uppercase tracking-widest mb-3 ${claro ? 'text-navy/60' : 'text-white/75'}`}>El proceso</span>
+          <h2 className={`font-serif text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight ${claro ? 'text-navy' : 'text-white'}`}>Simple, rápido y sin sorpresas</h2>
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
           {pasos.map((p, i) => (
             <div
               key={p.num}
-              className={`bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 text-center hover:-translate-y-1 transition-transform duration-300 ${i % 2 === 0 ? 'lg:-translate-y-2' : 'lg:translate-y-2'}`}
-              style={{ boxShadow: '0 10px 40px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.12)' }}
+              className={`bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 text-center hover:-translate-y-1 transition-transform duration-300 ${claro ? 'border border-navy/10' : ''} ${i % 2 === 0 ? 'lg:-translate-y-2' : 'lg:translate-y-2'}`}
+              style={{ boxShadow: claro ? '0 10px 30px rgba(18,52,98,0.08)' : '0 10px 40px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.12)' }}
             >
               <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl font-sans text-lg font-bold text-navy mb-3" style={{ backgroundColor: '#F5C842' }}>{p.num}</span>
               <h3 className="font-serif text-navy text-base sm:text-lg font-semibold mb-1.5">{p.titulo}</h3>
@@ -283,7 +285,7 @@ export function QuienesSomos() {
         </div>
         <h2 className="font-serif text-navy text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight mb-5">Un equipo aragonés, con raíces en Jaca</h2>
         <p className="font-sans text-slate-700 text-base sm:text-lg leading-relaxed mb-4">
-          Renttia nació en Jaca con un propósito claro: ofrecer a los propietarios la tranquilidad que el alquiler tradicional nunca ha dado. En nuestro primer año de actividad hemos llegado a conocer Zaragoza, Huesca y Logroño, sus barrios y su mercado.
+          Renttia nació en Jaca con un propósito claro: ofrecer a los propietarios la tranquilidad que el alquiler tradicional nunca ha dado. En nuestro primer año de actividad hemos llegado a conocer Zaragoza, Huesca, Logroño y Burgos, sus barrios y su mercado.
         </p>
         <p className="font-sans text-slate-600 text-base sm:text-lg leading-relaxed">
           No somos una gran corporación. Somos un equipo pequeño y comprometido que trata cada piso como si fuera el nuestro, porque en cierto sentido, lo es.
@@ -471,7 +473,6 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
         body: JSON.stringify({ nombre, telefono, ciudad, fuente, tipo: estadoPiso, habitaciones, eventId }),
       })
       if (res.ok) {
-        firePixelConversion(eventId, { telefono, nombre, ciudad })
         try { sessionStorage.removeItem(borrador) } catch { /* nada */ }
       }
       setEstado(res.ok ? 'ok' : 'error')
@@ -508,6 +509,7 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
             <option value="zaragoza">Zaragoza</option>
             <option value="huesca">Huesca</option>
             <option value="logrono">Logroño</option>
+            <option value="burgos">Burgos</option>
           </select>
         </div>
         <div>

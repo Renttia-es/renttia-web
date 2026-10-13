@@ -135,13 +135,13 @@ async function appendToSheet(row: (string | number | null)[]): Promise<void> {
 
 /* ─── TELEGRAM ────────────────────────────────────────────────────────────── */
 
-async function sendTelegram(text: string): Promise<void> {
+async function sendTelegram(text: string): Promise<boolean> {
   const token  = process.env.TELEGRAM_BOT_TOKEN
   const chatId = process.env.TELEGRAM_CHAT_ID
 
   if (!token || !chatId) {
     console.warn('Telegram: faltan variables de entorno')
-    return
+    return false
   }
 
   const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -153,7 +153,10 @@ async function sendTelegram(text: string): Promise<void> {
   if (!res.ok) {
     const err = await res.text()
     console.error('Telegram API error:', err)
+    return false
   }
+
+  return true
 }
 
 /* ─── HANDLER PRINCIPAL ───────────────────────────────────────────────────── */
@@ -211,9 +214,10 @@ export async function POST(req: NextRequest) {
       console.error('Google Sheets error:', e)
     }
 
-    /* 3 — Telegram ──────────────────────────────────────────────────────── */
+    /* 3 — Telegram. Sin este aviso no hay lead y no hay conversión. ──── */
+    let telegramOk = false
     try {
-      await sendTelegram(
+      telegramOk = await sendTelegram(
         `🚨 <b>¡NUEVO LEAD EN RENTTIA!</b>\n\n` +
         `👤 <b>Nombre:</b> ${nombre}\n` +
         `📍 <b>Ciudad:</b> ${ciudadLabel}\n` +
@@ -223,9 +227,10 @@ export async function POST(req: NextRequest) {
         `🌐 <b>Fuente:</b> ${fuenteLabel}\n` +
         `⏱️ Tienes hasta mañana a las <b>${horaLim}</b> para llamarle.`
       )
-      console.log('✅ Telegram OK')
+      if (telegramOk) console.log('✅ Telegram OK')
     } catch (e) {
       console.error('Telegram error:', e)
+      telegramOk = false
     }
 
     /* 4 — Email interno → tu bandeja ────────────────────────────────────── */
@@ -306,14 +311,15 @@ export async function POST(req: NextRequest) {
       console.error('Resend lead error:', e)
     }
 
-    /* 6 — Meta Conversions API ──────────────────────────────────────────── */
-    try {
-      // Mismo eventId que el Pixel del navegador → Meta deduplica Pixel + CAPI.
-      const eventId = typeof clientEventId === 'string' && clientEventId ? clientEventId : randomUUID()
-      const metaUserData = { email, phone: telefono, nombre, ciudad }
-      await sendMetaEvent('CompleteRegistration', metaUserData, req, eventId)
-    } catch (e) {
-      console.error('Meta CAPI error:', e)
+    /* 6 — Meta: registro completo solo si Telegram ha avisado del lead. */
+    if (telegramOk) {
+      try {
+        const eventId = typeof clientEventId === 'string' && clientEventId ? clientEventId : randomUUID()
+        const metaUserData = { email, phone: telefono, nombre, ciudad }
+        await sendMetaEvent('CompleteRegistration', metaUserData, req, eventId)
+      } catch (e) {
+        console.error('Meta CAPI error:', e)
+      }
     }
 
     return NextResponse.json({ ok: true }, { status: 200 })

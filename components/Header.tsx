@@ -3,12 +3,13 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect, type FormEvent } from 'react'
-import { prepareEventId, firePixelConversion } from '@/lib/metaPixel'
+import { prepareEventId } from '@/lib/metaPixel'
 
 const ciudades = [
   { label: 'Zaragoza', href: '/gestion-alquiler-zaragoza' },
   { label: 'Huesca',   href: '/gestion-alquiler-huesca'   },
   { label: 'Logroño',  href: '/gestion-alquiler-logrono'  },
+  { label: 'Burgos',   href: '/gestion-alquiler-burgos'   },
 ]
 
 export default function Header() {
@@ -40,8 +41,7 @@ export default function Header() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nombre, telefono, ciudad, habitaciones, fuente: 'navbar-cta', eventId }),
       })
-      if (res.ok) firePixelConversion(eventId, { telefono, nombre, ciudad })
-      setSent(true)
+      if (res.ok) setSent(true)
     } finally {
       setSending(false)
     }
@@ -235,6 +235,7 @@ export default function Header() {
                       <option value="zaragoza">Zaragoza</option>
                       <option value="huesca">Huesca</option>
                       <option value="logrono">Logroño</option>
+                      <option value="burgos">Burgos</option>
                     </select>
                   </div>
                   <div>

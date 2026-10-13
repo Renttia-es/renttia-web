@@ -6,7 +6,7 @@ import CTAButton from '@/components/CTAButton'
 export const metadata: Metadata = {
   title: 'Gestión integral del alquiler de su vivienda | Renttia',
   description:
-    'Renttia gestiona tu piso en Zaragoza y Huesca. Cobras el día 1 sin impagos, sin llamadas y sin preocupaciones. Gestión integral del alquiler. Valoración gratuita.',
+    'Renttia gestiona tu piso en Zaragoza, Huesca, Logroño y Burgos. Cobras el día 1 sin impagos, sin llamadas y sin preocupaciones. Gestión integral del alquiler. Valoración gratuita.',
   alternates: { canonical: 'https://renttia.es' },
   openGraph: {
     title: 'Gestión integral del alquiler de su vivienda | Renttia',
@@ -35,6 +35,13 @@ const ciudadesPropietarios = [
     pisos: 0, ocupacion: '—',
     imagen: '/hab-escritorio.jpg',
     titulo: 'Nueva ciudad: gestión de pisos compartidos en Logroño',
+  },
+  {
+    ciudad: 'Burgos', slug: 'gestion-alquiler-burgos',
+    descripcion: 'Llegamos a Burgos. Si tienes un piso de 3 habitaciones, más el salón, lo vemos contigo.',
+    pisos: 0, ocupacion: '—',
+    imagen: '/hab-armario.jpg',
+    titulo: 'Gestión de pisos compartidos en Burgos',
   },
 ]
 
@@ -73,7 +80,7 @@ export default function HomePage() {
       <section className="relative z-[1] bg-navy -mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-14 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-16 grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-start">
           <div>
-            <p className="font-sans text-sm font-semibold mb-5" style={{ color: '#F5C842' }}>Zaragoza · Huesca · Logroño</p>
+            <p className="font-sans text-sm font-semibold mb-5" style={{ color: '#F5C842' }}>Zaragoza · Huesca · Logroño · Burgos</p>
             <h1 className="font-serif text-white font-semibold tracking-tight leading-[0.98] text-[2.5rem] sm:text-6xl lg:text-[4.75rem] [text-wrap:balance]">
               Gestión integral del alquiler de su vivienda
             </h1>
@@ -239,13 +246,13 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-10">
             <h2 className="font-serif text-navy text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.05]">
-              Estamos en Zaragoza, Huesca y Logroño
+              Estamos en Zaragoza, Huesca, Logroño y Burgos
             </h2>
             <p className="font-sans text-slate-700 text-base sm:text-lg leading-relaxed max-w-md">
               Gestionamos tu piso desde aquí, de tú a tú.
             </p>
           </div>
-          <div className="grid lg:grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
             {ciudadesPropietarios.map(c => (
               <Link key={c.slug} href={`/${c.slug}`} className="group relative min-h-[380px] overflow-hidden rounded-[1.75rem] block">
                 <img src={c.imagen} alt="" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />

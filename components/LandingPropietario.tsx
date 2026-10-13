@@ -181,19 +181,20 @@ export default function LandingPropietario({
                 {heroSubtitulo}
               </p>
 
-              {/* Stats rápidos */}
-              <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-6 sm:mb-8">
-                {[
-                  { v: pisosActivos + '+', l: 'Pisos activos' },
-                  { v: ocupacionMedia,     l: 'Ocupación'     },
-                  { v: rentaMedia,         l: 'Renta en zona' },
-                ].map(s => (
-                  <div key={s.l} className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-white/15">
-                    <p className="font-serif text-white text-base sm:text-2xl font-light">{s.v}</p>
-                    <p className="font-sans text-white/50 text-[0.55rem] sm:text-xs mt-0.5 sm:mt-1">{s.l}</p>
-                  </div>
-                ))}
-              </div>
+              {pisosActivos > 0 && (
+                <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-6 sm:mb-8">
+                  {[
+                    { v: pisosActivos + '+', l: 'Pisos activos' },
+                    { v: ocupacionMedia,     l: 'Ocupación'     },
+                    { v: rentaMedia,         l: 'Renta en zona' },
+                  ].map(s => (
+                    <div key={s.l} className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-white/15">
+                      <p className="font-serif text-white text-base sm:text-2xl font-light">{s.v}</p>
+                      <p className="font-sans text-white/50 text-[0.55rem] sm:text-xs mt-0.5 sm:mt-1">{s.l}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
 
               {/* Trust bullets */}
               <ul className="space-y-2.5">
@@ -324,8 +325,8 @@ export default function LandingPropietario({
             </div>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { v: rentaMedia,     l: 'Renta media en la zona',  color: 'text-navy',        bg: 'bg-navy-50' },
-                { v: ocupacionMedia, l: 'Tasa de ocupación media', color: 'text-emerald-600', bg: 'bg-emerald-50' },
+                ...(rentaMedia ? [{ v: rentaMedia, l: 'Renta media en la zona', color: 'text-navy', bg: 'bg-navy-50' }] : []),
+                ...(ocupacionMedia ? [{ v: ocupacionMedia, l: 'Tasa de ocupación media', color: 'text-emerald-600', bg: 'bg-emerald-50' }] : []),
                 { v: '< 24h',        l: 'Tiempo de respuesta',     color: 'text-cta',         bg: 'bg-cta-light' },
                 { v: '100%',         l: 'Pisos sin impagos',       color: 'text-emerald-600', bg: 'bg-emerald-50' },
               ].map(s => (

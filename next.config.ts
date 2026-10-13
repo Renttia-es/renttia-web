@@ -27,6 +27,7 @@ const nextConfig: NextConfig = {
       // ── Logroño oculto (futuro lanzamiento): la landing existe pero no se
       //    enlaza ni se indexa. Atajo público retirado → home. ───────────────
       { source: '/logrono', destination: '/', permanent: true },
+      { source: '/burgos',  destination: '/gestion-alquiler-burgos', permanent: true },
       // ── Habitaciones retiradas (aún no operamos habitaciones) → home ──────
       { source: '/habitaciones',        destination: '/', permanent: true },
       { source: '/habitaciones/:path*', destination: '/', permanent: true },

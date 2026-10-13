@@ -78,7 +78,7 @@ const dolores = [
   },
   {
     titulo: 'Un piso anticuado pierde dinero cada mes que pasa vacío.',
-    texto: 'Muchos propietarios tienen el piso parado porque se ha quedado anticuado y no quieren invertir para ponerlo al día. Mientras tanto, cada mes sin rentar es dinero que no vuelve.',
+    texto: 'Muchos propietarios tienen el piso parado porque se ha quedado anticuado y no quieren invertir para ponerlo al día. Mientras tanto, cada mes sin alquilar es dinero que no vuelve.',
   },
   {
     titulo: 'Recuperar un piso okupado puede tardar años.',
@@ -208,7 +208,7 @@ export default function GuiaPropietarioPage() {
 
         <div className="relative max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-16 sm:py-24 lg:py-28 grid lg:grid-cols-[1.25fr_0.75fr] gap-12 items-center">
           <div>
-            <p className="font-sans text-sm font-semibold text-white/90 mb-4">Zaragoza · Huesca · Logroño</p>
+            <p className="font-sans text-sm font-semibold text-white/90 mb-4">Zaragoza · Huesca · Logroño · Burgos</p>
             <h1 className="font-serif text-white text-[2.3rem] sm:text-6xl lg:text-[4.1rem] font-semibold leading-[1.04] tracking-tight mb-6 [text-wrap:balance]">
               Un inquilino que paga el día 1,{' '}
               <span className="italic" style={{ color: GOLD }}>no protesta y deja el piso mejor de como lo encontró.</span>
@@ -371,24 +371,10 @@ export default function GuiaPropietarioPage() {
 
           <div className="mt-12 sm:mt-16 rounded-2xl p-6 sm:p-10 border border-white/15 bg-white/[0.06]">
             <p className="font-sans text-xs font-bold uppercase tracking-[0.16em] mb-4" style={{ color: GOLD }}>¿Por qué es una buena opción para ti?</p>
-            <p className="font-serif text-white text-2xl sm:text-3xl font-medium leading-snug mb-8 [text-wrap:balance]">
+            <p className="font-serif text-white text-2xl sm:text-3xl font-medium leading-snug [text-wrap:balance]">
               Con Renttia, cobras el día 1, siempre, sin importar si las habitaciones tienen inquilino o no.{' '}
               <span className="italic" style={{ color: GOLD }}>Ese riesgo lo asumimos nosotros.</span>
             </p>
-            <ul className="grid sm:grid-cols-3 gap-4">
-              {[
-                '3 habitaciones, más el salón',
-                'Ideal si está vacío, heredado o necesita un lavado de cara',
-                'Ideal si estás cansado de gestionar inquilinos',
-              ].map(t => (
-                <li key={t} className="flex items-start gap-3 font-sans text-white text-base font-medium leading-snug">
-                  <span className="shrink-0 w-6 h-6 rounded-full flex items-center justify-center mt-0.5" style={{ backgroundColor: GOLD }}>
-                    <CheckIcon className="w-3.5 h-3.5 text-navy" />
-                  </span>
-                  {t}
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       </section>
@@ -468,7 +454,7 @@ export default function GuiaPropietarioPage() {
               { t: 'Renta fija el día 1',            s: 'Sin esperas, sin excusas. El dinero en tu cuenta cada mes, siempre.' },
               { t: 'Piso puesto al día sin coste',    s: 'Lo acondicionamos y decoramos según las tendencias actuales. Tú no inviertes nada.' },
               { t: 'Cero llamadas',                   s: 'Averías, incidencias, vecinos. Todo lo gestionamos nosotros. Tu teléfono, en silencio.' },
-              { t: 'La normativa no es tu problema',  s: 'Tu acuerdo es con Renttia, no con un particular. Los cambios de la ley no recaen sobre ti.' },
+              { t: 'La normativa no es tu problema',  s: 'Tu acuerdo es con Renttia, no con un particular.' },
               { t: 'Riesgo de okupación mínimo',      s: 'Habitaciones con inquilinos seleccionados y acceso a las zonas comunes.' },
               { t: 'Un solo interlocutor para todo',  s: 'Nosotros respondemos por todo. Tú no tienes que coordinarte con nadie más.' },
             ].map(b => (
@@ -485,7 +471,7 @@ export default function GuiaPropietarioPage() {
             ))}
           </div>
 
-          <div>
+          <div className="text-center">
             <button onClick={scrollToForm} className="btn-cta-gold text-base">
               Quiero esto para mi piso →
             </button>
@@ -494,7 +480,7 @@ export default function GuiaPropietarioPage() {
         </div>
       </section>
 
-      <Proceso pasos={pasos} />
+      <Proceso pasos={pasos} claro />
       <QuienesSomos />
       <Reviews />
       <FAQSection faqs={faqs} />
