@@ -100,7 +100,7 @@ const comparativa = [
   {
     tema: 'Normativa',
     sin: 'Prórrogas forzosas, preavisos largos e indemnizaciones si decides no renovar.',
-    con: 'Tu acuerdo es con Renttia, no con un particular. Los cambios en la ley de vivienda no recaen sobre ti: de eso nos ocupamos nosotros.',
+    con: 'Tu acuerdo es con Renttia, no con un particular.',
   },
   {
     tema: 'Puesta a punto',
