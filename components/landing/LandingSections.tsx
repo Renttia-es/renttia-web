@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import Image from 'next/image'
-import { prepareEventId } from '@/lib/metaPixel'
+import { prepareEventId, firePixelConversion } from '@/lib/metaPixel'
 
 /* ══════════════════════════════════════════════════════════════════════════
    Secciones compartidas que replican la estructura de la landing /propietario.
@@ -473,6 +473,7 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
         body: JSON.stringify({ nombre, telefono, ciudad, fuente, tipo: estadoPiso, habitaciones, eventId }),
       })
       if (res.ok) {
+        firePixelConversion(eventId, { telefono, nombre, ciudad })
         try { sessionStorage.removeItem(borrador) } catch { /* nada */ }
       }
       setEstado(res.ok ? 'ok' : 'error')

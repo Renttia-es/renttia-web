@@ -311,15 +311,13 @@ export async function POST(req: NextRequest) {
       console.error('Resend lead error:', e)
     }
 
-    /* 6 — Meta: registro completo solo si Telegram ha avisado del lead. */
-    if (telegramOk) {
-      try {
-        const eventId = typeof clientEventId === 'string' && clientEventId ? clientEventId : randomUUID()
-        const metaUserData = { email, phone: telefono, nombre, ciudad }
-        await sendMetaEvent('CompleteRegistration', metaUserData, req, eventId)
-      } catch (e) {
-        console.error('Meta CAPI error:', e)
-      }
+    /* 6 — Meta: el formulario ya es válido. Telegram es solo el aviso al móvil. */
+    try {
+      const eventId = typeof clientEventId === 'string' && clientEventId ? clientEventId : randomUUID()
+      const metaUserData = { email, phone: telefono, nombre, ciudad }
+      await sendMetaEvent('CompleteRegistration', metaUserData, req, eventId)
+    } catch (e) {
+      console.error('Meta CAPI error:', e)
     }
 
     return NextResponse.json({ ok: true }, { status: 200 })
