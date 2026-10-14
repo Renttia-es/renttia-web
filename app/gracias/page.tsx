@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import GraciasPixel from '@/components/GraciasPixel'
 
 export const metadata: Metadata = {
   title: 'Solicitud recibida | Renttia',
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 export default function GraciasPage() {
   return (
     <section className="min-h-[70vh] flex items-center justify-center bg-cream py-20">
+      <GraciasPixel />
       <div className="max-w-lg mx-auto px-4 text-center">
         {/* Icono check */}
         <div className="w-20 h-20 bg-cta-light rounded-full flex items-center justify-center mx-auto mb-8">

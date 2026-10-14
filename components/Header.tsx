@@ -3,7 +3,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect, type FormEvent } from 'react'
-import { prepareEventId, firePixelConversion } from '@/lib/metaPixel'
+import { useRouter } from 'next/navigation'
+import { prepareEventId, guardarConversion } from '@/lib/metaPixel'
 
 const ciudades = [
   { label: 'Zaragoza', href: '/gestion-alquiler-zaragoza' },
@@ -30,6 +31,7 @@ export default function Header() {
   const [habitaciones, setHabitaciones] = useState('')
   const [sending, setSending] = useState(false)
   const [sent, setSent] = useState(false)
+  const router = useRouter()
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
@@ -42,8 +44,8 @@ export default function Header() {
         body: JSON.stringify({ nombre, telefono, ciudad, habitaciones, fuente: 'navbar-cta', eventId }),
       })
       if (res.ok) {
-        firePixelConversion(eventId, { telefono, nombre, ciudad })
-        setSent(true)
+        guardarConversion(eventId, { telefono, nombre, ciudad })
+        router.push('/gracias')
       }
     } finally {
       setSending(false)

@@ -3,7 +3,7 @@
 import { useState, useEffect, type FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { prepareEventId, firePixelConversion } from '@/lib/metaPixel'
+import { prepareEventId, guardarConversion } from '@/lib/metaPixel'
 
 
 /* ─── FAQ ACORDEÓN ────────────────────────────────────────────────────────── */
@@ -139,7 +139,7 @@ export default function PropietarioLanding() {
         body: JSON.stringify({ ...form, fuente: 'landing-propietario', eventId }),
       })
       if (!res.ok) throw new Error()
-      firePixelConversion(eventId, { telefono: form.telefono, nombre: form.nombre, ciudad: form.ciudad })
+      guardarConversion(eventId, { telefono: form.telefono, nombre: form.nombre, ciudad: form.ciudad })
       router.push('/gracias')
     } catch {
       alert('Ha ocurrido un error. Por favor llámanos directamente.')

@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
-import { prepareEventId, firePixelConversion } from '@/lib/metaPixel'
+import { prepareEventId, guardarConversion } from '@/lib/metaPixel'
 
 export default function BlogCTAPopup() {
   const [open, setOpen] = useState(false)
@@ -21,7 +21,7 @@ export default function BlogCTAPopup() {
         body: JSON.stringify({ ...form, tipo: 'blog-cta', mensaje: '', eventId }),
       })
       if (!res.ok) throw new Error()
-      firePixelConversion(eventId, { telefono: form.telefono, nombre: form.nombre, ciudad: form.ciudad })
+      guardarConversion(eventId, { telefono: form.telefono, nombre: form.nombre, ciudad: form.ciudad })
       setOpen(false)
       router.push('/gracias')
     } catch {

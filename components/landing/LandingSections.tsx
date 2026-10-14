@@ -2,7 +2,8 @@
 
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import Image from 'next/image'
-import { prepareEventId, firePixelConversion } from '@/lib/metaPixel'
+import { useRouter } from 'next/navigation'
+import { prepareEventId, guardarConversion } from '@/lib/metaPixel'
 
 /* ══════════════════════════════════════════════════════════════════════════
    Secciones compartidas que replican la estructura de la landing /propietario.
@@ -442,6 +443,7 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
   const [estadoPiso, setEstadoPiso] = useState('')
   const [habitaciones, setHabitaciones] = useState('')
   const [estado, setEstado] = useState<FormState>('idle')
+  const router = useRouter()
   const borrador = `renttia-lead-${fuente}`
 
   useEffect(() => {
@@ -472,11 +474,13 @@ export function LeadForm({ fuente, estadoOpciones, ctaLabel = 'Solicitar valorac
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nombre, telefono, ciudad, fuente, tipo: estadoPiso, habitaciones, eventId }),
       })
-      if (res.ok) {
-        firePixelConversion(eventId, { telefono, nombre, ciudad })
-        try { sessionStorage.removeItem(borrador) } catch { /* nada */ }
+      if (!res.ok) {
+        setEstado('error')
+        return
       }
-      setEstado(res.ok ? 'ok' : 'error')
+      try { sessionStorage.removeItem(borrador) } catch { /* nada */ }
+      guardarConversion(eventId, { telefono, nombre, ciudad })
+      router.push('/gracias')
     } catch { setEstado('error') }
   }
 
